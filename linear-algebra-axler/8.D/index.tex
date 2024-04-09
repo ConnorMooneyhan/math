@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 8.D}
+\author{Connor Mooneyhan}
+\date{March 3, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Find the characteristic polynomial and the minimal polynomial of the operator $N$ in Example 8.53.
+\end{ex}
+\begin{proof}
+	From Exercise 8.53, we have that $N \in \mathcal{L}(\mathbf{F}^4)$ is defined by \begin{equation*}
+		N(z_1, z_2, z_3, z_4) = (0, z_1, z_2, z_3).
+	\end{equation*}
+	Since the only eigenvalue of $N$ is 0, it follows immediately that the characteristic polynomial of $N$ is \begin{equation*}
+		p(z) = z^4.
+	\end{equation*}
+	Thus the only possibilities for the minimal polynomial are $z, z^2, z^3$, and $z^4$.
+	Clearly $T$ itself is not the zero map, so we must start our search with $z^2$.
+	The following calculations are simple: \begin{align*}
+		N^2(z_1, z_2, z_3, z_4) & = (0, 0, z_1, z_2), \\
+		N^3(z_1, z_2, z_3, z_4) & = (0, 0, 0, z_1),   \\
+		N^4(z_1, z_2, z_3, z_4) & = (0, 0, 0, 0),
+	\end{align*}
+	so in this case $N^4$ is in fact the lowest power of $N$ to be zero, and thus $z^4$ is the minimal polynomial of $T$.
+\end{proof}
+
+\begin{ex}
+	Find the characteristic polynomial and the minimal polynomial of the operator $N$ in Example 8.54.
+\end{ex}
+\begin{proof}
+	From Exercise 8.53, we have that $N \in \mathcal{L}(\mathbf{F}^4)$ is defined by \begin{equation*}
+		N(z_1, z_2, z_3, z_4, z_5, z_6) = (0, z_1, z_2, z_3).
+	\end{equation*}
+\end{proof}
+
+\end{document}

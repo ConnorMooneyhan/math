@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 9.A}
+\author{Connor Mooneyhan}
+\date{March 6, 2024}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{ex}{2}
+
+\begin{ex}
+	Suppose $V$ is a real vector space and $v_1, \dots, v_m \in V$.
+	Prove that $v_1, \dots , v_m$ is linearly independent in $V_C$ if and only if $v_1, \dots v_m$ is linearly independent in $V$.
+\end{ex}
+\begin{proof}
+	First assume that $v_1, \dots ,v_m$ is linearly independent in $V_C$.
+	If $v_1, \dots, v_m$ was linearly dependent in $V$, we would have \begin{equation}
+		c_1v_1 + \dots + c_mv_m = 0
+	\end{equation} for some $c_1, \dots, c_m \in \mathbb{R}$ not all zero.
+	Then considering (1) in $V_C$ produces a contradiction.
+
+	For the second part, assume that $v_1, \dots, v_m$ are linearly dependent in $V_C$.
+	Then we have \begin{equation}
+		c_1v_1 + \dots + c_mv_m = 0
+	\end{equation} for some $c_1, \dots, c_m \in \mathbb{C}$ not all zero.
+	For each $c_j$, write $c_j = a_j + b_ji$ where $a_j, b_j \in \mathbb{R}$.
+	Then (2) becomes \begin{align*}
+		0 & = (a_1 + b_1i)v_1 + \dots + (a_m + b_mi)v_m               \\
+		  & = a_1v_1 + b_1iv_1 + \dots + a_mv_m + b_miv_m             \\
+		  & = (a_1v_1 + \dots + a_mv_m) + i(b_1v_1 + \dots + b_mv_m).
+	\end{align*}
+	Then both the "real" and "imaginary" parts of the vector in $V_C$ from the last equation must be equal to zero.
+	In particular, \begin{equation}
+		a_1v_1 + \dots + a_mv_m = 0
+	\end{equation} and \begin{equation}
+		b_1v_1 + \dots + b_mv_m = 0
+	\end{equation}
+
+	If $a_1, \dots, a_m$ are all zero, then $b_1, \dots, b_m$ are not all zero since $c_1, \dots, c_m$ are not all zero, so (4) is a linear combination of $v_1, \dots, v_m$ with real coefficients which are not all zero, and thus $v_1, \dots, v_m$ is linearly dependent in $V$.
+	If $a_1, \dots, a_m$ are not all zero, then (3) produces such a combination, so we are done.
+\end{proof}
+
+\setcounter{ex}{5}
+
+\begin{ex}
+	Suppose $V$ is a real vector space and $T \in \mathcal{L}(V)$. Prove that $T_C$ is invertible if and only if T is invertible.
+\end{ex}
+\begin{proof}
+	If $T_C$ is invertible, then for any nonzero $v \in V$, \begin{align*}
+		T_C(v + i0) & = Tv + iT0 \\
+		            & = T(v)     \\
+		            & \neq 0,
+	\end{align*} so $T$ is invertible.
+
+	If $T$ is invertible, then given nonzero $u + iv \in V_C$, we have \begin{equation*}
+		T_C(u + iv) = Tu + iTv.
+	\end{equation*}
+	Since $T$ is invertible and $u, v \in V$ are not both zero, $Tu$ and $Tv$ are also not both zero, and thus $T_C(u + iv)$ is nonzero.
+\end{proof}
+
+\setcounter{ex}{8}
+
+\begin{ex}
+	Prove there does not exist an operator $T \in \mathcal{L}(\mathbb{R}^7)$ such that $T^2 + T + I$ is nilpotent.
+\end{ex}
+\begin{proof}
+	If  $T^2 + T + I$ is nilpotent, then $(T^2 + T + I)^n = 0$ for some $n$.
+	This would mean that 0 is the only eigenvalue of $T^2 + T + I$, and in particular that $(T^2 + T + I)v = 0$ for some nonzero $v \in V$.
+  Consider this polynomial applied to $T_C$, and after factoring it we get \begin{equation*}
+		\left(T_C + \left(\frac{1}{2} + \frac{\sqrt{3}}{2}i\right)I\right)\left(T_C + \left(\frac{1}{2} - \frac{\sqrt{3}}{2}i\right)I\right)v = 0,
+	\end{equation*}
+	so either $-\frac{1}{2} - \frac{\sqrt{3}}{2}i$ or $-\frac{1}{2} + \frac{\sqrt{3}}{2}i$ is an eigenvalue of $T_C$.
+  Of course, since neither is real, neither can be an eigenvalue of $T$, so both \begin{equation*}
+    \left( T_C + \left( \frac{1}{2} + \frac{\sqrt{3}}{2}i \right) I \right)w
+  \end{equation*}
+  and \begin{equation*}
+    \left( T_C + \left( \frac{1}{2} - \frac{\sqrt{3}}{2}i \right) I \right)w
+  \end{equation*}
+  are nonzero for any $w \in V$.
+  Thus \begin{equation*}
+     (T^2 + T + I)w = (T_C^2 + T_C + I)w \neq 0,
+  \end{equation*}
+  contradicting that $0$ is an eigenvalue of $T^2 + T + I$.
+
+  THIS IS WISHY WASHY
+\end{proof}
+
+\begin{ex}
+	Give an example of an operator $T \in \mathcal{L}(\mathbb{C}^7)$ such that $T^2 + T + I$ is nilpotent.
+\end{ex}
+\begin{proof}
+	Let $\lambda = -\frac{1}{2}-\frac{\sqrt{3}}{2}i$ and define $T$ by \begin{equation*}
+		T(z_1, z_2, z_3, z_4, z_5, z_6, z_7) = (\lambda z_1, \lambda z_2, \lambda z_3, \lambda z_4, \lambda z_5, \lambda z_6, \lambda z_7).
+	\end{equation*}
+	Clearly $T^2 + T + I$ sends each coordinate $z_j$ to $(\lambda^2 + \lambda + 1)z_j$.
+	Note that $\lambda^2 = -\frac{1}{2} + \frac{\sqrt{3}}{2}i$, so \begin{align*}
+		\lambda^2 + \lambda + 1 & = \left(-\frac{1}{2} + \frac{\sqrt{3}}{2}i\right) + \left(-\frac{1}{2}-\frac{\sqrt{3}}{2}i\right) + 1  \\
+		                        & = \left(-\frac{1}{2} - \frac{1}{2}\right) + \left(\frac{\sqrt{3}}{2}i - \frac{\sqrt{3}}{2}i\right) + 1 \\
+		                        & = -1 + 0 + 1                                                                                           \\
+		                        & = 0,
+	\end{align*}
+	so in fact each coordinate gets sent to 0.
+  Thus $T^2 + T + I = 0$, so it is nilpotent.
+\end{proof}
+
+\end{document}

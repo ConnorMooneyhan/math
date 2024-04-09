@@ -1,0 +1,595 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{blkarray}
+\usepackage{tikz} % required by nicematrix
+\usepackage{nicematrix}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 10.A}
+\author{Connor Mooneyhan}
+\date{March 23, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ and $v_1, \dots, v_n$ is a basis of $V$. Prove that the matrix $\mathcal{M}\left( T, \left( v_1, \dots, v_n \right) \right)$ is invertible if and only if $T$ is invertible.
+\end{ex}
+\begin{proof}
+	Assume that $A = \mathcal{M}( T, ( v_1, \dots, v_n ) )$ is invertible.
+	Then $\exists B = \mathcal{M}( S, ( v_1, \dots, v_n ) )$ for some $S \in \mathcal{L}( V )$ such that $AB = BA = \mathcal{M}(I, (v_1, \dots, v_n))$.
+	Thus (with the basis of $v_1, \dots, v_n$ implied for the rest of the proof), we have \begin{equation*}
+		\mathcal{M}(I) = \mathcal{M}( S )\mathcal{M}( T ) = \mathcal{M}( ST ).
+	\end{equation*}
+	Since the matrix of $ST$ is the identity matrix, $ST = I$.
+	Swapping $S$ and $T$ gives the proof that $TS = I$.
+
+	Conversely, if $\exists S \in \mathcal{L}(V)$ such that $ST = TS = I$, then \begin{equation*}
+		\mathcal{M}(I) = \mathcal{M}(ST) = \mathcal{M}(S)\mathcal{M}(T).
+	\end{equation*}
+	Again, swapping $S$ and $T$ gives the proof that $\mathcal{M}(T)\mathcal{M}(S) = \mathcal{M}(I)$, so $T$ is invertible.
+\end{proof}
+
+\begin{ex}
+	Suppose $A$ and $B$ are square matrices of the same size and $AB = I$. Prove that $BA = I$.
+\end{ex}
+\begin{proof}
+	Let $n$ denote the size of $A$ and $B$.
+	Define $T, S \in \mathcal{L}(\mathbb{R}^n)$ to be the unique linear maps such that $A = \mathcal{M}(T)$ and $B = \mathcal{M}(S)$ with respect to the standard basis.
+	Then \begin{align*}
+		I & = AB                           \\
+		  & = \mathcal{M}(T)\mathcal{M}(S) \\
+		  & = \mathcal{M}(TS),\tag{1}
+	\end{align*}
+	so $TS = I$ and we need to prove that $TS = ST = I$.
+	We get that \begin{equation*}
+		\mathrm{range}\,T \supset \mathrm{range}\,TS = \mathrm{range}\,I = V
+	\end{equation*}
+	and the only subspace containing $V$ is $V$ itself, so $\mathrm{range}\,T = V$.
+	Thus since $T$ is surjective, $T$ has a two-sided inverse $T^{-1}$ by 3.69.
+	Multiplying by $T^{-1}$ on the left of both sides of $TS = I$, we get $S = T^{-1}$, so $S$ is indeed a two-sided inverse and $ST = I$.
+
+	Connecting this back to matrices, we start from where we left off in (1) to get \begin{align*}
+		I & = \mathcal{M}(TS)              \\
+		  & = \mathcal{M}(I)               \\
+		  & = \mathcal{M}(ST)              \\
+		  & = \mathcal{M}(S)\mathcal{M}(T) \\
+		  & = BA.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ has the same matrix with respect to every basis of $V$.
+	Prove that $T$ is a scalar multiple of the identity operator.
+\end{ex}
+\begin{proof}
+	The theorem holds trivially for $\mathrm{dim}\,V = 1$, so we can assume $\mathrm{dim}\,V > 2$ for the remainder of the proof.
+	Let $v_1, \dots, v_n$ be a basis of $V$.
+	We define $A =\mathcal{M}(T, (v_1, \dots, v_n))$ so we can write \begin{equation*}
+		Tv_1 = A_{1, 1}v_1 + A_{2, 1}v_2 + \dots + A_{n, 1}v_n. \tag{1}
+	\end{equation*}
+	Important to note is that since $T$ has the same matrix with respect to every basis, we will always refer to the element in the $j$th row and $k$th column of $\mathcal{M}(T)$ as $A_{j, k}$ regardless of whether $v_1, \dots, v_n$ is the basis being used.
+
+	We now consider the effects of swapping the first two elements of our basis and leaving everything else alone, giving $v_2, v_1, \dots, v_n$.
+	Then considering the first column of this basis, we get \begin{equation*}
+		Tv_2 = A_{1, 1}v_2 + A_{2, 1}v_1 + \dots + A_{n, 1}v_n. \tag{2}
+	\end{equation*}
+	Subtracting (2) from (1) gives us \begin{align*}
+		T(v_1 - v_2) & = A_{1, 1}v_1 - A_{1, 1}v_2 + A_{2, 1}v_2 - A_{2, 1}v_1 \\
+		             & = A_{1, 1}(v_1 - v_2) + A_{2, 1}(v_2 - v_1)             \\
+		             & = (A_{1, 1} - A_{2, 1})(v_1 - v_2).
+	\end{align*}
+	Thus $v_1 - v_2$ is an eigenvector corresponding to $A_{1, 1} - A_{2, 1}$.
+	We now construct our third basis by defining $u_1 = v_1 - v_2$ and extending that to a basis $u_1, \dots, u_n$.
+	The first column $\mathcal{M}(T, (u_1, \dots, u_n))$ reveals that $A_{1, 1} = A_{1, 1} - A_{2, 1}$ and every other entry in the first column is 0, since $u_1$ is an eigenvector corresponding to $A_{1, 1} - A_{2, 1}$ (which we can now write as $A_{1, 1}$ since $A_{2, 1} = 0$).
+	The key observation to make here is that the choice of the first column was arbitrary.
+	In particular, we can swap the position of $u_1$ with any $u_j$ where $j \in \left\lbrace 2, \dots, n  \right\rbrace$.
+	No matter which $j$ we choose, $u_1$ is still an eigenvector corresponding to $A_{1, 1}$, so this swapping process reveals that $A_{j, j} = A_{1, 1} \,\forall\, j \in \left\lbrace 1, \dots, n  \right\rbrace$, and every other $A_{j, k}$ where $j, k \in \left\lbrace 1, \dots, n  \right\rbrace$ but $j \neq k$ is 0.
+
+	Thus $\mathcal{M}(T)$ is of the form \begin{equation*}
+		\begin{pmatrix}
+			A_{1, 1} &        & 0        \\
+			         & \ddots &          \\
+			0        &        & A_{1, 1} \\
+		\end{pmatrix}
+	\end{equation*}
+	where the diagonal is filled with $A_{1, 1}$, and there are zeroes everywhere else.
+	Then given arbitrary $v \in V$ expressed as a linear combination of $v_1, \dots, v_n$ by $v = c_1v_1 + \dots c_nv_n$, we have \begin{align*}
+		Tv & = c_1A_{1, 1}v_1 + \dots + c_nA_{1, 1}v_n \\
+		   & = A_{1, 1}(c_1v_1 + \dots + c_nv_n)       \\
+		   & = A_{1, 1}v                               \\
+		   & = (A_{1, 1}I)v,
+	\end{align*}
+	so $T$ is a scalar multiple of the identity operator, as desired.
+\end{proof}
+
+\begin{ex}
+	Suppose $u_1, \dots, u_n$ and $v_1, \dots, v_n$ are bases of $V$.
+	Let $T \in \mathcal{L}(V)$ be the operator such that $Tv_k = u_k$ for $k = 1, \dots, n$.
+	Prove that \begin{equation*}
+		\mathcal{M}\left( T, (v_1, \dots, v_n) \right) = \mathcal{M}\left( I, (u_1, \dots, u_n), (v_1, \dots, v_n) \right).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	First, define \begin{equation*}
+		A = \mathcal{M}\left( T, (v_1, \dots, v_n) \right)
+	\end{equation*}
+	and \begin{equation*}
+		B = \mathcal{M}\left( I, (u_1, \dots, u_n), (v_1, \dots, v_n) \right).
+	\end{equation*}
+	Fix $k \in \left\lbrace 1, \dots, n \right\rbrace$ and let $u_k = c_1v_1 + \dots + c_nv_n$ where $c_1,\dots,c_n \in \mathbf{F}$.
+	Then \begin{equation*}
+		Tv_k = u_k = c_1v_1 + \dots + c_nv_n.
+	\end{equation*}
+	Thus the $k$th column of $A$ is $c_1, \dots, c_n$.
+	Compare this to the $k$th column of $B$, which is $Iu_k = u_k$ expressed as a linear combination of $v_1, \dots, v_n$.
+	This is unique since $v_1, \dots, v_n$ is a basis.
+	The $k$th column of $B$, then, is also $c_1, \dots, c_n$, and since the choice of $k$ was arbitrary, we obtain that every column of $A$ is the same as the corresponding column in $B$, so we are done.
+\end{proof}
+
+\begin{ex}
+	Suppose $B$ is a square matrix with complex entries.
+	Prove that there exists an invertible square matrix $A$ with complex entries such that $A^{-1}BA$ is an upper-triangular matrix.
+\end{ex}
+\begin{proof}
+	Choose $T \in \mathbb{C}^n$ where $n$ is the size of $B$ such that $\mathcal{M}(T, (v_1, \dots, v_n))$ where $v_1, \dots, v_n$ is a basis of $\mathbb{C}^n$.
+	Since $T$ is an operator over a complex vector space, we know that there exists a basis $u_1, \dots, u_n$ of $\mathbb{C}^n$ such that $\mathcal{M}(T, (u_1, \dots, u_n))$ is upper-triangular.
+	Then define \begin{equation*}
+		A = \mathcal{M}(I, (u_1, \dots, u_n), (v_1, \dots, v_n)),
+	\end{equation*} and applying the change of basis formula, we get \begin{equation*}
+		\mathcal{M}(T, (u_1, \dots, u_n)) = A^{-1}BA,
+	\end{equation*}
+	So in fact $A$ satisfies the theorem.
+\end{proof}
+
+\begin{ex}
+	Give an example of a real vector space $V$ and $T \in \mathcal{L}(V)$ such that $\mathrm{trace}\,(T^2) < 0$.
+\end{ex}
+\begin{proof}
+	Consider $T \in \mathbb{R}^2$ defined by \begin{align*}
+		(1, 0) & \mapsto (0, 1)   \\
+		(0, 1) & \mapsto (-1, 0).
+	\end{align*}
+	Then with respect to the standard basis, \begin{equation*}
+		\mathcal{M}(T) = \begin{pmatrix}
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix}
+	\end{equation*}
+	and \begin{equation*}
+		\mathcal{M}(T^2) = \begin{pmatrix}
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix}\begin{pmatrix}
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix} = \begin{pmatrix}
+			-1 & 0  \\
+			0  & -1
+		\end{pmatrix}.
+	\end{equation*}
+	By this, we can clearly see that $\mathrm{trace}\,(T^2) = \mathrm{trace}\,(\mathcal{M}(T^2)) = -2 < 0$.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a real vector space, $T \in \mathcal{L}(V)$, and $V$ has a basis consisting of eigenvectors of $T$.
+	Prove that $\mathrm{trace}\,(T^2) \geq 0$.
+\end{ex}
+\begin{proof}
+	Let $v_1, \dots, v_n$ be a basis of $V$ consisting of eigenvectors of $T$.
+	Then $\mathcal{M}(T, (v_1, \dots, v_n))$ is a diagonal matrix.
+	Given any diagonal matrix \begin{equation*}
+		\begin{pmatrix}
+			\lambda_1 &        &           \\
+			          & \ddots &           \\
+			          &        & \lambda_n
+		\end{pmatrix},
+	\end{equation*} its square can be easily seen to be \begin{equation*}
+		\begin{pmatrix}
+			(\lambda_1)^2 &        &               \\
+			              & \ddots &               \\
+			              &        & (\lambda_n)^2
+		\end{pmatrix}.
+	\end{equation*}
+	Since each $\lambda_j$ is real, its square is nonnegative, and the sum of nonnegative numbers is itself nonnegative.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space and $v, w \in V$.
+	Define $T \in \mathcal{L}(V)$ by $Tu = {\left\langle u, v \right\rangle}w$.
+	Find a formula for $\mathrm{trace}\,T$.
+\end{ex}
+\begin{proof}
+	Extend $w$ to a basis $w_2, \dots, w_n$.
+	Then \begin{equation*}
+		\mathcal{M}(T, (w, w_2, \dots, w_n)) = \begin{pmatrix}
+			\left\langle w, v \right\rangle & \left\langle w_2, v \right\rangle &        & \left\langle w_n, v \right\rangle \\
+			0                               & 0                                 & 0      & 0                                 \\
+			\vdots                          & \vdots                            & \vdots & \vdots                            \\
+			0                               & 0                                 & 0      & 0                                 \\
+		\end{pmatrix},
+	\end{equation*}
+	i.e. there are nonzero entries only in the first row, and every row after the first has zeroes since everything gets mapped to a scalar multiple of $w$.
+	Thus $\mathrm{trace}\,T = \mathrm{trace}\,\left( \mathcal{M}\left( T, \left( w, w_2, \dots, w_n \right) \right) \right) = \left\langle w, v \right\rangle$.
+\end{proof}
+
+\begin{ex}
+	Suppose $P \in \mathcal{L}(V)$ satisfies $P^2 = P$.
+	Prove that \begin{equation*}
+		\mathrm{trace}\,P = \mathrm{dim}\,\mathrm{range}\,P.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Choose $v_1, \dots, v_n$ to be a basis of $\mathrm{range}\,P$, then extend it to a basis \begin{equation*}
+		v_1, \dots, v_n w_1, \dots, w_m \tag{1}
+	\end{equation*} of $V$.
+	For any $v_j$, $v_j = Pu_j$ for some $u_j \in V$, so $Pv_j = P^2u_j = Pu_j = v_j$.
+	Thus $P|_{\mathrm{range}\,P}$ is the identity map.
+	For any $w_k$, $Pw_k \in \mathrm{range}\,P$, so $Pw_k$ can be written as a linear combination of $v_1, \dots, v_n$.
+	Using these facts, we see that the matrix of $P$ with respect to (1) is
+	% \begin{equation*}
+	% \bordermatrix{
+	% & v_1 & \dots  & v_n & w_1 & \dots & w_m \cr
+	% v_1    & 1   &        & 0   &     &       &     \cr
+	% \vdots &     & \ddots &     &     & A     &     \cr
+	% v_n    & 0   &        & 1   &     &       &     \cr
+	% w_1    &     &        &     &     &       &     \cr
+	% \vdots &     & 0      &     &     & 0     &     \cr
+	% w_m    &     &        &     &     &       &     \cr
+	% }
+	% \end{equation*}
+	% \begin{equation*}
+	% 	\begin{blockarray}{ccccccc}
+	% 		& v_1 & \dots & v_n & w_1 & \dots & w_m \\
+	% 		\begin{block}{c(cccccc)}
+	% 			v_1    & 1 &        & 0 & &   & \\
+	% 			\vdots &   & \ddots &   & & A & \\
+	% 			v_n    & 0 &        & 1 & &   & \\
+	% 			w_1    &   &        &   & &   & \\
+	% 			\vdots &   & 0      &   & & 0 & \\
+	% 			w_m    &   &        &   & &   & \\
+	% 		\end{block}
+	% 	\end{blockarray}
+	% \end{equation*}
+	\begin{equation*}
+		\begin{pNiceMatrix}[first-col, first-row]
+			                    & v_1              & \dots  & v_n & w_1 & \dots & w_m \\
+			\Block{1-1}{v_1}    & \rule{0pt}{3ex}1 &        & 0   &     &       &     \\
+			\Block{1-1}{\vdots} &                  & \ddots &     &     & A     &     \\
+			\Block{1-1}{v_n}    & 0                &        & 1   &     &       &     \\
+			\Block{1-1}{w_1}    &                  &        &     &     &       &     \\
+			\Block{1-1}{\vdots} &                  & 0      &     &     & 0     &     \\
+			\Block{1-1}{w_m}    &                  &        &     &     &       &     \\
+		\end{pNiceMatrix}
+	\end{equation*}
+	where $A$ is some $n \times m$ matrix.
+	From this, we can clearly see that \begin{equation*}
+		\mathrm{trace}\,P = 1n = \mathrm{dim}\,\mathrm{range}\,P.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space and $T \in \mathcal{L}(V)$.
+	Prove that \begin{equation*}
+		\mathrm{trace}\,T^* = \overline{\mathrm{trace}\,T}.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Fix a basis for $V$ which will be implied throughout the proof, and denote the entries along the diagonal of $\mathcal{M}(T)$ by $c_1, \dots, c_n$ where $n = \mathrm{dim}\,V$.
+	The key fact here is that $\mathcal{M}(T^*)$ is the conjugate transpose of $\mathcal{M}(T)$.
+	When taking the conjugate transpose, the entries along the diagonal get replaced by their complex conjugate.
+	Thus, \begin{align*}
+		\mathrm{trace}\,T^* & = \mathrm{trace}\,\mathcal{M}(T^*)                                                       \\
+		                    & = \sum _{j = 1}^{n} \overline{c_j}                                                       \\
+		                    & = \sum _{j = 1}^{n} \mathrm{Re}\,(c_j) - \mathrm{Im}\,(c_j)i                             \\
+		                    & = \sum _{j = 1}^{n} \mathrm{Re}\,(c_j) - i\sum _{j = 1}^{n} \mathrm{Im}\,(c_j)           \\
+		                    & = \overline{\sum _{j = 1}^{n}\mathrm{Re}\,(c_j) + i\sum _{j = 1}^{n} \mathrm{Im}\,(c_j)} \\
+		                    & = \overline{\sum _{j = 1}^{n}\mathrm{Re}\,(c_j) + \mathrm{Im}\,(c_j)i}                   \\
+		                    & = \overline{\sum _{j = 1}^{n}c_j}                                                        \\
+		                    & = \overline{\mathrm{trace}\,\mathcal{M}(T)}                                              \\
+		                    & = \overline{\mathrm{trace}\,T}
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space.
+	Suppose $T \in \mathcal{L}(V)$ is a positive operator and $\mathrm{trace}\,T = 0$.
+	Prove that $T = 0$.
+\end{ex}
+\begin{proof}
+	Since $T$ is positive, all of its eigenvalues are nonnegative.
+	It is also self-adjoint, so by either Spectral Theorem, there exists a basis $v_1, \dots, v_n$ consisting of eigenvectors of $T$.
+	Thus the diagonal of $\mathcal{M}(T, (v_1, \dots, v_n))$ consists of only nonnegative entries.
+	If any of these entries is greater than zero, their sum will also be greater than zero, so since $\mathrm{trace}\,T = 0$, each eigenvalue must be $0$.
+	Thus $T$ is the zero map.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space and $P, Q \in \mathcal{L}(V)$ are orthogonal projections.
+	Prove that $\mathrm{trace}\,(PQ) \geq 0$.
+\end{ex}
+\begin{proof}
+	Let $A, B \subset V$ be the linear subspaces of $V$ onto which $P$ and $Q$ project, respectively.
+	Given $v \in V$, write $v = b + y$ where $b \in B$ and $y \in B^\perp$.
+	It will also be useful to decompose $b$ as $b = a + x$ where $a \in A$ and $x \in A^\perp$.
+	Putting these together, we get $v = a + x + y$.
+	We define these to get the following: \begin{align*}
+		PQ(v) & = P(Q(v))  \\
+		      & = P(a + x) \\
+		      & = a
+	\end{align*}
+	UNFINISHED
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(\mathbb{C}^3)$ is the operator whose matrix is \begin{equation*}
+		\begin{pmatrix}
+			51 & -12 & -21 \\
+			60 & -40 & -28 \\
+			57 & -68 & 1
+		\end{pmatrix}.
+	\end{equation*}
+	Someone tells you (accurately) that $-48$ and $24$ are eigenvalues of $T$.
+	Without using a computer or writing anything down, find the third eigenvalue of $T$.
+\end{ex}
+\begin{proof}
+	Recall that $\mathrm{trace}\,T$ is defined as the sum of the eigenvalues, repeated according to multiplicity.
+	Since $\mathrm{trace}\,T = \mathrm{trace}\,\mathcal{M}(T)$, we calculate $\mathrm{trace}\,\mathcal{M}(T) = 12$.
+	Thus $-48 + 24 + \lambda = 12$ where $\lambda$ is the missing eigenvalue.
+	Upon completion of quick maffs, we get $\lambda = -60$.
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ and $c \in \mathbf{F}$.
+	Prove that $\mathrm{trace}\,(cT)$ = $c\ \mathrm{trace}\,T$.
+\end{ex}
+\begin{proof}
+	Clearly, if $c_1, \dots, c_n \in \mathbf{F}$ are the entries along the diagonal of $\mathcal{M}(T)$, then $cc_1, \dots, cc_n$ are the entries along the diagonal of $\mathcal{M}(cT)$.
+	Thus \begin{align*}
+		\mathrm{trace}\,(cT) & = \mathrm{trace}\,\mathcal{M}(cT)   \\
+		                     & = cc_1 + \dots + cc_n               \\
+		                     & = c(c_1 + \dots + c_n)              \\
+		                     & = c\ \mathrm{trace}\,\mathcal{M}(T) \\
+		                     & = c\ \mathrm{trace}\,T.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Suppose $S, T \in \mathcal{L}(V)$. Prove that $\mathrm{trace}\,(ST) = \mathrm{trace}\,(TS)$.
+\end{ex}
+\begin{proof}
+	Fix a basis $v_1, \dots, v_n$ of $V$ which will be used implicitly throughout the rest of the proof whenever a basis is needed.
+	Since $S, T \in \mathcal{L}(V)$, $\mathcal{M}(S)$ and $\mathcal{M}(T)$ are square matrices of the same size.
+	Then \begin{align*}
+		\mathrm{trace}\,(ST) & = \mathrm{trace}\,(\mathcal{M}(ST))              \\
+		                     & = \mathrm{trace}\,(\mathcal{M}(S)\mathcal{M}(T)) \\
+		                     & = \mathrm{trace}\,(\mathcal{M}(T)\mathcal{M}(S)) \\
+		                     & = \mathrm{trace}\,(\mathcal{M}(TS))              \\
+		                     & = \mathrm{trace}\,(TS)                           \\
+	\end{align*}
+	where the third equality follows from 10.14.
+\end{proof}
+
+\begin{ex}
+	Prove or give a counterexample: if $S, T \in \mathcal{L}(V)$, then $\mathrm{trace}\,(ST) = (\mathrm{trace}\,S)(\mathrm{trace}\,T)$.
+\end{ex}
+\begin{proof}
+	Let $S, T \in \mathbb{C}^2$ be determined by the following matrices with respect to the standard basis: \begin{align*}
+		 & \mathcal{M}(S) = \begin{pmatrix}
+			                    1 & 0 \\
+			                    0 & 0
+		                    \end{pmatrix} \\
+		 & \mathcal{M}(T) = \begin{pmatrix}
+			                    0 & 0 \\
+			                    0 & 1
+		                    \end{pmatrix}.
+	\end{align*}
+	Then \begin{align*}
+		\mathcal{M}(ST) & = \begin{pmatrix}
+			                    1 & 0 \\
+			                    0 & 0
+		                    \end{pmatrix}
+		\begin{pmatrix}
+			0 & 0 \\
+			0 & 1
+		\end{pmatrix}                     \\
+		                & = \begin{pmatrix}
+			                    0 & 0 \\
+			                    0 & 0
+		                    \end{pmatrix}.
+	\end{align*}
+	As is clear from the matrices, $\mathrm{trace}\,S = \mathrm{trace}\,T = 1$, but $\mathrm{trace}\,ST = 0$, so we have a counterexample.
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ is such that $\mathrm{trace}(ST) = 0$ for all $S \in \mathcal{L}(V)$.
+	Prove that $T = 0$.
+\end{ex}
+\begin{proof}
+	We know that $T$ is not invertible because if it was, we would have \begin{equation*}
+		\mathrm{trace}\,(T^{-1}T) = \mathrm{trace}\,(I) = \mathrm{dim}\,V \neq 0.
+	\end{equation*}
+	Thus $\mathrm{null}\,T \ne \left\lbrace 0 \right\rbrace$, so $0$ is an eigenvalue of $T$.
+	Now we need to show that $\mathrm{dim}\,\mathrm{null}\,T = \mathrm{dim}\,V$.
+
+	IDEA: If the diagonal has some nonnegative entries, it must have multiple, so use a matrix $S$ that takes out \textit{only one} of them by sending the corresponding basis vector to zero and being the identity on every other basis vector. Then $\mathrm{trace}\,(ST) \neq 0$, contradicting the assumption that the diagonal has nonnegative entries.
+
+	This only gives us that all entries on the diagonal are zero though\dots\ how to continue? Maybe that they have to be all zero under every basis?
+
+	Jordan Form?
+
+	It's nilpotent
+
+	UNFINISHED
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space with orthonormal basis $e_1, \dots, e_n$ and $T \in \mathcal{L}(V)$.
+	Prove that \begin{equation*}
+		\mathrm{trace}\,(T^*T) = ||Te_1||^2 + \dots + ||Te_n||^2.
+	\end{equation*}
+	Conclude that the right side of the equation above is independent of which orthonormal basis $e_1, \dots, e_n$ is chosen for $V$.
+\end{ex}
+\begin{proof}
+	Fix $j \in \left\lbrace 1, \dots, n \right\rbrace$ and observe that an element along the diagonal of $T^*T$ can be written generally as \begin{align*}
+		\mathcal{M}(T^*T)_{j, j} & = \sum _{k = 1}^{\mathrm{dim}\,V}\mathcal{M}(T^*)_{j, k}\mathcal{M}(T)_{k, j}          \\
+		                         & = \sum _{k = 1}^{\mathrm{dim}\,V}\overline{\mathcal{M}(T)_{k, j}}\mathcal{M}(T)_{k, j} \\
+		                         & = \sum _{k = 1}^{\mathrm{dim}\,V}|\mathcal{M}(T)_{k, j}|^2. \tag{1}
+	\end{align*}
+	We now turn our attention to the characterization of $||Te_j||$.
+	We have \begin{align*}
+		||Te_j||^2 & = ||\sum _{k = 1}^{\mathrm{dim}\,V} \mathcal{M}(T)_{k, j}e_k||^2     \\
+		           & = \sum _{k = 1}^{\mathrm{dim}\,V} ||\mathcal{M}(T)_{k, j}e_k||^2     \\
+		           & = \sum _{k = 1}^{\mathrm{dim}\,V} |\mathcal{M}(T)_{k, j}|^2||e_k||^2 \\
+		           & = \sum _{k = 1}^{\mathrm{dim}\,V} |\mathcal{M}(T)_{k, j}|^2 \tag{2}.
+	\end{align*}
+	Conveniently, (1) equals (2), so we see that $\mathcal{M}(T^*T)_{j, j} = ||Te_j||^2$.
+	Clearly, then, \begin{align*}
+		\mathrm{trace}\,(T^*T) & = \sum _{j = 1}^{\mathrm{dim}\,V}\mathcal{M}(T^*T)_{j, j} \\
+		                       & = \sum _{j = 1}^{\mathrm{dim}\,V}||Te_j||^2
+	\end{align*}
+	as desired.
+
+	Since the choice of orthonormal basis was arbitrary, and trace is invariant under choice of basis, we can in fact conclude that the right side of the equation is invariant under the choice of orthonormal basis.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space.
+	Prove that \begin{equation*}
+		\left\langle S, T \right\rangle = \mathrm{trace}(ST^*)
+	\end{equation*}
+	defines an inner product on $\mathcal{L}(V)$.
+\end{ex}
+\begin{proof}
+	First, we'll take a look at positivity and definiteness.
+	Fix $T \in \mathcal{L}(V)$ and $e_1, \dots, e_n$ an orthonormal basis of $V$.
+	Then \begin{align*}
+		\left\langle T, T \right\rangle & = \mathrm{trace}\,(TT^*)                            \\
+		                                & = \mathrm{trace}\,(T^*T)                            \\
+		                                & = \sum _{j = 1}^{\mathrm{dim}\,V}||Te_j||^2 \tag{1}
+	\end{align*}
+	by Exercise 18, which is the sum of nonnegative numbers.
+	Thus positivity holds.
+	If $T$ is not the zero map, then $Te_j \neq 0$ for some $j \in \left\lbrace 1, \dots, \mathrm{dim}\,V \right\rbrace$.
+	Then since each term in (1) is at least zero, and the term $||Te_j||^2$ is positive, the sum is positive.
+	Conversely, if $T$ is the zero map, then obviously $||Te_j||^2 = 0$ for any $j \in \left\lbrace 1, \dots, \mathrm{dim}\,V \right\rbrace$, so (1) is zero.
+	Thus definiteness holds.
+
+	We now look at additivity in the first slot.
+	Given $Q, S, T \in \mathcal{L}(V)$, we have \begin{align*}
+		\left\langle Q, T \right\rangle + \left\langle S, T \right\rangle & = \mathrm{trace}(QT^*) + \mathrm{trace}(ST^*) \\
+		                                                                  & = \mathrm{trace}(QT^* + ST^*)                 \\
+		                                                                  & = \mathrm{trace}((Q + S)T^*)                  \\
+		                                                                  & = \left\langle Q + S, T \right\rangle
+	\end{align*}
+	as desired.
+	For homogeneity, given $\lambda \in \mathbf{F}$ we have \begin{align*}
+		\lambda\left\langle S, T \right\rangle & = \lambda \mathrm{trace}(ST^*)              \\
+		                                       & = \mathrm{trace}(\lambda (ST^*))            \\
+		                                       & = \mathrm{trace}((\lambda S)T^*)            \\
+		                                       & = \left\langle \lambda S, T^* \right\rangle \\
+	\end{align*}
+	as desired, where the second equality follows from Exercise 14.
+
+	Finally, we look at conjugate symmetry: \begin{align*}
+		\left\langle S, T \right\rangle & = \mathrm{trace}(ST^*)                       \\
+		                                & = \mathrm{trace}((TS^*)^*)                   \\
+		                                & = \overline{\mathrm{trace}(TS^*)}            \\
+		                                & = \overline{\left\langle T, S \right\rangle}
+	\end{align*}
+	as desired.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a complex inner product space and $T \in \mathcal{L}(V)$.
+	Let $\lambda_1, \dots, \lambda_n$ be the eigenvalues of $T$, repeated according to multiplicity.
+	Suppose \begin{equation*}
+		\begin{pmatrix}
+			A_{1, 1} & \dots & A_{1, n} \\
+			\vdots   &       & \vdots   \\
+			A_{n, 1} & \dots & A_{n, n} \\
+		\end{pmatrix}
+	\end{equation*}
+	is the matrix of $T$ with respect to some orthonormal basis of $V$.
+	Prove that \begin{equation*}
+		|\lambda_1|^2 + \dots + |\lambda_n|^2 \leq \sum _{k = 1}^{n} \sum _{j = 1}^{n}|A_{j, k}|^2.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Since $V$ is a complex inner product space, there is a basis of $V$ which is a Jordan basis for $T$.
+	We can then use the matrix of $T$ with respect to this basis to see that $\mathrm{trace}\,T = \sum _{j = 1}^{n} \lambda_j$.
+  Taking this one step further, 
+
+	\begin{align*}
+		|\lambda_1|^2 + \dots + |\lambda_n|^2 & = |\lambda_1|^2||e_1||^2 + \dots + |\lambda_n|^2||e_n||^2 \\
+		                                      & = ||\lambda_1 e_1||^2 + \dots + ||\lambda_n e_n||^2       \\
+		                                      & = ||\lambda_1 e_1 + \dots + \lambda_n e_n||^2
+	\end{align*}
+
+  \begin{align*}
+    |\lambda_1|^2 + \dots + |\lambda_n|^2 & = \lambda_1 \overline{\lambda_1} + \dots + \lambda_n\overline{\lambda_n}
+  \end{align*}
+
+	\begin{align*}
+		\sum _{k = 1}^{n} \sum _{j = 1}^{n}|A_{j, k}|^2 & = \sum _{k = 1}^{n} \sum _{j = 1}^{n}\overline{A_{j, k}}A_{j, k} \\
+	\end{align*}
+
+  \begin{align*}
+    \mathrm{trace}\,T = \sum _{j = 1}^{n}A_{j, j} = \sum _{j = 1}^{n} \lambda_j
+  \end{align*}
+
+  \begin{align*}
+    \mathrm{trace}(T^*T) = ||Te_1||^2 + \dots + ||Te_n||^2
+  \end{align*}
+
+  UNFINISHED
+\end{proof}
+
+\begin{ex}
+  Suppose $V$ is an inner product space.
+  Suppose $T \in \mathcal{L}(V)$ and \begin{equation*}
+    ||T^*v|| \leq ||Tv||
+  \end{equation*}
+  for every $v \in V$.
+  Prove that $T$ is normal.
+\end{ex}
+\begin{proof}
+  Let's assume that $||T^*v|| < ||Tv||$ for some $v \in V$.
+  Choose an orthonormal basis $e_1, \dots, e_n$ of $V$.
+  Then $v = c_1e_1 + \dots + c_ne_n$ for some $c_1, \dots, c_n \in \mathbf{F}$.
+  By assumption, we have $||T^*v||^2 < ||Tv||^2$, so expanding both sides we get \begin{equation*}
+    |c_1|^2||T^*e_1||^2 + \dots + |c_n|^2||T^*e_n||^2 < |c_1|^2||Te_1||^2 + \dots + |c_n|^2||Te_n||^2
+  \end{equation*}
+  which can be expressed as \begin{equation*}
+    0 < |c_1|^2(||Te_1||^2 - ||T^*e_1||^2) + \dots + |c_n|^2(||Te_n||^2 - ||T^*e_n||^2)
+  \end{equation*}
+
+  UNFINISHED
+\end{proof}
+
+\end{document}

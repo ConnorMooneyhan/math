@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 8.B}
+\author{Connor Mooneyhan}
+\date{February 25, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose $V$ is a complex vector space, $N \in \mathcal{L}(V)$, and 0 is the only eigenvalue of $N$. Prove that $N$ is nilpotent.
+\end{ex}
+\begin{proof}
+	By 8.21, \begin{align*}
+		V & = G(0, N)                                   \\
+		  & = \mathrm{null}\,(N - 0I)^{\mathrm{dim}\,V} \\
+		  & = \mathrm{null}\,N^{\mathrm{dim}\,V},
+	\end{align*}
+	so given $v \in V$, we have $N^{\mathrm{dim}\,V}v = 0$, thus $N$ is nilpotent.
+\end{proof}
+
+\begin{ex}
+	Give an example of an operator $T$ on a finite-dimensional real vector space such that 0 is the only eigenvalue of $T$ but $T$ is not nilpotent.
+\end{ex}
+\begin{proof}
+	Let $T \in \mathbb{R}^3$ be defined by $T(z_1, z_2, z_3) = (-z_2, z_1, 0)$. Then the only eigenvalue of $T$ is $0$, but $T^3(z_1, z_2, z_3) = (z_2, -z_1, 0)$, so $T$ is not nilpotent.
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$. Suppose $S \in \mathcal{L}(V)$ is invertible. Prove that $T$ and $S^{-1}TS$ have the same eigenvalues with the same multiplicities.
+\end{ex}
+\begin{proof}
+	We seek to show that $S|_{G(\lambda, S^{-1}TS)}$ is in fact an isomorphism from $G(\lambda, S^{-1}TS)$ to $G(\lambda, T)$ for $\lambda \in \mathbf{F}$, which shows that when the former is nontrivial (so that $\lambda$ is an eigenvalue of $S^{-1}TS$), so is the latter, and vice versa.
+	We already know that $S|_{G(\lambda, S^{-1}TS)}$ is invertible since $S$ is invertible, so it is an isomorphism onto its range.
+	Thus we need only show that $G(\lambda, T) = \mathrm{range}\,S|_{G(\lambda, S^{-1}TS)}$.
+
+	We know that $(S^{-1}TS - \lambda I)^{\mathrm{dim}\,V} = S^{-1}(T - \lambda I)^{\mathrm{dim}\,V}S$ since $p(S^{-1}TS) = S^{-1}p(T)S$ for any $p, T,$ and invertible $S$.
+	For a given eigenvalue $\lambda$ of $S^{-1}TS$, let $v \in G(\lambda, S^{-1}TS)$.
+	Then \begin{align*}
+		0 & = (S^{-1}TS - \lambda I)^{\mathrm{dim}\,V}v \\
+		  & = S^{-1}(T - \lambda I)^{\mathrm{dim}\,V}Sv \\
+		  & = (T - \lambda I)^{\mathrm{dim}\,V}Sv,
+	\end{align*}
+	where the final equality comes from applying $S$ to both sides on the left.
+	Thus $Sv \in G(\lambda, T)$.
+
+	Likewise, given $u \in G(\lambda, T)$, we can express $u$ uniquely as $u = Sv$ for some $v \in V$ since $S$ is surjective, so \begin{align*}
+		0 & = (T - \lambda I)^{\mathrm{dim}\,V}u         \\
+		  & = (T - \lambda I)^{\mathrm{dim}\,V}Sv        \\
+		  & = S^{-1}(T - \lambda I)^{\mathrm{dim}\,V}Sv  \\
+		  & = (S^{-1}TS - \lambda I)^{\mathrm{dim}\,V}v,
+	\end{align*}
+	where the third equality comes from applying $S^{-1}$ to both sides on the left.
+	Thus $v \in G(\lambda, S^{-1}TS)$.
+
+	This means $S$ is an isomorphism from $G(\lambda, S^{-1}TS)$ to $G(\lambda, T)$, so \begin{equation*}
+		\mathrm{dim}\,G(\lambda, S^{-1}TS) = \mathrm{dim}\,G(\lambda, T).
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an $n $-dimensional complex vector space and $T$ is an operator on $V$ such that $\mathrm{null}\,T^{n - 2} \neq \mathrm{null}\,T^{n - 1}$. Prove that $T$ has at most two distinct eigenvalues.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\end{document}

@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 9.B}
+\author{Connor Mooneyhan}
+\date{March 22, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose $S \in \mathcal{L}(\mathbb{R}^3)$ is an isometry. Prove that there exists a nonzero vector $x \in \mathbb{R}^3$ such that $S^2x = x$.
+\end{ex}
+\begin{proof}
+	Since $\mathrm{dim}\,\mathbb{R}^3 = 3$ which is odd, given the characterization of an isometry from this section, there must be at least one $1\times1$ block consisting of the entry $1$ or $-1$.
+	Let the basis element corresponding to that block be $e_j$.
+	Then either \begin{equation*}
+		S^2e_j = S(S(e_j)) = S(e_j) = e_j
+	\end{equation*} or \begin{equation*}
+		S^2e_j = S(S(e_j)) = S(-e_j) = e_j,
+	\end{equation*} so $e_j$ satisfies the desired condition.
+\end{proof}
+
+\begin{ex}
+	Prove that every isometry on an odd-dimensional real inner product space has $1$ or $-1$ as an eigenvalue.
+\end{ex}
+\begin{proof}
+	Given the characterization of isometries from this section, the sum of the "dimensions" of the blocks must be equal to the dimension of the whole space.
+	Thus, it cannot be made up of just $2\times2$ blocks, since then the sum would be even, so there must be at least one $1\times1$ block consisting of the entry $1$ or $-1$.
+	Of course, that means that $1$ or $-1$ is an eigenvalue of the isometry as desired.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a real inner product space. Show that \begin{equation*}
+		\langle u + iv, x + iy \rangle = \langle u, x \rangle + \langle v, y \rangle + \left( \langle v, x \rangle - \langle u, y \rangle \right)i
+	\end{equation*} for $u, v, x, y \in V$ defines a complex inner product on $V_C$.
+\end{ex}
+\begin{proof}
+	We begin with definiteness and positivity.
+	For $u + iv$ as given in the theorem statement, we have \begin{align*}
+		\langle u + iv, u + iv \rangle & = \langle u, u \rangle + \langle v, v \rangle + \left( \langle v, u \rangle - \langle u, v \rangle \right)i \\
+		                               & = ||u||^2 + ||v||^2 + (\langle v, u \rangle - \langle v, u \rangle )i                                       \\
+		                               & = ||u||^2 + ||v||^2. \tag{1}
+	\end{align*}
+	\setcounter{equation}{1}
+	This is clearly nonnegative for all values of $u$ and $v$, so positivity is satisfied.
+	If either $u$ or $v$ is nonzero, its norm must also be nonzero, so (1) will also be nonzero.
+	Conversely, if $u = v = 0$, then (1) is 0, so definiteness is satisfied.
+
+	Moving to the "slot" properties, we must introduce yet another pair of vectors $p, q \in V$.
+	The calculation for first-slot additivity is routine, if a bit horrific: \begin{align*}
+		\langle u + iv, x + iy \rangle + \langle p + iq, x + iy \rangle =\  & \langle u, x \rangle + \langle p, x \rangle + \langle v, y \rangle + \langle q, y \rangle +  \\
+		                                                                    & (\langle v, x \rangle + \langle q, x \rangle - \langle u, y \rangle - \langle p, y \rangle)i \\
+		=\                                                                  & \langle u + p, x \rangle + \langle v + q, y \rangle +                                        \\
+		                                                                    & \left( \langle v + q, x \rangle - \langle u + p, y \rangle \right)i                          \\
+		=\                                                                  & \langle u + p + i(v + q), x + iy \rangle.
+	\end{align*}
+	First-slot homogeneity is no prettier.
+	We define $a, b \in R$ and calculate: \begin{align*}
+		(a + bi) \langle u + iv, x + iy \rangle =\  & (a + bi)\langle u, x \rangle + (a + bi)\langle v, y \rangle +                                       \\
+		                                            & (a + bi)\left( \langle v, x \rangle - \langle u, y \rangle \right)i                                 \\
+		=\                                          & \langle au, x \rangle + \langle bu, x \rangle i + \langle av, y \rangle + \langle bv, y \rangle i + \\
+		                                            & (\langle av, x \rangle - \langle au, y \rangle)i - \langle bv, x \rangle + \langle bu, y \rangle    \\
+		=\                                          & \langle au, x \rangle + \langle av, y \rangle + \langle bu, y \rangle - \langle bv, x \rangle +     \\
+		                                            & (\langle bu, x \rangle + \langle bv, y \rangle + \langle av, x \rangle - \langle au, y \rangle)i    \\
+		=\                                          & \langle au - bv, x \rangle + \langle av + bu, y \rangle +                                           \\
+		                                            & \langle bu + av, x \rangle i + \langle bv - au, y \rangle i                                         \\
+		=\                                          & \langle au - bv, x \rangle + \langle bu + av, y \rangle +                                           \\
+		                                            & \langle bu + av, x \rangle i - \langle au - bv, y \rangle i                                         \\
+		=\                                          & \langle au - bv + i(bu + av), x + iy \rangle                                                        \\
+		=\                                          & \langle (a + bi)(u + iv), x + iy \rangle.
+	\end{align*}
+
+	Finally, for conjugate symmetry, we play with the inner product definition: \begin{align*}
+		\langle u + iv, x + iy \rangle & = \langle u, x \rangle + \langle v, y \rangle + \left( \langle v, x \rangle - \langle u, y \rangle \right)i \\
+		                               & = \langle x, u \rangle + \langle y, v \rangle + \left( \langle x, v \rangle - \langle y, u \rangle \right)i \\
+		                               & = \langle x, u \rangle + \langle y, v \rangle - \left( \langle y, u \rangle - \langle x, v \rangle \right)i \\
+		                               & = \overline{\langle x + iy, u + iv \rangle}.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a real inner product space and $T \in \mathcal{L}(V)$ is self-adjoint.
+	Show that $T_C$ is a self-adjoint operator on the inner product space $V_C$ defined by the previous exercise.
+\end{ex}
+\begin{proof}
+	Let $u, v, x, y \in V$.
+	Then \begin{align*}
+		\langle T_C(u + iv), x + iy \rangle & = \langle Tu + iTv, x + iy \rangle                                                                  \\
+		                                    & = \langle Tu, x \rangle + \langle Tv, y \rangle + \langle Tv, x \rangle i - \langle Tu, y \rangle i \\
+		                                    & = \langle u, Tx \rangle + \langle v, Ty \rangle + \langle v, Tx \rangle i - \langle u, Ty \rangle i \\
+		                                    & = \langle u + iv, Tx + iTy \rangle                                                                  \\
+		                                    & = \langle u + iv, T_C(x + iy) \rangle
+	\end{align*} as desired.
+\end{proof}
+
+\begin{ex}
+	Use the previous exercise to give a proof of the Real Spectral Theorem via complexification and the Complex Spectral Theorem.
+\end{ex}
+\begin{proof}
+	Given a self-adjoint $T \in \mathcal{L}(V)$ for some real inner product space $V$, the above exercise shows that $T_C \in \mathcal{L}(V_C)$ is self-adjoint, and in particular, it is normal.
+	By the Complex Spectral Theorem, we can choose an orthonormal basis $e_1, \dots, e_n$ of $V_C$ consisting of eigenvectors of $T_C$ corresponding to eigenvalues $\lambda_1, \dots, \lambda_n$ (each not necessarily unique) respectively.
+	Because $T_C$ is self-adjoint, the conjugate transpose of $\mathcal{M}(T_C)$ is equal to $\mathcal{M}(T_C)$.
+	Since \begin{equation*}
+		\mathcal{M}(T_C) = \begin{pmatrix}
+			\lambda_1 &        &           \\
+			          & \ddots &           \\
+			          &        & \lambda_n \\
+		\end{pmatrix},
+	\end{equation*}
+	\begin{equation*}
+		\mathcal{M}(T_C*) = \begin{pmatrix}
+			\overline{\lambda_1} &       &                      \\
+			                     & \dots &                      \\
+			                     &       & \overline{\lambda_n} \\
+		\end{pmatrix},
+	\end{equation*}
+	and $\mathcal{M}(T_C) = \mathcal{M}(T_C*)$, we see that $\lambda_j = \overline{\lambda_j}$ for each $j \in \lbrace 1, \dots, n  \rbrace$.
+	Thus each $\lambda_j$ is real.
+	Write $e_j = u_j + iv_j$ for each $j$ where $u_j, v_j \in V$.
+	Consider that each \begin{align*}
+		Tu_j + iTv_j & = T_C e_j                          \\
+		             & = \lambda_j e_j                    \\
+		             & = \lambda_j (u_j + iv_j)           \\
+		             & = \lambda_j u_j + i \lambda_j v_j.
+	\end{align*}
+	Thus $Tu_j = \lambda_j u_j$, so $u_j$ is an eigenvector of $T$ corresponding to $\lambda_j$.
+	We proceed to show that the list $u_1, \dots, u_n$ is an orthonormal list.
+
+	Given some $k \neq j$, consider that \begin{align*}
+		0 & = \langle u_j + iv_j, u_k + iv_k \rangle                                                                       \\
+		  & = \langle u_j, u_k \rangle + \langle v_j, v_k \rangle + (\langle v_j, u_k \rangle - \langle u_j, v_k \rangle)i
+	\end{align*}
+	So we get the two equations \begin{align*}
+		0 & = \langle u_j, u_k \rangle + \langle v_j, v_k \rangle \\
+	\end{align*} and \begin{equation*}
+		\langle v_j, u_k \rangle = \langle u_j, v_k \rangle.
+	\end{equation*}
+	$\dots$
+	\begin{align*}
+		\langle u_j + v_j, u_k + v_k \rangle & = \langle u_j, u_k \rangle + \langle u_j, v_k \rangle + \langle v_j, u_k \rangle + \langle v_j, v_k \rangle \\
+		                                     & = 2 \langle u_j, v_k \rangle                                                                                \\
+	\end{align*}
+  UNFINISHED
+\end{proof}
+
+\begin{ex}
+	Give an example of an operator $T$ on an inner product space such that $T$ has an invariant subspace whose orthogonal complement is not invariant under $T$.
+\end{ex}
+\begin{proof}
+	Define $T \in \mathcal{L}(\mathbb{R}^2)$ by the matrix (with respect to the standard basis) \begin{equation*}
+		\begin{pmatrix}
+			1 & 1 \\
+			0 & 0
+		\end{pmatrix}.
+	\end{equation*}
+	Then $T \lambda (1, 0) = \lambda T(1, 0) = \lambda (1, 0)$ so $\mathrm{span}\,(1, 0)$ is invariant.
+  Meanwhile, the orthogonal complement of $\mathrm{span}\,(1, 0)$ is $\mathrm{span}\,(0, 1)$ but $T (0, 1) = (1, 0) \notin \mathrm{span}\,(0, 1)$ so $\mathrm{span}\,(0, 1)$ is not invariant under $T$.
+\end{proof}
+
+\end{document}

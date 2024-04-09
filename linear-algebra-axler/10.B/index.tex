@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 10.B}
+\author{Connor Mooneyhan}
+\date{April 1, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose $V$ is a real vector space.
+	Suppose $T \in \mathcal{L}(V)$ has no eigenvalues.
+	Prove that $\mathrm{det}\,T > 0$.
+\end{ex}
+\begin{proof}
+	Since $T$ has no eigenvalues, $T_C$ has no "real" eigenvalues.
+	That is, each eigenvalue of $T_C$ has a nontrivial real part.
+	This implies that all the eigenvalues of $T_C$ come in pairs of a complex number and its conjugate, i.e. if $\lambda$ is an eigenvalue of $T_C$, then $\overline{\lambda}$ is also an eigenvalue of $T_C$.
+	Then the determinant of $T$, which is the product of the eigenvalues of $T_C$, is of the form \begin{equation*}
+		(a_1 + b_1i)(a_1 - b_1i) \cdots (a_n + b_ni)(a_n - b_ni),
+	\end{equation*}
+	where $a_j, b_j \in \mathbb{R}$ for all $j \in \left\lbrace 1, \dots, n \right\rbrace$.
+	Simplifying this, we get \begin{equation*}
+		(a_1^2 + b_1^2)\cdots(a_n^2 + b_n^2),
+	\end{equation*}
+	which is a product of \textit{positive} integers since $a_j$ and $b_j$ are not both 0 for a given $j \in \left\lbrace 1, \dots, n \right\rbrace$ (otherwise 0 would be an eigenvalue of $T$).
+	Thus the product, which is the determinant, is positive.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a real vector space with even dimension and $T \in \mathcal{L}(V)$.
+	Suppose $\mathrm{det}\,T < 0$.
+	Prove that $T$ has at least two distinct eigenvalues.
+\end{ex}
+\begin{proof}
+	From Exercise 1, we know that $T$ has at least one eigenvalue since if it had none the determinant would be positive.
+	Since complex eigenvalues of $T_C$ come in pairs, the sum of the multiplicities of the eigenvalues unique to $T_C$ will be even.
+	Since the sum of the multiplicities of all the eigenvalues of $T_C$ is $\mathrm{dim}\,V$, which is even, this means that the sum of the multiplicities which are shared between $T_C$ and $T$, namely the real eigenvalues, is even.
+	Note that 0 is not an eigenvalue of $T$.
+	Also, by the proof of Exercise 1, we know that the product of the "complex" eigenvalues of $T_C$ is positive, so the product of the real eigenvalues must be negative.
+
+	Assume that $\lambda$, our one known eigenvalue of $T$, is in fact the only eigenvalue of $T$.
+	Then $n = \mathrm{dim}\,G(\lambda, T_C)$ is even as noted above, which would mean that $\mathrm{det}\,T = \lambda^np$ where $p$ is the product of the complex eigenvalues of $T_C$ (repeated according to their multiplicity), and is thus positive.
+	Of course, since $\lambda$ is real, $\lambda^n$ is positive if $n$ is even, which would imply that $\mathrm{det}\,T > 0$, contradicting the hypothesis that $\mathrm{det}\,T < 0$.
+	Thus, there are at least two distinct eigenvalues of $T$.
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ and $n = \mathrm{dim}\,V > 2$.
+	Let $\lambda_1, \dots, \lambda_n$ denote the eigenvalues of $T$ (or of $T_C$ if $V$ is a real vector space), repeated according to multiplicity.
+	\item{(a)} Find a formula for the coefficient of $z^{n - 2}$ in the characteristic polynomial of $T$ in terms of $\lambda_1, \dots, \lambda_n$.
+	\item{(b)} Find a formula for the coefficient of $z$ in the characteristic polynomial of $T$ in terms of $\lambda_1, \dots, \lambda_n$.
+\end{ex}
+\begin{proof}
+	\item{(a)} If $n = 3$, then we have \begin{align*}
+		(z - \lambda_1)(z - \lambda_2)(z - \lambda_3)  =\  & (z - \lambda_1)(z^2 - \lambda_2 z - \lambda_3 z + \lambda_2 \lambda_3)                               \\
+		=\                                                 & z^3 - \lambda_2 z^2 - \lambda_3 z^2 + \lambda_2 \lambda_3 z - \lambda_1 z^2 +                        \\
+		                                                   & \lambda_1 \lambda_2 z + \lambda_1 \lambda_3 z - \lambda_1 \lambda_2 \lambda_3                        \\
+		=\                                                 & z^3 - (\lambda_1 + \lambda_2 + \lambda_3) z^2 +                                                      \\
+		                                                   & (\lambda_1 \lambda_2 + \lambda_2 \lambda_3 + \lambda_1 \lambda_3) z - \lambda_1 \lambda_2 \lambda_3.
+	\end{align*}
+	We'll use this as a base case for induction in the proofs of both (a) and (b).
+	Define $p_m = (z - \lambda_1)\cdots(z - \lambda_m)$ for $m \in \left\lbrace 1, \dots, n \right\rbrace$, and define $c_{m, \ell}$ to be the coefficient of $z^{\ell}$ in $p_m$.
+	We also define $C_m = \left\lbrace \left\lbrace j, k \right\rbrace |\ j, k \in \left\lbrace 1, \dots, m \right\rbrace, j \neq k \right\rbrace$.
+	We propose that the coefficient of $z^{n - 2}$ is of the form \begin{equation*}
+		\sum _{\left\lbrace j, k \right\rbrace \in C_n} \lambda_j \lambda_k.
+	\end{equation*}
+
+	To prove this, first observe from the above proposed base case that the hypothesis does in fact hold for $n = 3$, so we do in fact have a base case.
+	Now assume that $n > 3$ and the hypothesis holds for all values less than $n$.
+	Then we can write \begin{equation*}
+		p_n = (z - \lambda_n)p_{n - 1}, \tag{1}
+	\end{equation*}
+	so long as each $\lambda_j$ is indexed appropriately.
+	Observe by (1) that $c_{n, n - 2}$ will be precisely $c_{n - 1, n - 3} - \lambda_n c_{n - 1, n - 2}$.
+	We know that $c_{n - 1, n - 2} = -\sum _{j = 1}^{n - 1} \lambda_j$, and we also know that the hypothesis holds for $c_{n - 1, n - 3}$.
+	Thus \begin{equation*}
+		c_{n, n - 2} = \left(\sum _{\left\lbrace j, k \right\rbrace \in C_{n - 1} } \lambda_j \lambda_k\right) + \left( \sum_{\ell = 1}^{n - 1} \lambda_n \lambda_\ell \right). \tag{2}
+	\end{equation*}
+	Since the first summand of (2) contains all necessary combinations of $\lambda_1, \dots, \lambda_{n - 1}$ and the second contains all combinations of $\lambda_n$ with $\lambda_1, \dots, \lambda_{n - 1}$, we can see that in fact (2) is \begin{equation*}
+		\sum_{\left\lbrace j, k \right\rbrace \in C_n} \lambda_j \lambda_k
+	\end{equation*}
+	as desired.
+
+	\item{(b)} If $n = 4$, we can take this and get \begin{align*}
+		(z - \lambda_1)(z - \lambda_2)(z - \lambda_3)(z - \lambda_4) =\  & (z - \lambda_4)(z^3 - (\lambda_1 + \lambda_2 + \lambda_3) z^2 +                                           \\
+		                                                                 & (\lambda_1 \lambda_2 + \lambda_2 \lambda_3 + \lambda_1 \lambda_3) z - \lambda_1 \lambda_2 \lambda_3)      \\
+		=\                                                               & z^4 - (\lambda_1 + \lambda_2 + \lambda_3) z^3 +                                                           \\
+		                                                                 & (\lambda_1 \lambda_2 + \lambda_2 \lambda_3 + \lambda_1 \lambda_3) z^2 - \lambda_1 \lambda_2 \lambda_3 z - \\
+		                                                                 & \lambda_4 z^3 + (\lambda_1 \lambda_4 + \lambda_2 \lambda_4 + \lambda_3 \lambda_4) z^2 -                   \\
+		                                                                 & (\lambda_1 \lambda_2 \lambda_4 + \lambda_2 \lambda_3 \lambda_4 + \lambda_1 \lambda_3 \lambda_4)z +        \\
+		                                                                 & \lambda_1 \lambda_2 \lambda_3 \lambda_4                                                                   \\
+		=\                                                               & z^4 - (\lambda_1 + \lambda_2 + \lambda_3 + \lambda_4)z^3 +                                                \\
+		                                                                 & (\lambda_1 \lambda_2 + \lambda_2 \lambda_3 + \lambda_1 \lambda_3 +                                        \\
+		                                                                 & \lambda_1 \lambda_4 + \lambda_2 \lambda_4 + \lambda_3 \lambda_4)z^2 -                                     \\
+		                                                                 & (\lambda_1 \lambda_2 \lambda_4 + \lambda_2 \lambda_3 \lambda_4 + \lambda_1 \lambda_3 \lambda_4)z +        \\
+		                                                                 & \lambda_1 \lambda_2 \lambda_3 \lambda_4
+	\end{align*}
+	Do a similar god-forsaken combinatorial procedure as that in the proof of (a) and you will see (probably) that $c_{n, 1}$ is the sum of all three-item combinations of $\lambda_1, \dots, \lambda_n$.
+\end{proof}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$ and $c \in \mathbf{F}$.
+	Prove that $\mathrm{det}(cT) = c^{\mathrm{dim}\,V}\mathrm{det}\,T$.
+\end{ex}
+\begin{proof}
+	Since $\mathrm{det}\,T = \mathrm{det}\,\mathcal{M}(T)$, it will suffice to consider the determinant of $\mathcal{M}(cT) = c \mathcal{M}(T)$.
+	Note that $c \mathcal{M}(T)$ multiplies every column of $\mathcal{M}(T)$ by $c$.
+	Applying 10.39 successively to each column reveals that \begin{equation*}
+		\mathrm{det}(c\mathcal{M}(T)) = c^{\mathrm{dim}\,V}\mathrm{det}\,\mathcal{M}(T)
+	\end{equation*}
+	since there are $\mathrm{dim}\,V$ columns of $\mathcal{M}(T)$.
+\end{proof}
+
+\begin{ex}
+	Prove or give a counterexample: if $S, T \in \mathcal{L}(V)$, then $\mathrm{det}(S + T) = \mathrm{det}\,S + \mathrm{det}\,T$.
+\end{ex}
+\begin{proof}
+	Consider $S = T = I$.
+	Then \begin{align*}
+		\mathrm{det}(S + T) & = \mathrm{det}(\mathcal{M}(S + T))                       \\
+		                    & = \mathrm{det}(\mathcal{M}(S) + \mathcal{M}(T))          \\
+		                    & = \mathrm{det}\left(\begin{pmatrix}
+				                                          1 & 0 \\
+				                                          0 & 1
+			                                          \end{pmatrix} + \begin{pmatrix}
+				                                                          1 & 0 \\
+				                                                          0 & 1
+			                                                          \end{pmatrix}\right) \\
+		                    & = \mathrm{det}\begin{pmatrix}
+			                                    2 & 0 \\
+			                                    0 & 2
+		                                    \end{pmatrix}                             \\
+		                    & = 4
+	\end{align*}
+	Since $\mathrm{det}\,S = \mathrm{det}\,T = 1$, $\mathrm{det}\,S + \mathrm{det}\,T = 2$.
+	Thus \begin{equation*}
+		\mathrm{det}(S + T) = 4 \neq 2 = \mathrm{det}\,S + \mathrm{det}\,T.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Suppose $A$ is a block upper-triangular matrix \begin{equation*}
+		A = \begin{pmatrix}
+			A_1 &        & *   \\
+			    & \ddots &     \\
+			0   &        & A_m
+		\end{pmatrix},
+	\end{equation*}
+	where each $A_j$ along the diagonal is a square matrix.
+	Prove that \begin{equation*}
+		\mathrm{det}\,A = (\mathrm{det}\,A_1)\cdots(\mathrm{det}\,A_m).
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+	Suppose $A$ is an $n$-by-$n$ matrix with real entries.
+	Let $S \in \mathcal{L}(\mathbb{C}^n)$ denote the operator on $\mathbb{C}^n$ whose matrix equals $A$, and let $T \in \mathcal{L}(\mathbb{R}^n)$ denote the operator on $\mathbb{R}^n$ whose matrix equals $A$.
+	Prove that $\mathrm{trace}\,S = \mathrm{trace}\,T$ and $\mathrm{det}\,S = \mathrm{det}\,T$.
+\end{ex}
+\begin{proof}
+	Both statements follow trivially from the fact that $\mathcal{M}(T) = \mathcal{M}(T_C)$.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is an inner product space and $T \in \mathcal{L}(V)$.
+	Prove that \begin{equation*}
+		\mathrm{det}\,T^* = \overline{\mathrm{det}\,T}.
+	\end{equation*}
+	Use this to prove that $|\mathrm{det}\,T| = \mathrm{det}\,\sqrt{T^*T}$, giving a different proof than was given in 10.47.
+\end{ex}
+\begin{proof}
+	Consider a basis of $V$ as in 8.29.
+	Let $n = \mathrm{dim}\,V$ and $\lambda_1, \dots, \lambda_n$ the entries along the diagonal of the matrix of $T$ with respect to our chosen basis, i.e. the eigenvalues of $T$ repeated according to their multiplicity.
+	Then $\mathrm{det}\,T = \mathrm{det}\,\mathcal{M}(T) = \lambda_1 \cdots \lambda_n$.
+	Note that $\mathcal{M}(T^*)$ is the conjugate transpose of $\mathcal{M}(T)$, so the diagonal of $\mathcal{M}(T^*)$ is $\overline{\lambda_1}, \dots, \overline{\lambda_n}$.
+	Since $\mathcal{M}(T^*)$ is "lower-triangular", we can easily see that the only term which is nonzero in the definition of the determinant is the product of the entries along the diagonal.
+	Thus \begin{equation*}
+		\mathrm{det}\,T^* = \overline{\lambda_1} \cdots \overline{\lambda_n} = \overline{\lambda_1 \cdots \lambda_n} = \overline{\mathrm{det}\,T}.
+	\end{equation*}
+
+	For the second part of the exercise, we proceed with \begin{align*}
+		|\mathrm{det}\,T| & = \sqrt{\overline{\mathrm{det}\,T}\mathrm{det}\,T} \\
+		                  & = \sqrt{\mathrm{det}\,T^* \mathrm{det}\,T}         \\
+		                  & = \sqrt{\mathrm{det}\,T^*T.} \tag{1}               \\
+	\end{align*}
+	This gets us close, but not all the way there.
+	Now we need to show that $\sqrt{\mathrm{det}\,T^*T} = \mathrm{det}\,\sqrt{T^*T}$.
+
+	Redefine $\lambda_1, \dots, \lambda_n$ to be the eigenvalues of $T^*T$, repeated according to multiplicity.
+	Note that the eigenvalues of $\sqrt{T^*T}$ (repeated according to multiplicity) are $\sqrt{\lambda_1}, \dots, \sqrt{\lambda_n}$.
+	So \begin{align*}
+		\sqrt{\mathrm{det}\,T^*T} & = \sqrt{\lambda_1 \cdots \lambda_n}      \\
+		                          & = \sqrt{\lambda_1}\cdots\sqrt{\lambda_n} \\
+		                          & = \mathrm{det}\,\sqrt{T^*T}
+	\end{align*}
+  as desired.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\title{Aluffi Excercises}
+\author{Connor Mooneyhan}
+
+\begin{document}
+
+\maketitle
+
+\textbf{1.2} \textit{Prove that if $\thicksim$ is an equivalence relation on a set $S$, then the corresponding family $\mathscr{P}_\thicksim$ defined in \S 1.5 is indeed a partition of $S$: that is, its elements are nonempty, disjoint, and their union is $S$.}
+
+By reflexivity, we get that the equivalence class of any $s \in S$ has at least the element $s$ in it, so each element of $\mathscr{P}_\thicksim$ is nonempty. As such, $\forall s \in S$, $s \in A$ for some $A \in S$, namely $[s]_\thicksim$, so $S \subseteq \cup \mathscr{P}_\thicksim$. Conversely, $\forall p \in \cup \mathscr{P}_\thicksim$, $p$ is related by $\thicksim$ to some element of $S$, and since $\thicksim$ is defined only on $S$, $p \in \cup \mathscr{P}_\thicksim \Rightarrow p \in S$. So $\cup \mathscr{P}_\thicksim = S$.
+
+To prove disjointness, we assume that there is an element $s \in S$ such that $s \in [x]_\thicksim , [y]_\thicksim$ where $[x]_\thicksim$ and $[y]_\thicksim$ are two distinct elements of $\mathscr{P}_\thicksim$. Then, by construction of the equivalence classes, $x \thicksim s$ and $y \thicksim s$ (and by symmetricity $s \thicksim y$). Transitivity then gives us that $x \thicksim y$, meaning $y \in [x]_\thicksim$. However, since $\forall b \in [y]_\thicksim$, $y \thicksim b$, this implies that $x \thicksim b$, so $b \in [x]_\thicksim$ and in general $[y]_\thicksim \subseteq [x]_\thicksim$. A similar argument shows that $[x]_\thicksim \subseteq [y]_\thicksim$, meaning $[x]_\thicksim = [y]_\thicksim$, contradicting our choice of distinct elements. $\blacksquare$
+
+\end{document}

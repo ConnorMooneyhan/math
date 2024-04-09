@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 8.C}
+\author{Connor Mooneyhan}
+\date{February 28, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(\mathbb{C}^4)$ is such that the eigenvalues of $T$ are $3, 5, 8$.
+	Prove that $(T - 3I)^2(T - 5I)^2(T - 8I)^2 = 0$.
+\end{ex}
+\begin{proof}
+	Since $\mathrm{dim}\,\mathbb{C}^4 = 4$, the degree of the minimal polynomial $p$ of $T$ is at most $4$.
+	The degree of the above polynomial, call it $q$, is $6$.
+	Since $p(T) = 0$, the zeroes of $p$ are exactly the eigenvalues of $T$, namely $3, 5, 8$.
+	This means that $p$ can be written as \begin{equation*}
+		p(z) = (z - 3)^{n_1}(z - 5)^{n_2}(z - 8)^{n_3}
+	\end{equation*} where $n_1, n_2, n_3 \in \lbrace 1, 2 \rbrace$.
+	No matter what the values of those powers end up being, each is at most $2$, so $q$ is clearly a polynomial multiple of $p$.
+	By 8.46, this means $q(T) = 0$.
+\end{proof}
+
+\begin{ex}
+	Suppose $V$ is a complex vector space. Suppose $T \in \mathcal{L}(V)$ is such that $5$ and $6$ are eigenvalues of $T$ and that $T$ has no other eigenvalues. Prove that $(T - 5I)^{n - 1}(T - 6I)^{n - 1} = 0$, where $n = \mathrm{dim}\,V$.
+\end{ex}
+\begin{proof}
+	We know that the minimal polynomial, $p$, of $T$ is of degree at most $\mathrm{dim}\,V$.
+	We can also see that given that $T$ has two distinct eigenvalues, $\mathrm{dim}\,V \geq 2$, and the multiplicity of each eigenvalue is at most $n - 1$ since their multiplicities must each be at least $1$ and their sum must equal $n$ because $V$ is a complex vector space.
+	Thus, the characteristic polynomial $q$ can be described as \begin{equation*}
+		q(z) = (z - 5)^{m_1}(z - 6)^{m_2}
+	\end{equation*} where $m_1, m_2 \in \lbrace 1, \dots, n - 1 \rbrace$.
+	Given this, clearly the polynomial in question (call it $r$) is a polynomial multiple of $q$, and since $q(T) = 0$, so is $r$.
+\end{proof}
+
+\begin{ex}
+	Give an example of an operator on $\mathbb{C}^4$ whose characteristic polynomial equals $(z - 7)^2(z - 8)^2$.
+\end{ex}
+\begin{proof}
+	The operator $T \in \mathcal{L}(V)$ defined by \begin{equation*}
+		T(z_1, z_2, z_3, z_4) = (7z_1, 7z_2, 8z_3, 8z_4)
+	\end{equation*} clearly has as its eigenvalues $7$ and $8$, with the corresponding eigenspaces each being two-dimensional.
+	Since that makes the sum of the dimension of the eigenspaces $4$ (which is $\mathrm{dim}\,V$), the dimension of the generalized eigenspaces must also each be $2$, and thus the multiplicity of each eigenvalue is $2$.
+	It follows by definition that the characteristic polynomial of $T$ is $(z - 7)^2(z -8)^2$ as desired.
+\end{proof}
+
+\setcounter{ex}{7}
+
+\begin{ex}
+	Suppose $T \in \mathcal{L}(V)$. Prove that $T$ is invertible if and only if the constant term in the minimal polynomial of $T$ is nonzero.
+\end{ex}
+\begin{proof}
+	Denote the minimal polynomial of $T$ as $p(z) = a_0 + a_1z + \dots + a_nz^n$.
+	First, assume that $a_0 \neq 0$.
+	Then \begin{align*}
+		a_0      I & = -a_1T + \dots + a_nT^n                                   \\
+		\implies I & = -\frac{a_1}{a_0}T + \dots + \frac{a_n}{a_0}T^n           \\
+		           & = T(-\frac{a_1}{a_0}I + \dots + \frac{a_n}{a_0}T^{n - 1}),
+	\end{align*} so $T$ is invertible.
+
+	Now assume that $a_0 = 0$. Then we have \begin{align}
+		0 & = a_1T + \dots + a_nT^n           \\
+		  & = T(a_1I + \dots + a_nT^{n - 1}).
+	\end{align}
+  For convenience, we define $q \in \mathcal{P}(\mathbf{F})$ by $q(z) = a_1 + \dots + a_nz^{n - 1}$ so that the right side of (2) becomes $T(q(T))$.
+	Since $q$ is a polynomial of degree less than $n $, $q$ cannot be the zero map.
+  Thus there exists some $v \in V$ for which $(q(T))v \neq 0$.
+  Equation (2) indicates that $(q(T))v \in \mathrm{null}\,T$, so $T$ is not invertible.
+\end{proof}
+
+\setcounter{ex}{11}
+
+\begin{ex}
+  Suppose $V$ is a complex vector space and $T \in \mathcal{L}(V)$. Prove that $V$ has a basis consisting of eigenvectors of $T$ if and only if the minimal polynomial of $T$ has no repeated zeroes.
+\end{ex}
+\begin{proof}
+  We begin with the easy direction.
+  If $V$ has a basis consisting of eigenvectors of $T$, then given eigenvalues $\lambda_0, \dots, \lambda_n$, the polynomial \begin{equation*}
+    p(T) = (T-\lambda_0I)\dots(T-\lambda_nI)
+  \end{equation*} sends every basis element to zero, and thus is the zero map.
+  $p$ must then be the minimal polynomial because taking away any factors would take away zeroes.
+
+  For the other direction, assume that the minimal polynomial of $T$ has no repeated zeroes.
+  Then write the minimal polynomial $p$ as \begin{equation*}
+    p(T) = (T-\lambda_0)\dots(T-\lambda_n)
+  \end{equation*} where each $\lambda_j$ is a distinct zero of $p$.
+  Since $p$ is the minimal polynomial of $T$, $p$ sends each basis element to 0.
+\end{proof}
+
+\end{document}

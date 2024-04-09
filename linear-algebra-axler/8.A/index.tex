@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises 8.A}
+\author{Connor Mooneyhan}
+\date{February 15, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  Define $T \in \mathcal{L}(\mathbb{C}^2)$ by
+  $$T(w, z) = (z, 0).$$
+  Find all generalized eigenvectors of $T$.
+\end{ex}
+\begin{proof}
+  We begin by finding the eigenvalue(s) of $T$. We have $\lambda(w, z) = (z, 0)$, so
+  \begin{align*}
+    \lambda w &= z\\
+    \lambda z &= 0.
+  \end{align*}
+  Thus either $\lambda = 0$ or $z = w = 0$. The latter case yields the zero vector, so $\lambda$ is the only eigenvalue. Since $\mathbb{C}^2$ has dimension 2, we find
+  \begin{align*}
+    (T - \lambda I)^2(w, z) &= T^2(w, z)\\
+    &= (0, 0),
+  \end{align*}
+  and conclude that every $v \in V$ is a generalized eigenvector of $T$ corresponding to 0.
+\end{proof}
+
+\begin{ex}
+  Define $T \in \mathcal{L}(\mathbb{C}^2)$ by
+  $$T(w, z) = (-z, w).$$
+  Find the generalized eigenspaces corresponding to the distinct eigenvalues of $T$.
+\end{ex}
+\begin{proof}
+  First we find the eigenvalues of $T$. We get
+  \begin{align}
+    \lambda w &= -z\\
+    \lambda z &= w.
+  \end{align}
+  Taking $z \neq 0$ and $\lambda \neq 0$ (either would produce $z = w = 0$, the zero vector), then (1) yields $w = -\frac{z}{\lambda}$. Combining (2) with (1), we see that
+  \begin{align*}
+    \lambda z = -\frac{z}{\lambda} &\implies \lambda^2 z = -z\\
+    &\implies \lambda^2 = -1.
+  \end{align*}
+  Thus the eigenvalues of $T$ are $i$ and $-i$.
+
+  Observe that both $E(i, T)$ and $E(-i, T)$ have dimension at least 1, and since their nonzero elements must be linearly independent, given $v_1 \in E(i, T), v_2 \in E(-i, T)$ with $v_1, v_2 \ne 0$, $v_1, v_2$ spans $V$. Since $E(i, T) \subset G(i, T)$ and $E(-i, T) \subset G(-i, T)$, $v_1 \in G(i, T)$ and $v_2 \in G(-i, T)$, which together form a basis of $V$. Thus $G(i, T)$ and $G(-i, T)$ each have dimension 1, so $E(i, T) = G(i, T)$ and $E(-i, T) = G(-i, T)$. It will suffice, then, to find the eigenspaces.
+
+  Taking equation (2) from above and $\lambda = i$, we get that $iz = w$, so
+  $$E(i, T) = G(i, T) = \lbrace (iz, z) | z \in \mathbb{C} \rbrace$$
+  and likewise taking $\lambda = -i$ we get
+  $$E(-i, T) = G(-i, T) = \lbrace (-iz, z) | z \in \mathbb{C} \rbrace.$$
+
+\end{proof}
+\begin{ex}
+  Suppose $T \in \mathcal{L}(V)$ is invertible. Prove that $G(\lambda, T) = G(\frac{1}{\lambda}, T^{-1})$ for every $\lambda \in \mathbf{F}$ with $\lambda \neq 0$.
+\end{ex}
+\begin{proof}
+  Given $\lambda \in \mathbf{F}$ with $\lambda \neq 0$, let $v \in G(\lambda, T)$.
+  Then $(T - \lambda I)^{\mathrm{dim}V}v = 0$ by definition.
+  Observe that
+  \begin{align*}
+    (T^{-1} - \frac{1}{\lambda} I)^{\mathrm{dim}V}(T - \lambda I)^{\mathrm{dim} V}v &= ((T^{-1} - \frac{1}{\lambda}I)(T-\lambda I))^{\mathrm{dim}V}v\\
+    &= (I - \lambda T^{-1} - \frac{1}{\lambda}T + I)^{\mathrm{dim}V}v\\
+    &= (2I - \lambda T^{-1} - \frac{1}{\lambda}T)^{\mathrm{dim}V}v\\
+    &= (2I - \lambda T^{-1} - \frac{1}{\lambda}T)^{2}(2I - \lambda T^{-1} - \frac{1}{\lambda}T)^{\mathrm{dim}V - 2}v\\
+    &= (4I - 2 \lambda T )^{2}(2I - \lambda T^{-1} - \frac{1}{\lambda}T)^{\mathrm{dim}V - 2}v
+  \end{align*}
+
+  UNFINISHED
+\end{proof}
+
+\begin{ex}
+  Suppose $T \in \mathcal{L}(V)$ and $\alpha, \beta \in \mathbf{F}$ with $\alpha \neq \beta$. Prove $$G(\alpha, T) \cap G(\beta, T) = \lbrace 0 \rbrace.$$
+\end{ex}
+\begin{proof}
+  Suppose, to the contrary, that $v \in G(\alpha, T)$ and $v \in G(\beta, T)$ for some nonzero $v \in V$. Then by 8.13, the list $v, v$ is linearly independent, which is absurd.
+\end{proof}
+
+\begin{ex}
+  Suppose $T \in \mathcal{L}(V),\ m$ is a positive integer, and $v \in V$ is such that $T^{m-1}v \neq 0$ but $T^m v = 0$. Prove that
+  $$v, Tv, T^2v, \dots, T^{m-1}v$$
+  is linearly independent.
+\end{ex}
+\begin{proof}
+  First, note that $T^j v \neq 0\ \forall j \in \mathbb{Z}$ such that $0 \leq j \leq m-1$ since $T^{m - 1}v \neq 0$. 
+  We now seek a contradiction by induction.
+  Suppose that $Tv = c_0 v$ for some $c_0 \in \mathbf{F}$.
+  Then $c_0 \neq 0$ and \begin{equation*}
+    T^2 v = T(Tv) = T(c_0 v) = c_0 Tv
+  \end{equation*}
+  so since $c_0 \neq 0$ and $Tv \neq 0$, $T^2 v \neq 0$.
+  Now assume that for some $j \in \mathbb{Z}$ such that $1 \leq j \leq m - 1$, the list $v, Tv, \dots, T^{j - 1}v$ is linearly independent.
+  Assume further, to contradict our desired result, that the list $v, Tv, \dots, T^j v$ is linearly dependent.
+  Then there exist $c_0, \dots, c_j \in \mathbf{F}$ not all zero such that \begin{equation*}
+    0 = c_0 v + c_1 Tv + \dots + c_j T^j v.
+  \end{equation*}
+  Then \begin{equation*}
+    -c_j T^j v = c_0v + \dots + c_{j - 1} T^{j - 1} v.
+  \end{equation*}
+  If $c_j = 0$, then \begin{equation*}
+    0 = c_0v + \dots + c_{j - 1} T^{j - 1} v,
+  \end{equation*}
+  so $c_0 = \dots = c_{j - 1} = 0$ by the induction hypothesis, contradicting our claim that $c_0, \dots, c_j$ are not all zero.
+  Thus $c_j \neq 0$ and we can define $d_k = -c_k / c_j$ for $k$ an integer where $1 \leq k \leq j - 1$, by which we get \begin{equation*}
+    T^j v = d_0 v + \dots + d_{j - 1} T^{j - 1} v,
+  \end{equation*}
+  and $d_0, \dots, d_{j - 1}$ are not all zero since $T^j v \neq 0$.
+
+  Now we can consider $T^{j + 1}$ with the aim of showing that it does not send $v$ to 0, which would contradict the case of $j = m - 1$, thus completing the proof.
+  We have \begin{align*}
+    T^{j + 1}v &= T(T^j v)\\
+    &= T(d_0 v + \dots + d_{j - 2}T^{j -2}v + d_{j - 1}T^{j -1}v)\\
+    &= d_0 Tv + \dots + d_{j - 2}T^{j -1}v + d_{j - 1}T^j v\\
+    &= d_0 Tv + \dots + d_{j - 2}T^{j -1}v + d_{j - 1}(d_0 v + \dots + d_{j - 1}T^{j - 1}v)\\
+    &= d_0 Tv + \dots + d_{j-2}T^{j - 1}v + d_{j - 1}d_0 v + \dots + d_{j - 1}^2 T^{j - 1}v\\
+    &= d_{j - 1}d_0 v + (d_0 + d_{j - 1}d_1) Tv + \dots + (d_{j - 2} + d_{j - 1}^2)T^{j - 1}v.
+  \end{align*}
+  If $T^{j + 1} v$ \textit{is} equal to zero, then by the linear independence of $v, Tv, \dots, T^{j-1}v$, we have \begin{equation}
+    0 = d_{j - 1}d_0 = d_0 + d_{j-1}d_1 = \dots = d_{j - 2} + d^2_{j-1}.
+  \end{equation}
+  While most of these equalities appear a bit cumbersome, the first equality provides us with two nice cases to deal with.
+  Namely, either $d_{j-1} = 0$ or $d_0 = 0$.
+  Taking the former, (3) becomes \begin{equation*}
+    0 = 0 = d_0 = d_1 = \dots = d_{j - 2},
+  \end{equation*}
+  which contradicts $d_0, \dots, d_{j - 1}$ not all being zero.
+  On the other hand, take $d_0 = 0$ and (3) becomes \begin{equation*}
+    0 = 0 = d_{j - 1}d_1 = d_1 + d_{j - 1}d_2 = \dots = d_{j - 2} + d_{j - 1}^2.
+  \end{equation*}
+  This brings us to one final consideration; we have already shown that $d_{j - 1} \neq 0$, so we must have $d_1 = 0$, which makes the fourth equality $0 = d_{j - 1}d_2$, implying that $d_2 = 0$.
+  Continuing on in this manner, we see that once again $0 = d_0 = d_1 = \dots = d_{j - 1}$, yielding the same contradiction as before.
+\end{proof}
+
+\begin{ex}
+  Suppose $T \in \mathcal{L}(\mathbb{C}^3)$ is defined by $T(z_1, z_2, z_3) = (z_2, z_3, 0)$. Prove that $T$ has no square root. More precisely, prove that there does not exist $S \in \mathcal{L}(\mathbb{C}^3)$ such that $S^2 = T$.
+\end{ex}
+\begin{proof}
+  If such an $S$ exists, then since $T$ is nilpotent ($T^3$ is the zero map), $S$ is also nilpotent ($S^6 = T^3$). But that would mean that $S^3$ is the zero map by 8.18, which contradicts the fact that $S^4 = T^2$, and $T^2(z_1, z_2, z_3) = (z_3, 0, 0)$, which is not the zero map.
+\end{proof}
+
+\begin{ex}
+  Suppose $N \in \mathcal{L}(V)$ is nilpotent. Prove that 0 is the only eigenvalue of $N$.
+\end{ex}
+\begin{proof}
+  First we show that 0 is in fact an eigenvalue of $N$.
+  If it is not, then $\mathrm{null}\,N = \lbrace 0 \rbrace$.
+  Take $v \in V$.
+  Then $Nv \neq 0$, and in fact $N^k \neq 0\, \forall k \in \mathbb{Z}^+$, contradicting the fact that $N$ is nilpotent.
+
+  Now assume that $\lambda \in \mathbf{F}$ is some nonzero eigenvalue of $N$.
+  Then if $v$ is an eigenvector of $N$ corresponding to $\lambda$, $N^k v = \lambda ^k v \neq 0$, contradicting nilpotency.
+\end{proof}
+
+\begin{ex}
+  Prove or give a counterexample: The set of nilpotent operators on $V$ is a subspace of $\mathcal{L}(V)$.
+\end{ex}
+\begin{proof}
+  Consider $T, S \in \mathcal{L}(C^2)$ defined by $T(v_1, v_2) = (v_2, 0)$ and $S(v_1, v_2) = (0, v_1)$.
+  Both of these are nilpotent, but $(T + S)(v_1, v_2) = (v_2, v_1)$.
+  If $T + S$ were nilpotent, $(T + S)^2$ would be the zero map since $\mathrm{dim}\,V = 2$, but in fact $(T + S)^2(v_1, v_2) = (v_1, v_2)$, which is, of course, not the zero map.
+\end{proof}
+
+\begin{ex}
+  Suppose $S, T \in \mathcal{L}(V)$ and $ST$ is nilpotent. Prove that $TS$ is nilpotent.
+\end{ex}
+\begin{proof}
+  Of course, $(ST)^{\mathrm{dim}V} = 0$ since $ST$ is nilpotent.
+  Given $v \in V$, we have \begin{align*}
+    (TS)^{\mathrm{dim}V + 1}v &= T(ST^{\mathrm{dim}V})Sv\\
+    &= T(0)Sv\\
+    &= T((0)(Sv))\\
+    &= T(0)\\
+    &= 0
+  \end{align*}
+  where "$(0)$" here is the zero map.
+  Thus $(TS)^{\mathrm{dim}V + 1} = (0)$, so $TS$ is nilpotent.
+\end{proof}
+
+\end{document}
