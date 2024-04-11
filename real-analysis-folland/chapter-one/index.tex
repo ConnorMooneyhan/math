@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Chapter 1}
+\author{Connor Mooneyhan}
+\date{April 9, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	A nonempty family of sets $\mathscr{R} \in \mathscr{P}(X)$ is called a \textbf{ring} if it is closed under finite unions and differences (i.e., if $E_1, \dots, E_n \in \mathscr{R}$, then $\cup _{1}^{n} E_j \in \mathscr{R}$, and if $E, F \in \mathscr{R}$, then $E \setminus F \in \mathscr{R}$).
+	A ring that is closed under countable unions is called a \textbf{$\sigma$-ring}.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item Rings (resp. $\sigma$-rings) are closed under finite (resp. countable) intersections.
+		\item If $\mathscr{R}$ is a ring (resp. $\sigma$-ring), then $\mathscr{R}$ is an algebra (resp. $\sigma$-algebra) iff $X \in \mathscr{R}$.
+		\item If $\mathscr{R}$ is a $\sigma$-ring, then $\left\lbrace E \subset X : E \in \mathscr{R}\ \mathrm{or}\ E^c \in \mathscr{R} \right\rbrace$ is a $\sigma$-algebra.
+		\item If $\mathscr{R}$ is a $\sigma$-ring, then $\left\lbrace E \subset X : E \cap F \in \mathscr{R} \ \mathrm{for\ all} \ F \in \mathscr{R} \right\rbrace$ is a $\sigma$-algebra.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\ \begin{enumerate}[label=\textbf{\alph*.}]
+		\item If $\mathscr{R}$ is a $\sigma$-ring and $\left\lbrace E_n \right\rbrace_{n \in \mathbb{N}} \subset \mathscr{R}$, then \begin{equation*}
+			      \bigcap_{n \in \mathbb{N}} E_n = \left( \bigcup_{n \in \mathbb{N}} E_n \right) \setminus \left( \bigcup \left\lbrace E_a \setminus E_b : a, b \in \mathbb{N} \right\rbrace \right) \tag{1}
+		      \end{equation*}
+		      Considering the left and right components of the difference in the right hand side of (1), the left is clearly a countable union of members of $\mathscr{R}$, and the right can be seen to be a countable union by identifying each $E_a \setminus E_b$ with $\frac{a}{b}$.
+		      Thus the right hand side of (1) is a difference of countable unions of members of $\mathscr{R}$, so it is in $\mathscr{R}$.
+
+		      If $\mathscr{R}$ is a ring, the argument above applies by making $\left\lbrace E_n \right\rbrace$ a finite set.
+
+		\item In either case, if $\mathscr{R}$ is a ring (resp. $\sigma$-ring) and an algebra (resp. $\sigma$-algebra), then given $E \in \mathscr{R}$, $X = E \cup E^c \in \mathscr{R}$.
+
+		      Conversely, if $\mathscr{R}$ is a ring (resp. $\sigma$-ring) and $X \in \mathscr{R}$, then given $E \in \mathscr{R}$, $E^c = X \setminus E \in \mathscr{R}$, so $\mathscr{R}$ is closed under complements.
+		      $\mathscr{R}$ is already closed under finite (resp. countable) unions, so $\mathscr{R}$ is an algebra.
+
+		\item Let $A = \left\lbrace E \subset X : E \in \mathscr{R}\ \mathrm{or}\ E^c \in \mathscr{R} \right\rbrace$.
+		      Given $E \in A$, by definition $E^c \in A$ since $(E^c)^c = E \in A$.
+
+		      Let $\left\lbrace E_n \right\rbrace_{n \in \mathbb{N}} \subset A$, and express this set as the union of two sets, namely \begin{equation*}
+			      \left\lbrace E_n \right\rbrace_{n \in \mathbb{N}} = \left\lbrace F_j \right\rbrace_{j \in J} \cup \left\lbrace G_k \right\rbrace_{k \in K}
+		      \end{equation*}
+		      where $\left\lbrace F_j \right\rbrace_{j \in J} \subset A$ is the collection of all sets in $A$ who are members of $\mathscr{R}$ and $\left\lbrace G_k \right\rbrace_{k \in K} \subset A$ is the collection of sets in $A$ who are not themselves in $\mathscr{R}$, but whose complements are.
+		      Then
+		      \begin{align*}
+			      \bigcup_{n \in \mathbb{N}} E_n & = \bigcup_{j \in J} F_j \cup \bigcup_{k \in K} G_k                            \\
+			                                     & = \bigcup_{j \in J} F_j \cup \left( \bigcap_{k \in K} G_k^c \right)^c \tag{1}
+		      \end{align*}
+		      Since each $F_j$ is in $\mathscr{R}$, $\bigcup_{j \in J} F_j \in \mathscr{R} \subset A$.
+		      Also, we know from (a) that $\sigma$-rings are closed under countable intersections, so since $G_k^c \in R$ for each $G_k$, we have $\bigcap_{k \in K}G_k^c \in R$.
+		      Its complement is also in $R$ since $R$ is closed under complementation.
+		      Thus (2) is a union of two members of $R$, and is therefore in $R \subset A$.
+
+		\item Let $A = \left\lbrace E \subset X : E \cap F \in \mathscr{R} \ \mathrm{for\ all} \ F \in \mathscr{R} \right\rbrace$.
+		      Note that $\mathscr{R} \subset A$ since $\mathscr{R}$ is closed under finite intersections.
+		      Given any $E, F \in \mathscr{R}$, we have \begin{align*}
+			      E^c \cap F = \left( X \setminus E \right) \cap F = F \setminus E
+		      \end{align*}
+		      which is a difference in $\mathscr{R}$ and is thus in $\mathscr{R} \subset A$.
+
+		      Given $\left\lbrace E_j \right\rbrace_{j \in \mathbb{N}} \subset A$ and arbitrary $F \in A$, \begin{equation*}
+			      \left( \bigcup_{j \in \mathbb{N}} E_j \right) \cap F = \bigcup_{j \in \mathbb{N}} \left( E_j \cap F \right),
+		      \end{equation*}
+		      which is a countable union of elements in $\mathscr{R}$.
+		      Thus since the choice of $F$ was arbitrary, $\bigcup \left\lbrace E_j \right\rbrace \in A$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Complete the proof of Proposition 1.2.
+\end{ex}
+\begin{proof}
+	The construction of open intervals from half-open intervals and rays is standard.
+\end{proof}
+
+\begin{ex}
+	Let $\mathscr{M}$ be an infinite $\sigma$-algebra.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item $\mathscr{M}$ contains an infinite sequence of disjoint nonempty sets.
+		\item card($\mathscr{M}$) $\geq c$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\ \begin{enumerate}[label=\textbf{\alph*.}]
+		\item Choose a sequence $\left\lbrace E_n \right\rbrace_{n \in \mathbb{N}}$ of nonempty sets in $\mathscr{M}$ (this requires the axiom of choice).
+		      We then derive the sequence $\left\lbrace F_n \right\rbrace$ defined recursively by $F_1 = E_1$ and $F_j = E_j \setminus F_{j - 1}$ when $j \geq 2$.
+		      These are disjoint by construction and are all in $\mathscr{M}$ since $\mathscr{M}$ is closed under differences.
+		\item Choose a sequence $\left\lbrace E_j \right\rbrace _{1}^{\infty}$ of disjoint nonempty sets in $\mathscr{M}$ (allowable by part (a) of this exercise).
+		      Define $f: \mathscr{P}(\mathbb{N}) \to \mathscr{M}$ by $f: S \mapsto \bigcup_{k \in S} E_k$.
+		      This is well-defined since $f(S)$ is a countable union of members of $\mathscr{M}$, so $f(S) \in \mathscr{M}$.
+		      Also, $f$ is an injection since all the $E_j$ are disjoint.
+		      This brings us to the conclusion that since $\mathrm{im }\,f \subset \mathscr{M}$, \begin{equation*}
+			      \mathrm{card}\, \mathscr{M} \geq \mathrm{card}(\mathrm{im }\,f) = \mathrm{card}(\mathscr{P}(\mathbb{N})) = c.
+		      \end{equation*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	An algebra $\mathscr{A}$ is a $\sigma$-algebra iff $\mathscr{A}$ is closed under countable increasing unions (i.e., if $\left\lbrace E_j \right\rbrace _{1}^{\infty} \subset \mathscr{A}$ and $E_1 \subset E_2 \subset \cdots,$ then $\bigcup _{1}^{\infty}E_j \in \mathscr{A}$).
+\end{ex}
+\begin{proof}
+	If $\mathscr{A}$ is a $\sigma$-algebra, then $\mathscr{A}$ is closed under countable unions in general, so it is certainly closed under countable increasing unions in particular.
+	On the other hand, if $\mathscr{A}$ is an algebra which is closed under countable increasing unions, then take any $\left\lbrace E_j \right\rbrace _{1}^{\infty} \subset \mathscr{A}$.
+	Consider that \begin{equation*}
+    \bigcup _{j = 1}^{\infty} E_j = \bigcup _{j = 1}^{\infty} \bigcup _{k = 1}^{j} E_k. \tag{1}
+	\end{equation*}
+  Clearly, for any $j \in \mathbb{N}$, $\left( \bigcup _{k = 1}^{j} E_k  \right)\subset \left( \bigcup _{k = 1}^{j + 1} E_k \right)$, and each $\bigcup_{k = 1}^{j}E_k$ is a finite union of elements of the algebra $\mathscr{A}$, and thus is in $\mathscr{A}$.
+  Then the right hand side of (1) is a countable increasing union of members of $\mathscr{A}$.
+  Thus (1) $\in \mathscr{A}$.
+\end{proof}
+
+\begin{ex}
+  If $\mathscr{M}$ is the $\sigma$-algebra generated by $\mathscr{E}$, then $\mathscr{M}$ is the union of the $\sigma$-algebras generated by $\mathscr{F}$ as $\mathscr{F}$ ranges over all countable subsets of $\mathscr{E}$.
+\end{ex}
+\begin{proof}
+  Let $F$ be the set of all countable subsets of $\mathscr{E}$.
+  By Lemma 1.1, since $\mathscr{F} \subset \mathscr{E} \subset \mathscr{M}(\mathscr{E})$ for each $\mathscr{F} \in F$, $\mathscr{M}(\mathscr{F}) \subset \mathscr{M}(\mathscr{E})$.
+  Their union, then, is also a subset of $\mathscr{E}$.
+
+  We need to show, then, that $\mathscr{M}(\mathscr{E}) \subset \bigcup_{\mathscr{F} \in F}\mathscr{M}(\mathscr{F})$.
+  If we can show that $\bigcup_{\mathscr{F} \in F} \mathscr{M}(\mathscr{F}) = \mathscr{M}(\bigcup_{\mathscr{F} \in F} \mathscr{F})$, then we will be done because $\mathscr{E} \subset \bigcup F$, so $\mathscr{M}(\mathscr{E}) \subset \mathscr{M}(\bigcup F)$.
+  That is where we now turn our focus.
+
+  Clearly $\mathscr{M}(\bigcup F) \subset \bigcup_{\mathscr{F} \in F} \mathscr{M}(\mathscr{F})$ since $\bigcup F \subset \bigcup_{\mathscr{F} \in F} \mathscr{M}(\mathscr{F})$, so we need to prove the other direction.
+  Given $E \in \bigcup \mathscr{M}(F)$, fix some $\mathscr{F} \in F$ for which $E \in \mathscr{M}(\mathscr{F})$.
+  Then since $\mathscr{F} \subset \bigcup F$, $\mathscr{M}(\mathscr{F}) \subset \mathscr{M}(\bigcup F)$, so $E \in \mathscr{M}(\bigcup F)$.
+  As observed above, this completes our proof.
+\end{proof}
+
+\end{document}
