@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Section 2.1}
+\author{Connor Mooneyhan}
+\date{June 5, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $f : X \to \overline{\mathbb{R}}$ and $Y = f^{-1}(\mathbb{R})$.
+	Then $f$ is measurable iff $f^{-1}(\left\lbrace -\infty \right\rbrace) \in \mathscr{M}$, $f^{-1}(\left\lbrace \infty \right\rbrace) \in \mathscr{M}$, and $f$ is measurable on $Y$.
+\end{ex}
+\begin{proof}
+	First, assume that $f^{-1}(\left\lbrace -\infty \right\rbrace), f^{-1}(\left\lbrace \infty \right\rbrace) \in \mathscr{M}$ and $f$ is measurable on $Y$.
+	Then given $a \in \mathbb{R}$, \begin{equation*}
+		f^{-1}((a, \infty]) = f^{-1}((a, \infty)) \cup f^{-1}(\left\lbrace \infty \right\rbrace)
+	\end{equation*}
+	is measurable because the right hand side is a union of measurable sets since $(a, \infty) \subset \mathbb{R}$.
+
+	On the other hand, if $f$ is measurable, then clearly since $\left\lbrace -\infty \right\rbrace, \left\lbrace \infty \right\rbrace \in \mathscr{B}_{\overline{\mathbb{R}}}$, $f^{-1}(\left\lbrace -\infty \right\rbrace), f^{-1}(\left\lbrace \infty \right\rbrace) \in \mathscr{M}$.
+	Similarly, if $a \in \mathbb{R}$, then $(a, \infty) \in \mathscr{B}_{\overline{\mathbb{R}}}$ so $f^{-1}((a, \infty)) \cap Y = f^{-1}((a, \infty)) \in \mathscr{M}$.
+\end{proof}
+
+\begin{ex}
+	Suppose $f, g : X \to \overline{\mathbb{R}}$ are measurable.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item $fg$ is measurable (where $0 \cdot (\pm \infty) = 0$).
+		\item Fix $a \in \overline{\mathbb{R}}$ and define $h(x) = a$ if $f(x) = -g(x) = \pm \infty$ and $h(x) = f(x) + g(x)$ otherwise.
+		      Then $h$ is measurable.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item First define $\phi: X \to \overline{\mathbb{R}}^2$ by $\phi(x) = (f(x), g(x))$.
+		      Proposition 2.4 shows that $\phi$ is $(\mathscr{M}, \mathscr{B}_{\overline{\mathbb{R}}^2})$-measurable.
+		      Then define $\psi: \overline{\mathbb{R}}^2 \to \overline{\mathbb{R}}$ by \begin{align*}
+			      \psi((x, y))         & = xy         & (x, y \in \mathbb{R}) \\
+			      0 \cdot (\pm \infty) & = 0                                  \\
+			      a \cdot (\pm \infty) & = \pm \infty & (a > 0)               \\
+			      a \cdot (\pm \infty) & = \mp \infty & (a < 0)
+		      \end{align*}
+		      We'll use Exercise 1, first showing that $\psi$ is measurable on $\psi^{-1}(\mathbb{R})$.
+          Note that \begin{equation*}
+            \psi^{-1}(\mathbb{R})
+          \end{equation*}
+          This is simple since we consider $\psi|\psi^{-1}(\mathbb{R})$ with respect to the algebra \begin{align*}
+			      \left\lbrace E \cap \mathbb{R}^2 : E \in \mathscr{B}_{\overline{\mathbb{R}}^2} \right\rbrace & = \left\lbrace E \cap \mathbb{R}^2 : E \in \mathscr{B}_{\overline{\mathbb{R}}} \times \mathscr{B}_{\overline{\mathbb{R}}} \right\rbrace \\
+			                                                                                                   & = \mathscr{B}_{\mathbb{R}^2},
+		      \end{align*}
+          so $\psi|\psi^{-1}(\mathbb{R})$ is just multiplication on $R$, which is continuous.
+
+		      We now consider that \begin{align*}
+			      \psi^{-1}(\left\lbrace \infty \right\rbrace) = & \left( \overline{\mathbb{R}}^+ \times \left\lbrace \infty \right\rbrace \right) \cup \left( \left\lbrace \infty \right\rbrace \times \overline{\mathbb{R}}^+ \right)        \\
+			                                                     & \cup \left( \left\lbrace -\infty \right\rbrace \times \overline{\mathbb{R}}^- \right) \cup \left( \overline{\mathbb{R}}^- \times \left\lbrace -\infty \right\rbrace \right)
+		      \end{align*}
+		      and, similarly, \begin{align*}
+			      \psi^{-1}(\left\lbrace -\infty \right\rbrace) = & \left( \overline{\mathbb{R}}^- \times \left\lbrace \infty \right\rbrace \right) \cup \left( \left\lbrace \infty \right\rbrace \times \overline{\mathbb{R}}^- \right)        \\
+			                                                     & \cup \left( \left\lbrace -\infty \right\rbrace \times \overline{\mathbb{R}}^+ \right) \cup \left( \overline{\mathbb{R}}^+ \times \left\lbrace -\infty \right\rbrace \right).
+		      \end{align*}
+          Both are clearly measurable since they are the simple union of measurable sets, so Exercise 1 leads us to conclude that $\psi$ is $(\mathscr{B}_{\overline{\mathbb{R}}^2}, \mathscr{B}_{\overline{\mathbb{R}}})$-measurable.
+
+          Thus, since $fg = \psi \circ \phi$, $fg$ is $(\mathscr{M}, \mathscr{B}_{\overline{\mathbb{R}}})$-measurable.
+        \item 
+	\end{enumerate}
+\end{proof}
+
+\end{document}

@@ -500,8 +500,484 @@
 		      Thus \begin{equation*}
 			      \underline{\mu}(X_2) = \sup \left\lbrace \mu(A) : A \in \mathscr{M}\ \mathrm{and}\ A \subset X_2 \right\rbrace = \sup \left\lbrace 0 \right\rbrace = 0.
 		      \end{equation*}
-          We conclude that since $\widetilde{\mu}(X_2) = \infty \neq 0  = \underline{\mu}(X_2)$, $\widetilde{\mu} \neq \underline{\mu}$.
+		      We conclude that since $\widetilde{\mu}(X_2) = \infty \neq 0  = \underline{\mu}(X_2)$, $\widetilde{\mu} \neq \underline{\mu}$.
 	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	If $\mu^*$ is an outer measure on $X$ and $\left\lbrace A_j \right\rbrace _{1}^{\infty}$ is a sequence of disjoint $\mu^*$-measurable sets, then $\mu^*(E \cap (\bigcup_1^\infty A_j)) = \sum_1^\infty \mu^*(E \cap A_j)$ for any $E \subset X$.
+\end{ex}
+\begin{proof}
+	Notice that \begin{equation*}
+		\mu^* \left( E \cap \left( \bigcup_1^\infty A_j \right) \right) = \mu^* \left( \bigcup_1^\infty E \cap A_j \right) \leq \sum_1^\infty \mu^* \left( E \cap A_j \right),
+	\end{equation*}
+	so to prove equality, we need only show that $\mu^* \left( E \cap \bigcup_1^\infty A_j \right) \geq \sum_1^\infty \mu^* \left( E \cap A_j \right)$.
+
+	Given $n \in \mathbb{N}$, define $E_n = E \cap A_n$ and $B_n = \bigcup_{j = 1}^n A_j$.
+	Then \begin{align*}
+		\mu^*(E \cap B_n) & = \mu^*(E \cap B_n \cap A_n) + \mu^*(E \cap B_n \cap A_n^C) \\
+		                  & = \mu^*(E \cap A_n) + \mu^*(E \cap B_{n - 1})
+	\end{align*}
+	when $n > 1$.
+	If $n = 1$, then clearly $\mu^*(E \cap B_1) = \mu^*(E \cap A_1)$ by definition.
+	By induction, we get $\mu^*(E \cap B_n) = \sum_{j = 1}^n \mu^*(E \cap A_j)$.
+	Thus \begin{equation*}
+		\lim_{n \to \infty} \mu^*(E \cap B_n) = \sum_{j = 1}^\infty \mu^*(E \cap A_j). \tag{1}
+	\end{equation*}
+	Since each $E \cap B_n \subset E \cap \bigcup_{j = 1}^\infty A_j$, each $\mu^*(E \cap B_n) \leq \mu^*(E \cap \bigcup_{j = 1}^\infty A_j)$, so we see that \begin{equation*}
+		\mu^*(E \cap \bigcup_{j = 1}^\infty A_j) \geq \lim_{n \to \infty} \mu^*(E \cap B_n).
+	\end{equation*}
+	Combining with (1) yields $\mu^*(E \cap \bigcup_{j = 1}^\infty A_j) \geq \sum_{j = 1}^\infty \mu^*(E \cap A_j)$.
+\end{proof}
+
+\begin{ex}
+	Let $A \subset \mathscr{P}(X)$ be an algebra, $\mathscr{A}_\sigma$ the collection of countable unions of sets in $\mathscr{A}$, and $\mathscr{A}_{\sigma\delta}$ the collection of countable intersections of sets in $\mathscr{A}_\sigma$.
+	Let $\mu_0$ be a premeasure on $\mathscr{A}$ and $\mu^*$ the induced outer measure.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item For any $E \subset X$ and $\epsilon > 0$ there exists $A \in \mathscr{A}_\sigma$ with $E \subset A$ and $\mu^*(A) \leq \mu^*(E) + \epsilon$.
+		\item If $\mu^*(E) < \infty$, then $E$ is $\mu^*$-measurable iff there exists $B \in \mathscr{A}_{\sigma\delta}$ with $E \subset B$ and $\mu^*(B \setminus E) = 0$.
+		\item If $\mu_0$ is $\sigma$-finite, the restriction $\mu^*(E) < \infty$ in (b) is superfluous.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item By the definition of $\mu^*$, we know there exists $\left\lbrace A_j \right\rbrace_1^\infty \subset \mathscr{A}$ such that $E \subset \bigcup_1^\infty A_j = A \in \mathscr{A}_\sigma$ where $\sum_1^\infty \mu_0(A_j) < \mu^*(E) + \epsilon$.
+		      Clearly $A \subset \bigcup_1^\infty A_j$, so by following the definition of $\mu^*(A)$, we get $\mu^*(A) \leq \sum_1^\infty \mu_0(A_j)$.
+		      Combining these two inequalities, we get \begin{equation*}
+			      \mu^*(A) \leq \sum_1^\infty \mu_0(A_j) < \mu^*(E) + \epsilon
+		      \end{equation*}
+		      as desired.
+		\item If $E$ is $\mu^*$-measurable, we define $B$ as follows.
+		      For each $j \in \mathbb{N}$, let $B_{j} = \bigcup_{k = 1}^\infty B_{jk}$ such that each $B_{jk} \in \mathscr{A}$, $E \subset B_j$, and $\sum_{k = 1}^\infty \mu_0(B_{jk}) < \mu^*(E) + \frac{1}{j}$.
+		      Let $B = \bigcap_{j = 1}^\infty B_j$.
+		      Then by definition $B \in A_{\sigma\delta}$, and since $E \subset B_j$ for each $j$, $E \subset B$.
+		      Thus $\mu^*(E) \leq \mu^*(B)$, and fixing $j$ we get $B \subset B_j$, $\mu^*(E) \leq \mu^*(B) \leq \mu^*(E) + \frac{1}{j}$.
+		      Since this is true for every $j$, we have $\mu^*(E) = \mu^*(B)$.
+		      Because $E$ is $\mu^*$-measurable, \begin{align*}
+			      \mu^*(B) & = \mu^*(B \cap E) + \mu^*(B \cap E^C) \\
+			               & = \mu^*(E) + \mu^*(B \setminus E).
+		      \end{align*}
+		      Then \begin{equation*}
+			      \mu^*(E) = \mu^*(B) = \mu^*(E) + \mu^*(B \setminus E),
+		      \end{equation*}
+		      so $\mu^*(B \setminus E) = 0$ as desired since $\mu^*(E) < \infty$.
+
+		      Conversely, assume there exists $B \in A_{\sigma\delta}$ such that $E \subset B$ and $\mu^*(B \setminus E) = 0$.
+		      Since $B$ is a countable intersection of countable unions of elements of $\mathscr{A}$ which are each $\mu^*$-measurable (Proposition 1.3), $B$ is $\mu^*$-measurable.
+		      Given $F \subset X$, notice that \begin{align*}
+			      \mu^*(F \cap B^C) & = \mu^*(F \cap (B \cup E)^C)                        \\
+			                        & = \mu^*(F \cap B^C \cap E^C)                        \\
+			                        & = \mu^*(F \cap E^C \cap B^C)                        \\
+			                        & = \mu^*(F \cap E^C) - \mu^*(F \cap E^C \cap B)      \\
+			                        & = \mu^*(F \cap E^C) - \mu^*(F \cap (B \setminus E)) \\
+			                        & = \mu^*(F \cap E^C).
+		      \end{align*}
+		      Then we get \begin{align*}
+			      \mu^*(F) & = \mu^*(F \cap B) + \mu^*(F \cap B^C)     \\
+			               & \geq \mu^*(F \cap E) + \mu^*(F \cap E^C),
+		      \end{align*}
+		      which shows that $E$ is $\mu^*$-measurable.
+		\item We need to prove the forward direction with the hypothesis that $\mu_0$ is $\sigma$-finite instead of $\mu^*(E) < \infty$.
+		      Consider first that $X = \bigcup_1^\infty A_j$, a union which we can assume to be disjoint, where each $A_j \in \mathscr{A}$ such that $\mu_0(A_j) < \infty$.
+		      Note that each $A_j$ is also $\mu^*$-measurable since it is in $\mathscr{A}$.
+
+		      For any $j, n \in \mathbb{N}$, define $E_j = E \cap A_j$ and choose $E_{jn} \in \mathscr{A}_\sigma$ such that $E_j \subset E_{jn} \subset A_j$ and $\mu^*(E_{jn}) \leq \mu^*(E_j) + \frac{1}{2^jn}$, using part \textbf{a}.
+		      Note that since $E_j$ is $\mu^*$-measurable, \begin{align*}
+			      \mu(E_{jn}) & = \mu^*(E_{jn} \cap E_j) + \mu^*(E_{jn} \cap E_j^C) \\
+			                  & = \mu^*(E_j) + \mu^*(E_{jn} \setminus E_j),
+		      \end{align*}
+		      so $\mu(E_{jn}) - \mu^*(E_j) = \mu^*(E_{jn} \setminus E_j)$. Also, by the above inequality, $\mu^*(E_{jn} \setminus E_j) \leq \frac{1}{2^jn}$.
+
+		      Let $B_n = \bigcup_{j = 1}^\infty E_{jn}$ and $B = \bigcap_1^\infty B_n$.
+		      % Then since each $E_{jn}$ is $\mu^*$-measurable, so is $B_n$, so we can use countable additivity to get \begin{align*}
+		      % \mu^*(B_n) & = \mu^* \left( \bigcup_{j = 1}^\infty E_{jn} \right)                  \\
+		      % & = \sum_{j = 1}^\infty \mu^*(E_{jn})                                   \\
+		      % & \leq \sum_{j = 1}^\infty \left( \mu^*(E_j) + \frac{1}{2^jn} \right)   \\
+		      % & = \sum_{j = 1}^\infty \mu^*(E_j) + \sum_{j = 1}^\infty \frac{1}{2^jn} \\
+		      % & = \left( \sum_{j = 1}^\infty \mu^*(E_j) \right) + \frac{1}{n}         \\
+		      % & = \mu^*\left( \bigcup_{j = 1}^\infty E_j \right) + \frac{1}{n}        \\
+		      % & = \mu^*(E) + \frac{1}{n}
+		      % \end{align*}
+		      % where the second-to-last equality comes from exercise 17.
+		      Since each $B_n \in A_\sigma$, $B \in A_{\sigma\delta}$.
+		      Also, since $E \subset B_n$ for each $n$, $E \subset B$.
+		      Finally, we compute $\mu^*(B \setminus E)$: \begin{align*}
+			      \mu^*(B_n \setminus E) & = \mu^*(B_n \cap E^C)                             \\
+			                             & = \sum_{j = 1}^\infty \mu^*(E_{jn} \cap E^C)      \\
+			                             & = \sum_{j = 1}^\infty \mu^*(E_{jn} \cap E_j^C)    \\
+			                             & = \sum_{j = 1}^\infty \mu^*(E_{jn} \setminus E_j) \\
+			                             & \leq \sum_{j = 1}^\infty \frac{1}{2^jn}           \\
+			                             & = \frac{1}{n}
+		      \end{align*}
+		      for all $n$.
+		      Thus since $(B \setminus E) \subset (B_n \setminus E)$, \begin{equation*}
+			      \mu^*(B \setminus E) \leq \mu^*(B_n \setminus E) \leq \frac{1}{n}.
+		      \end{equation*}
+		      This is true for all $n$, so $\mu^*(B \setminus E) = 0$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $\mu^*$ be an outer measure on $X$ induced from a finite premeasure $\mu_0$.
+	If $E \subset X$, define the \textbf{inner measure} of $E$ to be $\mu_*(E) = \mu_0(X) - \mu^*(E^C)$.
+	Then $E$ is $\mu^*$-measurable iff $\mu^*(E) = \mu_*(E)$. (Use Exercise 18.)
+\end{ex}
+\begin{proof}
+	For the forward direction, if $E \subset X$ is $\mu^*$-measurable, then \begin{align*}
+		\mu_*(E) & = \mu_0(X) - \mu^*(E^C)                            \\
+		         & = \mu^*(X) - \mu^*(E^C)                            \\
+		         & = \mu^*(X \cap E) + \mu^*(X \cap E^C) - \mu^*(E^C) \\
+		         & = \mu^*(E) + \mu^*(E^C) - \mu^*(E^C)               \\
+		         & = \mu^*(E).
+	\end{align*}
+
+	For the other direction, we start with \begin{align*}
+		\mu^*(E) & = \mu_0(X) - \mu^*(E^C)  \\
+		         & = \mu^*(X) - \mu^*(E^C).
+	\end{align*}
+	Since $\mu^*(E) = \mu^*(X \cap E) = \mu^*(X \setminus E^C)$, we apply the above and get \begin{equation*}
+		\mu^*(X \setminus E^C) = \mu^*(X) - \mu^*(E^C).
+	\end{equation*}
+
+	We proceed to find a descending chain of sets in $\mathscr{A}_\sigma$ whose outer measures approach that of $E$.
+	By 18a, we can find for each $n \in \mathbb{N}$ a $B_n \in \mathscr{A}_\sigma$ such that $E \subset B_n$ and $\mu^*(B_n) \leq \mu^*(E) + \frac{1}{n}$.
+	Furthermore, we choose each $B_n$ such that $B_{n + 1} \subset B_n$.
+	The existence of such a sequence is evidenced by the fact that if $B_{n + 1} \supset B_n$, then  $B_{n + 1} \cap B_n \subset B_n$, $B_{n + 1} \cap B_n \supset E$, and by monotonicity, $\mu^*(B_{n + 1} \cap B_n) \leq \mu^*(B_{n + 1}) \leq \mu^*(E) + \frac{1}{n}$.
+
+	We then define $B = \bigcap_1^\infty B_n$, which is clearly in $\mathscr{A}_{\sigma\delta}$ and contains $E$.
+	It follows immediately that since $\left\lbrace B_n \right\rbrace_1^\infty$ is a descending chain of $\mu^*$-measurable sets and $\mu^*|\mathscr{M}$ is a measure where $\mathscr{M} = \left\lbrace E \subset X \, |\, E\ \mathrm{is}\ \mu^*\mathrm{-measurable} \right\rbrace$, then $\mu^*(B) = \lim_{n \to \infty} \mu^*(B_n) = \mu^*(E)$.
+	To satisfy the condition from 18b, we need only prove that $\mu^*(B \setminus E) = 0$.
+
+	For each $n$, since $B_n$ is $\mu^*$-measurable, we have \begin{align*}
+		\mu^*(E^C) & = \mu^*(E^C \cap B_n) + \mu^*(E^C \cap B_n^C)    \\
+		           & = \mu^*(B_n \setminus E) + \mu^*((E \cup B_n)^C) \\
+		           & = \mu^*(B_n \setminus E) + \mu^*(B_n^C),
+	\end{align*}
+	so \begin{align*}
+		\mu^*(B_n \setminus E) & = \mu^*(E^C) - \mu^*(B_n^C)                   \\
+		                       & = \mu^*(X) - \mu^*(E) - \mu^*(X) + \mu^*(B_n) \\
+		                       & = \mu^*(B_n) - \mu^*(E)
+	\end{align*}
+	where the second equality applies the forward direction of the present theorem to $B_n^C$.
+	We can now conclude that \begin{equation*}
+		\mu^*(B_n \setminus E) = \mu^*(B_n) - \mu^*(E) \leq \mu^*(E) + \frac{1}{n} - \mu^*(E) = \frac{1}{n}.
+	\end{equation*}
+	Since $(B \setminus E) \subset (B_n \setminus E)$, $\mu^*(B \setminus E) \leq \mu^*(B_n \setminus E) \leq \frac{1}{n}$.
+	This is true for all $n$, so $\mu^*(B \setminus E) = 0$, and we can use 18b to conclude that $E$ is $\mu^*$-measurable.
+\end{proof}
+
+\begin{ex}
+	Let $\mu^*$ be an outer measure on $X$, $\mathscr{M}^*$ the $\sigma$-algebra of $\mu^*$-measurable-sets, $\overline{\mu} = \mu^*|\mathscr{M}^*$, and $\mu^+$ the outer measure induced by $\overline{\mu}$ as in (1.12) (with $\overline{\mu}$ and $\mathscr{M}^*$ replacing $\mu_0$ and $\mathscr{A}$).
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item If $E \subset X$, we have $\mu^*(E) \leq \mu^+(E)$, with equality iff there exists $A \in \mathscr{M}^*$ with $A \supset E$ and $\mu^*(A) = \mu^*(E)$.
+		\item If $\mu^*$ is induced from a premeasure, then $\mu^* = \mu^+$. (Use Exercise 18a.)
+		\item If $X = \left\lbrace 0, 1 \right\rbrace$, there exists an outer measure $\mu^*$ on $X$ such that $\mu^* \neq \mu^+$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item If $E \subset X$, define \begin{equation*}
+			      C_E = \left\lbrace \sum_1^\infty \mu^*(M_j) : M_j \in \mathscr{M}^*\ \mathrm{and}\ E \subset \bigcup_1^\infty M_j \right\rbrace
+		      \end{equation*}
+		      so that $\mu^+(E) = \inf C_E$ by definition.
+		      Then given $\left\lbrace M_j \right\rbrace_1^\infty \subset \mathscr{M}^*$ such that $E \subset \bigcup_1^\infty M_j$, then \begin{equation*}
+			      \mu^*(E) \leq \mu^*\left(\bigcup_1^\infty M_j \right) \leq \sum_1^\infty \mu^*(M_j).
+		      \end{equation*}
+		      Thus $\mu^*(E)$ is a lower bound of $C_E$, so $\mu^*(E) \leq \inf(C_E) = \mu^+(E)$.
+
+		      Now if there exists $A \in \mathscr{M}^*$ such that $A \supset E$ and $\mu^*(A) = \mu^*(E)$, then the collection $\left\lbrace A_j \right\rbrace_1^\infty$ where $A_1 = A$ and $A_n = \emptyset$ for $n > 1$ is such that $E \subset \bigcup_1^\infty A_j$ and \begin{equation*}
+			      \sum_1^\infty \mu^*(A_j) = \mu^*(A) = \mu^*(E).
+		      \end{equation*}
+		      Thus $\mu^*(E) \in C_E$ and $\mu^*(E)$ is a lower bound of $C_E$, so $\mu^*(E) = \inf C_E = \mu^+(E)$.
+
+		      On the other hand, if $\mu^*(E) = \mu^+(E)$, then choose for $n \in \mathbb{N}$ an $A_n \in \mathscr{M}^*$ such that $E \subset A_n$ and $\mu^*(A_n) \leq \mu^+(E) + \frac{1}{n} = \mu^*(E) + \frac{1}{n}$ (Exercise 18a).
+		      Then clearly $\mu^*(\bigcap_1^\infty A_n) = \mu^*(E)$, and $\bigcap_1^\infty A_n \in \mathscr{M}^*$ since $\mathscr{M}^*$ is a $\sigma$-algebra.
+		\item Let $\mu_0: \mathscr{A} \to [0, \infty]$ be the premeasure which induces $\mu^*$.
+		      Given $E \subset X$, by Exercise 18a we can choose for any $n \in \mathbb{N}$ an $A_n \in \mathscr{A}_\sigma$ such that $E \subset A_n$ and $\mu^*(A_n) \leq \mu^*(E) + \frac{1}{n}$.
+		      Let $A = \bigcap_1^\infty A_n$.
+		      Then $\mu^*(A) \leq \mu^*(A_n) \leq \mu^*(E) + \frac{1}{n}$ for all $n$, so $\mu^*(A) = \mu^*(E)$.
+		      Since any element of $\mathscr{A}$ is $\mu^*$-measurable and $A$ is a countable intersection of countable unions of elements of $\mathscr{A}$, $A \in \mathscr{M}^*$.
+		      Thus by part \textbf{a} of the present exercise, $\mu^*(E) = \mu^+(E)$, and since $E$ varies over $\mathscr{P}(X)$, $\mu^* = \mu^+$.
+		\item Consider the outer measure $\mu^*$ defined by \begin{align*}
+			      \emptyset                    & \mapsto 0  \\
+			      \left\lbrace 0 \right\rbrace & \mapsto 2  \\
+			      \left\lbrace 1 \right\rbrace & \mapsto 2  \\
+			      X                            & \mapsto 3.
+		      \end{align*}
+		      The proof that this is an outer measure is routine.
+		      Notice that $\left\lbrace 0 \right\rbrace$ is not $\mu^*$-measurable since \begin{equation*}
+			      \mu^*(X \cap \left\lbrace 0 \right\rbrace) + \mu^*(X \cap \left\lbrace 1 \right\rbrace) = 4 > 3 = \mu^*(X).
+		      \end{equation*}
+		      Thus $\left\lbrace 1 \right\rbrace$ is also not $\mu^*$-measurable, so $\mathscr{M}^* = \left\lbrace X, \emptyset \right\rbrace$.
+		      Since $X$ is the only member of $\mathscr{M}$ containing $\left\lbrace 0 \right\rbrace$ or $\left\lbrace 1 \right\rbrace$, we can see that $\mu^+$ is described by \begin{align*}
+			      \emptyset                    & \mapsto 0  \\
+			      \left\lbrace 0 \right\rbrace & \mapsto 3  \\
+			      \left\lbrace 1 \right\rbrace & \mapsto 3  \\
+			      X                            & \mapsto 3.
+		      \end{align*}
+		      Thus $\mu^* \neq \mu^+$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $\mu^*$ be an outer measure induced from a premeasure and $\overline{\mu}$ the restriction of $\mu^*$ to the $\mu^*$-measurable sets.
+	Then $\overline{\mu}$ is saturated.
+	(Use Exercise 18.)
+\end{ex}
+\begin{proof}
+	Let $\mu_0: \mathscr{A} \to [0, \infty]$ be the premeasure from which $\mu^*$ is induced.
+	Given $E \subset X$ locally measurable (note that $E^C$ is also locally measurable by 16b), we want to show that $E$ is $\mu^*$-measurable.
+	We thus consider $F \subset X$ such that $\mu^*(F) < \infty$ and wish to show that $\mu^*(F) \geq \mu^*(F \cap E) + \mu^*(F \cap E^C)$.
+
+	By 18a, given $n \in \mathbb{N}$, we can find $B_n \in \mathscr{A}_\sigma$ such that $F \subset B_n$ and $\mu^*(B_n) \leq \mu^*(F) + \frac{1}{n}$.
+	Fix $n \in \mathbb{N}$.
+	Then $B_n$ is $\mu^*$-measurable, so we can use the finite additivity of $\overline{\mu}$ to get \begin{align*}
+		\mu^*(B_n) & = \overline{\mu}(B_n)                                       \\
+		           & = \overline{\mu}(B_n \cap E) + \overline{\mu}(B_n \cap E^C) \\
+		           & = \mu^*(B_n \cap E) + \mu^*(B_n \cap E^C)                   \\
+		           & \leq \mu^*(F) + \frac{1}{n}.
+	\end{align*}
+	Since $(F \cap E) \subset (B_n \cap E)$ and $(F \cap E^C) \subset (B_n \cap E^C)$, monotonicity together with the final inequality from above shows us that \begin{align*}
+		\mu^*(F \cap E) + \mu^*(F \cap E^C) & \leq \mu^*(B_n \cap E) + \mu^*(B_n \cap E^C) \\
+		                                    & \leq \mu^*(F) + \frac{1}{n}.
+	\end{align*}
+	Letting $n$ vary over $\mathbb{N}$, we conclude that \begin{equation*}
+		\mu^*(F \cap E) + \mu^*(F \cap E^C) \leq \mu^*(F).
+	\end{equation*}
+
+	Thus $E$ is $\mu^*$-measurable, so $\overline{\mu}$ is saturated.
+\end{proof}
+
+\begin{ex}
+	Let $(X, \mathscr{M}, \mu)$ be a measure space, $\mu^*$ the outer measure induced by $\mu$ according to (1.12), $\mathscr{M}^*$ the $\sigma$-algebra of $\mu^*$-measurable sets, and $\overline{\mu} = \mu^*|\mathscr{M}^*$.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item If $\mu$ is $\sigma$-finite, then $\overline{\mu}$ is the completion of $\mu$. (Use Exercise 18.)
+		\item In general, $\overline{\mu}$ is the saturation of the completion of $\mu$. (See Exercises 16 and 21.)
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item Let $\mathscr{N} = \left\lbrace N \in \mathscr{M} : \mu(N) = 0 \right\rbrace$ and \begin{equation*}
+			      \overline{\mathscr{M}} = \left\lbrace E \cup F : E \in \mathscr{M}, F \subset X\ \mathrm{such\ that}\ F \subset N\ \mathrm{for\ some}\ N \in \mathscr{N} \right\rbrace.
+		      \end{equation*}
+		      We need to show that $\overline{\mu}$ is the unique complete measure extending $\mu$ on $\overline{\mathscr{M}}$.
+		      Thus we need to prove two things, the first of which is that $\mathscr{M}^* = \overline{\mathscr{M}}$, and the second of which is that $\overline{\mu}$ extends $\mu$.
+
+		      First, assume $M \in \mathscr{M}^*$, so $M$ is $\mu^*$-measurable.
+		      Then by 18c, we can find $B \in \mathscr{M}$ ($\mathscr{M} = \mathscr{M}_{\sigma\delta}$ since $\mathscr{M}$ is a $\sigma$-algebra) such that $M \subset B$ and $\mu^*(B \setminus M) = 0$.
+		      Since both $B$ and $M$ are $\mu^*$-measurable, $B \setminus M$ is also $\mu^*$-measurable, so we can repeat the process on $B \setminus M$ by finding $C \in \mathscr{M}$ such that $(B \setminus M) \subset C$ and $\mu^*(C \setminus (B \setminus M)) = 0$.
+		      Notice that $C \cap M$ is $\mu^*$-measurable and \begin{align*}
+			      0 & = \mu^*(C \setminus (B \setminus M))   \\
+			        & = \mu^*(C \cap (B \cap M^C)^C)         \\
+			        & = \mu^*(C \cap (B^C \cup M))           \\
+			        & = \mu^*((C \cap B^C) \cup (C \cap M)),
+		      \end{align*}
+		      so by monotonicity, $\mu^*(C \cap M) = 0$.
+		      Thus we apply 18c one more time to get a $D \in \mathscr{M}$ such that $(C \cap M) \subset D$ and $\mu^*(D \setminus (C \cap M)) = 0$.
+		      Then \begin{equation*}
+			      \mu^*(D) \leq \mu^*(D \setminus (C \cap M)) + \mu^*(C \cap M) = 0,
+		      \end{equation*}
+		      so in fact $D \in \mathscr{N}$, making $C \cap M$ a subset of an element of $N$.
+		      Now all we need to know is that $(B \setminus C) \cup (C \cap M) = M$, and we will have shown that $M \in \overline{\mathscr{M}}$.
+		      The forward inclusion is easy, since if $x \in B \setminus C$ then $x \in M$ because $C$ contains all the elements of $B$ not in $M$, and clearly $C \cap M \subset M$.
+		      For the other direction, if $x \in M$, then either $x \in C$ and thus $x \in C \cap M$, or $x \notin C$, in which case since $x \in M \subset B$, $x \in B \setminus C$.
+
+		      Now suppose $M \in \overline{\mathscr{M}}$, so $M = E \cup F$ for some $E \in \mathscr{M}$ and $F \in X$ such that $F \subset N$ for some $N \in \mathscr{N}$.
+		      Given $G \subset X$ such that $\mu^*(G) < \infty$, we want to show that \begin{equation*}
+			      \mu^*(G) \geq \mu^*(G \cap M) + \mu^*(G \cap M^C).
+		      \end{equation*}
+		      This is straightforward: \begin{align*}
+			      \mu^*(G \cap M) + \mu^*(G \cap M^C) & = \mu^*(G \cap (E \cup F)) + \mu^*(G \cap (E \cup F)^C)          \\
+			                                          & = \mu^*((G \cap E) \cup (G \cap F)) + \mu^*(G \cap E^C \cap F^C) \\
+			                                          & \leq \mu^*(G \cap E) + \mu^*(G \cap F) + \mu^*(G \cap E^C)       \\
+			                                          & = \mu^*(G \cap E) + \mu^*(G \cap E^C)                            \\
+			                                          & = \mu^*(G)
+		      \end{align*}
+		      where the final equation follows because $E$ is $\mu^*$-measurable.
+
+		      Finally, we need $\overline{\mu}(M) = \mu(M)$ for $M \in \mathscr{M}$.
+		      This follows immediately from (1.13), taking $\mu$ to be $\mu_0$ and $\mathscr{M}$ to be $\mathscr{A}$.
+		\item Let $\overline{\mathscr{M}}$, $\mathscr{M}^*$, and $\mathscr{N}$ be defined as above, and $\widetilde{\mathscr{M}}$ the set of all locally measurable sets under $\overline{\mu}$ where $\overline{\mu}$ is the completion of $\mu$.
+		      Then we need to show that $\mathscr{M}^* = \widetilde{\mathscr{M}}$ and that $\overline{\mu}(E) = \mu(E)$ if $E \in \overline{\mathscr{M}}$ and $\overline{\mu}(E) = \infty$ otherwise.
+		      Note that the proof of part \textbf{a} only used $\sigma$-finiteness to show that $\mathscr{M}^* \subset \overline{\mathscr{M}}$, so we can use the facts that $\overline{\mathscr{M}} \subset \mathscr{M}^*$ and $\mu^*(M) = \overline{\mu}(M)$ for all $M \in \mathscr{M}^*$.
+
+		      First, let $M \in \mathscr{M}^*$.
+		      Then given $E \in \overline{\mathscr{M}}$, $\mu^*(E) = \mu^*(E \cap M) + \mu^*(E \cap M^C)$
+
+		      Now let $M \in \widetilde{\mathscr{M}}$.
+		      Given $E \subset X$ such that $\mu^*(E) < \infty$ and $F \in \overline{\mathscr{M}}$, \begin{align*}
+			      \mu^*(E \cap M) + \mu^*(E \cap M^*) & = \dots    \\
+			                                          & = \dots    \\
+			                                          & \leq \dots \\
+			                                          & = \dots    \\
+			                                          & = \mu^*(E)
+		      \end{align*}
+		      \begin{align*}
+			      \mu^*(E) & = \mu^*(E \cap F \cap M) + \mu^*(E \cap (F \cap M)^C)               \\
+			               & = \mu^*(E \cap F \cap M) + \mu^*(E \cap (F^C \cup M^C))             \\
+			               & = \mu^*(E \cap F \cap M) + \mu^*((E \cap F^C) \cup (E \cap M^C))    \\
+			               & \leq \mu^*(E \cap F \cap M) + \mu^*(E \cap F^C) + \mu^*(E \cap M^C)
+		      \end{align*}
+		      UNFINISHED
+	\end{enumerate}
+\end{proof}
+
+\setcounter{ex}{24}
+
+\begin{ex}
+	Complete the proof of Theorem 1.19.
+\end{ex}
+\begin{proof}
+	For each $j \in \mathbb{Z}$, let $E_j = E \cap (j, j+ 1]$.
+	Then $\bigcup_1^\infty E_j = E$ and we can find open $U_{jk}$ for each $j, k \in \mathbb{Z}$ such that $\left( \bigcap_{k = 1}^\infty U_{jk} \right) \setminus N_j = E_j$ for some null set $N_j$.
+	Then each $\bigcup_{j \in \mathbb{Z}}U_{jk}$ is open and contains E.
+	Define $V = \bigcap_{k = 1}^\infty \bigcup_{j \in \mathbb{Z}} U_{jk}$.
+	Then $V$ is a $G_\delta$ set containing $E$, and $V \setminus (V \setminus E) = E$, so we simply need to show that $\mu(V \setminus E) = 0$.
+	Observe that \begin{align*}
+		V \setminus E & = V \cap \left( \bigcup_{j \in \mathbb{Z}} E_j \right)^C    \\
+		              & = V \cap \left( \bigcap_{j \in \mathbb{Z}} E_j^C \right)    \\
+		              & = \left( \bigcap_{j \in \mathbb{Z}} V \cap E_j^C \right)    \\
+		              & = \left( \bigcap_{j \in \mathbb{Z}} V \setminus E_j \right) \\
+		              & \subset V \setminus E_1                                     \\
+		              & \subset N_1,
+	\end{align*}
+	so by monotonicity $\mu(V \setminus E) = 0$.
+
+	For ($a \implies c$), define $E_j$ as before and let $H_{jk}$ be closed for each $j, k \in \mathbb{Z}$ such that each $E_j = \left( \bigcup_{k = 1}^\infty H_{jk} \right) \cup N_j$ for some null $N_j$.
+	Let $H = \bigcup_{j \in \mathbb{Z}} \bigcup_{k = 1}^\infty H_{jk}$ and $N = \bigcup_{j \in \mathbb{Z}} N_j$.
+	Then $H$ is an $F_\sigma$ set and $H \subset E$.
+	Also, $\mu(N) = 0$ by subadditivity.
+	Observe, then, that \begin{align*}
+		E & = \bigcup_{j \in \mathbb{Z}} E_j                                                                              \\
+		  & = \bigcup_{j \in \mathbb{Z}} \bigcup_{k = 1}^\infty H_{jk} \cup N_j                                           \\
+		  & = \left( \bigcup_{j \in \mathbb{Z}} \bigcup_{k = 1}^\infty H_{jk} \right) \cup \bigcup_{j \in \mathbb{Z}} N_j \\
+		  & = H \cup N.
+	\end{align*}
+	Then it becomes obvious that $E \setminus H \subset N$, so $\mu(E \setminus H) = 0$.
+\end{proof}
+
+\begin{ex}
+	Prove Proposition 1.20. (Use Theorem 1.18.)
+\end{ex}
+\begin{proof}
+	Given $\epsilon > 0$, choose $U \supset E$ be open such that $\mu(U) < \mu(E) + \epsilon / 2$ and $H \subset E$ compact such that $\mu(H) > \mu(E) - \epsilon / 2$.
+	Then express $U$ as a countable union of open intervals $\bigcup_1^\infty U_j = U$.
+	Since $H \subset E \subset U$, $\left\lbrace U_j \right\rbrace_1^\infty$ is an open cover of $H$, so there is a finite subcover $\left\lbrace U_j \right\rbrace_1^n$ for some $n$ after potential reordering.
+	Define $A = \bigcup_1^n U_j$ and observe that $H \subset A \subset U$.
+	Then \begin{equation*}
+		\mu(E) - \epsilon / 2 < \mu(H) \leq \mu(A) \leq \mu(U) < \mu(E) + \epsilon / 2.
+	\end{equation*}
+
+	We now observe that \begin{equation*}
+		E \cup A = \left( E \bigtriangleup A \right) \cup \left( E \cap A \right),
+	\end{equation*}
+	so \begin{equation*}
+		\mu\left( E \bigtriangleup A \right) = \mu \left( E \cup A \right) - \mu \left( E \cap A \right).
+	\end{equation*}
+	Clearly $H \subset \left( E \cup A \right) \subset U$ and $H \subset \left( E \cap A \right) \subset U$, so \begin{align*}
+		\mu \left( E \bigtriangleup A \right) & = \mu \left( E \cup A \right) - \mu \left( E \cap A \right) \\
+		                                      & < \mu(E) + \epsilon / 2 - (\mu(E) - \epsilon / 2)           \\
+		                                      & = \epsilon
+	\end{align*}
+	as desired.
+\end{proof}
+
+\begin{ex}
+	Prove Proposition 1.22a. (Show that if $x, y \in C$ and $x < y$, there exists $z \notin C$ such that $x < z < y$.)
+\end{ex}
+\begin{proof}
+	SKIP FOR NOW
+\end{proof}
+
+\begin{ex}
+	Let $F$ be increasing and right continuous, and let $\mu_F$ be the associated measure.
+	Then $\mu_F(\left\lbrace a \right\rbrace) = F(a) - F(a-)$, $\mu_F([a, b)) = F(b-) - F(a-)$, $\mu_F([a, b]) = F(b) - F(a-)$, and $\mu_F((a, b)) = F(b-) - F(a)$.
+\end{ex}
+\begin{proof}
+	First, consider an increasing sequence $\left\lbrace a_n \right\rbrace_1^\infty$ such that each $a_n < a$ and $\lim_{n \to \infty} a_n = a$.
+	Then \begin{align*}
+		\mu_F(\left\lbrace a \right\rbrace) & =  \mu_F \left( \bigcap_1^\infty (a_n, a] \right)   \\
+		                                    & = \lim_{n \to \infty} \mu_F \left( (a_n, a] \right) \\
+		                                    & = \lim_{n \to \infty} F(a) - F(a_n)                 \\
+		                                    & = F(a) - F(a-).
+	\end{align*}
+
+	Next we consider $(a, b)$.
+	Let $\left\lbrace b_n \right\rbrace_1^\infty$ be an increasing sequence whose limit is $b$ where each $b_n < b$.
+	Then \begin{align*}
+		\mu_F((a, b)) & = \mu_F \left( \bigcup_1^\infty (a, b_n] \right) \\
+		              & = \lim_{n \to \infty} \mu_F(a, b_n]              \\
+		              & = \lim_{n \to \infty} F(b_n) - F(a)              \\
+		              & = F(b-) - F(a).
+	\end{align*}
+
+	The other two equalities follow immediately from these two, since \begin{align*}
+		\mu_F([a, b)) & = \mu_F(\left\lbrace a \right\rbrace \cup (a, b))     \\
+		              & = \mu_F(\left\lbrace a \right\rbrace) + \mu_F((a, b)) \\
+		              & = F(a) - F(a-) + F(b-) - F(a)                         \\
+		              & = F(b-) - F(a-),
+	\end{align*}
+	and by similar logic, \begin{align*}
+		\mu_F([a, b]) & = \mu_F([a, b)) + \mu_F(\left\lbrace b \right\rbrace) \\
+		              & = F(b-) - F(a-) + F(b) - F(b-)                        \\
+		              & = F(b) - F(a-).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Let $E$ be a Lebesgue measurable set.
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item If $E \subset N$ where $N$ is the nonmeasurable set described in \S 1.1, then $m(E) = 0$.
+		\item If $m(E) > 0$, then $E$ contains a nonmeasurable set.
+		      (It suffices to assume $E \subset [0, 1]$. In the notation of \S 1.1, $E = \bigcup_{r \in R}E \cap N_r$.)
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=\textbf{\alph*.}]
+		\item Given $r \in R$, define $E_r$ to be \begin{equation*}
+			      E_r = \left\lbrace x + r : x \in E \cap [0, 1 - r) \right\rbrace \cup \left\lbrace x + r - 1 : x \in E \cap [1 - r, 1) \right\rbrace.
+		      \end{equation*}
+		      Immediately, we can see that \begin{align*}
+			      m(E_r) & = m \left( \left\lbrace x + r : x \in E \cap [0, 1 - r) \right\rbrace \cup \left\lbrace x + r - 1 : x \in E \cap [1 - r, 1) \right\rbrace \right)              \\
+			             & = m \left( \left\lbrace x + r : x \in E \cap [0, 1 - r) \right\rbrace \right) + m\left( \left\lbrace x + r - 1 : x \in E \cap [1 - r, 1) \right\rbrace \right) \\
+			             & = m \left( \left\lbrace x : x \in E \cap [0, 1 - r) \right\rbrace \right) + m\left( \left\lbrace x : x \in E \cap [1 - r, 1) \right\rbrace \right)             \\
+			             & = m \left( \left\lbrace x : x \in E \cap [0, 1 - r) \right\rbrace \cup \left\lbrace x : x \in E \cap [1 - r, 1) \right\rbrace \right)                          \\
+			             & = m \left( E \right),
+		      \end{align*}
+		      where the third equality comes by the translation invariance of $m $.
+		      Using a similar argument to that of \S 1.1, we see that \begin{equation*}
+			      m \left(\bigcup_{r \in R} E_r \right) \leq m\left([0, 1) \right) = 1,
+		      \end{equation*}
+		      but \begin{equation*}
+			      m \left(\bigcup_{r \in R} E_r \right) = \sum_{r \in R} m \left( E_r \right) = \sum_{r \in R} m(E).
+		      \end{equation*}
+		      Clearly, the final expression above cannot be finite unless $m(E) = 0$, so since it is forced to be $\leq 1$ (i.e. finite), in fact $m(E) = 0$.
+		\item Since $X = \bigcup_{z \in \mathbb{Z}} I_z$ where each $I_z = [z, z+1)$, \begin{equation*}
+			      0 < m(E) = m \left( \bigcup_{z \in \mathbb{Z}} I_z \cap E \right) = \sum_{z \in \mathbb{Z}} m(I_z \cap E),
+		      \end{equation*}
+		      so $m(I_j \cap E) > 0$ for some $j \in \mathbb{Z}$.
+		      Then \begin{equation*}
+			      \left( I_j \cap E \right) - j \subset I_0
+		      \end{equation*}
+		      and \begin{equation*}
+			      m \left( I_j \cap E \right) - j = m \left( I_j \cap E \right) > 0,
+		      \end{equation*}
+		      so since $I_0 = \bigcup_{r \in R} N_r$, there exists a $k$ such that \begin{equation*}
+			      m \left( \left( \left( I_j \cap E \right) - j \right) \cap N_k \right) > 0
+		      \end{equation*}
+          Denote $\left( \left( I_j \cap E \right) - j \right) \cap N_k$ by $F$.
+		      Note that part \textbf{a.} holds for each $N_r$ in \S 1.1 since the choice of $N$ was arbitrary and each $N_r$ consists of exactly one representative from each equivalence class.
+          It follows from \textbf{a.}, then, that since $F \subset N_k$ and $m(F) > 0$, $F$ is not Lebesgue measurable.
+
+          Finally, notice that $F + j \subset I_j \cap E \subset E$, so $F + j$ is a nonmeasurable set contained in $E$ since if $F + j$ were measurable, $F$ would be as well.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+  If $E \in \mathcal{L}$ and $m(E) > 0$, for any $\alpha < 1$ there is an open interval $I$ such that $m(E \cap I) > \alpha m(I)$.
+\end{ex}
+\begin{proof}
+  UNFINISHED
 \end{proof}
 
 \end{document}
