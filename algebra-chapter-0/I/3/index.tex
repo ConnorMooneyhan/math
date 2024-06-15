@@ -1,0 +1,246 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\newcounter{section-number}
+\setcounter{section-number}{3}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section-number]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section-number}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises I.3}
+\author{Connor Mooneyhan}
+\date{June 12, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $\mathsf{C}$ be a category.
+	Consider a structure $\mathsf{C}^{op}$ with \begin{itemize}
+		\item $\mathrm{Obj}(\mathsf{C}^{op}) \coloneq \mathrm{Obj}(\mathsf{C})$;
+		\item for $A, B$ objects of $\mathsf{C}^{op}$ (hence objects of $\mathsf{C}$), $\mathrm{Hom}_{\mathsf{C}^{op}}(A, B) \coloneq \mathrm{Hom}_{\mathsf{C}}(B, A)$.
+	\end{itemize}
+	Show how to make this into a category (that is, define composition of morphisms in $\mathsf{C}^{op}$ and verify the properties listed in \S 3.1).
+
+	Intuitively, the 'opposite' category $\mathsf{C}^{op}$ is simply obtained by 'reversing all the arrows' in $\mathsf{C}$.
+\end{ex}
+\begin{proof}
+	Let $A, B, C$ be objects of $\mathsf{C}^{op}$ and $f \in \mathrm{Hom}_{\mathsf{C}^{op}}(A, B)$, $g \in \mathrm{Hom}_{\mathsf{C}^{op}}(B, C)$.
+	Introduce notation $\phi'$ for any morphism $\phi$ in $\mathsf{C}^{op}$ to denote its analogue in $\mathsf{C}$.
+	Then we define the composition $gf$ as \begin{equation*}
+		gf \coloneq f'g' \in \mathrm{Hom}_{\mathsf{C}}(C, A).
+	\end{equation*}
+	Thus our notation indicates that $(gf)' = f'g'$.
+
+	Identity morphisms are preserved, of course, since \begin{equation*}
+		f\mathrm{id}_A \coloneq \mathrm{id}_A'f' = f' \eqcolon f,
+	\end{equation*}
+	and similarly for $\mathrm{id}_A f$.
+	Composition is associative since given one more object $D$ in $\mathsf{C}^{op}$ and morphism $h \in \mathrm{Hom}_{C^{op}}(C, D)$, we have \begin{equation*}
+		(hg)f \eqcolon f'(hg)' = f'(g'h') = (f'g')h' = (gf)'h' \coloneq h(gf).
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	If $A$ is a finite set, how large is $\mathrm{End}_{\mathsf{Set}}(A)$?
+\end{ex}
+\begin{proof}
+	Clearly $\mathrm{End}_{\mathsf{Set}}(A) = A^A$, so \begin{equation*}
+		|\mathrm{End}_{\mathsf{Set}}(A)| = |A^A| = |A|^{|A|}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Formulate precisely what it means to say that $1_a$ is an identity with respect to composition in Example 3.3, and prove this assertion.
+\end{ex}
+\begin{proof}
+	Given $f \in \mathrm{Hom}(a, b)$, to say that $1_a$ and $1_b$ are identities with respect to composition is to say that they preserve the source and target when composed with $f$.
+	This is the only way they could produce a different function, since $f$ is the only member of $\mathrm{Hom}(a, b)$.
+
+	Of course, $f 1_a, 1_b f \in \mathrm{Hom}(a, b)$ by definition, so this is true.
+\end{proof}
+
+\begin{ex}
+	Can we define a category in the style of Example 3.3 using the relation $<$ on the set $\mathbb{Z}$?
+\end{ex}
+\begin{proof}
+	No.
+	Since $<$ is not reflexive, $\mathrm{Hom}(A, A)$ would be empty for all objects $A$, so there is nothing to define as the identity $1_A$.
+\end{proof}
+
+\begin{ex}
+	Explain in what sense Example 3.4 is an instance of the categories considered in Example 3.3.
+\end{ex}
+\begin{proof}
+	The subset relation $\subseteq$ is both reflexive and transitive, and thus satisfies the requirements of the relation $\sim$ in Example 3.3.
+\end{proof}
+
+\begin{ex}
+	(Assuming some familiarity with linear algebra.)
+	Define a category $\mathsf{V}$ by taking $\mathrm{Obj}(\mathsf{V}) = \mathbb{N}$ and letting $\mathrm{Hom}_{\mathsf{V}}(n, m) =$ the set of $m \times n$ matrices with real entries, for all $n, m \in \mathbb{N}$.
+	(I will leave the reader the task of making sense of a matrix with 0 rows or columns.)
+	Use products of matrices to define composition.
+	Does this category 'feel' familiar?
+\end{ex}
+\begin{proof}
+	We define $\mathsf{V}$ by \begin{itemize}
+		\item $\mathrm{Obj}(\mathsf{V}) = \mathbb{N}$
+		\item $\mathrm{Hom}_{\mathsf{V}}(n, m) =$ the set of $m \times n$ matrices with real entries.
+	\end{itemize}
+	This definition is unclear in the case of a matrix with either 0 rows, 0 columns, or both.
+	Composition is defined by matrix multiplication.
+	Given $A$ an $n_2 \times n_1$ matrix and $B$ an $n_3 \times n_2$ matrix for some $n_1, n_2, n_3 \in \mathbb{N}$, we define $BA = E$ if any of $n_1, n_2,$ or $n_3$ are 0, where $E$ represents the $0 \times 0$ matrix.
+
+	Composition is associative because matrix multiplication is associative, and we define the identity morphism $1_n$ to be the diagonal $n \times n$ matrix with $1$ in each place along the diagonal.
+	It is a basic result of linear algebra that this acts as an identity with respect to matrix multiplication, and thus with respect to our composition in $\mathsf{V}$.
+
+	This category does not remind me of anything.
+	Sorry Paolo.
+\end{proof}
+
+\begin{ex}
+	Define carefully objects and morphisms in Example 3.7, and draw the diagram corresponding to composition.
+\end{ex}
+\begin{proof}
+	Given a category $\mathsf{C}$, we can notate the coslice category corresponding to it with respect to a fixed object $A$ by $\mathsf{C}^A$.
+	The objects in $\mathsf{C}^A$ are exactly the morphisms in $\mathsf{C}$ with source $Z$, where $Z$ is any object of $\mathsf{C}$, and target $A$.
+	Thus, an object $f$ in $\mathsf{C}^A$ corresponds to the diagram \begin{equation*}
+		\begin{tikzcd}
+			Z \\
+			A \arrow[u, "f"]
+		\end{tikzcd}
+	\end{equation*}
+	in $\mathsf{C}$.
+	A morphism in $\mathsf{C}^A$ from objects $f_1: A \to Z_1$ to $f_2: A \to Z_2$ is defined to be a morphism $\phi$ in $\mathsf{C}$ from $Z_1$ to $Z_2$ such that $\phi f_1 = f_2$.
+	In other words, it's a commutative diagram \begin{equation*}
+		\begin{tikzcd}
+			Z_1 \arrow[rr, "\phi"] & & Z_2 \\
+			& A \arrow[ul, "f_1"] \arrow[ur, "f_2"'] &
+		\end{tikzcd}
+	\end{equation*}
+	The commutative diagram corresponding to composition, then, looks like this when provided another object $f_3: A \to Z_3$: \begin{equation*}
+		\begin{tikzcd}
+			Z_1 \arrow[r, "\phi_1"] & Z_2 \arrow[r, "\phi_2"] & Z_3 \\
+			& A \arrow[ul, "f_1"] \arrow[u, "f_2"] \arrow[ur, "f_3"']
+		\end{tikzcd}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	A \textit{subcategory} $\mathsf{C}'$ of a category $\mathsf{C}$ consists of a collection of objects of $\mathsf{C}$ with sets of morphisms $\mathrm{Hom}_{\mathsf{C}'}(A, B) \subseteq \mathrm{Hom}_{\mathsf{C}}(A, B)$ for all objects $A, B$ in $\mathrm{Obj}(\mathsf{C}')$, such that identities and compositions in $\mathsf{C}$ make $\mathsf{C}'$ into a category.
+	A subcategory $\mathsf{C}'$ is \textit{full} if $\mathrm{Hom}_{\mathsf{C}'}(A, B) = \mathrm{Hom}_{\mathsf{C}}(A, B)$ for all $A, B$ in $\mathrm{Obj}(\mathsf{C}')$.
+	Construct a category of \textit{infinite sets} and explain how it may be viewed as a full subcategory of $\mathsf{Set}$.
+\end{ex}
+\begin{proof}
+	Define the category $\mathsf{Set_\infty}$ by making the objects the class of infinite sets and the morphisms functions between infinite sets.
+	Clearly, each object is a set, and thus is an object in $\mathsf{Set}$, and each morphism $f \in \mathrm{Hom}_\mathsf{Set_\infty}(A, B)$ is a function from sets $A$ to $B$, and thus is in $\mathrm{Hom}_{\mathsf{Set}}(A, B)$.
+	Also, identities are the same and composition is preserved, so it is indeed a subcategory.
+	To show that it is full, we take any morphism $f \in \mathrm{Hom}_{\mathsf{Set}}(A, B)$ where $A, B$ are in $\mathrm{Obj}_{\mathsf{Set_\infty}}$, and clearly $f \in \mathrm{Hom}_{\mathsf{Set}_\infty}$.
+\end{proof}
+
+\begin{ex}
+	An alternative to the notion of \textit{multiset} introduced in \S 2.2 is obtained by considering sets endowed with equivalence relations; equivalent elements are taken to be multiple instances of elements 'of the same kind'.
+	Define a notion of morphism between such enhanced sets, obtaining a category $\mathsf{MSet}$ containing (a 'copy' of) $\mathsf{Set}$ as a full subcategory.
+	(There may be more than one reasonable way to do this! This is intentionally an open-ended exercise.)
+	Which objects in $\mathsf{MSet}$ determine ordinary multisets as defined in \S 2.2 and how?
+	Spell out what a morphism of multisets would be from this point of view.
+	(There are several natural notions of morphisms of multisets. Try to define morphisms in $\mathsf{MSet}$ so that the notion you obtain for ordinary multisets captures your intuitive understanding of these objects.)
+\end{ex}
+\begin{proof}
+	Define the objects of $\mathsf{MSet}$ to be $S/{\sim_S}$ where $S$ is a set and $\sim_S$ is an equivalence relation on that set.
+	Morphisms shall be defined as simple functions between multisets.
+
+	It is clear that for sets $S_1$ and $S_2$, the $=$ relation determines objects $S_1/{=}$ and $S_2/{=}$ in $\mathsf{MSet}$ such that any function $f: S_1 \to S_2$ corresponds to $\phi: S_1/{=} \to S_2/{=}$ where $\phi(\left\lbrace a \right\rbrace) = \left\lbrace f(a) \right\rbrace$.
+
+	Taking on the notation of \S 2.2, you would need $|[a]_\sim| = m(a)$ for each $a \in A$, given $\sim$ some equivalence relation.
+
+	Note that morphisms of multisets under this view would need to send 'each copy' of an element to the same place.
+	This may or may not be ideal, but I really have no context for why I would need multisets, so it's unclear whether this should fit with applications or not.
+\end{proof}
+
+\begin{ex}
+	Since the objects of a category $\mathsf{C}$ are not (necessarily interpreted as) sets, it is not clear how to make sense of a notion of 'subobject' in general.
+	In some situations it \textit{does} make sense to talk about subobjects, and the subobjects of any given object $A$ in $\mathsf{C}$ are in one-to-one correspondence with the morphisms $A \to \Omega$ for a fixed, special object $\Omega$ of $\mathsf{C}$, called a \textit{subobject classifier}.
+	Show that $\mathsf{Set}$ has a subobject classifier.
+\end{ex}
+\begin{proof}
+	'The' subobject classifier in $\mathsf{Set}$ is 'the' two-element set (up to isomorphism), which can be thought of as $\left\lbrace 0, 1 \right\rbrace$.
+	If we denote $2^A$ to be all the functions from a set $A$ to $\left\lbrace 0, 1 \right\rbrace$, then we have already shown that $2^A$ is in one-to-one correspondence with the subsets of $A$ in Exercise 2.11.
+\end{proof}
+
+\begin{ex}
+	Draw the relevant diagrams and define composition and identities for the category $\mathsf{C}^{A, B}$ mentioned in Example 3.9.
+	Do the same for the category $\mathsf{C}^{\alpha, \beta}$ mentioned in Example 3.10.
+\end{ex}
+\begin{proof}
+	The objects of $\mathsf{C}^{A, B}$ are diagrams \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "f"] \\
+			& Z \\
+			B \arrow[ur, "g"']
+		\end{tikzcd}
+	\end{equation*}
+	where $Z$ is any object of $\mathsf{C}$, and the morphisms \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "f_1"]  & \\
+			& Z_1 \\
+			B \arrow[ur, "g_1"'] &
+		\end{tikzcd}
+		\longrightarrow
+		\begin{tikzcd}
+			A \arrow[dr, "f_2"]  & \\
+			& Z_2 \\
+			B \arrow[ur, "g_2"'] &
+		\end{tikzcd}
+	\end{equation*}
+	are commutative diagrams \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "f_1"'] \arrow[drr, bend left, "f_2"] \\
+			& Z_1 \arrow[r, "\sigma"] & Z_2 \\
+			B \arrow[ur, "g_1"] \arrow[urr, bend right, "g_2"'] \\
+		\end{tikzcd}
+	\end{equation*}
+	The identity morphism is found by simply taking $\sigma$ to be the identity in $\mathsf{C}$.
+
+	Moving to $\mathsf{C}^{\alpha, \beta}$ where $\alpha: C \to A$, $\beta: C \to B$, then the objects are commutative diagrams \begin{equation*}
+		\begin{tikzcd}
+      & A \arrow[dr, "f"] \\
+      C \arrow[ur, "\alpha"] \arrow[dr, "\beta"'] & & Z \\
+      & B \arrow[ur, "g"'] \\
+		\end{tikzcd}
+	\end{equation*}
+  and the morphisms are commutative diagrams \begin{equation*}
+    \begin{tikzcd}
+      & A \arrow[dr, "f_1"] \arrow[drr, bend left, "f_2"] \\
+      C \arrow[ur, "\alpha"] \arrow[dr, "\beta"'] & & Z_1 \arrow[r, "\sigma"] & Z_2 \\
+      & B \arrow[ur, "g_1"'] \arrow[urr, bend right, "g_2"']\\
+    \end{tikzcd}
+  \end{equation*}
+  Identities are once again found by making $\sigma$ the identity morphism from $\mathsf{C}$.
+\end{proof}
+
+\end{document}

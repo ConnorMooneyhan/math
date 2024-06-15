@@ -1,0 +1,282 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\newcounter{section-number}
+\setcounter{section-number}{2}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section-number]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section-number}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises I.2}
+\author{Connor Mooneyhan}
+\date{June 8, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	How many different bijections are there between a set $S$ with $n$ elements and itself?
+\end{ex}
+\begin{proof}
+	It's the same as the number of permutations $|P_n|$ on a set with $n$ elements.
+	To show this, let $f: S \to S$ be a bijection and $P_n$ the set of permutations of $\left\lbrace a \in \mathbb{Z} : 1 \leq a \leq n \right\rbrace$.
+	Also, identify each $s_j \in S$ with some integer $j$ between $1$ and $n$ (inclusive).
+	Then for each $s_j \in S$, $f(s_j) = s_k$ for some $k$.
+	We thus identify $f$ with the permutation mapping each $j$ to $k$, where $k$ is the index of $f(s_j)$.
+	This is clearly a permutation, and each permutation can define a bijection on $S$ in the reverse way.
+\end{proof}
+
+\begin{ex}
+	\lbrack Rewritten\rbrack\
+	Prove that $f$ has a right-inverse if and only if it is surjective.
+	You may assume the axiom of choice.
+\end{ex}
+\begin{proof}\
+
+	($\implies$) Let $f: A \to B$ and $g: B \to A$ such that $g$ is a right-inverse of $f$, so $f \circ g = id_B$.
+	Then given $b \in B$, \begin{equation*}
+		b = id_B = (f \circ g)(b) = f(g(b)).
+	\end{equation*}
+	In other words, $f$ maps $g(b)$ to $b$, and since the choice of $b$ was arbitrary, $f$ is surjective.
+
+	($\impliedby$) Let $f: A \to B$ be surjective.
+	Define $g: B \to A$ by assigning each $b \in B$ to a choice of $x_b \in f^{-1}(b)$, where $f^{-1}(b)$ denotes the fiber of $f$ over $b$ as discussed in this section.
+	In particular, $g(b) = x_b$.
+	Observe that \begin{equation*}
+		(f \circ g)(b) = f(g(b)) = f(x_b) = b,
+	\end{equation*}
+	so in fact $f \circ g = id_B$, from which we can conclude that $g$ is a right-inverse of $f$.
+\end{proof}
+
+\begin{ex}
+	Prove that the inverse of a bijection is a bijection and that the composition of two bijections is a bijection.
+\end{ex}
+\begin{proof}
+	Let $f: A \to B$ be a bijection.
+	Then given $g, h: Z \to B$ where $Z$ is an arbitrary set, we have \begin{align*}
+		         & f^{-1}\circ g = f^{-1} \circ h                  \\
+		\implies & f \circ f^{-1} \circ g = f \circ f^{-1} \circ h \\
+		\implies & id_B \circ g = id_B \circ h                     \\
+		\implies & g = h,
+	\end{align*}
+	so we conclude that $f^{-1}$ is a monomorphism and thus is injective.
+	We also see that given $a \in A$, \begin{equation*}
+		f^{-1}(f(a)) = (f^{-1} \circ f)(a) = id_A(a) = a,
+	\end{equation*}
+	so there is an element of $B$, namely $f(a)$, whose image under $f^{-1}$ is $a$.
+	Thus $f^{-1}$ is surjective, and we conclude that $f^{-1}$ is a bijection.
+
+	For the second proposition, take $f: A \to B$ and $g: B \to C$ to be bijections, where $A, B, C$ are arbitrary sets.
+	Then given $a_1, a_2 \in A$ such that $a_1 \neq a_2$, \begin{equation}
+		(g \circ f)(a_1) = (g \circ f)(a_2) \iff  g(f(a_1)) = g(f(a_2)).
+	\end{equation}
+	By the injectivity of $f$ we know that $f(a_1) \neq f(a_2)$, so by the injectivity of $g$ we know that $g(f(a_1)) \neq g(f(a_2))$, which by (1) is equivalent to saying that $(g \circ f)(a_1) \neq (g \circ f)(a_2)$.
+	Thus $g \circ f$ is injective.
+
+	Furthermore, given $c \in C$, we see that \begin{equation*}
+		(g \circ f)((f^{-1} \circ g^{-1})(c)) = g(f(f^{-1}(g^{-1}(c)))) = c,
+	\end{equation*}
+	so there exists an element of $A$ (namely $(f^{-1} \circ g^{-1})(c)$) whose image under $g \circ f$ is $c$.
+	Thus $g \circ f$ is surjective, and we conclude that the composition of bijections is a bijection.
+\end{proof}
+
+\begin{ex}
+	Prove that 'isomorphism' is an equivalence relation (on any set of sets).
+\end{ex}
+\begin{proof}
+	Given any set $A$, $id_A$ is a bijection, so indeed $A \cong A$.
+	Given another set $B$, if $A \cong B$, then there exists a bijection $f: A \to B$, and $f^{-1}: B \to A$ is also a bijection (by Exercise 2.3), so $B \cong A$.
+	Introducing one more set $C$ such that $B \cong C$ there is a bijection $g: B \to C$, so (again by 2.3) we have a bijection $g \circ f: A \to C$, showing that $A \cong C$.
+\end{proof}
+
+\begin{ex}
+	Formulate a notion of \textit{epimorphism}, in the style of the notion of \textit{monomorphism} seen in \S 2.6, and prove a result analogous to Proposition 2.3, for epimorphisms and surjections.
+\end{ex}
+\begin{proof}
+	I propose that an \textit{epimorphism} ought to be defined as any function $f: A \to B$ where given $g, h: B \to Z$ such that $g \circ f = h \circ f$, then $g \circ h$, where $A, B, Z$ are arbitrary sets.
+	We proceed to show that \begin{equation*}
+		f\ \mathrm{is\ surjective} \iff \left\lbrack g \circ f = h \circ f \implies g = h \right\rbrack.
+	\end{equation*}
+
+	Note that if $B$ is empty, then there is only one function (the "empty map") from $B \to Z$ given any $Z$, so the proposition holds.
+	We are thus justified in assuming that $B$ is nonempty.
+
+	($\implies$) Let $f: A \to B$ be surjective and $g, h: B \to Z$ such that $g \circ f = h \circ f$.
+	Then given $b \in B$, there exists $a \in A$ such that $f(a) = b$.
+	Then \begin{align*}
+		g(b) & = g(f(a))        \\
+		     & = (g \circ f)(a) \\
+		     & = (h \circ f)(a) \\
+		     & = h(f(a))        \\
+		     & = h(b).
+	\end{align*}
+	Since $b$ is arbitrary, $g = h$.
+
+	($\impliedby$) Assume that $f: A \to B$ is not surjective.
+	Then let $Z = \left\lbrace 0, 1 \right\rbrace$, and choose some element $\beta \in B$ such that $\beta \notin \mathrm{im}\,f$.
+	Then we can define $g, h: B \to Z$ by $g(b) = 0\,(\forall b \in B)$ and \begin{equation*}
+		h(b) = \begin{cases}
+			0 & b \neq \beta \\
+			1 & b = \beta
+		\end{cases}
+	\end{equation*}
+	so that $g \circ f = h \circ f$ since $g$ and $h$ agree on $\mathrm{im}\,f$, but $g \neq h$.
+\end{proof}
+
+\begin{ex}
+	With notation as in Example 2.4, explain how any function $f: A \to B$ determines a section of $\pi_A$.
+\end{ex}
+\begin{proof}
+	We can define $g: A \to A \times B$ by $g(a) = (a, f(a))\,(\forall a \in A)$.
+	Clearly, given $a \in A$, \begin{equation*}
+		(\pi_A \circ g)(a) = \pi_A(g(a)) = \pi_A((a, f(a))) = a,
+	\end{equation*}
+	so $\pi_A \circ g = \mathrm{id}_A$, making $g$ a section (i.e. right-inverse) of $\pi_A$.
+\end{proof}
+
+\begin{ex}
+	Let $f: A \to B$ be any function.
+	Prove that the graph $\Gamma_f$ of $f$ is isomorphic to $A$.
+\end{ex}
+\begin{proof}
+	Define $g: A \to A \times B$ as in Exercise 2.6.
+	Then by definition of $\Gamma_f$, $\mathrm{im}\,g = \Gamma_f$.
+	Restrict the codomain of $g$ by defining $g': A \to \Gamma_f$ with $g'(a) = g(a)\,(\forall a \in A)$.
+	Clearly $g'$ is surjective by construction, so we need only show that it is injective.
+	Exercise 2.6 makes this clear since $\pi_A \circ g' = \mathrm{id}\,_A$, so $g'$ has a left-inverse and is therefore injective.
+\end{proof}
+
+\begin{ex}
+	Describe as explicitly as you can all terms in the canonical decomposition of the function $\mathbb{R} \to \mathbb{C}$ defined by $r \mapsto e^{2\pi i r}$.
+	(This exercise matches one assigned previously. Which one?)
+\end{ex}
+\begin{proof}
+	For this proof, we adopt a "translation" notation for sets, where given a set $S$ consisting of elements of some group (using $+$ for the group operation) along with $x$ an element of that group, \begin{equation*}
+		S + x \coloneq \left\lbrace s + x : s \in S \right\rbrace.
+	\end{equation*}
+
+	The diagram we want to describe explicitly is the following: \begin{equation*}
+		\begin{tikzcd}
+			\mathbb{R} \arrow[rrr, bend left, "f"] \arrow[r, twoheadrightarrow, "\pi"'] & \mathbb{R}/{\sim} \arrow[r, "\sim", "\widetilde{f}"'] & \mathrm{im}\,f \arrow[r, hook, "i"'] & \mathbb{C}
+		\end{tikzcd}
+	\end{equation*}
+	The first definition is the standard definition of $\sim$ in this context.
+	Namely, if $x, y \in \mathbb{R}$, then $x \sim y \iff f(x) = f(y)$.
+	We have shown earlier in the section that this is an equivalence relation.
+	The key insight from this is that due to the period of $2\pi$ that $e^{ir}$ has, $e^{2\pi i r}$, has a period of $1$.
+	Thus each equivalence class is of the form $\mathbb{Z} + x$ where $x \in [0, 1)$.
+	Formally, this means that \begin{equation*}
+		\mathbb{R}/{\sim} = \left\lbrace Z + x : x \in [0, 1) \right\rbrace.
+	\end{equation*}
+
+	Thus we can define $\pi: \mathbb{R} \to \mathbb{R}/{\sim}$ explicitly by $\pi(r) = Z + (r - \lfloor r \rfloor)\,(\forall r \in \mathbb{R})$.
+	Moving on to $\widetilde{f}: \mathbb{R}/{\sim} \to \mathrm{im}\,f$, we define $\widetilde{f}(\mathbb{Z} + x) = f(x)\,(\forall x \in [0, 1)$.
+	And finally, $i: \mathrm{im}\,f \to \mathbb{C}$ is defined by, of course, $i(z) = z\,(\forall z \in \mathbb{Z})$.
+
+	Due to the presence of the translations of $\mathbb{Z}$, this exercise contains a piece of Exercise 1.6!
+\end{proof}
+
+\begin{ex}
+	Show that if $A^\prime \cong A^{\prime\prime}$ and $B^\prime \cong B^{\prime\prime}$, and further $A^\prime \cap B^\prime = \emptyset$ and $A^{\prime\prime} \cap B^{\prime\prime} = \emptyset$, then $A^\prime \cup B^\prime \cong A^{\prime\prime} \cup B^{\prime\prime}$.
+	Conclude that the operation $A \amalg B$ is well-defined \textit{up to isomorphism}.
+\end{ex}
+\begin{proof}
+	Let $f: A^\prime \to A^{\prime\prime}$ and $g: B^\prime \to B^{\prime\prime}$ be bijections.
+	Then define $h: A^\prime \cup B^\prime \to A^{\prime\prime} \cup B^{\prime\prime}$ by \begin{equation*}
+		h(x) = \begin{cases}
+			f(x) & x \in A^\prime \\
+			g(x) & x \in B^\prime
+		\end{cases}
+	\end{equation*}
+	This is well-defined since each $x$ is either in $A^\prime$ or $B^\prime$ but not both, since they are disjoint.
+	Given $y \in A^{\prime\prime} \cup B^{\prime\prime}$, either $y \in A^{\prime\prime}$, in which case $h(f^{-1}(y)) = y$, or $y \in B^{\prime\prime}$, in which case $h(g^{-1}(y)) = y$.
+	Thus, $h$ is surjective.
+
+	Also, if $x_1, x_2 \in A^\prime \cup B^\prime$ such that $f(x_1) = f(x_2)$, then either $f(x_1)$ and $f(x_2)$ are both in $A^{\prime\prime}$ or they are both in $B^{\prime\prime}$.
+	Without loss of generality, assume they are both in $A^{\prime\prime}$.
+	Then since $f$ is injective, $x_1 = x_2$.
+
+	Thus $h$ is a bijection, by which we can conclude that all ways in which "copies" of sets may be taken to achieve a disjoint union will yield isomorphic results.
+\end{proof}
+
+\begin{ex}
+	Show that if $A$ and $B$ are finite sets, then $|B^A| = |B|^{|A|}$.
+\end{ex}
+\begin{proof}
+	We use induction on $|A|$.
+	If $|A| = 0$, then there exists exactly one map, the empty map, from $A$ to any set.
+	This coincides with the proposition if we assume $0^0 = 1$ (in case $|B| = 0$), which we shall do for convenience.
+	If $|A| = 1$, then each $f: A \to B$ consists of a choice of $b \in B$ to which to send the $a \in A$.
+	Thus there are $|B| = |B|^{|A|}$ such functions.
+
+	Assume, then, given $A$ such that $|A| > 1$, the proposition holds for all sets of size less than $|A|$.
+	Then choose one element $\alpha \in A$.
+	Each $f: A \to B$ can be written as \begin{equation*}
+		f(a) = \begin{cases}
+			f|_{\left\lbrace \alpha \right\rbrace}(a)              & a = \alpha    \\
+			f|_{A \setminus \left\lbrace \alpha \right\rbrace} (a) & a \neq \alpha
+		\end{cases}
+	\end{equation*}
+	We can thus define a map $g: B^A \to B^{\left\lbrace \alpha \right\rbrace} \times B^{A \setminus \left\lbrace \alpha \right\rbrace}$ by \begin{equation*}
+		g(h) = \left( h|_{\left\lbrace \alpha \right\rbrace}, h|_{A \setminus \left\lbrace \alpha \right\rbrace} \right).
+	\end{equation*}
+	This is clearly a bijection, so \begin{align*}
+		|B^A| & = |B^{\left\lbrace \alpha \right\rbrace} \times B^{A \setminus \left\lbrace \alpha \right\rbrace}| \\
+		      & = |B^{\left\lbrace \alpha \right\rbrace}| |B^{A \setminus \left\lbrace \alpha \right\rbrace}|      \\
+		      & = |B|^{|\left\lbrace \alpha \right\rbrace|} |B|^{|A \setminus \left\lbrace \alpha \right\rbrace|}  \\
+		      & = |B|^1 |B|^{|A| - 1}                                                                              \\
+		      & = |B|^{|A|}.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	In view of Exercise 2.10, it is not unreasonable to use $2^A$ to denote the set of functions from an arbitrary set $A$ to a set with $2$ elements (say $\left\lbrace 0, 1 \right\rbrace$).
+	Prove that there is a bijection between $2^A$ and the \textit{power set} of $A$.
+\end{ex}
+\begin{proof}
+	Denote the power set of $A$ by $\mathscr{P}(A)$.
+	Then define $f: 2^A \to \mathscr{P}(A)$ by \begin{equation*}
+		\phi \mapsto \left\lbrace x \in A : \phi(x) = 1 \right\rbrace
+	\end{equation*}
+	for all $\phi \in 2^A$.
+
+	Given $S \in \mathscr{P}(A)$, we have $f(\phi) = S$ where $\phi$ is the function \begin{equation*}
+		\phi(x) = \begin{cases}
+			1 & x \in S    \\
+			0 & x \notin S
+		\end{cases}
+	\end{equation*}
+	for all $x \in A$.
+  Thus $f$ is surjective.
+
+  On the other hand, if $\phi_1, \phi_2 \in 2^A$ and $\phi_1 \neq \phi_2$, then take some $x \in A$ for which $\phi_1(x) \neq \phi_2(x)$, and by definition $x \in f(\phi_1)$ and $x \notin f(\phi_2)$ or vice versa.
+  In either case, we see that $f(\phi_1) \neq f(\phi_2)$, so $f$ is injective.
+
+  We conclude that $2^A$ and $\mathscr{P}(A)$ are isomorphic as sets, so using $2^A$ to denote the power set of $A$ is justified.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,184 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\newcounter{section-number}
+\setcounter{section-number}{1}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section-number]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section-number}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises I.1}
+\author{Connor Mooneyhan}
+\date{June 7, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Locate a discussion of Russell's paradox, and understand it.
+\end{ex}
+\begin{proof}
+	Done!
+\end{proof}
+
+\begin{ex}
+	Prove that if $\sim$ is an equivalence relation on a set $S$, then the corresponding family $\mathscr{P}_\sim$ defined in \S1.5 is indeed a partition of $S$: that is, its elements are nonempty, disjoint, and their union is $S$.
+\end{ex}
+\begin{proof}
+	If $S = \emptyset$, then $\mathscr{P}_\sim = \emptyset$ due to there being no elements with respect to which one can form equivalence classes, and $\emptyset$ does (vacuously) satisfy the conditions for a partition.
+
+	If $S$ is nonempty, then given an equivalence class $[a]_\sim \in \mathscr{P}_\sim$, $a \in [a]_\sim$ since $a \sim a$.
+
+	For disjointness, let $b \in S$ such that $[b]_\sim \neq [a]_\sim$.
+	We proceed to show that $b$ is not related to $a$.
+	Assume that $b \sim a$, and thus $a \sim b$.
+	Then given $x \in [a]_\sim$, $x \sim a$, so by transitivity \begin{equation*}
+		x \sim a \sim b \implies x \sim b,
+	\end{equation*}
+	so $x \in [b]_\sim$.
+	A similar argument follows for any $y \in [b]_\sim$, so we conclude that $[a]_\sim = [b]_\sim$ despite the assumption to the contrary.
+	Thus $b$ is not related to $a$.
+
+	Given $x \in [a]_\sim$, by definition $x \sim a$, so $a \sim x$ by symmetry.
+	If $x \in [b]_\sim$, then $x \sim b$, so the transitivity of $\sim$ gives us \begin{equation*}
+		a \sim x \sim b \implies a \sim b,
+	\end{equation*}
+	contradicting our assumption.
+	A similar argument can be made by swapping $a$ and $b$, so we conclude that $[a]_\sim$ and $[b]_\sim$ are disjoint.
+
+	Finally, we show that $\bigcup \mathscr{P}_\sim = S$.
+	Given $x \in \bigcup \mathscr{P}_\sim$, $x \in [a]_\sim$ for some $a \in S$, so by definition $x \in S$ since $[a]_\sim \subset S$.
+	Assume, then, that $y \in S$.
+	Then $y \in [y]_\sim \in \mathscr{P}_\sim$, we conclude that $y \in \bigcup \mathscr{P}_\sim$.
+\end{proof}
+
+\begin{ex}
+	Given a partition $\mathscr{P}$ on a set $S$, show how to define a relation $\sim$ on $S$ such that $\mathscr{P}$ is the corresponding partition.
+\end{ex}
+\begin{proof}
+	Given $x \in S$, let $P_x$ be the unique $P_x \in \mathscr{P}$ such that $x \in P_x$.
+	Define $\sim$ such that for any $a, b \in S$, $a \sim b \iff P_a = P_b$.
+	We first show that this is an equivalence relation.
+
+	Given $a \in S$, clearly $P_a = P_a$, so $a \sim a$.
+	Also, if $b \in S$ and $a \sim b$, then \begin{equation*}
+		P_a = P_b \implies P_b = P_a \implies b \sim a.
+	\end{equation*}
+	Finally, if $c \in S$ and $b \sim c$, then \begin{equation*}
+		P_a = P_b = P_c \implies P_a = P_c.
+	\end{equation*}
+
+	Now we show that $S/{\sim} = \mathscr{P}$.
+	Let $[a]_\sim \in S/{\sim}$.
+	We want to show that $[a]_\sim = P_a \in \mathscr{P}$, where $P_a$ is defined as above.
+	Given $x \in [a]_\sim$, $x \sim a$, so by definition of $\sim$, $P_x = P_a$.
+	Thus since $x \in P_x$, $x \in P_a$.
+	On the other hand, if $y \in P_a$, then since $y$ is in only one member of $\mathscr{P}$ and $y \in P_y$, $P_y = P_a$ and thus $y \sim a \implies y \in [a]_\sim$.
+
+	Let $A \in \mathscr{P}$.
+	Then $A = P_b$ for some $b$ since $A$ is nonempty.
+	We want to show that $P_b = [b]_\sim \in S/{\sim}$.
+	Given $x \in P_b$, since $x \in P_x$ and $x$ is in only one member of $\mathscr{P}$, $P_x = P_b$.
+	Thus $x \sim b$, so $x \in [b]_\sim$.
+	If $y \in [b]_\sim$, then $P_y = P_b$, so since $y \in P_y$, $y \in P_b$.
+\end{proof}
+
+\begin{ex}
+	How many different equivalence relations may be defined on the set $\left\lbrace 1, 2, 3 \right\rbrace$?
+\end{ex}
+\begin{proof}
+	Five.
+	This can be found easily by simply determining the number of partitions.
+	Here's the list: \begin{align*}
+		 & \left\lbrace \left\lbrace 1 \right\rbrace, \left\lbrace 2 \right\rbrace, \left\lbrace 3 \right\rbrace \right\rbrace \\
+		 & \left\lbrace \left\lbrace 1 \right\rbrace, \left\lbrace 2, 3 \right\rbrace \right\rbrace                            \\
+		 & \left\lbrace \left\lbrace 1, 3 \right\rbrace, \left\lbrace 2 \right\rbrace \right\rbrace                            \\
+		 & \left\lbrace \left\lbrace 1, 2 \right\rbrace, \left\lbrace 3 \right\rbrace \right\rbrace                            \\
+		 & \left\lbrace \left\lbrace 1, 2, 3 \right\rbrace \right\rbrace                                                       \\
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Give an example of a relation that is reflexive and symmetric but not transitive.
+	What happens if you attempt to use this relation to define a partition on the set?
+	(Hint: Thinking about the second question will help you answer the first one.)
+\end{ex}
+\begin{proof}
+	Let $S = \left\lbrace 1, 2, 3 \right\rbrace$, and define $\sim$ by \begin{align*}
+		 & 1 \sim 1  \\
+		 & 1 \sim 2  \\
+		 & 2 \sim 1  \\
+		 & 2 \sim 2  \\
+		 & 2 \sim 3  \\
+		 & 3 \sim 2  \\
+		 & 3 \sim 3.
+	\end{align*}
+	It is easily checked that $\sim$ is reflexive and symmetric but not transitive.
+	If you attempt to define a partition on $S$ using $\sim$ in the usual way, then you get \begin{equation*}
+		\left\lbrace [1]_\sim, [2]_\sim, [3]_\sim \right\rbrace = \left\lbrace \left\lbrace 1, 2 \right\rbrace, \left\lbrace 1, 2, 3 \right\rbrace, \left\lbrace 2, 3 \right\rbrace \right\rbrace,
+	\end{equation*}
+	which is not a partition since its members are not disjoint.
+\end{proof}
+
+\begin{ex}
+	Define a relation $\sim$ on the set $\mathbb{R}$ of real numbers by setting $a \sim b \iff b - a \in \mathbb{Z}$.
+	Prove that this is an equivalence relation, and find a 'compelling' description for $\mathbb{R}/{\sim}$.
+	Do the same for the relation $\approx$ on the plane $\mathbb{R} \times \mathbb{R}$ defined by declaring $(a_1, a_2) \approx (b_1, b_2) \iff b_1 - a_1 \in \mathbb{Z}$ and $b_2 - a_2 \in \mathbb{Z}$.
+\end{ex}
+\begin{proof}
+	Given $a \in \mathbb{R}$, $a - a = 0 \in \mathbb{Z}$, so $a \sim a$.
+	If $a \sim b$ for some $b \in \mathbb{R}$, then $b - a \in \mathbb{Z}$, so $a - b = -(b - a) \in \mathbb{Z}$ and thus $b \sim a$.
+	Finally, if $c \in \mathbb{R}$ such that $b \sim c$, then $c - a = c - b + b - a \in \mathbb{Z}$ since both $c - b$ and $b - a$ are in $\mathbb{Z}$.
+
+  As for a compelling description, you could characterize each member of $\mathbb{R}/{\sim}$ as simply $\mathbb{Z}$ translated by some $x \in [0, 1)$.
+
+	Now we shift our focus to $\approx$, where we aim to show not only that $\approx$ is an equivalence relation on its own, but that it \textit{inherits} the properties of reflexivity, symmetry, and transitivity from $\sim$.
+	To do this, we notice that we can recharacterize the definition of $\approx$ as \begin{equation*}
+		(a, b) \approx (c, d) \iff a \sim c\ \mathrm{and}\ b \sim d.
+	\end{equation*}
+  This is clear from the definitions of $\approx$ and $\sim$.
+
+  First, we notice that reflexivity follows from the fact that given $(a, b) \in \mathbb{R}^2$, $a \sim a$ and $b \sim b$, so $(a, b) \approx (a, b)$.
+  Then assume that $(a, b) \approx (c, d)$ for some $(c, d) \in \mathbb{R}^2$.
+  Then $a \sim c$ and $b \sim d$ by our re-definition, so $c \sim a$ and $d \sim b$, implying that $(c, d) \approx (a, b)$.
+  Finally, given $(e, f) \in \mathbb{R}^2$ such that $(c, d) \approx (e, f)$, we have \begin{equation*}
+    a \sim c \sim e \implies a \sim e
+  \end{equation*}
+  and \begin{equation*}
+    b \sim d \sim f \implies b \sim f,
+  \end{equation*}
+  so $(a, b) \approx (e, f)$.
+
+  We carry out the proof in this way so that it is apparent that nothing in the proof depends on the particulars of $\sim$.
+  This hints at the appropriateness of characterizing $\approx$ as an instance of a "product relation", namely \begin{equation*}
+    \approx = \sim \times \sim.
+  \end{equation*}
+  Our proof is sufficient to show that any such product of an equivalence relation with itself is itself an equivalence relation.
+
+  Enough generalization.
+  A compelling description for $S/{\approx}$ is similar to that of $S/{\sim}$, where for each member of $S/{\approx}$, we imagine the lattice $\mathbb{Z}^2$ translated by $(x, y) \in [0, 1) \times [0, 1)$.
+\end{proof}
+\end{document}
