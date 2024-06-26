@@ -1,0 +1,376 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+% Chapter
+\newcounter{chapter}
+\setcounter{chapter}{1}
+
+% Section
+\setcounter{section}{5}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises {\Roman{chapter}}.{\arabic{section}}}
+\author{Connor Mooneyhan}
+\date{June 17, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Prove that a final object in a category $\mathsf{C}$ is initial in the opposite category $\mathsf{C}^{op}$.
+\end{ex}
+\begin{proof}
+	Given a category $\mathsf{C}$ and a final object $F$ in $\mathsf{C}$, then $\mathrm{Hom}_{\mathrm{C^{op}}}(F, A) =\mathrm{Hom}_{\mathrm{C}}(A, F)$ is a singleton since $F$ is final in $\mathsf{C}$.
+\end{proof}
+
+\begin{ex}
+	Prove that $\varnothing$ is the \textit{unique} initial object in $\mathsf{Set}$.
+\end{ex}
+\begin{proof}
+	Any other set $A$ which might be initial would have to be isomorphic to $\varnothing$ (since initial objects are unique up to unique isomorphism), and would thus have 0 elements, but of course $\varnothing$ is the only set with $0$ elements, so $A = \varnothing$.
+\end{proof}
+
+\begin{ex}
+	Prove that final objects are unique up to isomorphism.
+\end{ex}
+\begin{proof}
+	If $F_1$ and $F_2$ are final in a category $\mathsf{C}$, then there exists exactly one morphism $f \in \mathrm{Hom}(F_1, F_2)$ (since $F_2$ is final) and exactly one morphism $g \in \mathrm{Hom}(F_2, F_1)$ (since $F_1$ is final).
+	Also, $\mathrm{Hom}(F_1, F_1)$ and $\mathrm{Hom}(F_2, F_2)$ are singletons for the same reason, and the morphism in each is their respective identity morphism.
+	Thus since $gf \in \mathrm{Hom}(F_1, F_1)$ and $fg \in \mathrm{Hom}(F_2, F_2)$, $gf = 1_{F_1}$ and $fg = 1_{F_2}$.
+\end{proof}
+
+\begin{ex}
+	What are initial and final objects in the category of 'pointed sets' (Example 3.8)?
+	Are they unique?
+\end{ex}
+\begin{proof}
+	Interestingly, the unique morphism $\varphi: \left\lbrace * \right\rbrace \to \left\lbrace a \right\rbrace$ for any singleton $\left\lbrace a \right\rbrace$ is both initial and final in the category of pointed sets (call it $\mathsf{C}$).
+	Indeed, given an object $Z$ and a morphism $f: \left\lbrace * \right\rbrace \to Z$, there is a unique function $g: Z \to \left\lbrace a \right\rbrace$ since singletons are final in $\mathrm{Set}$, and $(gf)(*) = a = \varphi(*)$.
+	Also, there is a unique function $h: \left\lbrace a \right\rbrace \to Z$ such that $h\varphi = f$, namely $h(a) = \varphi(*)$.
+\end{proof}
+
+\begin{ex}
+	What are the final objects in the category considered in \S 5.3?
+\end{ex}
+\begin{proof}
+	They are again maps to singletons.
+	In particular, if our category is $\mathsf{C}^A$ with morphisms sending equivalent elements to identical outputs, then the final objects are of the form $\sigma : A \to \left\lbrace * \right\rbrace$.
+	Given any $f: A \to Z$ that sends equivalent elements to identical outputs, the unique function $\varphi : Z \to \left\lbrace * \right\rbrace$ satisfies $\varphi f = \sigma$ as desired.
+\end{proof}
+
+\begin{ex}
+	Consider the category corresponding to endowing (as in Example 3.3) the set $\mathbb{Z}^+$ of positive integers with the \textit{divisibility} relation.
+	Thus there is exactly one morphism $d \to m $ in this category if and only if $d$ divides $m $ without remainder; there is no morphism between $d$ and $m $ otherwise.
+	Show that this category has products and coproducts.
+	What are their 'conventional' names?
+\end{ex}
+\begin{proof}
+	The product of $d$ and $m $ is $\mathrm{gcd}(d, m )$: the greatest common divisor of $d$ and $m $.
+	By definition, there exist morphisms $\mathrm{gcd}(d, m ) \to d$ and $\mathrm{gcd}(d, m ) \to m$, which naturally define their respective 'projection' maps.
+	Also, if any other positive integer $n$ divides both $d$ and $m $, then it also divides their greatest common divisor, so the gcd is indeed final in the relevant category.
+
+	The coproduct of $d$ and $m $ is $\mathrm{lcm}(d, m)$: the least common multiple of $d$ and $m $.
+	Indeed, $d$ divides $\mathrm{lcm}(d, m )$ and $m $ divides $\mathrm{lcm}(d, m )$, and given any other $n$ which they both divide, $\mathrm{lcm}(d, m )$ divides $n$.
+\end{proof}
+
+\begin{ex}
+	Redo Exercise 2.9, this time using Proposition 5.4.
+\end{ex}
+\begin{proof}
+	We need to show that if $A \cong A'$ and $B \cong B'$, and further $A \cap B = \varnothing$ and $A' \cap B' = \varnothing$, then $A \cup B$ and $A' \cup B'$ are both initial in $\mathsf{Set}^{A,B}$.
+	In other words, we need to show that $A' \cup B'$ is \textit{also a coproduct} of $A$ and $B$.
+	Of course, we already know that $A \cup B$ is initial in $\mathsf{Set}^{A,B}$, so we just need to prove that $A' \cup B'$ (along with its accompanying ``inclusions'', of course) is also initial in $\mathsf{Set}^{A,B}$, knowing that it is initial in $\mathsf{Set}^{A',B'}$.
+
+	Define the inclusion map $i_A' : A \to A' \cup B'$ to be $i_{A'}\varphi$, where $\varphi$ is an isomorphism from $A$ to $A'$.
+	Similarly, we define $i_B' : B \to A' \cup B'$ to be $i_{B'}\psi$ where $\psi$ is an isomorphism from $B$ to $B'$.
+	We will now show that \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "i_A'"] \\
+			& A' \cup B' \\
+			B \arrow[ur, "i_B'"']
+		\end{tikzcd}
+	\end{equation*}
+	is initial.
+
+	Given \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "f"] \\
+			& C, \\
+			B \arrow[ur, "g"']
+		\end{tikzcd}
+	\end{equation*}
+	we have the morphism \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[dr, "i_A'"] \arrow[drr, bend left, "f"] \\
+			& A' \cup B' \arrow[r, "h"] & C \\
+			B \arrow[ur, "i_B'"'] \arrow[urr, bend right, "g"']
+		\end{tikzcd}
+	\end{equation*}
+	where $h$ is defined by \begin{equation*}
+		h(x) = \begin{cases}
+			(f \circ i_A'^{-1})(x) & x \in A' \\
+			(g \circ i_B'^{-1})(x) & x \in B'
+		\end{cases}
+	\end{equation*}
+	where $i_A'^{-1}$ (resp. $i_B'^{-1}$) is intended to be interpreted as more of a ``pullback'' representing the unique $a \in A$ (resp. $b \in B$) such that $i_A'(a) = x$ (resp. $i_B'(b) = x$).
+	This is well-defined because $A'$ and $B'$ are disjoint, and the diagram is commutative since given $a \in A$, \begin{align*}
+		(h \circ i_A')(a) & = (f \circ i_A'^{-1} \circ i_A')(a) \\
+		                  & = f (i_A'^{-1} (i_A'(a)))           \\
+		                  & = f (a),
+	\end{align*}
+	and an entirely similar proof follows for any $b \in B$, yielding $h \circ i_B' = g$.
+
+	So $h$ exists, but is it unique?
+	Indeed, given $h' : A' \cup B' \to C$ such that $f = h' \circ i_A'$, then given $x \in A' \cup B'$, \begin{equation*}
+		h'(x) = \begin{cases}
+			h'(x) = h'(i_A'(i_A'^{-1}(x))) = f(i_A'^{-1}(x)) & x \in A' \\
+			h'(x) = h'(i_B'(i_B'^{-1}(x))) = g(i_B'^{-1}(x)) & x \in B' \\
+		\end{cases}
+	\end{equation*}
+	which is exactly the definition of $h(x)$, so $h' = h$.
+
+	Thus $A' \cup B'$ (equipped with proper inclusion functions) is initial in $\mathsf{Set}^{A,B}$, so it is isomorphic to $A \cup B$.
+\end{proof}
+
+\begin{ex}
+	Show that in every category $\mathsf{C}$ the products $A \times B$ and $B \times A$ are isomorphic, if they exist.
+	(Hint: Observe that they both satisfy the universal property for the product of $A$ and $B$; then use Proposition 5.4.)
+\end{ex}
+\begin{proof}
+	We know that $A \times B$ considered along with its projections is final in the category $\mathsf{C}_{A,B}$, and $B \times A$ is final in $\mathsf{C}_{B,A}$, by definition.
+	The key observation is that $\mathsf{C}_{A,B}$ and $\mathsf{C}_{B,A}$ are actually \textit{exactly the same category}.
+	Indeed, the objects are the same since the same information about two functions from an object $Z$, one to $A$ and one to $B$, is present in both, and there is no sense of ``order'' in this definition, and the morphisms are same for this same reason, so indeed $B \times A$ is final in $\mathsf{C}_{A,B}$, and thus it is isomorphic to $A \times B$.
+\end{proof}
+
+\begin{ex}
+	Let $\mathsf{C}$ be a category with products.
+	Find a reasonable candidate for the universal property that the product $A \times B \times C$ of \textit{three} objects of $\mathsf{C}$ ought to satisfy, and prove that both $(A \times B) \times C$ and $A \times (B \times C)$ satisfy this universal property.
+	Deduce that $(A \times B) \times C$ and $A \times (B \times C)$ are necessarily isomorphic.
+\end{ex}
+\begin{proof}
+	Given objects $A, B, C$, we say that an object $P$ is a product $A \times B \times C$ if it is universal with respect to the property of mapping an object to $A, B,$ and $C$.
+	In particular, $P$ is a product of $A, B,$ and $C$ if it is final in the category $\mathsf{C}_{A,B,C}$ whose objects are diagrams \begin{equation*}
+		\begin{tikzcd}
+			& A \\
+			Z \arrow[ur, "f"] \arrow[r, "g"] \arrow[dr, "h"'] & B \\
+			& C \\
+		\end{tikzcd}
+	\end{equation*}
+	and whose morphisms compose in the usual way to form a commutative diagram such that if \begin{equation*}
+		\begin{tikzcd}
+			& A \\
+			Z_1 \arrow[ur, "f_1"] \arrow[r, "g_1"] \arrow[dr, "h_1"'] & B \\
+			& C \\
+		\end{tikzcd},\hspace{4em}
+		\begin{tikzcd}
+			& A \\
+			Z_2 \arrow[ur, "f_2"] \arrow[r, "g_2"] \arrow[dr, "h_2"'] & B \\
+			& C \\
+		\end{tikzcd}
+	\end{equation*} are two objects in $\mathsf{C}_{A,B,C}$, we have a morphism (in $\mathsf{C}$) $\varphi : Z_1 \to Z_2$ such that $f_1 = f_2\varphi$, $g_1 = g_2\varphi$, and $h_1 = h_2\varphi$.
+
+	Given this definition, we want to show that $(A \times B) \times C$ is a product.
+	Indeed, given two objects \begin{equation*}
+		\begin{tikzcd}
+			& A \\
+			Z \arrow[ur, "f"] \arrow[r, "g"] \arrow[dr, "h"'] & B & \hspace{-1.25em}\textrm{and}\hspace{1em} \\
+			& C \\
+		\end{tikzcd} \begin{tikzcd}
+			& A \\
+			(A \times B) \times C \arrow[ur, "\pi_A\pi_{A \times B}"] \arrow[r, "\pi_B\pi_{A \times B}"] \arrow[dr, "\pi_C"'] & B \\
+			& C \\
+		\end{tikzcd},
+	\end{equation*}
+	we know that there exists a unique $\psi : Z \to A \times B$ and a unique $\varphi : Z \to (A \times B) \times C$ such that the following diagram commutes \begin{equation*}
+		\begin{tikzcd}
+			& & & A \\
+			& & A \times B \arrow[ur, "\pi_A"] \arrow[dr, "\pi_B"'] \\
+			Z \arrow[uurrr, bend left, "f"] \arrow[urr, bend left, "\psi"'] \arrow[r, "\varphi"] \arrow[drr, bend right, "h"] \arrow[rrr, bend right = 75, "g"'] & (A \times B) \times C \arrow[ur, "\pi_{A \times B}"] \arrow[dr, "\pi_C"'] & & B \\
+			& & C
+		\end{tikzcd}
+	\end{equation*}
+	In particular, there exists a unique $\psi : Z \to A \times B$ such that $f = \pi_A \psi$ and $g = \pi_B \psi$ since $A \times B$ is in fact a product.
+	Now we can use the product $(A \times B) \times C$ to find a unique $\varphi : Z \to (A \times B) \times C$ such that $\psi = \pi_{A \times B} \varphi$ and $h = \pi_C \varphi$.
+	We now see that $\varphi$ satisfies the property needed for a product $A \times B \times C$ since \begin{align*}
+		 & f = \pi_A \psi = \pi_A (\pi_{A \times B} \varphi) = (\pi_A \pi_{A \times B}) \varphi \\
+		 & g = \pi_B \psi = \pi_B (\pi_{A \times B} \varphi) = (\pi_B \pi_{A \times B}) \varphi \\
+		 & h = \pi_C \varphi
+	\end{align*}
+	as desired.
+
+	In much the same way, we can find unique $\psi : Z \to B \times C$ and $\varphi: Z \to A \times (B \times C)$ such that the following diagram commutes: \begin{equation*}
+		\begin{tikzcd}
+			& & A \\
+			Z \arrow[rrr, bend left = 75, "g"] \arrow[urr, bend left, "f"'] \arrow[r, "\varphi"] \arrow[drr, bend right, "\psi"] \arrow[ddrrr, bend right, "h"'] & A \times (B \times C) \arrow[ur, "\pi_A"] \arrow[dr, "\pi_{B \times C}"'] & & B \\
+			& & B \times C \arrow[ur, "\pi_B"] \arrow[dr, "\pi_C"'] \\
+			& & & C
+		\end{tikzcd}
+	\end{equation*}
+
+	Thus since $(A \times B) \times C$ and $A \times (B \times C)$ are both final in $\mathsf{C}_{A, B, C}$, they are isomorphic.
+\end{proof}
+
+\begin{ex}
+	Push the envelope a little further still, and define products and coproducts for \textit{families} (i.e. indexed sets) of objects of a category.
+	\begin{enumerate}[label=]
+		\item Do these exist in $\mathsf{Set}$?
+		\item It is common to denote the product $\underbrace{A \times \cdots \times A}_{n\,\text{times}}$ by $A^n$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	Given a category $\mathsf{C}$ and an indexed collection of objects $\left\lbrace A_{\alpha} \right\rbrace_{\alpha \in \mathscr{A}}$ (denoted $\mathscr{C}$) where $\mathscr{A}$ is some indexing set, we want to define $\Pi_\mathscr{C} \coloneq \Pi_{\alpha \in \mathscr{A}} \left\lbrace A_\alpha \right\rbrace$ and $\amalg_\mathscr{C} \coloneq \amalg_{\alpha \in \mathscr{A}}\left\lbrace A_\alpha \right\rbrace$.
+	Note that indexing requires a set-function, which implies that there are a ``set's worth'' of objects in the collection, so if $\mathrm{Obj}(\mathsf{C})$ is a class but not a set, this may not define a product or coproduct for all the objects in $\mathsf{C}$.
+
+	We define a product $\Pi_\mathscr{C}$ to be an object in $\mathsf{C}$ equipped with morphisms $\pi_\alpha : \Pi_\mathscr{C} \to A_\alpha$ for each $\alpha$ such that for any object $Z$ in $\mathsf{C}$, given morphisms $f_\alpha : Z \to A_\alpha$ for each $\alpha$, there is a unique morphism $\varphi : Z \to \Pi_\mathscr{C}$ such that $f_\alpha = \pi_\alpha \varphi$ for every $\alpha$.
+	This is, of course, simply a description of a final object in $C_{\mathscr{C}}$.
+
+	A coproduct $\amalg_{\mathscr{C}}$ is defined to be an object in $\mathsf{C}$ equipped with morphisms $i_\alpha : A_\alpha \to \amalg_{\mathscr{C}}$ for each $\alpha$ such that for any object $Z$ in $\mathsf{C}$, given morphisms $f_\alpha : A_\alpha \to Z$ for each $\alpha$, there is a unique morphism $\varphi : \amalg_{\mathscr{C}} \to Z$ such that $f_\alpha = \varphi i_\alpha$ for every $\alpha$.
+	This describes an initial object in $C^{\mathscr{C}}$.
+
+	Countable products of this kind do exist in $\mathsf{Set}$ unequivically, but saying the same for uncountable products amounts to the axiom of choice.
+	As for coproducts, I'm not sure of the status of the thought around it, but I imagine it would be similar to above, where it is defined for countably many sets but not uncountably many unless you accept the axiom of choice.
+	The reason I assume that the two are ``in sync'' is that coproducts are initial in the category opposite to the category in which products are final, so if one exists, it seems that the other must, and if one does not, the other must not.
+\end{proof}
+
+\begin{ex}
+	Let $A$, resp. $B$ be a set, endowed with an equivalence relation $\sim_A$, resp. $\sim_B$.
+	Define a relation $\sim$ on $A \times B$ by setting \begin{equation*}
+		(a_1, b_1) \sim (a_2, b_2) \iff a_1 \sim_A a_2\ \mathrm{and}\ b_1 \sim_B b_2.
+	\end{equation*}
+	(This is immediately seen to be an equivalence relation.)
+	\begin{itemize}
+		\item Use the universal property for quotients (\S 5.3) to establish that there are functions $(A \times B)/{\sim} \to A/{\sim_A}, (A \times B) / {\sim} \to B/{\sim_B}$.
+		\item Prove that $(A \times B)/{\sim}$, with these two functions, satisfies the universal property for the product of $A/{\sim_A}$ and $B/{\sim_B}$.
+		\item Conclude (without further work) that $(A \times B)/{\sim} \cong (A/{\sim_A}) \times (B/{\sim_B})$.
+	\end{itemize}
+\end{ex}
+\begin{proof}\
+	\begin{itemize}
+		\item Define $\pi : (A \times B) \to (A \times B)/{\sim}$ by $\pi((a, b)) = [(a, b)]_{\sim}$ and $\pi_A : (A \times B) \to A/{\sim_A}$ by $\pi_A((a, b)) = [a]_{\sim_A}$.
+		      Since $\pi$ satisfies the universal property for quotients, there exists a unique $\varphi : (A \times B)/{\sim} \to A/{\sim_A}$ such that the following diagram commutes: \begin{equation*}
+			      \begin{tikzcd}[column sep=0]
+				      (A \times B) / {\sim} \arrow[rr, "\varphi"] & & A/{\sim_A} \\
+				      & A \times B \arrow[ul, "\pi"] \arrow[ur, "\pi_A"']
+			      \end{tikzcd}
+		      \end{equation*}
+		      Defining $\pi_B$ by replacing $A$ with $B$ in the definition of $\pi_A$, we get a function $\psi : (A \times B)/{\sim} \to B/{\sim_B}$ such that the following diagram commutes: \begin{equation*}
+			      \begin{tikzcd}[column sep=0]
+				      (A \times B) / {\sim} \arrow[rr, "\psi"] & & B/{\sim_B} \\
+				      & A \times B \arrow[ul, "\pi"] \arrow[ur, "\pi_B"']
+			      \end{tikzcd}
+		      \end{equation*}
+		\item Given some set $Z$ with functions $f: Z \to A/{\sim_A}$ and $g: Z \to B/{\sim_B}$, we want to find a unique $h$ such that the following diagram commutes: \begin{equation*}
+			      \begin{tikzcd}
+				      & & A/{\sim_A} \\
+				      Z \arrow[urr, bend left, "f"] \arrow[r, "h"] \arrow[drr, bend right, "g"'] & (A \times B)/_{\sim} \arrow[ur, "\varphi"] \arrow[dr, "\psi"'] \\
+				      & & B/{\sim_B} \\
+			      \end{tikzcd}
+		      \end{equation*}
+
+		      First, we find an explicit description of $\varphi$ and $\psi$.
+		      This is not difficult since each is unique and the functions $\varphi([(a, b)]_{\sim}) = [a]_{\sim_A}$ and $\psi([(a, b)]_{\sim}) = [b]_{\sim_B}$ are easily seen to be well-defined, and they both make their respective diagrams commute.
+		      Thus we can define $h$ as follows.
+
+		      Given $z \in Z$, choose $\alpha \in f(z)$ and $\beta \in g(z)$.
+		      Then define $h$ by $h(z) = [(\alpha, \beta)]_{\sim}$.
+		      It is clear that if this is well-defined, then the diagram commutes, so we simply need to show that this is well-defined.
+		      Indeed, given some other $\alpha_1 \in f(z)$ and $\beta_1 \in g(z)$, we have $\alpha \sim_A \alpha_1$ and $\beta \sim_B \beta_1$, so by definition $(\alpha, \beta) \sim (\alpha_1, \beta_1)$, meaning $[(\alpha, \beta)]_{\sim} = [(\alpha_1, \beta_1)]_{\sim}$.
+
+		      To show that this is unique, simply assume that $h_1(z) = [(\alpha_2, \beta_2)]_\sim$ where $(\alpha_2, \beta_2) \nsim (\alpha, \beta)$, so either $\alpha_2 \nsim_A \alpha$ or $\beta_2 \nsim_B \beta$.
+		      Without loss of generality, assume $\alpha_2 \nsim_A \alpha$.
+		      Then \begin{equation*}
+			      \varphi(h_1(z)) = [\alpha_2]_{\sim_A} \neq [\alpha]_{\sim_A} = f(z),
+		      \end{equation*}
+		      so the diagram does not commute.
+		\item By Proposition 5.4, since both $(A \times B)/{\sim}$ and $(A/{\sim_A}) \times (B/{\sim_B})$ satisfy the universal property for `the' product of $A/{\sim_A}$ and $B/{\sim_B}$, then \begin{equation*}
+			      (A \times B)/{\sim} \cong (A/{\sim_A}) \times (B/{\sim_B}).
+		      \end{equation*}
+	\end{itemize}
+\end{proof}
+
+\begin{ex}
+	Define the notions of \textit{fibered products} and \textit{fibered coproducts}, as terminal objects of the categories $\mathsf{C}_{\alpha,\beta}$, $\mathsf{C}^{\alpha,\beta}$ considered in Example 3.10 (cf. also Exercise 3.11), by stating carefully the corresponding universal properties.
+
+	As it happens $\mathsf{Set}$ has both fibered products and coproducts.
+	Define these objects `concretely', in terms of naive set theory.
+\end{ex}
+\begin{proof}
+	A fibered product of objects $A$ and $B$ in a category $\mathsf{C}$ is an object $A \times_C B$ together with morphisms $\pi_\alpha : A \times_C B \to A$ and $\pi_\beta : A \times_C B \to B$ for which, given any object $Z$ with morphisms $f : Z \to A$ and $g : Z \to B$, there exists a unique $h : Z \to A \times_C B$ that makes the following diagram commute : \begin{equation*}
+		\begin{tikzcd}
+			& & A \arrow[dr, "\alpha"] \\
+			Z \arrow[urr, bend left, "f"] \arrow[r, "h"] \arrow[drr, bend right, "g"'] & A \times_C B \arrow[ur, "\pi_\alpha"] \arrow[dr, "\pi_\beta"'] & & C \\
+			& & B \arrow[ur, "\beta"'] \\
+		\end{tikzcd}
+	\end{equation*}
+	This is identical to saying that, in the category $\mathsf{C}_{\alpha,\beta}$, the object \begin{equation*}
+		\begin{tikzcd}
+			&[-0.3cm] A \arrow[dr, "\alpha"] \\
+			A \times_C B \arrow[ur, "\pi_\alpha"] \arrow[dr, "\pi_\beta"'] & & C \\
+			& B \arrow[ur, "\beta"'] \\
+		\end{tikzcd} \tag{1}
+	\end{equation*}
+	is final.
+
+	Likewise, a fibered coproduct of $A$ and $B$ is an initial object \begin{equation*}
+		\begin{tikzcd}[column sep=3em]
+			& A \arrow[dr, "f"] \\
+			C \arrow[ur, "\alpha"] \arrow[dr, "\beta"'] & &[-0.3cm] A +_C B\\
+			& B \arrow[ur, "g"'] \\
+		\end{tikzcd} \tag{2}
+	\end{equation*}
+	in the category $\mathsf{C}^{\alpha,\beta}$.
+
+	In $\mathsf{Set}$, a fibered product of two sets $A$ and $B$ is the set \begin{equation*}
+		A \times_C B = \left\lbrace (a, b) \in A \times B : \alpha(a) = \beta(b) \right\rbrace
+	\end{equation*}
+	together with the projections $\pi_\alpha$ and $\pi_\beta$ where $\pi_\alpha((a, b)) = a$ and $\pi_\beta((a, b)) = b$.
+	Indeed, notice that for any $(a, b) \in A \times_C B$, we have \begin{equation*}
+		\alpha \pi_\alpha ((a, b)) = \alpha(a) = \beta(b) = \beta \pi_\beta ((a, b)),
+	\end{equation*}
+	so diagram (1) commutes.
+	Also, under this definition, $h$ is clearly seen to be uniquely defined by $h(z) = (f(z), g(z))$.
+
+	A fibered coproduct of two sets $A$ and $B$, on the other hand, is the set $(A \sqcup B)/{\sim}$ where $\sim$ is the equivalence relation defined by \begin{equation*}
+		x \sim y\ \mathrm{iff} \begin{cases}
+			x = y                                                                              & (x = y)            \\
+			\exists c_1, c_2 \in C : x = \alpha(c_1), y = \alpha(c_2), \beta(c_1) = \beta(c_2) & (x, y \in A)       \\
+			\exists c_1, c_2 \in C : x = \beta(c_1), y = \beta(c_2), \alpha(c_1) = \alpha(c_2) & (x, y \in B)       \\
+			\exists c \in C : x = \alpha(c), y = \beta(c)                                      & (x \in A, y \in B) \\
+			\exists c \in C : x = \beta(c), y = \alpha(c)                                      & (x \in B, y \in A)
+		\end{cases}.
+	\end{equation*}
+  We need to show that this is, in fact, an equivalence relation.
+  It is obviously reflexive (by the first case), and by the (intentionally symmetric) definitions of the next two pairs of cases, it is symmetric.
+  Thus, we only need to show transitivity.
+  Given $x, y, z \in A \sqcup B$ such that $x \sim y$ and $y \sim z$, we consider the issue in cases.
+  If either $x = y$ or $y = z$, then $x \sim z$ immediately.
+  We will call cases 2 and 3 ``type 1'' and cases 4 and 5 ``type 2'' since similar proofs will apply for each by simply interchanging $A$ and $B$ and $\alpha$ and $\beta$.
+  Let us then say that $x \sim y$ and $y \sim z$ are both type 1.
+  Then $\exists c_1, c_2, c_3, c_4 \in C$ such that (without loss of generality) $x = \alpha(c_1), y = \alpha(c_2) = \alpha(c_3), z = \alpha(c_4)$ and $\beta(c_1) = \beta(c_2), \beta(c_3) = \beta(c_4)$.
+  
+  DOES NOT HOLD
+\end{proof}
+
+\end{document}
