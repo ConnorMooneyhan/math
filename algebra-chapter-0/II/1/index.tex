@@ -1,0 +1,504 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+% Chapter
+\newcounter{chapter}
+\setcounter{chapter}{2}
+
+% Section
+\setcounter{section}{1}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises {\Roman{chapter}}.{\arabic{section}}}
+\author{Connor Mooneyhan}
+\date{June 26, 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Write a careful proof that every group is the group of isomorphisms of a groupoid.
+	In particular, every group is the group of automorphisms of some object in some category.
+\end{ex}
+\begin{proof}
+	Given a group $(G, \cdot)$, define a category $\mathsf{C}_G$ consisting of exactly one object $A$, and for each $g \in G$ some morphism $g_{\mathsf{C}} : A \to A$ such that given any $h \in G$, $h_{\mathsf{C}}g_{\mathsf{C}} \coloneq (gh)_{\mathsf{C}}$.
+	Indeed, $e_{\mathsf{C}}$ is the identity morphism since given any $g \in G$, \begin{equation*}
+		g_{\mathsf{C}}e_{\mathsf{C}} = (eg)_{\mathsf{C}} = g_{\mathsf{C}} = (ge)_{\mathsf{C}} = e_{\mathsf{C}}g_{\mathsf{C}}.
+	\end{equation*}
+	Similarly, each morphism $g_{\mathsf{C}}$ is an isomorphism since \begin{equation*}
+		(g^{-1})_{\mathsf{C}}g_{\mathsf{C}} = (gg^{-1})_{\mathsf{C}} = e_{\mathsf{C}} = (g^{-1}g)_{\mathsf{C}} = g_{\mathsf{C}}(g^{-1})_{\mathsf{C}}.
+	\end{equation*}
+	Associativity follows directly from the definitions as well by (given $a, b, c \in G$) \begin{equation*}
+		(a_{\mathsf{C}}b_{\mathsf{C}})c_{\mathsf{C}} = (ba)_{\mathsf{C}}c_{\mathsf{C}} = (c(ba))_{\mathsf{C}} = ((cb)a)_{\mathsf{C}} = a_{\mathsf{C}}(cb)_{\mathsf{C}} = a_{\mathsf{C}}(b_{\mathsf{C}}c_{\mathsf{C}})
+	\end{equation*}
+	Thus $\mathsf{C}_G$ is a groupoid with exactly one object.
+\end{proof}
+
+\begin{ex}
+	Consider the `sets of numbers' listed in \S 1.1, and decide which are made into groups by conventional operations such as $+$ and $\cdot$.
+	Even if the answer is negative (for example, $(\mathbb{R}, \cdot)$ is not a group), see if variations on the definition of these sets lead to groups (for example, $(\mathbb{R}^*, \cdot)$ \textit{is} a group.)
+\end{ex}
+\begin{proof}
+	Indeed, $(\mathbb{Z}, +), (\mathbb{Q}, +), (\mathbb{R}, +), (\mathbb{C}, +)$ are all groups with $0$ as their identity and `negatives' as inverses.
+	The set $(\left\lbrace -1, 1 \right\rbrace, \cdot)$ is a group, though there seems to be no larger subset of $\mathbb{Z}$ which can be made into a group by multiplication since no other integer has an integer inverse.
+	With $\mathbb{Q}$ and $\mathbb{R}$, though, the sets $\mathbb{Q}^* = \mathbb{Q} \setminus \left\lbrace 0 \right\rbrace$ and $\mathbb{R}^* = \mathbb{R} \setminus \left\lbrace 0 \right\rbrace$ form groups with standard multiplication since they are naturally associative, $1$ is the identity, and every nonzero element has a multiplicative inverse.
+	Finally, $\mathbb{C}^* = \mathbb{C} \setminus \left\lbrace 0 \right\rbrace$ is also a group under multiplication since complex multiplication is associative, $1$ is the inverse, and each nonzero complex number $a + bi$ has a multiplicative inverse, namely $\frac{a}{a^2 + b^2} - \frac{b}{a^2 + b^2}i$.
+\end{proof}
+
+\begin{ex}
+	Prove that $(gh)^{-1} = h^{-1}g^{-1}$ for all elements $g, h$ of a group $G$.
+\end{ex}
+\begin{proof}
+	Indeed, \begin{equation*}
+		(gh)(h^{-1}g^{-1}) = g(hh^{-1})g^{-1} = geg^{-1} = gg^{-1} = e,
+	\end{equation*}
+	and any right inverse in a group is also a left inverse, so $h^{-1}g^{-1} = (gh)^{-1}$.
+\end{proof}
+
+\begin{ex}
+	Suppose that $g^2 = e$ for all elements $g$ of a group $G$; prove that $G$ is commutative.
+\end{ex}
+\begin{proof}
+	If $g^2 = e$ for each $g \in G$, then each element is its own inverse.
+	Applying this fact strategically gives us \begin{equation*}
+		gh = g^{-1}h^{-1} = (hg)^{-1} = hg.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	The `multiplication table' of a group is an array compiling the results of all multiplications $g \cdot h$.
+	Prove that every row and every column of the multiplication table of a group contains all elements of the group exactly once (like Sudoku diagrams!).
+\end{ex}
+\begin{proof}
+	For elements $g, h \in G$, the value in row $g$ and column $h$ is defined to be $gh$.
+	Given two ``rows'' $g_1, g_2$ and a ``column'' $h$, if $g_1h = g_2h$, then $g_1hh^{-1} = g_2hh^{-1} \implies g_1 = g_2$, so we conclude that within a column, no two (different) rows have the same value, so each row has a unique value.
+	In much the same way, given a row $g$ and two ``columns'' $h_1, h_2$, we have \begin{equation*}
+		gh_1 = gh_2 \implies g^{-1}gh_1 = g^{-1}gh_2 \implies h_1 = h_2,
+	\end{equation*}
+	so each column's value within a row is unique.
+
+	This shows that \textit{if} an element $g \in G$ is in a row or column, it appears in that row or column exactly once, so we now need to show that each $g$ is, in fact, in each column or row.
+	This is easy, since given any $g, h \in G$, $g(g^{-1}h) = h$, so $h$ occupies the $g^{-1}h$ column of row $g$.
+	Similarly, $h$ is in the $hg^{-1}$ row of column $g$, so indeed each element appears at least once in each column and each row, and by the previous paragraph, this means it appears \textit{exactly} once in each column and each row.
+\end{proof}
+
+\begin{ex}
+	Prove that there is only \textit{one} possible multiplication table for $G$ if $G$ has exactly 1, 2, or 3 elements.
+	Analyze the possible multiplication tables for groups with exactly 4 elements, and show that there are \textit{two} distinct tables, up to reordering the elements of $G$.
+	Use these tables to prove that all groups with $\leq 4$ elements are commutative.
+\end{ex}
+\begin{proof}
+	If there is exactly 1 element in $G$, it must be the identity, and the product of the identity with itself must be the identity, so inded the multiplication table is completely determined.
+	This is trivially commutative.
+
+	If $G$ is of order 2, call its elements $e$ and $a$, where $e$ is the identity and $a$ is the other element.
+	Necessarily, $ea = a = ae$ and $ee = e$, so since each element needs to appear in each row and column exactly once, we must have $aa = e$ since it could not be $a$ again.
+	We can easily see that this makes $G$ commutative.
+
+	If $G$ has order 3, with elements $e$ (the identity), $a$, and $b$, then we have \begin{equation*}
+		\begin{tabular}{ c || c | c | c |}
+			  & e & a & b \\ \hline\hline
+			e & e & a & b \\ \hline
+			a & a & b & e \\ \hline
+			b & b & e & a \\ \hline
+		\end{tabular}
+	\end{equation*}
+	where the identity row and identity column come from the identity rules, then $aa$ must be $b$ because if it were $e$, there would need to be a second $b$ in the third row and third column.
+	The rest fills itself in using our trick of each element being in each row and column exactly once.
+
+	Now, if $G$ has 4 elements, $e$, $a$, $b$, and $c$, then the following unfinished multiplication table is forced \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a &   &   &   \\ \hline
+			b & b &   &   &   \\ \hline
+			c & c &   &   &   \\ \hline
+		\end{tabular}
+	\end{equation*}
+	and now we have a choice to make: should $ab$ be $c$ or $e$?
+	If we choose $ab = e$, then the following diagram is determined: \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & c & e & b \\ \hline
+			b & b & e & c & a \\ \hline
+			c & c & b & a & e \\ \hline
+		\end{tabular} \tag{1}
+	\end{equation*}
+	If we choose $ab = c$, then we have \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a &   & c &   \\ \hline
+			b & b & c &   &   \\ \hline
+			c & c &   &   &   \\ \hline
+		\end{tabular}
+	\end{equation*}
+	This leads us to another choice: should $ac$ be $e$ or $b$?
+	If $ac = e$, then we get \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & b & c & e \\ \hline
+			b & b & c & e & a \\ \hline
+			c & c & e & a & b \\ \hline
+		\end{tabular}, \tag{2}
+	\end{equation*}
+	and if $ac = b$, then \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & e & c & b \\ \hline
+			b & b & c &   &   \\ \hline
+			c & c & b &   &   \\ \hline
+		\end{tabular},
+	\end{equation*}
+	so we have one final decision to make: does $bc$ equal $a$ or $e$?
+	If $bc = a$, then \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & e & c & b \\ \hline
+			b & b & c & e & a \\ \hline
+			c & c & b & a & e \\ \hline
+		\end{tabular}, \tag{3}
+	\end{equation*}
+	and if $bc = e$, then \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & e & c & b \\ \hline
+			b & b & c & a & e \\ \hline
+			c & c & b & e & a \\ \hline
+		\end{tabular}. \tag{4}
+	\end{equation*}
+
+	Thus there are four possible multiplication tables, so we must justify the claim that there are in fact \textit{two} up to reordering the elements of $G$.
+	Here are the four tables presented together: \begin{align*}
+		 & (1)\hspace{1em} \begin{tabular}{ c || c | c | c | c | }
+			                     & e & a & b & c \\ \hline\hline
+			                   e & e & a & b & c \\ \hline
+			                   a & a & c & e & b \\ \hline
+			                   b & b & e & c & a \\ \hline
+			                   c & c & b & a & e \\ \hline
+		                   \end{tabular} & (2)\hspace{1em} \begin{tabular}{ c || c | c | c | c | }
+			                                                     & e & a & b & c \\ \hline\hline
+			                                                   e & e & a & b & c \\ \hline
+			                                                   a & a & b & c & e \\ \hline
+			                                                   b & b & c & e & a \\ \hline
+			                                                   c & c & e & a & b \\ \hline
+		                                                   \end{tabular} \\
+		\\
+		 & (3)\hspace{1em} \begin{tabular}{ c || c | c | c | c | }
+			                     & e & a & b & c \\ \hline\hline
+			                   e & e & a & b & c \\ \hline
+			                   a & a & e & c & b \\ \hline
+			                   b & b & c & e & a \\ \hline
+			                   c & c & b & a & e \\ \hline
+		                   \end{tabular} & (4)\hspace{1em} \begin{tabular}{ c || c | c | c | c | }
+			                                                     & e & a & b & c \\ \hline\hline
+			                                                   e & e & a & b & c \\ \hline
+			                                                   a & a & e & c & b \\ \hline
+			                                                   b & b & c & a & e \\ \hline
+			                                                   c & c & b & e & a \\ \hline
+		                                                   \end{tabular}
+	\end{align*}
+	The two types of multiplication table here are those where there is exactly one element of order 2, namely (1), (2), and (3), and those for whom every non-identity element is of order 2, which is (3).
+	Indeed, we can transform (1) into (2) (up to renaming of non-identity elements) by swapping the $b$ and $c$ columns: \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & c & e & b \\ \hline
+			b & b & e & c & a \\ \hline
+			c & c & b & a & e \\ \hline
+		\end{tabular}
+		\hspace{1em} \to \hspace{1em}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & c & b \\ \hline\hline
+			e & e & a & c & b \\ \hline
+			a & a & c & b & e \\ \hline
+			c & c & b & e & a \\ \hline
+			b & b & e & a & c \\ \hline
+		\end{tabular}
+	\end{equation*}
+	and it can be seen easily that replacing $b$ with $c$ and $c$ with $b$ in the latter table yields table (2) exactly.
+
+	We can perform a similar trick to transform (1) into (4), this time swapping $a$ and $c$, like so \begin{equation*}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & a & b & c \\ \hline\hline
+			e & e & a & b & c \\ \hline
+			a & a & c & e & b \\ \hline
+			b & b & e & c & a \\ \hline
+			c & c & b & a & e \\ \hline
+		\end{tabular}
+		\hspace{1em} \to \hspace{1em}
+		\begin{tabular}{ c || c | c | c | c | }
+			  & e & c & b & a \\ \hline\hline
+			e & e & c & b & a \\ \hline
+			c & c & e & a & b \\ \hline
+			b & b & a & c & e \\ \hline
+			a & a & b & e & c \\ \hline
+		\end{tabular}
+	\end{equation*}
+	where then swapping out $c$ for $a$ and $a$ for $c$ gives (4) exactly.
+
+	In this way, there is a sort of ``fundamental structure'' preserved through (1), (2), and (4), and a different structure in (3).
+	It is also clear that all of these are commutative, since they are symmetric about the NW-SE ``diagonal''.
+\end{proof}
+
+\begin{ex}
+	Prove Corollary 1.11.
+
+	Corollary 1.11: Let $g$ be an element of finite order, and let $N \in \mathbb{Z}$. Then \begin{equation*}
+		g^N = e \iff \text{$N$ is a multiple of $|g|$}.
+	\end{equation*}
+\end{ex}
+\begin{proof}\
+
+	($\impliedby$) If $N$ is a multiple of $|g|$, then for some $m \in \mathbb{Z}$, \begin{equation*}
+		g^N = g^{m|g|} = (g^{|g|})^m = e^m = e.
+	\end{equation*}
+
+	($\implies$) If $N > 0$, then this direction is simply a restatement of Lemma 1.10.
+	If $N = 0$, then of course $N$ is a multiple of $|g|$ because 0 is a multiple of every integer.
+	If $N < 0$, then \begin{equation*}
+		g^{-N} = (g^N)^{-1} = e^{-1} = e,
+	\end{equation*}
+	so $-N = m|g|$ for some $m \in \mathbb{Z}$ by Lemma 1.10, and thus $N = -m|g|$, making $N$ an integer multiple of $|g|$.
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a finite abelian group with exactly one element $f$ of order 2.
+	Prove that $\prod_{g \in G} g = f$.
+\end{ex}
+\begin{proof}
+	We begin by observing that since there is an element of order 2, $|G|$ is even.
+	We can then write $G$ as $\left\lbrace e, f, g_1, \dots, g_{2n} \right\rbrace$ where $2n = |G| - 2$.
+	If $|G| = 2$, then obviously $ef = f$, so the theorem holds.
+	Thus we can assume that $n > 0$.
+
+	Important to note is the fact that each $g_j$ is not its own inverse (if it were, it would have order $\leq 2$).
+	Furthermore, $f$ and $e$ \textit{are} their own inverses, so they cannot be the inverse of any $g_j$.
+	Thus for each $g_j$, there is exactly one $k \neq j$ where $1 \leq k \leq 2n$ for which $g_k = (g_j)^{-1}$.
+	We can then ``pair up'' the $g_j$s such that, after potential re-indexing, we get \begin{equation*}
+		\prod_{g \in G} g = efg_1g_1^{-1}\cdots g_ng_n^{-1} = fe^n = f.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a finite group, of order $n$, and let $m$ be the number of elements $g \in G$ of order exactly 2.
+	Prove that $n - m$ is odd.
+	Deduce that if $n$ is even, then $G$ necessarily contains elements of order 2.
+\end{ex}
+\begin{proof}
+	This proof will use a strategy similar to the previous one.
+	The identity element $e \in G$ is of order 1, so we can express $G$ as $\left\lbrace e, f_1, \dots, f_m, g_1, \dots, g_{n - m - 1} \right\rbrace$ where $f_1, \dots, f_m \in G$ are all the elements of order exactly 2, and $g_1, \dots, g_{n - m - 1}$ are the elements of order more than 2.
+	As mentioned in the proof of the previous theorem, each $g_j$ is not its own inverse, and each of $e, f_1, \dots, f_m$ is its own inverse, so for each $g_j$, there must exist (exactly) one $k \neq j$ such that $g_k = (g_j)^{-1}$.
+
+	Let $\hat{G} = \left\lbrace g_1, \dots, g_{n - m - 1} \right\rbrace$.
+	We define a relation $\sim$ on $\hat{G}$ like so: given $a, b \in \hat{G}$, $a \sim b$ if and only if either $a = b$ or $a^{-1} = b$.
+	This is reflexive by definition, and symmetric since if $a \sim b$ and $a \neq b$, then $a^{-1} = b$, so $a = b^{-1}$ and $b \sim a$.
+	Given $a \sim b$ and $b \sim c$, if either $a = b$ or $b = c$, transitivity is evident.
+	Assuming, then, that $a \neq b \neq c$, we have $a^{-1} = b$ and $b^{-1} = c$, so $c = b^{-1} = (a^{-1})^{-1} = a$.
+	Thus $a \sim c$ and we've shown that $\sim$ is an equivalence relation.
+
+	We can now quotient out by $\sim$ and study the members of $\hat{G}/{\sim}$.
+	Each $S \in \hat{G}/{\sim}$ contains exactly 2 elements since, as seen in the proof of transitivity, if there is a third element (or more), it is equal to one of the other elements.
+	Thus each $S \in \hat{G}/{\sim}$ has at most 2 elements, and of course it also has at least 2 elements because each element of $\hat{G}$ has an inverse in $\hat{G}$, as observed above.
+	Since $\hat{G}/{\sim}$ is a partition of $\hat{G}$ and each $S \in \hat{G}/{\sim}$ has cardinality 2, \begin{equation*}
+		\mathrm{card}\left(\hat{G}\right) = \mathrm{card}\left(\bigcup \hat{G}/{\sim}\right) = 2 * \mathrm{card}(\hat{G}/{\sim}).
+	\end{equation*}
+	Thus $\mathrm{card}(\hat{G}) = n - m - 1$ is even, so $n - m$ is odd as desired.
+
+	We conclude, as instructed, that if $n$ is even, there must be elements of order 2 in $G$ since if there were none, $m$ as defined in this exercise would be 0 and thus $n - m = n$ would be even.
+\end{proof}
+
+\begin{ex}
+	Suppose the order of $g$ is odd.
+	What can you say about the order of $g^2$?
+\end{ex}
+\begin{proof}
+	By Proposition 1.13, $g^2$ also has finite order, and in particular, \begin{equation*}
+		|g^2| = \frac{|g|}{\mathrm{gcd}(2, |g|)} = \frac{|g|}{1} = |g|.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Prove that for all $g, h$ in a group $G$, $|gh| = |hg|$.
+	(Hint: Prove that $|aga^{-1}| = |g|$ for all $a, g$ in $G$.)
+\end{ex}
+\begin{proof}
+	First, we show that given $g, h \in G$, $|hgh^{-1}| = |g|$.
+	We will do this by showing that $(hgh^{-1})^m = e$ if and only if $g^m = e$ for any integer $m$.
+	Observe that \begin{equation*}
+		(hgh^{-1})^n = \underbrace{(hgh^{-1})(hgh^{-1})\cdots(hgh^{-1})}_{n} = hg^nh^{-1}
+	\end{equation*}
+	since, after rearranging parentheses, each $h^{-1}h = e$ ``vanishes.''
+	Thus if $(hgh^{-1})^m = e$ for some $m$, then \begin{align*}
+		(hgh^{-1})^m = h & g^mh^{-1} = e             \\
+		\implies         & g^m     = h^{-1}h     = e
+	\end{align*}
+	where the implication comes by multiplying on the left by $h^{-1}$ and on the right by $h$.
+	Conversely, if $g^m = e$, then clearly \begin{equation*}
+		(hgh^{-1})^m = hg^mh^{-1} = heh^{-1} = hh^{-1} = e.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	In the group of invertible $2 \times 2$ matrices, consider \begin{equation*}
+		g = \begin{pmatrix*}[r]
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix*},\hspace{1em}h = \begin{pmatrix*}[r]
+			0  & 1  \\
+			-1 & -1
+		\end{pmatrix*}.
+	\end{equation*}
+	Verify that $|g| = 4, |h| = 3$, and $|gh| = \infty$.
+\end{ex}
+\begin{proof}
+	First we calculate \begin{align*}
+		g^4 & = \begin{pmatrix*}[r]
+			        0 & -1 \\
+			        1 & 0
+		        \end{pmatrix*}\begin{pmatrix*}[r]
+			                      0 & -1 \\
+			                      1 & 0
+		                      \end{pmatrix*}\begin{pmatrix*}[r]
+			                                    0 & -1 \\
+			                                    1 & 0
+		                                    \end{pmatrix*}\begin{pmatrix*}[r]
+			                                                  0 & -1 \\
+			                                                  1 & 0
+		                                                  \end{pmatrix*} \\
+		    & = \begin{pmatrix*}[r]
+			        -1 & 0 \\
+			        0 & -1
+		        \end{pmatrix*}\begin{pmatrix*}[r]
+			                      0 & -1 \\
+			                      1 & 0
+		                      \end{pmatrix*}\begin{pmatrix*}[r]
+			                                    0 & -1 \\
+			                                    1 & 0
+		                                    \end{pmatrix*}               \\
+		    & = \begin{pmatrix*}[r]
+			        0 & 1 \\
+			        -1 & 0
+		        \end{pmatrix*}\begin{pmatrix*}[r]
+			                      0 & -1 \\
+			                      1 & 0
+		                      \end{pmatrix*}                             \\
+		    & = \begin{pmatrix*}[r]
+			        1 & 0 \\
+			        0 & 1 \\
+		        \end{pmatrix*},
+	\end{align*}
+	so $g^4 = e$, and since we did not reach the identity matrix until the last step, $g^m \neq e$ for any $m < 4$.
+	Thus $|g| = 4$.
+
+	Also, \begin{align*}
+		h^3 & = \begin{pmatrix*}[r]
+			        0 & 1 \\
+			        -1 & -1
+		        \end{pmatrix*}\begin{pmatrix*}[r]
+			                      0 & 1 \\
+			                      -1 & -1
+		                      \end{pmatrix*}\begin{pmatrix*}[r]
+			                                    0 & 1 \\
+			                                    -1 & -1
+		                                    \end{pmatrix*} \\
+		    & = \begin{pmatrix*}[r]
+			        -1 & -1 \\
+			        1 & 0
+		        \end{pmatrix*}\begin{pmatrix*}[r]
+			                      0 & 1 \\
+			                      -1 & -1
+		                      \end{pmatrix*}               \\
+		    & = \begin{pmatrix*}[r]
+			        1 & 0 \\
+			        0 & 1
+		        \end{pmatrix*},
+	\end{align*}
+	so, following the same reasoning as before, $|h| = 3$.
+
+	On the other hand, \begin{equation*}
+		gh = \begin{pmatrix*}[r]
+			0 & -1 \\
+			1 & 0
+		\end{pmatrix*}\begin{pmatrix*}[r]
+			0 & 1 \\
+			-1 & -1
+		\end{pmatrix*} = \begin{pmatrix*}[r]
+			1 & 1 \\
+			0 & 1
+		\end{pmatrix*},
+	\end{equation*}
+	and for any positive integer $m$, it is easy to see that \begin{equation*}
+		(gh)^m = \begin{pmatrix*}
+			1 & m \\
+			0 & 1
+		\end{pmatrix*},
+	\end{equation*}
+	so indeed $|gh| = \infty$.
+\end{proof}
+
+\begin{ex}
+	Give an example showing that $|gh|$ is not necessarily equal to $\mathrm{lcm}(|g|, |h|)$, even if $g$ and $h$ commute.
+\end{ex}
+\begin{proof}
+  Let $f$ be an element of order 2 in a group $G$.
+  Then $|ff| = |e| = 1 \neq 2 = \mathrm{lcm}(|f|, |f|)$.
+\end{proof}
+
+\begin{ex}
+  As a counterpoint to Exercise 1.13, prove that if $g$ and $h$ commute \textit{and} $\mathrm{gcd}(|g|, |h|) = 1$, then $|gh| = |g||h|$.
+  (Hint: Let $N = |gh|$; then $g^N = (h^{-1})^N$. What can you say about this element?)
+\end{ex}
+\begin{proof}
+  Observe that $e = gh^{|gh||h|} = g^{|gh||h|}h^{|gh||h|} = g^{|gh||h|}$.
+  Thus $|g|$ divides $|gh||h|$, so since $\mathrm{gcd}(|g|, |h|) = 1$, $|g|$ divides $|gh|$.
+  We can show similarly that $|h|$ divides $|gh|$ by swapping $g$ and $h$ in the above calculation.
+  Thus, again since $\mathrm{gcd}(|g|, |h|) = 1$, $|g||h|$ divides $|gh|$.
+  We already know that $|gh|$ divides $|g||h|$ by Proposition 1.14, so we conclude that $|gh| = |g||h|$.
+\end{proof}
+
+\begin{ex}
+  Let $G$ be a commutative group, and let $g \in G$ be an element of maximal \textit{finite} order, that is, such that if $h \in G$ has finite order, then $|h| \leq |g|$.
+  Prove that in fact if $h$ has finite order in $G$, then $|h|$ \textit{divides} $|g|$.
+  (Hint: Argue by contradiction. If $|h|$ is finite but does not divide $|g|$, then there is a prime integer $p$ such that $|g| = p^mr$, $|h| = p^ns$, with $r$ and $s$ relatively prime to $p$ and $m < n$. Use Exercise 1.14 to compute the order of $g^{p^m}h^s$.)
+\end{ex}
+\begin{proof}
+  Let $g \in G$ be of maximal finite order and $h \in G$ of finite order.
+  If $|h|$ does not divide $|g|$, then $|g| = p^mr$ and $|h| = p^ns$, where $r$ and $s$ are relatively prime to $p$ and $m < n$.
+  Then $r = a|g^{p^m}|$ for some positive integer $a$ by Corollary 1.11, so $g^{p^m \frac{r}{a}} = e$, implying that $a = 1$.
+  Thus $|g^{p^m}| = r$, and by similar logic, $|h^s| = p^n$.
+  In particular, this tells us that $|g^{p^m}|$ and $|h^s|$ are relatively prime.
+  We conclude, by Exercise 1.14, that \begin{equation*}
+    |g^{p^m}h^s| = |g^{p^m}||h^s| = rp^n > |g|
+  \end{equation*}
+  contradicting the hypothesis that $g$ is of maximal finite order.
+\end{proof}
+
+\end{document}

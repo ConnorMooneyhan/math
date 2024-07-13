@@ -38,4 +38,143 @@
 
 \maketitle
 
+\begin{ex}
+	Composition is defined for \textit{two} morphisms.
+	If more than two morphisms are given, e.g., \begin{equation*}
+		\begin{tikzcd}
+			A \arrow[r, "f"] & B \arrow[r, "g"] & C \arrow[r, "h"] & D \arrow[r, "i"] & E,
+		\end{tikzcd}
+	\end{equation*}
+	then one may compose them in several ways, for example: \begin{equation*}
+		(ih)(gf), \hspace{1em} (i(hg))f, \hspace{1em} i((hg)f), \hspace{1em} \mathrm{etc.}
+	\end{equation*}
+	so that at every step one is only composing two morphisms.
+	Prove that the result of any such nested composition is independent of the placement of the parentheses.
+	(Hint: Use induction on $n$ to show that any such choice for $f_nf_{n-1}\cdots f_1$ equals \begin{equation*}
+		((\cdots((f_nf_{n-1})f_{n-2})\cdots)f_1).
+	\end{equation*}
+	Carefully working out the case $n = 5$ is helpful.)
+\end{ex}
+\begin{proof}
+	Note that the cases of $n = 0$, $n = 1$, $n = 2$ are trivially true (parentheses can only be applied in at most 1 way!), so we observe that $n = 3$ is simply an expression of the fact that morphisms are associative.
+	This is true in any category, and it serves as our "true" base case.
+	As a matter of notation, we will denote the cumbersome \begin{equation*}
+		((\cdots((f_nf_{n-1})f_{n-2})\cdots)f_1)
+	\end{equation*}
+	as simply \begin{equation*}
+		f_n f_{n-1} \cdots f_1,
+	\end{equation*}
+	dropping all parentheses except where they are either required or clarifying.
+	In this case, composition is intended to be read "left-to-right."
+
+	Let $n > 3$ such that the theorem holds for all $m \leq n - 1$.
+	Then given any valid arrangement of parentheses, since at every step one is only composing two morphisms, there must exist (proven in the next paragraph) at least one pair $f_kf_{k - 1}$ where $n \geq k > 1$ such that when all parentheses are written out, $(f_kf_{k-1})$ is a part of the product.
+	We will call such a pair a \textit{primitive pair}.
+	For example, in the product \begin{equation*}
+		(f_5(f_4((f_3f_2)f_1))),
+	\end{equation*}
+	$(f_3f_2)$ is a primitive pair.
+
+	We now provide a brief proof of its existence.
+	It is clear that such a pair exists for $n = 3$ since the only two arrangements of parentheses are $((f_3f_2)f_1)$ and $(f_3(f_2f_1))$, both of which feature a primitive pair.
+	If $n > 3$, then in the case that $(f_nf_{n-1})$ is a primitive pair, we are done, so assume that $f_n$ is not part of a primitive pair.
+	Then $f_n$ is being multiplied by some parentheses arrangement of the product $f_{n-1}f_{n-2}\cdots f_1$, which itself contains a primitive pair by the induction hypotheses.
+
+	We conclude, then, that each arrangement of parentheses as specified does indeed contain at least one primitive pair, and since $n$ is finite, there must be a "first" or "leftmost" primitive pair.
+	Fix $k$ so that this leftmost primitive pair is $(f_kf_{k-1})$.
+	Then we can consider $(f_k f_{k - 1})$ as one morphism, making our product a parentheses arrangement of \begin{equation*}
+		f_n f_{n-1} \cdots (f_kf_{k - 1}) \cdots f_1,
+	\end{equation*}
+	which is a product of $n - 1$ elements, and thus by our induction hypothesis is equal to \textit{exactly} \begin{equation*}
+		f_n f_{n-1} \cdots (f_kf_{k - 1}) \cdots f_1.
+	\end{equation*}
+	We can now transform this product, adding parentheses when useful: \begin{align*}
+		  & f_n f_{n-1} \cdots (f_kf_{k - 1}) \cdots f_1                \\
+		= & (f_n f_{n-1} \cdots (f_kf_{k - 1})) \cdots f_1              \\
+		= & (f_n f_{n-1} \cdots (f_kf_{k - 1})) (f_{k - 2} \cdots f_1),
+	\end{align*}
+	where the second equality comes from the induction hypothesis.
+	When $k > 2$, we can use the hypothesis again to simplify this to \begin{align*}
+		  & (f_n f_{n-1} \cdots f_kf_{k - 1}) (f_{k - 2} \cdots f_1)         \\
+		= & (\cdots((f_n f_{n-1} \cdots f_kf_{k - 1}) f_{k - 2}) \cdots f_1) \\
+		= & f_n f_{n-1} \cdots f_kf_{k - 1} f_{k - 2} \cdots f_1,
+	\end{align*}
+	which is our desired result.
+	If $k = 2$, then we use a similar trick: \begin{align*}
+		  & f_n f_{n-1} \cdots (f_2 f_1)       \\
+		= & (f_n f_{n-1} \cdots f_3) (f_2 f_1) \\
+		= & (((f_n f_{n-1}\cdots f_3)f_2)f_1)  \\
+		= & f_n f_{n-1}\cdots f_3f_2f_1.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	In Example 3.3 we have seen how to construct a category from a set endowed with a relation, provided this latter is reflexive and transitive.
+	For what types of relations is the corresponding category a groupoid?
+\end{ex}
+\begin{proof}
+	Reflexivity and transitivity are still needed to guarantee the existence of identities and composition respectively, but we only need to add one axiom to form a groupoid: symmetry.
+	Thus, our relation would be an equivalence relation.
+	We now proceed to prove that a category formed by a reflexive and transitive relation is a groupoid if and only if it is symmetric.
+	Let $\mathsf{C}$ be our category and $\sim$ our relation.
+
+	($\implies$) Given $A$ and $B$ two objects of $\mathsf{C}$ such that $A \sim B$, by definition $\exists f \in \mathrm{Hom}_{\mathsf{C}}(A, B)$.
+	We also know, since $\mathsf{C}$ is a groupoid, that $f$ is an isomorphism and thus has an inverse, so $\exists f^{-1} \in \mathrm{Hom}_{\mathsf{C}}(B, A)$, meaning that $B \sim A$.
+	Thus $\sim$ is symmetric.
+
+	($\impliedby$) Given $f \in \mathrm{Hom}_{\mathsf{C}}(A, B)$ for some objects $A$ and $B$, we know by definition that $A \sim B$.
+	Since $\sim$ is symmetric, we also have $B \sim A$, and thus $\exists g \in \mathrm{Hom}_{\mathsf{C}}(B, A)$.
+	Thus $gf \in \mathrm{End}_{\mathsf{C}}(A)$, but $\mathrm{End}_{\mathsf{C}}(A)$ has only one element, namely $1_A$, so $gf = 1_A$.
+	A similar proof shows that $fg = 1_B$, so we conclude that $g$ is the inverse of $f$, and thus $f$ is an isomorphism.
+	Since the choice of $f$ was arbitrary, $\mathsf{C}$ is a groupoid.
+\end{proof}
+
+\begin{ex}
+	Let $A, B$ be objects of a category $\mathsf{C}$, and let $f \in \mathrm{Hom}_{\mathsf{C}}(A, B)$ be a morphism.
+	\begin{itemize}
+		\item Prove that if $f$ has a right-inverse, then $f$ is an epimorphism.
+		\item Show that the converse does not hold, by giving an explicit example of a category and an epimorphism without a right-inverse.
+	\end{itemize}
+\end{ex}
+\begin{proof}
+	First, assume $f$ has a right-inverse $g \in \mathrm{Hom}_{\mathsf{C}}(B, A)$.
+	Given $f_1, f_2 \in \mathrm{Hom}_{\mathsf{C}}(B, Z)$ with $Z$ some object of $\mathsf{C}$ such that $f_1 f = f_2 f$, then \begin{equation*}
+		f_1 f g = f_2 f g \implies f_1 (f g) f_2 (f g) \implies f_1 1_B = f_2 1_B \implies f_1 = f_2.
+	\end{equation*}
+
+	On the other hand, take the example of the category generated (as in Example 3.3) by the relation $\leq$ on $\mathbb{N}$.
+	There is a morphism $f \in \mathrm{Hom}(2, 3)$, and as pointed out in the present section, it is an epimorphism just like every other morphism in this category.
+	However, $\mathrm{Hom}(3, 2) = \emptyset$, so there cannot be a right-inverse.
+\end{proof}
+
+\begin{ex}
+	Prove that the composition of two monomorphisms is a monomorphism.
+	Deduce that one can define a subcategory $\mathsf{C}_{\mathrm{mono}}$ of a category $\mathsf{C}$ by taking the same objects as in $\mathsf{C}$ and defining $\mathrm{Hom}_{\mathsf{C}_{\mathrm{mono}}}(A, B)$ to be the subset of $\mathrm{Hom}_{\mathsf{C}}(A, B)$ consisting of monomorphisms, for all objects $A, B$.
+	(Cf. Exercise 3.8; of course, in general $\mathsf{C}_{\mathrm{mono}}$ is not full in $\mathsf{C}$.)
+	Do the same for epimorphisms.
+	Can you define a subcategory $\mathsf{C}_{\mathrm{nonmono}}$ of $\mathsf{C}$ by restricting to morphisms that are \textit{not} monomorphisms?
+\end{ex}
+\begin{proof}
+  Given two monomorphisms $f \in \mathrm{Hom}_{\mathsf{C}}(A, B)$ and $g \in \mathrm{Hom}_{\mathsf{C}}(B, C)$ for objects $A, B, C$ in a category $\mathsf{C}$, we can deduce easily that given $h_1, h_2 \in \mathrm{Hom}_{\mathsf{C}}(Z, A)$ for some object $Z$, \begin{align*}
+		         & (gf)h_1 = (gf)h_2 \\
+		\implies & g(fh_1) = g(fh_2) \\
+		\implies & fh_1 = fh_2       \\
+		\implies & h_1 = h_2.
+	\end{align*}
+  Thus the composition of monomorphisms is indeed a monomorphism. 
+  Also, identities are monomorphisms, so $\mathsf{C}_{\mathrm{mono}}$ is a category.
+
+  On the other hand, since identities are monomorphisms, they are not objects in the proposed $\mathsf{C}_{\mathrm{nonmono}}$, so $\mathsf{C}_{\mathrm{nonmono}}$ cannot form a subcategory.
+\end{proof}
+
+\begin{ex}
+  Give a concrete description of monomorphisms and epimorphisms in the category $\mathsf{MSet}$ you constructed in Exercise 3.9.
+  (Your answer will depend on the notion of morphism you defined in that exercise!)
+\end{ex}
+\begin{proof}
+  Monomorphisms here are still monomorphisms of sets, just sets of equivalence classes.
+  If you want to interpret the monomorphisms in terms of "the original set," then you can view it as a function being a monomorphism if it sends \textit{non-related} (by $\sim$) elements to different elements.
+  For epimorphisms, the concept stays more or less the same, where a function is an epimorphism if every element of the codomain is sent to by some equivalence class of related elements.
+\end{proof}
+
 \end{document}
