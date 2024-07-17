@@ -11,6 +11,13 @@
 % Section
 \setcounter{section}{1}
 
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
 \title{Exercises {\Roman{chapter}}.{\arabic{section}}}
 \author{Connor Mooneyhan}
 \date{Month DD, 2024}
