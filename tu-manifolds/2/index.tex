@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\setcounter{section}{2}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{\S\arabic{section} Exercises}
+\author{Connor Mooneyhan}
+\date{May 8, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	\textbf{Vector fields} \\
+	Let $X$ be the vector field $x \partial/\partial x + y \partial/\partial y$ and $f(x, y, z)$ the function $x^2 + y^2 + z^2$ on $\mathbb{R}^3$. Compute $Xf$.
+\end{ex}
+\begin{proof}
+	By definition, given $p = (p^1, p^2, p^3) \in A$, \begin{align*}
+		(Xf)(p) & = X_pf                                                                                  \\
+		        & = p^1 \frac{\partial f}{\partial x}\bigg|_p + p^2 \frac{\partial f}{\partial y}\bigg|_p \\
+		        & = p^1 * (2x)\bigg|_p + p^2 * (2y)\bigg|_p                                               \\
+		        & = 2(p^1)^2 + 2(p^2)^2.
+	\end{align*}
+	Thus, in general, $(Xf)(x, y, z) = 2x^2 + 2y^2$.
+\end{proof}
+
+\begin{ex}
+	\textbf{Algebra structure on} $C^\infty_p$ \\
+	Define carefully addition, multiplication, and scalar multiplication in $C^\infty_p$.
+	Prove that addition in $C^\infty_p$ is commutative.
+\end{ex}
+\begin{proof}
+	Given $[f], [g]$ germs in $C^\infty_p$, where $f$ and $g$ are representatives of $[f]$ and $[g]$ respectively, define $[f] + [g] = [f + g]$.
+	To show that this is well-defined, consider $f_1 \in [f]$ and $g_1 \in [g]$.
+	Let $U$ (resp. $V$) be a neighborhood on which $f$ and $f_1$ (resp. $g$ and $g_1$) agree, and note that $U \cap V$ is a neighborhood of $p$.
+	Then for some $q \in U \cap V$, \begin{align*}
+		(f + g)(q) & = f(q) + g(q)     \\
+		           & = f_1(q) + g_1(q) \\
+		           & = (f_1 + g_1)(q).
+	\end{align*}
+	Thus $(f + g)|_{U \cap V} = (f_1 + g_1)|_{U \cap V}$, so $[f + g] = [f_1 + g_1]$.
+	From this, it is immediate that addition is commutative as defined, since \begin{equation*}
+		[f] + [g] = [f + g] = [g + f] = [g] + [f].
+	\end{equation*}
+
+	Similarly, define $[f] * [g] = [f * g]$.
+	The proof that this is well-defined is the same as above, swapping out each "$+$" for a "$*$".
+
+	Finally, for $a \in \mathbb{R}$, $[f] \in C^\infty_p$, and some $x$ in the domain of $f$, define $(af)(x) = a * f(x)$.
+\end{proof}
+
+\begin{ex}
+	\textbf{Vector space structure on derivations at a point} \\
+	Let $D$ and $D^\prime$ be derivations at $p$ in $\mathbb{R}^n$, and $c \in \mathbb{R}$.
+	Prove that \begin{enumerate}[label=(\alph*)]
+		\item the sum $D + D^\prime$ is a derivation at $p$.
+		\item the scalar multiple $cD$ is a derivation at $p$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item Given $[f], [g] \in C^\infty_p$, $f \in [f]$, $g \in [g]$, and $c \in \mathbb{R}$, \begin{align*}
+			      (D + D^\prime)([f] + [g]) & = D([f] + [g]) + D^\prime([f] + [g])              \\
+			                                & = D([f]) + D([g]) + D^\prime([f]) + D^\prime([g]) \\
+			                                & = D([f]) + D^\prime([f]) + D([g]) + D^\prime([g]) \\
+			                                & = (D + D^\prime)([f]) + (D + D^\prime)([g]),
+		      \end{align*}
+		      so $D + D^\prime$ is additive.
+		      Also, \begin{align*}
+			      (D + D^\prime)(c[f]) & = D(c[f]) + D^\prime(c[f])             \\
+			                           & = cD([f]) + cD^\prime([f])             \\
+			                           & = c\left[D([f]) + D^\prime([f])\right] \\
+			                           & = c(D + D^\prime)([f]),
+		      \end{align*}
+		      so $D + D^\prime$ is homogeneous.
+		      Finally, \begin{align*}
+			      (D + D^\prime)([f][g]) & = D([f][g]) + D^\prime([f][g])                                                         \\
+			                             & = D([f])g(p) + f(p)D([g]) + D^\prime([f])g(p) + f(p)D^\prime([g])                      \\
+			                             & = g(p)\left[D([f]) + D^\prime([f])\right] + f(p) \left[ D([g]) + D^\prime([g]) \right] \\
+			                             & = g(p)(D + D^\prime)([f]) + f(p)(D + D^\prime)([g]),
+		      \end{align*}
+		      so $D + D^\prime$ follows the Leibniz rule, and thus is a derivation at $p$.
+		\item Given $[f], [g]$ as above and $c, d \in \mathbb{R}$, \begin{align*}
+			      (cD)([f] + [g]) & = c(D([f] + [g]))        \\
+			                      & = c(D([f]) + D([g]))     \\
+			                      & = cD([f]) + cD([g])      \\
+			                      & = (cD)([f]) + (cD)([g]),
+		      \end{align*}
+		      \begin{align*}
+			      (cD)(d[f]) & = c(D(d[f]))  \\
+			                 & = c(dD([f]))  \\
+			                 & = d(cD)([f]),
+		      \end{align*}
+		      and \begin{align*}
+			      (cD)(ab) & = c(D(ab))            \\
+			               & = c(D(a)b + aD(b))    \\
+			               & = cD(a)b + caD(b)     \\
+			               & = (cD)(a)b + a(cD)(b).
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	\textbf{Product of derivations} \\
+	Let $A$ be an algebra over a field $K$.
+	If $D_1$ and $D_2$ are derivations of $A$, show that $D_1\,\circ\,D_2$ is not necessarily a derivation (it is if $D_1$ or $D_2 = 0$), but $D_1\,\circ\,D_2 - D_2\,\circ\,D_1$ is always a derivation of $A$.
+\end{ex}
+\begin{proof}
+	Given $a, b \in A$, \begin{align*}
+		(D_1 \,\circ\, D_2)(ab) & = D_1(D_2(ab))                                                       \\
+		                        & = D_1(D_2(a)b + aD_2(b))                                             \\
+		                        & = D_1(D_2(a)b) + D_1(aD_2(b))                                        \\
+		                        & = D_1(D_2(a))b + D_2(a)D_1(b) + D_1(a)D_2(b) + aD_1(D_2(b)), \tag{1}
+	\end{align*}
+	so $D_1 \,\circ\, D_2$ can only satisfy the Leibniz rule if $D_2(a)D_1(b) + D_1(a)D_2(b) = 0$.
+	If $D_1$ or $D_2 = 0$, certainly this holds, but to see that it does not hold in general, consider $A = C^\infty(\mathbb{R})$ and $D_1 = D_2 = d/dx$.
+	Then taking $a = x$ and $b = x^2$ where each is a function of $x$ from $\mathbb{R}$ to $\mathbb{R}$, \begin{align*}
+		D_2(a)D_1(b) + D_1(a)D_2(b) & = (1)(2x) + (1)(2x) = 4x,
+	\end{align*}
+	which is nonzero.
+
+	Now we use (1) from above to show that the Leibniz rule holds for $D_1 \,\circ\, D_2 - D_2 \circ D_1$: \begin{align*}
+		    & (D_1 \,\circ\, D_2 - D_2 \,\circ\, D_1)(ab)                                                             \\
+		=\  & D_1(D_2(a))b + D_2(a)D_1(b) + D_1(a)D_2(b) + aD_1(D_2(b))                                               \\
+		    & - [D_2(D_1(a))b + D_1(a)D_2(b) + D_2(a)D_1(b) + aD_2(D_1(b))]                                           \\
+		=\  & (D_1 \,\circ\, D_2)(a)*b + a(D_1 \,\circ\, D_2)(b) - (D_2 \,\circ\, D_1)(a)*b - a(D_2 \,\circ\, D_1)(b) \\
+		=\  & (D_1 \,\circ\, D_2 - D_2 \,\circ\, D_1)(a)*b + a(D_1 \,\circ\, D_2 - D_2 \,\circ\, D_1)(b),
+	\end{align*}
+	demonstrating that the problematic "middle" terms from before cancel out, and we are left with a clean statement of the Leibniz rule.
+\end{proof}
+
+\end{document}
