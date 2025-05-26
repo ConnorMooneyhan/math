@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+% document settings
+\geometry{letterpaper, portrait, margin=1in}
+
+% custom declarations
+\setcounter{section}{3}
+
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\sgn}{sgn}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{\S\arabic{section} Exercises}
+\author{Connor Mooneyhan}
+\date{May 19, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	\textbf{Tensor product of covectors}\\
+	Let $e_1, \dots, e_n$ be a basis for a vector space $V$ and let $\alpha^1, \dots, \alpha^n$ be its dual basis in $V^\vee$.
+	Suppose $[g_{ij}] \in \mathbb{R}^{n \times n}$ is an $n \times n$ matrix.
+	Define a bilinear function $f: V \times V \to \mathbb{R}$ by \begin{equation*}
+		f(v, w) = \sum_{1 \leq i,j \leq n} g_{ij}v^iw^j
+	\end{equation*}
+	for $v = \sum v^i e_i$ and $w = \sum w^je_j$ in $V$.
+	Describe $f$ in terms of the tensor products of $\alpha^i$ and $\alpha^j$, $1 \leq i, j \leq n$.
+\end{ex}
+\begin{proof}
+	\begin{align*}
+		f(v, w) & = \sum_{1 \leq i,j \leq n} g_{ij}v^iw^j                          \\
+		        & = \sum_{1 \leq i,j \leq n} g_{ij}\alpha^i(v)\alpha^j(w)          \\
+		        & = \sum_{1 \leq i,j \leq n} g_{ij}(\alpha^i\otimes\alpha^j)(v,w).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	\textbf{Hyperplanes}
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $V$ be a vector space of dimension $n$ and $f: V \to \mathbb{R}$ a nonzero linear functional.
+		      Show that $\dim \ker f = n - 1$. A linear subspace of $V$ of dimension $n - 1$ is called a \textit{hyperplane} in $V$.
+		\item Show that a nonzero linear functional on a vector space $V$ is determined up to a multiplicative constant by its kernel, a hyperspace in $V$.
+		      In other words, if $f$ and $g: V \to \mathbb{R}$ are nonzero linear functionals and $\ker f = \ker g$, then $g = cf$ for some constant $c \in \mathbb{R}$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item Since $f$ is nonzero, there exists $v \in V$ such that $f(v) = a \in \mathbb{R}$ nonzero.
+		      Given $c \in \mathbb{R}$, $f(\frac{c}{a}v) = \frac{c}{a}f(v) = \frac{c}{a}a = c$, so the range of $f$ is $\mathbb{R}$.
+		      By the fundamental theorem of linear algebra, \begin{align*}
+			      n & = \dim\ker f + \dim \range f \\
+			        & = \dim\ker f + 1,
+		      \end{align*}
+		      so $\dim \ker f = n - 1$.
+		\item Given nonzero linear functionals $f, g : V \to \mathbb{R}$ such that $\ker f = \ker g$, let $e_1, \dots, e_{n-1}$ be a basis of $\ker f$, and extend it to a basis $e_1, \dots, e_{n-1}, e_n$ of $V$.
+		      Then $e_n \notin \ker f$ by definition, so let $r = f(e_n) \neq 0$.
+		      Similarly, let $c \in \mathbb{R}$ be such that $cg(e_n) = r$.
+		      Given any $v \in V$, write $v = \sum v^i e_i$, so that \begin{align*}
+			      f(v) & = f\left(\sum_{i = 1}^n v^i e_i\right) \\
+			           & = \sum_{i = 1}^n v^i f(e_i)            \\
+			           & = v^n * r                              \\
+			           & = v^n * cg(e_n)                        \\
+			           & = c * (v^ne_n)                         \\
+			           & = c * g(v).
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	\textbf{A basis for $k$-tensors} \\
+	Let $V$ be a vector space of dimension $n$ with basis $e_1, \dots, e_n$.
+	Let $\alpha^1, \dots, \alpha^n$ be the dual basis for $V^\vee$.
+	Show that a basis for the space $L_k(V)$ of $k$-linear functions on $V$ is $\left\lbrace \alpha^{i_1} \otimes \cdots \otimes \alpha^{i_k} \right\rbrace$ for all multi-indices $(i_1, \dots, i_k)$ (not just the strictly ascending multi-indices as for $A_k(V)$).
+	In particular, this shows that $\dim L_k(V) = n^k$.
+	(This problem generalizes Problem 3.1.)
+\end{ex}
+\begin{proof}
+	First, we show linear indepenedence.
+	Assume $\sum c_I\alpha^I = 0$ where $I$ ranges over all multi-indices of length $k$ and each $c_I \in \mathbb{R}$.
+	Apply this to $e_J$ for some multi-index $J$ to get \textbf{UNFINISHED} \begin{equation*}
+		0 = \sum c_I\alpha^I(e_J)
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	\textbf{A characterization of alternating $k$-tensors}
+	Let $f$ be a $k$-tensor on a vector space $V$.
+	Prove that $f$ is alternating if and only if $f$ changes sign whenever two successive arguments are interchanged:
+	\begin{equation*}
+		f(\dots, v_{i + 1}, v_i, \dots) = -f(\dots, v_i, v_{i + 1}, \dots)
+	\end{equation*}
+	for $i = 1, \dots, k - 1$.
+\end{ex}
+\begin{proof}
+	Given a transposition $\sigma \in S_k$, $\sgn \sigma = -1$, so if $f$ is alternating, by definition $f = - \sigma f$.
+
+	In the other direction, let $\sigma \in S_k$, and express $\sigma$ as a product of transpositions: \begin{equation*}
+		\sigma = \sigma_1\cdots\sigma_n.
+	\end{equation*}
+	Then \begin{align*}
+		\sigma f & = (\sigma_1\cdots\sigma_{n-1})(\sigma_nf) \\
+		         & = (\sigma_1\cdots\sigma_{n-1})(-f)        \\
+		         & = (\sigma_1\cdots\sigma_{n-2})(f)         \\
+		         & \ \,\vdots                                \\
+		         & = (-1)^n f                                \\
+		         & = (\sgn \sigma) f
+	\end{align*}
+	as desired.
+\end{proof}
+
+\begin{ex}
+	\textbf{Another characterization of alternating $k$-tensors} \\
+	Let $f$ be a $k$-tensor on a vector space $V$.
+	Prove that $f$ is alternating if and only if $f(v_1, \dots, v_k) = 0$ whenever two of the vectors $v_1, \dots, v_k$ are equal.
+\end{ex}
+\begin{proof}
+	In the forward direction, indeed if $v_i = v_j$ for $1 \leq i < j \leq k$, then \begin{align*}
+		f(\dots, v_i, \dots, v_j, \dots) = -f(\dots, v_j, \dots, v_i, \dots)
+	\end{align*}
+	since swapping $v_i$ and $v_j$ amounts to a transposition, but in fact \begin{equation*}
+		f(\dots, v_i, \dots, v_j, \dots) = f(\dots, v_j, \dots, v_i, \dots)
+	\end{equation*}
+	because $v_i = v_j$, so \begin{align*}
+		           & f(\dots, v_i, \dots, v_j, \dots) = -f(\dots, v_i, \dots, v_j, \dots) \\
+		\implies 2 & f(\dots, v_i, \dots, v_j, \dots) = 0                                 \\
+		\implies   & f(\dots, v_i, \dots, v_j, \dots) = 0.
+	\end{align*}
+
+	On the other hand, if $f(v_1, \dots, v_k) = 0$ whenever two of the vectors $v_1, \dots, v_k$ are equal, take any $v_1, \dots, v_k \in V$.
+	We will proceed to show that any transposition $\sigma$ yields $\sigma f = -f$ so we may apply exercise 3.4.
+	Without loss of generality, we will assume that $\sigma$ swaps $v_1$ and $v_2$ for simplicity:
+	\begin{align*}
+		    & f(v_1, v_2, \dots, v_k) + f(v_2, v_1, \dots, v_k)                                       \\
+		=\  & f(v_1 + v_2 - v_2, v_2, \dots, v_k) + f(v_2, v_1, \dots, v_k)                           \\
+		=\  & f(v_1 + v_2, v_2, \dots, v_k) - f(v_2, v_2, \dots, v_k) + f(v_2, v_1, \dots, v_k)       \\
+		=\  & f(v_1 + v_2, v_2, \dots, v_k) - 0 + f(v_2 + v_1 - v_1, v_1, \dots, v_k)                 \\
+		=\  & f(v_1 + v_2, v_2, \dots, v_k) + f(v_2 + v_1, v_1, \dots, v_k) - f(v_1, v_1, \dots, v_k) \\
+		=\  & f(v_1 + v_2, v_2, \dots, v_k) + f(v_2 + v_1, v_1, \dots, v_k)                           \\
+		=\  & f(v_1 + v_2, v_2 + v_1, \dots, v_k)                                                     \\
+		=\  & 0.
+	\end{align*}
+	We conclude that \begin{equation*}
+		f(v_1, v_2, \dots, v_k) = -f(v_2, v_1, \dots, v_k).                  \\
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	\textbf{Wedge product and scalars} \\
+	Let $V$ be a vector space.
+	For $a, b \in \mathbb{R}$, $f \in A_k(V)$, and $g \in A_\ell(V)$, show that $af \wedge bg = (ab)f \wedge g$.
+\end{ex}
+\begin{proof}
+	\begin{align*}
+		(af \wedge bg)(v_1, \dots, v_{k + \ell}) & = \frac{1}{k!\ell!}\sum_{\sigma \in S_{k + l}} (\sgn \sigma) af(v_1, \dots, v_k) * bg(v_{k + 1}, v_{k + \ell})                \\
+		                                         & = \frac{ab}{k!\ell!} \sum_{\sigma \in S_{k + 1}} (\sgn \sigma) (f \otimes g)(v_1, \dots, v_k, v_{k + 1}, \dots, v_{k + \ell}) \\
+		                                         & = ab (f \wedge g)(v_1, \dots, v_{k + \ell}).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	\textbf{Transformation rule for a wedge product of covectors} \\
+	Suppose two sets of covectors on a vector space $V$, $\beta^1, \dots, \beta^k$ and $\gamma^1, \dots, \gamma^k$, are related by \begin{equation*}
+		\beta^i = \sum_{j = 1}^k a^i_j \gamma^j, \hspace{1.5em} j = 1, \dots, k,
+	\end{equation*}
+	for a $k \times k$ matrix $A = [a^i_j]$.
+	Show that \begin{equation*}
+		\beta^1 \wedge \cdots \wedge \beta^k = (\det A) \gamma^1 \wedge \cdots \wedge \gamma^k.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	\begin{align*}
+		\beta^1 \wedge \cdots \wedge \beta^k & = \sum_{j_1 = 1}^k a^1_{j_1}\gamma^{j_1} \wedge \cdots \wedge \sum_{j_k = 1}^k a^k_{j_k}\gamma^{j_k}                   \\
+		                                     & = \sum_{j_1 = 1}^k \cdots \sum_{j_k = 1}^k a^1_{j_1} \cdots a^k_{j_k} \gamma^{j_1} \wedge \cdots \wedge \gamma^{j_k}   \\
+		                                     & = \sum_{\sigma \in S_k} a^1_{\sigma(1)} \cdots a^k_{\sigma(k)} \gamma^{\sigma(1)}\wedge\cdots\wedge \gamma^{\sigma(k)} \\
+		                                     & = \sum_{\sigma \in S_k} a^1_{\sigma(1)} \cdots a^k_{\sigma(k)} (\sgn \sigma)\gamma^1\wedge\cdots\wedge \gamma^k        \\
+		                                     & = (\det A) \gamma^1 \wedge \cdots \wedge \gamma^k,
+	\end{align*}
+	where the third equality comes from the fact that if $j_i = j_k$ for some $i \neq k$, then the wedge product is zero (Exercise 3.5).
+\end{proof}
+
+\break
+
+\begin{ex}
+	\textbf{Transformation rule for $k$-covectors} \\
+	Let $f$ be a $k$-covector on a vector space $V$.
+	Suppose two sets of vectors $u_1, \dots, u_k$ and $v_1, \dots, v_k$ in $V$ are related by \begin{equation*}
+		u_j = \sum_{i = 1}^k a^i_j v_i, \hspace{1.5em} j = 1, \dots, k,
+	\end{equation*}
+	for a $k \times k$ matrix $A = [a^i_j]$.
+	Show that \begin{equation*}
+		f(u_1, \dots, u_k) = (\det A)f(v_1, \dots, v_k).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	\begin{align*}
+		f(u_1, \dots, u_k) & = f\left(\sum_{{i_1}=1}^k a^{i_1}_1v_{i_1}, \dots, \sum_{{i_k}=1}^k a^{i_k}_kv_{i_k}\right)          \\
+		                   & = \sum_{i_1 = 1}^k \cdots \sum_{i_k = 1}^k a_1^{i_1} \cdots a_k^{i_k} f(v_{i_1}, \dots, v_{i_k})     \\
+		                   & = \sum_{\sigma \in S_k} a_1^{\sigma(1)}\cdots a_k^{\sigma(k)} f(v_{\sigma(1)}, \dots, v_{\sigma(k)}) \\
+		                   & = \sum_{\sigma \in S_k} (\sgn \sigma) a_1^{\sigma(1)}\cdots a_k^{\sigma(k)} f(v_1, \dots, v_k)       \\
+		                   & = (\det [a^i_j]) f(v_1, \dots, v_k),
+	\end{align*}
+	where the third equality comes, as in the exercise above, from the zeroing-out of terms where $i_a = i_b$ for some $a \neq b$.
+\end{proof}
+
+\begin{ex}
+	\textbf{Vanishing of a covector of top degree} \\
+	Let $V$ be a vector space of dimension $n$.
+	Prove that if an $n$-covector $\omega$ vanishes on a basis $e_1, \dots, e_n$ for $V$, then $\omega$ is the zero $n$-covector on $V$.
+\end{ex}
+\begin{proof}
+	Let $v_1, \dots, v_n \in V$ and write $v_i = \sum_{j=1}^n v_i^je_j$.
+	Then by Exercise 3.8, \begin{equation*}
+		f(v_1, \dots, v_n) = (\det [v_i^j])f(e_1, \dots, e_n) = 0.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	\textbf{Linear independence of covectors} \\
+	Let $\alpha^1, \dots, \alpha^k$ be 1-covectors on a vector space $V$.
+	Show that $\alpha^1 \wedge \cdots \wedge \alpha^k \neq 0$ if and only if $\alpha^1, \dots, \alpha^k$ are linearly independent in the dual space $V^\vee$.
+\end{ex}
+\begin{proof}
+	Suppose that $\alpha^1, \dots, \alpha^k$ are linearly \textit{dependent}, so that there exists $\alpha_i = \sum_{j = 1}^k c_j\alpha^j$ where $c_i = 0$.
+	Then \begin{align*}
+		\alpha^1 \wedge \cdots \wedge \alpha^k & = \alpha^1 \wedge \cdots \wedge \sum_{j=1}^k c_j\alpha^j \wedge\cdots\wedge \alpha^k    \\
+                                           & = \sum_{j=1}^k c_j \left(\alpha^1 \wedge \cdots \wedge \alpha^j \wedge \cdots \wedge \alpha^k\right) \\
+                                           & = 0,
+	\end{align*}
+  since each term in line 2 is zero because either $j = i$ and thus $c_j = c_i = 0$, or $j \neq i$ and thus $\alpha^j$ appears twice in the wedge product (Exercise 3.5).
+
+  On the other hand, if $\alpha^1, \dots, \alpha^k$ are linearly independent, they can be extended to a basis $\alpha^1, \dots, \alpha^n$ where $n$ is the dimension of $V$.
+  Then given $e_1, \dots, e_n$, the basis dual to $\alpha^1, \dots, \alpha^n$, \begin{equation*}
+    (\alpha^1 \wedge \cdots \wedge \alpha^n)(e_1, \dots, e_n) = \det [\alpha^i(e_j)] = 1,
+  \end{equation*}
+  so $\alpha^1 \wedge \cdots \wedge \alpha^n$ is nonzero.
+\end{proof}
+
+\begin{ex}
+  \textbf{Exterior multiplication} \\
+  Let $\alpha$ be a nonzero 1-covector and $\gamma$ a $k$-covector on a finite-dimensional vector space $V$.
+  Show that $\alpha \wedge \gamma = 0$ if and only if $\gamma = \alpha \wedge \beta$ for some $(k-1)$-covector $\beta$ on $V$.
+\end{ex}
+\begin{proof}
+  Certainly, if $\gamma = \alpha \wedge \beta$, then \begin{align*}
+    \alpha \wedge \gamma = \alpha \wedge \alpha \wedge \beta = 0
+  \end{align*}
+  by Exercise 3.5.
+
+  If $\alpha \wedge \gamma = 0$, then by Exercise 3.10, $\alpha$ and $\gamma$ are linearly dependent in $V^\vee$.
+  UNFINISHED
+\end{proof}
+
+\end{document}
