@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  21 MAY 2025 08:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  27 MAY 2025 08:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -559,7 +559,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \c@lma=\count323
 \c@ex=\count324
 LaTeX Font Info:    Trying to load font information for OT1+mlmr on input line 
-39.
+42.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmr.fd
 File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
@@ -571,20 +571,20 @@ File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 (./boilerplate.aux)
 \openout1 = `boilerplate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -643,47 +643,47 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for TS1+mlmr on input line 
-41.
+44.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ts1mlmr.fd
 File: ts1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 
-41.
+44.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omlmlmm.fd
 File: omlmlmm.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line
- 41.
+ 44.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omsmlmsy.fd
 File: omsmlmsy.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMX+mlmex on input line
- 41.
+ 44.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omxmlmex.fd
 File: omxmlmex.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <14.4> on input line 41.
+(Font)              <14.4> on input line 44.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <10> on input line 41.
+(Font)              <10> on input line 44.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <7> on input line 41.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
+(Font)              <7> on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 41
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 44
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/jknapltx/ursfs.fd
@@ -701,10 +701,10 @@ L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15623 strings out of 469608
- 321090 string characters out of 5470601
- 677635 words of memory out of 5000000
- 42171 multiletter control sequences out of 15000+600000
+ 15624 strings out of 469608
+ 321092 string characters out of 5470601
+ 677645 words of memory out of 5000000
+ 42172 multiletter control sequences out of 15000+600000
  646187 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  116i,6n,121p,476b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
