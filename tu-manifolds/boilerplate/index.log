@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  27 MAY 2025 08:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  31 MAY 2025 15:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**boilerplate.tex
-(./boilerplate.tex
+**index.tex
+(./index.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -568,8 +568,8 @@ File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count325
 )
-(./boilerplate.aux)
-\openout1 = `boilerplate.aux'.
+No file index.aux.
+\openout1 = `index.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
@@ -585,7 +585,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
-
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count326
@@ -694,23 +693,23 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/20
-25/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] (./boilerplate.aux)
+25/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] (./index.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15624 strings out of 469608
- 321092 string characters out of 5470601
- 677645 words of memory out of 5000000
- 42172 multiletter control sequences out of 15000+600000
+ 15620 strings out of 469608
+ 320971 string characters out of 5470601
+ 677642 words of memory out of 5000000
+ 42171 multiletter control sequences out of 15000+600000
  646187 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,6n,121p,476b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,6n,121p,470b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></
 usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb>
-Output written on ./boilerplate.pdf (1 page, 29760 bytes).
+Output written on ./index.pdf (1 page, 29760 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  17 compressed objects within 1 object stream
