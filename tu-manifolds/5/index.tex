@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\usetikzlibrary{shapes}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{5}
+
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\sgn}{sgn}
+
+% differential operator
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}[section]
+\newenvironment{exercise}[1]{
+  \renewcommand{\theex}{\arabic{section}.\arabic{ex}}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{\S\arabic{section} Exercises}
+\author{Connor Mooneyhan}
+\date{May 31, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	\textbf{The real line with two origins} \\
+	Let $A$ and $B$ be two points not on the real line $\mathbb{R}$.
+	Consider the set $S = (\mathbb{R} - \left\lbrace 0 \right\rbrace) \cup \left\lbrace A, B \right\rbrace$.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[thick] (-2, 0) -- (-2.5pt, 0);
+      \draw[thick] (2.5pt, 0) -- (2, 0);
+      \draw[fill=black] (0, .4) circle (2.5pt) node [anchor=south west] {A};
+      \draw[fill=black] (0, -.4) circle (2.5pt) node [anchor=north west] {B};
+    \end{tikzpicture}
+  \end{center}
+\end{ex}
+
+\end{document}
