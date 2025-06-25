@@ -50,14 +50,116 @@
 	\textbf{The real line with two origins} \\
 	Let $A$ and $B$ be two points not on the real line $\mathbb{R}$.
 	Consider the set $S = (\mathbb{R} - \left\lbrace 0 \right\rbrace) \cup \left\lbrace A, B \right\rbrace$.
-  \begin{center}
-    \begin{tikzpicture}
-      \draw[thick] (-2, 0) -- (-2.5pt, 0);
-      \draw[thick] (2.5pt, 0) -- (2, 0);
-      \draw[fill=black] (0, .4) circle (2.5pt) node [anchor=south west] {A};
-      \draw[fill=black] (0, -.4) circle (2.5pt) node [anchor=north west] {B};
-    \end{tikzpicture}
-  \end{center}
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[thick] (-2, 0) -- (-2.5pt, 0);
+			\draw[thick] (2.5pt, 0) -- (2, 0);
+			\draw[fill=black] (0, .4) circle (2.5pt) node [anchor=south west] {A};
+			\draw[fill=black] (0, -.4) circle (2.5pt) node [anchor=north west] {B};
+		\end{tikzpicture}
+	\end{center}
+	For any two positive real numbers $c, d$, define \begin{equation*}
+		I_A(-c, d) = (-c, 0) \cup \left\lbrace A \right\rbrace \cup (0, d)
+	\end{equation*}
+	and similarly for $I_B(-c, d)$, with $B$ instead of $A$.
+	Define a topology on $S$ as follows: On ($\mathbb{R} - \left\lbrace 0 \right\rbrace$), use the subspace topology inherited from $\mathbb{R}$, with open intervals as a basis.
+	A basis of neighborhoods at $A$ is the set $\left\lbrace I_A(-c, d) \mid c, d > 0 \right\rbrace$; similarly, a basis of neighborhoods of $B$ is $\left\lbrace I_B(-c, d) \mid c,d > 0 \right\rbrace$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that the map $h: I_A(-c, d) \to (-c, d)$ defined by \begin{align*}
+			       & h(x) = x \text{ for } x \in (-c, 0) \cup (0, d), \\
+			       & h(A) = 0
+		      \end{align*}
+		      is a homeomorphism.
+		\item Show that $S$ is locally Euclidean and second countable, but not Hausdorff.
+	\end{enumerate}
 \end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		      Given $x \in (-c, d)$ where $x \neq 0$, choose a neighborhood $N$ to be $(-c, 0)$ if $x < 0$ and $(0, d)$ otherwise, which pulls back to $(-c, 0)$ and $(0, d)$ respectively.
+		      If $x = 0$, then the pullback of a neighborhood $(-c, d)$ is $I_A(-c, d)$.
+		      In either case, the pullback is open, so $h$ is continuous.
+
+		      Concluding with $h^{-1}$, the case where $x \neq A$ is nearly identical to the above, and if $x = A$, then take a neighborhood $I_A(-c, d)$, which pulls back to $(-c, d)$, which is open.
+		\item
+		      The local Euclidean condition is proven by $(a)$, along with an entirely analagous statement for $B$.
+		      The basis $\left\lbrace I_A(-c, d) \right\rbrace \cup \left\lbrace I_B(-c, d) \right\rbrace$ for rational $c$ and $d$ is countable.
+		      Finally, if $S$ were Hausdorff, there would be a neighborhood $U$ of $A$ and a neighborhood $V$ of $B$ such that $U \cap V = \varnothing$.
+		      Then we would have $a, b, c, d \in \mathbb{R}^+$ such that $I_A(-a, b) \subset U$ and $I_B(-c, d) \subset V$ are disjoint, but this is clearly false since $I_A(-a, b) \cap I_B(-c, d) \supset (\min(-a, -c), \max(-a, -c))$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	\textbf{A sphere with a hair} \\
+	A fundamental theorem of topology, the theorem on invariance of dimension, states that if two nonempty open sets $U \subset \mathbb{R}^n$ and $V \subset \mathbb{R}^m$ are homeomorphic, then $n = m$.
+	Use the idea of Example 5.4 [``the cross''] as well as the theorem on invariance of dimension to prove that the sphere with a hair in $\mathbb{R}^3$ is not locally Euclidean at $q$.
+	Hence it cannot be a topological manifold.
+\end{ex}
+\begin{proof}
+	Assume that there is a neighborhood $N$ of $q$ which admits a homeomorphism $\phi$ onto some open ball $B \in \mathbb{R}^n$ such that $\phi(q) = 0$.
+	Then $N - \left\lbrace q \right\rbrace$ has two connected components, so $n$ cannot be greater than 1, but it also cannot be 0, so $n=1$.
+	Each component of $B - \left\lbrace 0 \right\rbrace$ is a 1-manifold, however, while $N - \left\lbrace q \right\rbrace$ has a 1-manifold as one component and a 2-manifold as the other component, so invariance of dimension implies that $\phi$ is not a homeomorphism.
+\end{proof}
+
+\begin{ex}
+	\textbf{Charts on a sphere} \\
+	Let $S^2$ be the unit sphere \begin{equation*}
+		x^2 + y^2 + z^2 = 1
+	\end{equation*}
+	in $\mathbb{R}^3$.
+	Define in $S^2$ the six charts corresponding to the six hemispheres---the front, rear, right, left, upper, and lower hemispheres: \begin{equation*}
+		\begin{array}{c@{\qquad}c}
+			U_1 = \left\lbrace (x, y, z) \in S^2 \mid x > 0 \right\rbrace, & \phi_1(x, y, z) = (y, z), \\[2pt]
+			U_2 = \left\lbrace (x, y, z) \in S^2 \mid x < 0 \right\rbrace, & \phi_2(x, y, z) = (y, z), \\[2pt]
+			U_3 = \left\lbrace (x, y, z) \in S^2 \mid y > 0 \right\rbrace, & \phi_3(x, y, z) = (x, z), \\[2pt]
+			U_4 = \left\lbrace (x, y, z) \in S^2 \mid y < 0 \right\rbrace, & \phi_4(x, y, z) = (x, z), \\[2pt]
+			U_5 = \left\lbrace (x, y, z) \in S^2 \mid z > 0 \right\rbrace, & \phi_5(x, y, z) = (x, y), \\[2pt]
+			U_6 = \left\lbrace (x, y, z) \in S^2 \mid z < 0 \right\rbrace, & \phi_6(x, y, z) = (x, y).
+		\end{array}
+	\end{equation*}
+	Describe the domain $\phi_4(U_{14})$ of $\phi_1 \circ \phi_4^{-1}$ and show that $\phi_1 \circ \phi_4^{-1}$ is $C^\infty$ on $\phi_4(U_{14})$.
+	Do the same for $\phi_6 \circ \phi_1^{-1}$.
+\end{ex}
+\begin{proof}
+	Since $U_{14}$ is a quarter-sphere, namely the one where $x > 0$ and $y < 0$, $\phi_4(U_{14})$ is the projection of $U_{14}$ onto the $x,z$-plane, which is the open half-ball $B_1 = \left\lbrace (x, z) : x > 0, x^2 + z^2 < 1 \right\rbrace \in \mathbb{R}^2$.
+	Explicitly, if $(x, z) \in B_1$, \begin{align*}
+		\phi_1(\phi_4^{-1}(x, z)) & = \phi_1(x, \sqrt{1 - x^2 - z^2}, z) \\
+		                          & = (\sqrt{1 - x^2 - z^2}, z),
+	\end{align*}
+	which is $C^\infty$ on $B_1$.
+
+	Similarly, skipping some details much like those above, we see that $B_2 \phi_1\left(U_{61}\right) = \lbrace (y, z) : z < 0, y^2 + z^2 < 1 \rbrace$, and for $x \in B_2$, \begin{equation*}
+		\phi_6(\phi_1^{-1}(y, z)) = \left( \sqrt{1 - y^2 - z^2}, y \right),
+	\end{equation*}
+	which is $C^\infty$ on $B_2$.
+\end{proof}
+
+\begin{ex}
+	\textbf{Existence of a coordinate neighborhood} \\
+	Let $\left\lbrace \left( U_\alpha, \phi_\alpha \right) \right\rbrace$ be the maximal atlas on a manifold $M$.
+	For any open set $U$ in $M$ and a point $p \in U$, prove the existence of a coordinate open set $U_\alpha$ such that $p \in U_\alpha \subset U$.
+\end{ex}
+\begin{proof}
+	Let $\mathcal{A} = \left\lbrace (U_\alpha, \phi_\alpha) \right\rbrace$.
+	Since $\mathcal{A}$ is an atlas, there exists $(U_1, \phi_1) \in \mathcal{A}$ such that $p \in U_1$.
+	Set $U_2 = U_1 \cap U$.
+	Then $U_2$ is open, $\phi_2 = \phi_1|U_2$ is a homeomorphism, and $(U_1, \phi_1)$ is smoothly compatible with $(U_2, \phi_2)$ because $U_2 \cap U_1 = U_2$ and $\phi_1 = \phi_2$ on $U_2$, so $\phi_1 \circ \phi_2^{-1} = \phi_2 \circ \phi_1^{-1} = I$ where $I$ is the identity function on $\phi_1(U_2)$.
+
+	In fact, given any $(U_\alpha, \phi_\alpha) \in \mathcal{A}$, $\phi_\alpha \circ \phi_2^{-1}$ is defined on $\phi_2(U_\alpha \cap U_2)$, and since $\phi_2 = \phi_1$ on any subset of $U_2$, $\phi_\alpha \circ \phi_2^{-1} = \phi_\alpha \circ \phi_1^{-1}$ and likewise $\phi_2 \circ \phi_\alpha^{-1} = \phi_1 \circ \phi_\alpha^{-1}$, so the smooth compatibility of $(U_\alpha, \phi_\alpha)$ with $(U_2, \phi_2)$ is a result of its compatibility with $(U_1, \phi_1)$.
+
+	Thus, $(U_2, \phi_2)$ is compatible with every chart in $\mathcal{A}$, so since $\mathcal{A}$ is maximal, $(U_2, \phi_2) \in \mathcal{A}$.
+\end{proof}
+
+\begin{ex}
+	\textbf{An atlas for a product manifold} \\
+	Prove Proposition 5.18: If $\left\lbrace \left( U_\alpha, \phi_\alpha \right) \right\rbrace$ and $\left\lbrace \left( V_i, \psi_i \right) \right\rbrace$ are $C^\infty$ atlases for the manifolds $M$ and $N$ of dimensions $m$ and $n$, respectively, then the collection \begin{equation*}
+		\left\lbrace \left( U_\alpha \times V_i, \phi_\alpha \times \psi_i\right) : U_\alpha \times V_i \to \mathbb{R}^m \times \mathbb{R}^n \right\rbrace
+	\end{equation*}
+	of charts is a $C^\infty$ atlas on $M \times N$.
+	Therefore, $M \times N$ is a $C^\infty$ manifold of dimension $m + n$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
 
 \end{document}

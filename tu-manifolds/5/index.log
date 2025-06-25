@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  1 JUN 2025 18:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  25 JUN 2025 12:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**index.tex
-(./index.tex
+**tu-manifolds/5/index.tex
+(./tu-manifolds/5/index.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -636,7 +636,7 @@ File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count325
 )
-(./index.aux)
+(tu-manifolds/5/index.aux)
 \openout1 = `index.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
@@ -771,30 +771,46 @@ LaTeX Font Info:    External font `mlmex10' loaded for size
 al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/20
 25/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2025/texmf-dist/
 fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/
-dvips/lm/lm-mathsy.enc}] (./index.aux)
+dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (30.87973pt too wide) in paragraph at lines 124--125
+\OT1/mlmr/m/n/12 pro-jec-tion of $\OML/mlmm/m/it/12 U[]$ \OT1/mlmr/m/n/12 onto 
+the $\OML/mlmm/m/it/12 x; z$\OT1/mlmr/m/n/12 -plane, which is the open half-bal
+l $\OML/mlmm/m/it/12 B[] \OT1/mlmr/m/n/12 = [] \OMS/mlmsy/m/n/12 2
+ []
+
+
+
+[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+
+[3] (tu-manifolds/5/index.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 17550 strings out of 469608
- 377174 string characters out of 5470601
- 762869 words of memory out of 5000000
- 44049 multiletter control sequences out of 15000+600000
- 658715 words of font info for 81 fonts, out of 8000000 for 9000
+ 17567 strings out of 469608
+ 377696 string characters out of 5470601
+ 775869 words of memory out of 5000000
+ 44063 multiletter control sequences out of 15000+600000
+ 662933 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,6n,107p,406b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,10n,107p,510b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ./index.pdf (1 page, 68099 bytes).
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
+ocal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025/te
+xmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on tu-manifolds/5/index.pdf (3 pages, 143934 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
- 31 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
