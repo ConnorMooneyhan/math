@@ -107,9 +107,14 @@
 \end{ex}
 \begin{proof}
 	\ \begin{enumerate}[label=\textbf{\alph*.}]
-		\item Choose a sequence $\left\lbrace E_n \right\rbrace_{n \in \mathbb{N}}$ of nonempty sets in $\mathscr{M}$ (this requires the axiom of choice).
-		      We then derive the sequence $\left\lbrace F_n \right\rbrace$ defined recursively by $F_1 = E_1$ and $F_j = E_j \setminus F_{j - 1}$ when $j \geq 2$.
-		      These are disjoint by construction and are all in $\mathscr{M}$ since $\mathscr{M}$ is closed under differences.
+    \item Start with $E_1, E_2 \in \mathscr{M}$, both not $X$.
+      Take $E_3 \in \mathscr{M}$ not a subset of $E_1 \cup E_2$ and not $X$.
+      Continue choosing $E_i$ such that $E_i \neq X$ and $E_i \not\subset \cup_{j = 1}^{i -1} E_j$ for all $i \in \mathbb{Z}^+$.
+      Assume that for some $i$, such a choice is impossible.
+      Then since $\mathscr{M}$ is infinite, there must be infinitely many subsets of $\cup_{j = 1}^{i-1}E_j$ in $\mathscr{M}$.
+      Each of these subsets has a complement which is not a subset of $E_1 \cup E_2$, contradicting the assumption of impossibility.
+
+      Finally, the sequence $\left\lbrace F_i \right\rbrace$, where $F_i = E_i \setminus \cup_{j = 1}^{i -1}E_j$ is a sequence of disjoint members of $\mathscr{M}$ as desired.
 		\item Choose a sequence $\left\lbrace E_j \right\rbrace _{1}^{\infty}$ of disjoint nonempty sets in $\mathscr{M}$ (allowable by part (a) of this exercise).
 		      Define $f: \mathscr{P}(\mathbb{N}) \to \mathscr{M}$ by $f: S \mapsto \bigcup_{k \in S} E_k$.
 		      This is well-defined since $f(S)$ is a countable union of members of $\mathscr{M}$, so $f(S) \in \mathscr{M}$.
