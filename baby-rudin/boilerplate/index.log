@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  16 JUN 2025 20:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  10 JUL 2025 06:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/connm/math/baby-rudin/boilerplate/index.tex
-(/home/connm/math/baby-rudin/boilerplate/index.tex
+**boilerplate/index.tex
+(./boilerplate/index.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -568,7 +568,7 @@ File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count325
 )
-No file index.aux.
+(boilerplate/index.aux)
 \openout1 = `index.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
@@ -585,6 +585,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
+
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count326
@@ -641,81 +642,26 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 
-41.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omlmlmm.fd
-File: omlmlmm.fd 2021/01/11 v1.0 Font defs for mlmodern
-)
-LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line
- 41.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.41 \maketitle
+               
+? 
+! Emergency stop.
+<inserted text> 
+                $
+l.41 \maketitle
+               
+End of file on the terminal!
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omsmlmsy.fd
-File: omsmlmsy.fd 2021/01/11 v1.0 Font defs for mlmodern
-)
-LaTeX Font Info:    Trying to load font information for OMX+mlmex on input line
- 41.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omxmlmex.fd
-File: omxmlmex.fd 2021/01/11 v1.0 Font defs for mlmodern
-)
-LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <14.4> on input line 41.
-LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <10> on input line 41.
-LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <7> on input line 41.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
-
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
-
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 41
-.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/jknapltx/ursfs.fd
-File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
-LaTeX Font Info:    Trying to load font information for TS1+mlmr on input line 
-43.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ts1mlmr.fd
-File: ts1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
-)
-
-[1
-
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
-5/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-(/home/connm/math/baby-rudin/boilerplate/index.aux)
- ***********
-LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2025-04-14>
- ***********
- ) 
+ 
 Here is how much of TeX's memory you used:
- 15619 strings out of 469608
- 321268 string characters out of 5470601
- 677595 words of memory out of 5000000
- 42168 multiletter control sequences out of 15000+600000
- 652088 words of font info for 65 fonts, out of 8000000 for 9000
+ 15480 strings out of 469608
+ 317814 string characters out of 5470601
+ 675603 words of memory out of 5000000
+ 42070 multiletter control sequences out of 15000+600000
+ 633034 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,6n,121p,510b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb>
-Output written on /home/connm/math/baby-rudin/boilerplate/index.pdf (1 page, 41
-226 bytes).
-PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 116i,1n,121p,482b,141s stack positions out of 10000i,1000n,20000p,200000b,200000s
+!  ==> Fatal error occurred, no output PDF file produced!
