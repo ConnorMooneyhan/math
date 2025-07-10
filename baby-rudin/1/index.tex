@@ -1,0 +1,406 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{1}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises for Chapter 1}
+\author{Connor Mooneyhan}
+\date{June 16, 2025}
+
+\begin{document}
+
+\maketitle
+
+Unless the contrary is explicitly stated, all numbers that are mentioned in these exercises are understood to be real.
+\begin{ex}
+	If $r$ is rational $(r \neq 0)$ and $x$ is irrational, prove that $r + x$ and $rx$ are irrational.
+\end{ex}
+\begin{proof}
+	If $r + x$ is rational, then $r + x = \frac{a}{b}$ for some $a, b \in \mathbb{Z}$.
+	Then \begin{align*}
+		         & (r + x)*b = a          \\
+		\implies & rb + xb = a            \\
+		\implies & x = \frac{a - rb }{b},
+	\end{align*}
+	so that $x$ is rational, contradicting the hypothesis.
+
+	Similarly, if $rx$ is rational, then again $rx = \frac{a}{b}$ for $a, b \in \mathbb{Z}$, and \begin{align*}
+		x = \frac{a}{br} \in \mathbb{Q}.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Prove that there is no rational number whose square is 12.
+\end{ex}
+\begin{proof}
+	Assume that there exists $a, b \in \mathbb{Z}$ coprime such that $\left(\frac{a}{b}\right)^2 = 12$.
+	Then \begin{align*}
+		         & \frac{a^2}{b^2} = 12 \\
+		\implies & a^2 = 12b^2.
+	\end{align*}
+	Thus 3 divides $a^2$, so 3 divides $a$ and in fact $9$ divides $a^2$.
+	Since 3 only divides 12 once, it must then divide $b^2$ and thus $b$, contradicting our assumption of $a$ and $b$ being coprime.
+\end{proof}
+
+\begin{ex}
+	The axioms for multiplication imply the following statements.
+	\begin{enumerate}[label=(\alph*)]
+		\item If $x \neq 0$ and $xy = xz$ then $y = z$.
+		\item If $x \neq 0$ and $xy = x$ then $y = 1$.
+		\item If $x \neq 0$ and $xy = 1$ then $y = 1/x$.
+		\item If $x \neq 0$ then $1/(1/x) = x$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Since $x \neq 0$, $x $ has an inverse $1/x$, and \begin{align*}
+			      xy = xz & \implies 1/x(xy) = 1/x(xz)     \\
+			              & \implies ((1/x)x)y = ((1/x)x)z \\
+			              & \implies 1y = 1z               \\
+			              & \implies y = z.
+		      \end{align*}
+		\item Take (a) with $z = 1$.
+		\item Since $x \neq 0$, $x$ has an inverse $1/x$, and \begin{align*}
+			               & 1/x(xy) = (1/x)*1 \\
+			      \implies & ((1/x)x)y = 1/x   \\
+			      \implies & 1 * y = 1/x       \\
+			      \implies & y = 1/x.
+		      \end{align*}
+		\item Indeed, $(1/x) * x = 1$ by definition.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $E$ be a nonempty subset of an ordered set; suppose $\alpha$ is a lower bound of $E$ and $\beta$ is an upper bound of $E$.
+	Prove that $\alpha \leq \beta$.
+\end{ex}
+\begin{proof}
+	Given $x \in E$, by definition $\alpha \leq x$ and $x \leq \beta$.
+	By transitivity, $\alpha \leq \beta$.
+\end{proof}
+
+\begin{ex}
+	Let $A$ be a nonempty set of real numbers which is bounded below.
+	Let $-A$ be the set of all numbers $-x$, where $x \in A$.
+	Prove that \begin{equation*}
+		\inf A = -\sup (-A).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Let $\alpha = -\sup(-A)$.
+	Then \begin{align*}
+		-\mathop{} & \alpha \geq a \ \forall a \in -A \\
+		\implies   & \alpha \leq -a,
+	\end{align*}
+	so $\alpha$ is a lower bound of $-A$.
+	Given $\varepsilon \geq 0$, there exists $b \in A$ such that $-\alpha - \varepsilon < b$, so $\alpha + \varepsilon > -b$.
+	This implies that $\alpha$ is in fact the greatest lower bound of $A$, since if $\beta$ were a greater lower bound, we could take $\varepsilon = \beta - \alpha > 0$ and have $\alpha + \varepsilon = b \leq a$ for all $a \in A$, contradicting the above.
+\end{proof}
+
+\break
+
+\begin{ex}
+	Fix $b > 1$.
+	\begin{enumerate}[label=(\alph*)]
+		\item If $m, n, p, q$ are integers, $n > 0$, $q > 0$, and $r = m/n = p/q$, prove that \begin{equation*}
+			      (b^m)^{1/n} = (b^p)^{1/q}.
+		      \end{equation*}
+		      Hence it makes sense to define $b^r = (b^m)^{1/n}$.
+		\item Prove that $b^{r + s} = b^rb^s$ if $r$ and $s$ are rational.
+		\item If $x$ is real, define $B(x)$ to be the set of all numbers $b^t$, where $t$ is rational and $t \leq x$.
+		      Prove that \begin{equation*}
+			      b^r = \sup B(r)
+		      \end{equation*}
+		      when $r$ is rational.
+		      Hence it makes sense to define \begin{equation*}
+			      b^x = \sup B(x)
+		      \end{equation*}
+		      for every real $x$.
+		\item Prove that $b^{x + y} = b^xb^y$ for all real $x$ and $y$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		      Note that $m = rn$ and $p = rq$.
+		      So \begin{align*}
+			      (b^m)^{1/n} & = (b^{rn})^{1/n}  \\
+			                  & = ((b^r)^n)^{1/n} \\
+			                  & = b^r             \\
+			                  & = ((b^r)^q)^{1/q} \\
+			                  & = (b^{rq})^{1/q}  \\
+			                  & = (b^p)^{1/q}.
+		      \end{align*}
+		\item
+		      Let $r = a/b$ and $s = c/d$ for $a, b, c, d \in \mathbb{Z}$.
+		      Then \begin{align*}
+			      b^{r + s} & = b^{a/b + c/d}                      \\
+			                & = b^{(ad + bc)/(bd)}                 \\
+			                & = (b^{ad + bc})^{1/(bd)}             \\
+			                & = (b^{ad}b^{bc})^{1/(bd)}            \\
+			                & = (b^{ad})^{1/(bd)}(b^{bc})^{1/(bd)} \\
+			                & = b^{(ad)/(bd)}b^{(bc)/(bd)}         \\
+			                & = b^{a/b}b^{c/d}                     \\
+			                & = b^rb^s.
+		      \end{align*}
+		\item
+		      Let $t \leq r$ and $t \in \mathbb{Q}$.
+		      Since $b > 1$ and $t - r \leq 0$ \begin{align*}
+			               & b^{t - r} \leq 1       \\
+			      \implies & b^rb^{t-r} \leq b^r    \\
+			      \implies & b^{r + t - r} \leq b^r \\
+			      \implies & b^t \leq b^r.
+		      \end{align*}
+		      Thus $b^r$ is an upper bound of $B(r)$, and since $b^r \in B(r)$, $b^r = \sup B(r)$.
+		\item
+		      Given $x, y \in \mathbb{R}$, $b^{x + y} = \sup B(x + y)$.
+		      \begin{align*}
+			       & = \left(\sup B(x)\right) \left(\sup B(y)\right) \\
+			       & = b^xb^y
+		      \end{align*}
+		      \textbf{INCOMPLETE}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Fix $b > 1$, $y > 0$, and prove that there is a unique real $x$ such that $b^x = y$, by completing the following outline.
+	(This $x$ is called the \textit{logarithm of $y$ to the base $b$}.)
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		      For any positive integer $n$, $b^n - 1 \geq n(b-1)$.
+		\item Hence $b - 1 \geq n(b^{1/n} - 1)$.
+		\item If $t > 1$ and $n > (b - 1)/(t - 1)$, then $b^{1/n} < t$.
+		\item If $w$ is such that $b^w < y$, then $b^{w + (1/n)} < y$ for sufficiently large $n$; to see this, apply part (c) with $t = y \cdot b^{-w}$.
+		\item If $b^w > y$, then $b^{w - (1/n)} > y$ for sufficiently large $n$.
+		\item Let $A$ be the set of all $w$ such that $b^w < y$, and show that $x = \sup A$ satisfies $b^x = y$.
+		\item Prove that this $x$ is unique.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item For $n = 1$, $b^1 - 1 = 1(b - 1)$, so the inequality holds.
+		      We proceed by induction, assuming the inequality holds for $n$.
+		      Then \begin{align*}
+			               & b^n - 1 \geq n(b - 1)               \\
+			      \implies & b(b^n - 1) \geq n(b - 1)            \\
+			      \implies & b^{n + 1} - b \geq n(b - 1)         \\
+			      \implies & b^{n + 1} \geq n(b - 1) + b         \\
+			      \implies & b^{n + 1} - 1 \geq n(b - 1) + b - 1 \\
+			      \implies & b^{n + 1} - 1 \geq (n + 1)(b - 1)
+		      \end{align*}
+		      as desired.
+		\item WTF Walter
+		\item Indeed, \begin{align*}
+			               & n(b^{1/n} - 1) \leq b - 1 < n(t - 1) \\
+			      \implies & b^{1/n} - 1 < t - 1                  \\
+			      \implies & b^{1/n} < t.
+		      \end{align*}
+		\item As suggested, take $t = y \cdot b^{-w}$ since $b^w < y \implies 1 < yb^{-w}$.
+		      Then \begin{align*}
+			               & b^{1/n} < y \cdot b^{-w} \\
+			      \implies & b^{w + 1/n} <
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Prove that no order can be defined in the complex field that turns it into an ordered field.
+	Hint: $-1$ is a square.
+\end{ex}
+\begin{proof}
+	We will assume Proposition 1.18 throughout this proof.
+	Since $i*i = -1 < 0$, $i$ must be negative if $\mathbb{C}$ is to have any chance of being an ordered field.
+	Thus $-i > 0$.
+	However, $(-i) * (-i) = -1 < 0$, which contradicts the requirement that positive elements have a positive product.
+\end{proof}
+
+\begin{ex}
+	Suppose $z = a + bi$, $w = c + di$.
+	Define $z < w$ if $a < c$, and also if $a = c$ but $b < d$.
+	Prove that this turns the set of all complex numbers into an ordered set.
+	(This type of order relation is called a \textit{dictionary order}, or \textit{lexicographic order}, for obvious reasons.)
+	Does this ordered set have the least-upper-bound property?
+\end{ex}
+\begin{proof}
+	Given $z$ and $w$ as defined in the statement of the exercise, if $z \neq w$, we need to show that either $z < w$ or $w < z$.
+	Indeed, if $a < c$ or $c < a$, then $z < w$ or $w < z$ respectively.
+	If $a = c$, then either $b < d$ or $d < b$, since if $b = d$, $z = w$.
+	Then we have once again that $z < w$ or $w < z$, respectively.
+	Note that the above relies on the total ordering of the real numbers to be able to compare $a$ with $c$ and $b$ with $d$.
+
+	Consider the set $A = \left\lbrace 1 + bi : b \in \mathbb{R} \right\rbrace$.
+	Any complex number $a + bi$ with $a > 1$ is an upper bound of $A$, but \begin{equation*}
+		1 + bi < a + (b - 1)i < a + bi.
+	\end{equation*} proving that there is no least upper bound of $A$.
+\end{proof}
+
+\begin{ex}
+	Suppose $z = a + bi, w = u + iv$, and \begin{equation*}
+		\begin{array}{c@{\qquad}c}
+			a = \left( \frac{|w| + u}{2} \right)^{1/2}, & b = \left( \frac{|w| - u}{2} \right)^{1/2}.
+		\end{array}
+	\end{equation*}
+	Prove that $z^2 = w$ if $v \geq 0$ and that $(\overline{z})^2 = w$ if $v \leq 0$.
+	Conclude that every complex number (with one exception!) has two complex square roots.
+\end{ex}
+\begin{proof}
+	We verify: \begin{align*}
+		z^2 & =\left( \left( \frac{|w| + u}{2} \right)^{1 / 2} + \left( \frac{|w| - u}{2} \right)^{1/2}i\right)^2                        \\
+		    & = \frac{|w| + u}{2}  - \frac{|w| - u}{2} + 2\left( \frac{|w| + u}{2} \right)^{1/2} \left( \frac{|w| - u}{2} \right)^{1/2}i \\
+		    & = u + 2 \left( \frac{|w|^2 - u^2}{4} \right)^{1/2}i                                                                        \\
+		    & = u + 2 \frac{\left( u^2 + v^2 - u^2\right)^{1/2}}{2} i                                                                    \\
+		    & = u + 2 \frac{v}{2} i                                                                                                      \\
+		    & = u + v i                                                                                                                  \\
+		    & = w.
+	\end{align*}
+	Since $(-x)^2 = (-1)^2x^2 = x^2$ for all elements $x$ of a field, we conclude that each complex number $w$ has two complex square roots $z$ and $-z$ (using the notation from this exercise), except when $z = -z$, in which case $z = w = 0$.
+\end{proof}
+
+\begin{ex}
+	If $z$ is a complex number, prove that there exists an $r \geq 0$ and a complex number $w$ with $|w| = 1$ such that $z = rw$.
+	Are $w$ and $r$ always uniquely determined by $z$?
+\end{ex}
+\begin{proof}
+	Let $z = a + bi$.
+	Then setting $w = z/|z| = a/|z| + (b/|z|)i$, clearly $|w| = 1$, $r = |z| \geq 0$, and $|z|w = z$.
+	If $z = 0$, then any $w$ with modulus 1 will work with $r = 0$.
+\end{proof}
+
+\begin{ex}
+	If $z_1, \dots, z_n$ are complex, prove that \begin{equation*}
+		|z_1 + z_2 + \cdots + z_n| \leq |z_1| + |z_2| + \cdots + |z_n|.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	For each $k$, write $z_k = a_k + b_ki$.
+	Then \begin{align*}
+		|z_1 + z_2 + \cdots + z_n| & = \left|(a_1 + a_2 + \cdots + a_n) + (b_1 + b_2 + \cdots + b_n)i\right| \\
+		                           & = (a_1 + a_2 + \cdots + a_n)^2 + (b_1 + b_2 + \cdots + b_n)^2           \\
+		                           & \leq a_1^2 + a_2^2 + \cdots + a_n^2 + b_1^2 + b_2^2 + \cdots + b_n^2    \\
+		                           & = (a_1^2 + b_1^2) + (a_2^2 + b_2^2) + \cdots + (a_n^2 + b_n^2)          \\
+		                           & = |z_1|^2 + |z_2|^2 + \cdots + |z_n|^2
+	\end{align*}
+	where the inequality comes directly from the triangle inequality.
+\end{proof}
+
+\begin{ex}
+	If $x, y$ are complex, prove that \begin{equation*}
+		||x| - |y|| \leq |x - y|.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Let $x = a + bi$ and $y = c + di$.
+	Then \begin{align*}
+		||x| - |y|| & = \left|\sqrt{a^2 + b^2} - \sqrt{c^2 + d^2}\right|                         \\
+		            & = \sqrt{\left(\sqrt{a^2 + b^2} - \sqrt{c^2 + d^2}\right)^2}                \\
+		            & = \sqrt{a^2 + b^2 + c^2 + d^2 - 2\sqrt{a^2 + b^2}\sqrt{c^2 + d^2}}         \\
+		            & = \sqrt{a^2 + b^2 + c^2 + d^2 - 2\sqrt{(a^2 + b^2)(c^2 + d^2)}}            \\
+		            & = \sqrt{a^2 + b^2 + c^2 + d^2 - 2\sqrt{a^2c^2 + a^2d^2 + b^2c^2 + b^2d^2}} \\
+		            & \leq \dots \text{\textbf{UNFINISHED}}                                      \\
+		            & = \sqrt{a^2 + b^2 + c^2 + d^2 - 2(ac + bd)}                                \\
+		            & = \sqrt{a^2 - 2ac + c^2 + b^2 - 2bd + d^2}                                 \\
+		            & = \sqrt{(a - c)^2 + (b - d)^2}                                             \\
+		            & = |(a - c) + (b - d)i|                                                     \\
+		            & = |x - y|
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	If $z$ is a complex number such that $|z| = 1$, that is, such that $z\overline{z}=1$, compute \begin{equation*}
+		|1 + z|^2 + |1 - z|^2.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Let $z = a + bi$.
+	\begin{align*}
+		|1+z|^2 + |1-z|^2 & = \left| (1 + a) + bi \right|^2 + \left| (1 - a) - bi \right|^2 \\
+		                  & = (1 + a)^2 + b^2 + (1 - a)^2 + b^2                             \\
+		                  & = 1 + 2a + a^2 + b^2 + 1 - 2a + a^2 + b^2                       \\
+		                  & = 2 + 2a^2 + 2b^2                                               \\
+		                  & = 2(1 + a^2 + b^2)                                              \\
+		                  & = 2(1 + |a + bi|^2)                                             \\
+		                  & = 2 + 2|z|^2                                                    \\
+		                  & = 4
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Under what condition does equality hold in the Schwarz inequality?
+	Schwarz inequality: If $a_1, \dots, a_n$ and $b_1, \dots, b_n$ are complex numbers, then \begin{equation*}
+		\left| \sum_{j=1}^n a_j \overline{b}_j \right|^2 \leq \sum_{j = 1}^n |a_j|^2\sum_{j = 1}^n |b_j|^2.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+	Suppose $k \geq 3$, $x, y \in \mathbb{R}^k$, $|x - y| = d > 0$, and $r > 0$.
+	Prove: \begin{enumerate}[label=(\alph*)]
+		\item If $2r > d$, there are infinitely many $z \in \mathbb{R}^k$ such that \begin{equation*}
+			      |z - x| = |z - y| = r.
+		      \end{equation*}
+		\item If $2r = d$, there is exactly one such $z$.
+		\item If $2r < d$, there is no such $z$.
+	\end{enumerate}
+	How must these statements be modified if $k$ is 2 or 1?
+\end{ex}
+\begin{proof}
+  \begin{enumerate}[label=(\alph*)]\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Prove that \begin{equation*}
+		|x + y|^2 + |x - y|^2 = 2|x|^2 + 2|y|^2
+	\end{equation*}
+	if $x \in \mathbb{R}^k$ and $y \in \mathbb{R}^k$.
+	Interpret this geometrically, as a statement about parallelograms.
+\end{ex}
+
+\begin{ex}
+	If $k \geq 2$ and $x \in \mathbb{R}^k$, prove that there exists $y \in \mathbb{R}^k$ such that $y \neq 0$ but $x \cdot y = 0$.
+	Is this also true if $k = 1$?
+\end{ex}
+
+\begin{ex}
+	Suppose $a \in \mathbb{R}^k$, $b \in \mathbb{R}^k$.
+	Find $c \in \mathbb{R}^k$ and $r > 0$ such that \begin{equation*}
+		|x - a| = 2|x - b|
+	\end{equation*}
+	if and only if $|x - c| = r$.
+	(Solution provided)
+\end{ex}
+
+\begin{ex}
+	With reference to the Appendix, suppose that property (III) were omitted from the definition of a cut.
+	Keep the same definitions of order and addition.
+	Show that the resulting ordered set has the least-upper-bound property, that addition satisfies axioms (A1) to (A4) (with a slightly different zero-element!) but that (A5) fails.
+\end{ex}
+
+\end{document}
