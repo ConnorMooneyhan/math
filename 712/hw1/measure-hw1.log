@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  29 AUG 2025 17:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  29 AUG 2025 17:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**712/hw1/index.tex
-(./712/hw1/index.tex
+**measure-hw1.tex
+(./measure-hw1.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -568,8 +568,8 @@ File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count325
 )
-(712/hw1/index.aux)
-\openout1 = `index.aux'.
+(./measure-hw1.aux)
+\openout1 = `measure-hw1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
@@ -702,21 +702,51 @@ nc/dvips/lm/lm-mathex.enc}]
 [2]
 
 [3]
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
 
-[4] (712/hw1/index.aux)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--205
+
+ []
+
+
+
+[4] (./measure-hw1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15634 strings out of 469608
- 320849 string characters out of 5470601
- 693681 words of memory out of 5000000
- 42175 multiletter control sequences out of 15000+600000
- 662549 words of font info for 81 fonts, out of 8000000 for 9000
+ 15636 strings out of 469608
+ 320905 string characters out of 5470601
+ 693693 words of memory out of 5000000
+ 42177 multiletter control sequences out of 15000+600000
+ 668458 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,9n,121p,478b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,9n,121p,476b,225s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
@@ -731,7 +761,7 @@ fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/hw1/index.pdf (4 pages, 167190 bytes).
+Output written on ./measure-hw1.pdf (4 pages, 175673 bytes).
 PDF statistics:
  94 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream
