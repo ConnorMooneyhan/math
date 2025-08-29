@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Exercises for Chapter 3}
+\author{Connor Mooneyhan}
+\date{July 9, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  Prove that convergence of $\left\lbrace s_n \right\rbrace$ implies convergence of $\left\lbrace \left| s_n \right| \right\rbrace$.
+  Is the converse true?
+\end{ex}
+\begin{proof}
+  If $\left\lbrace s_n \right\rbrace \to s$, then let $\varepsilon > 0$ and $N \in \mathbb{Z}^+$ such that $n > N$ implies $|s_n - s| < \varepsilon$.
+  Then \begin{align*}
+    \big| |s_n| - |s| \big| \leq |s_n - s| < \varepsilon
+  \end{align*}
+  by the reverse triangle inequality.
+
+  The converse hypothesis is contradicted by the alternating series $\left\lbrace (-1)^{n+1} \right\rbrace$, where the absolute value of the sequence clearly converges to $1$, whereas the sequence itself diverges.
+\end{proof}
+
+\begin{ex}
+  Calculate $\lim_{n \to \infty} (\sqrt{n^2 + n} - n)$.
+\end{ex}
+
+\end{document}

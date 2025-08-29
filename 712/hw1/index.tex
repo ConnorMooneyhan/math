@@ -1,0 +1,188 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment I}
+\author{Connor Mooneyhan}
+\date{August 29, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Suppose that $f: [a, b] \to \mathbb{R}$ is a bounded function such that \begin{equation*}
+		L(f, P, [a, b]) = U(f, P, [a, b])
+	\end{equation*}
+	for some partition $P$ of $[a, b]$.
+	Prove that $f$ is a constant function on $[a, b]$.
+\end{ex}
+\begin{proof}
+	Denote the hypothesized partition $P$ as $a = x_0, x_1, \dots, x_n = b$.
+	We proceed to show that $f$ is constant on each subinterval $[x_{i-1}, x_i]$, where $i = 1, \dots, n$.
+
+	Suppose that for some such $i$, there exist two points $p$ and $q$ in $[x_{i-1}, x_i]$ such that $f(p) < f(q)$.
+	Then $\inf_{[x_{i-1}, x_i]} f \leq f(p) < f(q) \leq \sup_{[x_{i-1}, x_i]} f$.
+	Since $\inf_{[x_{j-1}, x_j]} f \leq \sup_{[x_{j-1}, x_j]} f$ for any $j$, it follows that \begin{equation*}
+		L(f, P, [a, b]) = \sum_{[x_{j-1}, x_j]} (x_j - x_{j-1})\inf_{[x_{j-1}, x_j]} f < \sum_{[x_{j-1}, x_j]} (x_j - x_{j-1})\sup_{[x_{j-1}, x_j]} f = U(f, P, [a, b]).
+	\end{equation*}
+	To drive the point home, the strict inequality comes from the fact that comparing the terms of the sum for a general $[x_{j-1}, x_j]$ yields an inclusive inequality, whereas for at least one pair of terms, namely the terms corresponding to $[x_{i - 1}, x_i]$, the inequality is strict.
+	This inequality contradicts the hypothesis that $L(f, P, [a, b]) = U(f, P, [a, b])$, so we conclude that $f$ is constant on each subinterval $[x_{j - 1}, x_j]$.
+
+	Since $f$ is constant on each subinterval, we have in particular that $f(x_{j - 1}) = f(x_j)$ for each $j$. This means that, in fact, $f(x_0) = f(x_1) = \cdots = f(x_n)$, so each subinterval is constant \textit{at the same value}. Thus, $f$ is constant on $[a, b]$.
+\end{proof}
+
+\begin{ex}
+	Suppose $a \leq s < t \leq b$.
+	Define $f: [a, b] \to \mathbb{R}$ by \begin{equation*}
+		f(x) = \begin{cases}
+			1 & \text{if } s < x < t, \\
+			0 & \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+	Prove that $f$ is Riemann integrable on $[a, b]$ and that $\int_a^b f = t - s$.
+\end{ex}
+\begin{proof}
+	We will define a sequence $(P_n)$ of partitions such that \begin{equation*}
+		\lim_{n \to \infty}L(f, P_n, [a, b]) = \lim_{n \to \infty} U(f, P_n, [a, b]) = t - s.
+	\end{equation*}
+	Since \begin{equation*}
+		\lim_{n \to \infty}L(f, P_n, [a,b]) \leq L(f, [a, b]) \leq U(f, [a, b]) \leq \lim_{n \to \infty}U(f, P_n, [a, b]),
+	\end{equation*}
+	this will squeeze the upper and lower Riemann integrals so that the above inequalities become equalities, allowing us to conclude that $f$ is Riemann integrable over $[a, b]$ and $\int_a^b f = t - s$.
+
+	Let $P_0 = a, s, t, b$ and $P_1 = a, s, s + (t-s)/3, t - (t-s)/3, t, b$.
+	Continuing in this fashion for all other $n$, letting $\varepsilon = (t-s)/3$, we define \begin{equation*}
+		P_n = a, s, s + \frac{\varepsilon}{n}, s + \frac{\varepsilon}{n-1}, \dots, s + \varepsilon, t - \varepsilon, \dots, t - \frac{\varepsilon}{n-1}, t - \frac{\varepsilon}{n}, t, b.
+	\end{equation*}
+	For the ``outer'' intervals $[a, s]$ and $[t, b]$, the corresponding terms of the lower and upper Riemann sums agree since \begin{equation*}
+		\inf_{[a, s]} f = \sup_{[a, s]} f = 0 = \inf_{[t, b]}f = \sup_{[t, b]}f.
+	\end{equation*}
+	The two ``limiting'' intervals $[s, s + \varepsilon/n]$ and $[t - \varepsilon/n, t]$ have the supremum being 1 and the infimum being 0.
+	All the remaining ``inner'' intervals are strictly contained between $s$ and $t$, so the infimum and supremum are both 1.
+	We will use this together with the fact that the lengths of all of these ``inner'' intervals add up to $t - \varepsilon/n - s - \varepsilon/n = t - s - 2\varepsilon/n$.
+	Taking all of this into account, we get for $n > 1$ that \begin{align*}
+		L(f, P_n, [a, b]) & = (s - a) \cdot 0 + \left(s + \frac{\varepsilon}{n} - s\right) \cdot 0 + (t - s - \frac{2\varepsilon}{n}) + \left( t - t + \frac{\varepsilon}{n} \right)\cdot 0 + (b - t) \cdot 0 \\
+		                  & = t - s - \frac{2\varepsilon}{n}
+	\end{align*}
+	and \begin{align*}
+		U(f, P_n, [a, b]) & = (s - a) \cdot 0 + \left(s + \frac{\varepsilon}{n} - s\right) \cdot 1 + (t - s - \frac{2\varepsilon}{n}) + \left( t - t + \frac{\varepsilon}{n} \right)\cdot 1 + (b - t) \cdot 0 \\
+		                  & = \frac{\varepsilon}{n} + t - s - \frac{2\varepsilon}{n} + \frac{\varepsilon}{n}                                                                                                  \\
+		                  & = \frac{\varepsilon}{n} + t - s - \frac{2\varepsilon}{n} + \frac{\varepsilon}{n}                                                                                                  \\
+		                  & = t - s.
+	\end{align*}
+	As $n$ goes to infinity, both the lower and upper sums limit to $t - s$, as desired.
+\end{proof}
+
+\begin{ex}
+	Suppose $f: [a, b] \to \mathbb{R}$ is a bounded function.
+	Prove that $f$ is Riemann integrable if and only if for each $\varepsilon > 0$ there exists a partition $P$ of $[a, b]$ such that \begin{equation} \label{3.1}
+		U(f, P, [a, b]) - L(f, P, [a, b]) < \varepsilon.
+	\end{equation}
+\end{ex}
+\begin{proof}
+	Taking the forward implication first, suppose that for some $\varepsilon > 0$, there is no partition $P$ of $[a, b]$ which satisfies \eqref{3.1}.
+	Then $U(f, P, [a, b]) - L(f, P, [a, b]) \geq \varepsilon$ for all partitions $P$.
+	In the limit (over all $P$), we get $U(f, [a, b]) - L(f, [a, b]) \geq  \varepsilon$, so in particular $U(f, [a, b]) \neq L(f, [a, b])$.
+
+	In the other direction, given $\varepsilon > 0$, choose a partition $P$ such that \begin{equation*}
+		U(f, [a, b]) \leq U(f, P, [a, b]) < L(f, P, [a, b]) + \varepsilon \leq L(f, [a, b]) + \varepsilon,
+	\end{equation*}
+	where the second inequality comes from \eqref{3.1}.
+	Since $\varepsilon$ was arbitrary, we conclude that $U(f, [a, b]) \leq L(f, [a, b])$, which when combined with the standard inequality in the other direction, yields the desired equality.
+\end{proof}
+
+\begin{ex}
+	Suppose $f, g: [a, b] \to \mathbb{R}$ are Riemann integrable.
+	Prove that $f + g$ is Riemann integrable on $[a, b]$ and \begin{equation*}
+		\int_a^b (f + g) = \int_a^b f + \int_a^b g.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Fix $\varepsilon > 0$, and choose partitions $P^{\prime}$ and $P^{\prime\prime}$ such that \begin{equation*}
+		U(f, P^{\prime}, [a, b]) - L(f, P^{\prime}, [a, b]) < \varepsilon/2
+	\end{equation*}
+	and \begin{equation*}
+		U(g, P^{\prime\prime}, [a, b]) - L(g, P^{\prime\prime}, [a, b]) < \varepsilon/2.
+	\end{equation*}
+	Then the above inequalities also hold for $P = P^\prime \cup P^{\prime\prime}$, and we can add them to get \begin{equation} \label{4.1}
+		U(f, P, [a, b]) + U(g, P, [a, b]) - \left( L(f, P, [a, b]) + L(g, P, [a, b]) \right) < \varepsilon.
+	\end{equation}
+	Write $P$ as $a = x_0, x_1, \dots, x_n = b$.
+	Then for each $i = 1, \dots, n$, we have \begin{equation*}
+		\left( \inf_{[x_{i - 1}, x_i]} f \right) + \left( \inf_{[x_{i - 1}, x_i]} g \right) \leq \inf_{[x_{i-1}, x_i]} \left( f + g \right),
+	\end{equation*}
+	so \begin{equation} \label{4.2}
+		L(f, P, [a, b]) + L(g, P, [a, b]) \leq L(f + g, P, [a, b]).
+	\end{equation}
+	A similar argument shows that \begin{equation} \label{4.3}
+		U(f, P, [a, b]) + U(g, P, [a, b]) \geq U(f + g, P, [a, b]).
+	\end{equation}
+	Combining these with \eqref{4.1}, we conclude that \begin{equation*}
+		U(f + g , P, [a, b]) - L(f + g, P, [a, b]) < \varepsilon.
+	\end{equation*}
+	By problem 3, then, since $\varepsilon$ is arbitrary, $f + g$ is Riemann integrable.
+
+	We now extend the construction of $P$ above to a sequence $(P_n)$, where each $P_n$ is a partition satisfying \begin{equation*}
+		U(f + g, P_n, [a, b]) - L(f + g, P_n, [a, b]) < \varepsilon/n,
+	\end{equation*}
+	which gives us \begin{equation*}
+		\lim_{n \to \infty} U(f + g, P_n, [a, b]) = U(f + g, [a, b])
+	\end{equation*} and \begin{equation*}
+		\lim_{n \to \infty} L(f + g, P_n, [a, b]) = L(f + g, [a, b]).
+	\end{equation*}
+	We now combine \eqref{4.2} and \eqref{4.3} as follows, adopting a more general partition from our new $(P_n)$ sequence: \begin{align*}
+		L(f, P_n, [a, b]) + L(g, P_n, [a, b]) & \leq L(f + g, P_n, [a, b])                  \\
+		                                      & \leq L(f + g, [a, b])                       \\
+		                                      & \leq U(f + g, [a, b])                       \\
+		                                      & \leq U(f + g, P_n, [a, b])                  \\
+		                                      & \leq U(f, P_n, [a, b]) + U(g, P_n, [a, b]).
+	\end{align*}
+	Taking limits as $n \to \infty$ and removing redundant steps, we get \begin{align*}
+		L(f, [a, b]) + L(g, [a, b]) & \leq L(f + g, [a, b])             \\
+		                            & \leq U(f + g, [a, b])             \\
+		                            & \leq U(f, [a, b]) + U(g, [a, b]).
+	\end{align*}
+	Since the first and last expressions are equal, all the inequalities become equalities, and we conclude that \begin{equation*}
+		\int_a^b f + \int_a^b g = \int_a^b (f + g).
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	The Banach-Tarski paradox refers to a counter-intuitive theorem that Stefan Banach and Alfred Tarski proved in 1924.
+	It shows that a solid ball can be split up into 5 pieces which can then be reconstituted to form two balls which are both identical to the first one.
+	This betrays our geometric intuition because in general, we want the union of two geometric objects to have volume equal to the sum of the volumes of the two objects.
+	In this case, this principle does not hold since each of the duplicate balls has the same volume as the original one, but taking their union in a clever way results in that very same volume, which is one half what the volume of the union ``should'' be.
+\end{ex}
+
+\end{document}
