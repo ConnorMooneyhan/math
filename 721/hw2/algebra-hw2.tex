@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{HOMEWORK 2}
+\author{Connor Mooneyhan}
+\date{September 12, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $\varphi: G \to H$ be a group homomorphism.
+	Define the kernel of $\varphi$ to be \begin{equation*}
+		\ker \varphi = \left\lbrace g \in G : \varphi(g) = e_H \right\rbrace.
+	\end{equation*}
+	Prove that $\ker \varphi$ is a subgroup of $G$ and that $\im \varphi$ (i.e. the range of $\varphi$) is a subgroup of $H$.
+\end{ex}
+\begin{proof}
+	Let $g, h \in \ker \varphi$.
+	Then $\ker\varphi$ is nonempty since $\varphi(e_G) = e_H$, and \begin{equation*}
+		\varphi(gh^{-1}) = \varphi(g)\varphi(h^{-1}) = \varphi(g)\varphi(h)^{-1} =  e_H \cdot e_H^{-1} = e_H,
+	\end{equation*}
+	so $\ker\varphi$ is a subgroup of $G$.
+
+	Now let $g, h \in \im \varphi$.
+	Then $g = \varphi(x)$ and $h = \varphi(y)$ for some $x, y \in G$.
+	Thus \begin{equation*}
+		gh^{-1} = \varphi(x)\varphi(y)^{-1} = \varphi(x)\varphi(y^{-1}) = \varphi(xy^{-1}),
+	\end{equation*}
+	so $gh^{-1} \in \im\varphi$.
+	Since $e_H = \varphi(e_G)$, $\im\varphi$ is nonempty, so $\im\varphi$ is a subgroup of $H$.
+\end{proof}
+
+\begin{ex}
+	Let $\varphi : G \to H$ be a group homomorphism, fix $g \in G$ and set $h = \varphi(g)$.
+	Prove that the fiber of $\varphi$ over $h$ satisfies \begin{equation*}
+		\varphi^{-1}(h) = \left\lbrace gk : k \in \ker \varphi \right\rbrace = \left\lbrace kg : k \in \ker \varphi \right\rbrace.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	To show $\varphi^{-1}(h) \subset \left\lbrace gk : k \in \ker \varphi \right\rbrace$, let $x \in \varphi^{-1}(h)$.
+	Then \begin{equation*}
+		\varphi(g^{-1}x) = \varphi(g)^{-1}\varphi(x) = h^{-1}h = e_H,
+	\end{equation*}
+	so $g^{-1}x \in \ker\varphi$, and $x = g \left( g^{-1}x \right)$.
+
+	To show $\varphi^{-1}(h) \supset \left\lbrace gk : k \in \ker \varphi \right\rbrace$, let $k \in \ker\varphi$ and observe that \begin{equation*}
+		\varphi(gk) = \varphi(g)\varphi(k) = h\cdot e_H = h.
+	\end{equation*}
+
+	The proof that $\varphi^{-1}(h) = \left\lbrace kg : k \in \ker \varphi \right\rbrace$ is entirely analagous.
+\end{proof}
+
+\begin{ex}
+	Prove that each of the following subsets of $\mathrm{GL}_n(F)$ (where $F$ is a general field) are subgroups.
+	\begin{enumerate}[label=(\alph*)]
+		\item $B_n(F) = \left\lbrace M \in \mathrm{GL}_n(F) : M \text{ is upper triangular} \right\rbrace$
+		\item $\mathrm{SL}_n(F) = \left\lbrace M \in \mathrm{GL}_n(F) : \det(M) = 1 \right\rbrace$
+		\item $O_n(F) = \left\lbrace M \in \mathrm{GL}_n(F) : M \text{ is orthogonal} \right\rbrace$
+		\item $H_n(F) = \left\lbrace M \in \mathrm{GL}_n(F) : M \text{ is upper triangular and has 1s along the diagonal} \right\rbrace$
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\textcolor{red}{UNFINISHED}
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $M_1$
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\varphi: G \to H$ be a group homomorphism.
+		      Prove that for all $x \in G$ of finite order, the order of $\varphi(x)$ divides the order of $x$.
+		\item Use the previous problem to show that the order of an element does not change under an isomorphism.
+		\item Conclude that the only group homomorphism from $(\mathbb{Z}/n \mathbb{Z}, +)$ to $(\mathbb{Z}, +)$ is the trivial homomorphism (i.e. $\varphi(\overline{k}) = 0$ for all $\overline{k} \in \mathbb{Z}/n \mathbb{Z}$).
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $|x| = n$ and $|\varphi(x)| = m$.
+		      Certainly, $m \leq n$ since $\varphi(x)^n = \varphi(x^n) = \varphi(e_G) = e_H$.
+		      Then we can write $n = m\ell + r$, where $\ell, r \in \mathbb{Z}^{\geq 0}$ and $0 \leq r < m$.
+		      Thus \begin{equation*}
+			      e_H = \varphi(e_G) = \varphi(x^n) = \varphi(x^{m\ell + r}) = \varphi(x)^{m\ell}\varphi(x)^r = (\varphi(x)^{m})^\ell\varphi(x)^r = e_H\varphi(x)^r = \varphi(x)^r.
+		      \end{equation*}
+		      Since $r < n = |x|$, $r = 0$, so $m \,|\, n$.
+		\item If $\varphi : G \to H$ is an isomorphism, then given $g \in G$, $|\varphi(g)|$ divides $|g|$, and $|g| = |\varphi^{-1}(\varphi(g))|$ divides $|\varphi(g)|$ since $\varphi^{-1}$ is a homomorphism.
+		      Thus $|g| = |\varphi(g)|$.
+		\item In $\mathbb{Z}/n \mathbb{Z}$, every element has finite order, and the only element of finite order in $\mathbb{Z}$ is 0.
+		      Part (a) implies that elements of finite order have an image of finite order under homomorphism, so if $\varphi : \mathbb{Z}/n \mathbb{Z} \to \mathbb{Z}$ is a homomorphism, $\varphi(x) = 0$ for all $x \in \mathbb{Z}/n \mathbb{Z}$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $G$ and $H$ be abelian groups, and let $\mathrm{Hom}(G, H)$ be the set of all group homomorphisms from $G$ to $H$.
+	Prove that this set forms an abelian group under the operation $(\varphi + \psi)(x) = \varphi(x) + \psi(x)$.
+\end{ex}
+\begin{proof}
+	We know $\mathrm{Hom}(G, H)$ is nonempty since it contains the trivial homomorphism $t : x \mapsto e_H$.
+	In fact, $t$ is the identity since given $f, g, h \in \mathrm{Hom}(G, H)$ and $x \in G$ \begin{equation*}
+		(f + t)(x) = f(x) + t(x) = f(x) + e_H = f(x) = e_H + f(x) = t(x) + f(x) = (t + f)(x).
+	\end{equation*}
+	Also, $-f: x \mapsto -f(x)$ is the inverse of $f$ since \begin{equation*}
+		(f + -f)(x) = f(x) + (-f(x)) = e_H = (-f(x)) + f(x) = (-f + f)(x).
+	\end{equation*}
+	Given $f, g, h \in \mathrm{Hom}(G, H)$ and $x \in G$, we have associativity as well: \begin{equation*}
+		((f + g) + h)(x) = (f + g)(x) + h(x) = f(x) + g(x) + h(x) = f(x) + (g + h)(x) = (f + (g + h))(x).
+	\end{equation*}
+	Finally, we have commutativity by \begin{equation*}
+		(f + g)(x) = f(x) + g(x) = g(x) + f(x) = (g + f)(x).
+	\end{equation*}
+  Note that this actually only depends on $H$ beng abelian.
+\end{proof}
+
+\begin{ex}
+	Let $H$ be a subgroup of a group $G$, and let $x \in G$.
+	Prove that \begin{equation*}
+		xHx^{-1} = \left\lbrace xhx^{-1} : h \in H \right\rbrace
+	\end{equation*}
+	is a subgroup of $G$.
+	Also, prove that $G$ acts on the set of all subgroups of $G$ by conjugation.
+\end{ex}
+\begin{proof}
+  Since $e = xx^{-1} = xex^{-1}$, $e \in xHx^{-1}$, so $xHx^{-1}$ is nonempty.
+  Then let $g, h \in H$, and see that \begin{equation*}
+    xgx^{-1}(xhx^{-1})^{-1} = xgx^{-1}xh^{-1}x^{-1} =xgh^{-1}x^{-1},
+  \end{equation*}
+  and $gh^{-1} \in H$ since $H$ is a subgroup, so the subgroup criterion is satisfied.
+
+  We proceed to show that $G$ acts on the set of subgroups of $G$ by conjugation.
+  The first paragraph shows that conjugation does indeed send subgroups to subgroups, so it remains to check the behavior of identities and compositions of conjugations.
+  Let $H$ be a subgroup of $G$.
+  Then, $eHe^{-1} = H$, and for $g, h \in G$, \begin{equation*}
+    g(hHh^{-1})g^{-1} = (gh)H(h^{-1}g^{-1}),
+  \end{equation*}
+  so conjugation does indeed act on the set of subgroups.
+\end{proof}
+
+\begin{ex}
+	Let $G$ act on a set $X$, and let $x \in X$.
+	Prove that the stabilizer of $x$: \begin{equation*}
+		\mathrm{Stab}_G(x) = \left\lbrace g \in G : g \cdot x = x \right\rbrace
+	\end{equation*}
+	is a subgroup of $G$.
+	Then prove that for any $g \in G$ and $x \in X$, one has that \begin{equation*}
+		\mathrm{Stab}_G(g \cdot x) = g \mathrm{Stab}_G(x)g^{-1}
+	\end{equation*}
+	where the right hand side is defined by Problem 6 above.
+\end{ex}
+\begin{proof}
+  We know that $e \in \mathrm{Stab}_G(x)$ because $e\cdot x = x$ by definition of an action.
+  Given $g, h \in \mathrm{Stab}_G(x)$, we have \begin{equation*}
+    g^{-1}\cdot x = g^{-1} \cdot (g \cdot x) = (g^{-1}g) \cdot x = e \cdot x = x,
+  \end{equation*}
+  and \begin{equation*}
+    (gh) \cdot x = g \cdot (h \cdot x) = g \cdot x = x,
+  \end{equation*}
+  so $\mathrm{Stab}_G(x)$ is closed under multiplication and taking inverses, and thus is a subgroup of $G$.
+\end{proof}
+
+\begin{ex}
+	Let $\mathrm{GL}_n(\mathbb{R})$, $\mathrm{SL}_n(\mathbb{R})$, and $O_n(\mathbb{R})$ be the general linear group, the special linear group, and the orthogonal group, respectively (see their definitions from Problem 3).
+	Each of these groups acts on $\mathbb{R}^n$ via matrix multiplication.
+	Determine the orbits of the action in each case (and prove your answer is correct).
+\end{ex}
+\begin{proof}
+  \textcolor{red}{UNFINISHED}
+  For $\mathsf{GL}_n(\mathbb{R})$, the orbits are $\mathbb{R}^n \setminus \left\lbrace 0 \right\rbrace$ and $\left\lbrace 0 \right\rbrace$.
+  Indeed, no nonzero vector in $\mathbb{R}^n$ can be taken by an invertible matrix $M$ to 0 since then 0 would be an eigenvalue of $M$, making the determinant 0.
+  On the other hand, so long as at least one component $x_i$ of a given $x \in \mathbb{R}^n$ is nonzero, then it can be transformed into any other nonzero vector $y \in \mathbb{R}^n$ by the matrix whose $i^{\text{th}}$ column is $y/x_i$ (as a column vector) and whose other entries are all zero.
+
+  For $\mathsf{SL}_n(\mathbb{R})$, 
+\end{proof}
+
+\begin{ex}
+	Let $G$ and $H$ be groups, and let $\mathsf{G}$ and $\mathsf{H}$ be the categories with one object whose composition law is the group law as considered in the previous homework set.
+	Show that the data of a group homomorphism $\varphi : G \to H$ contains the same information as a functor $F: \mathsf{G} \to \mathsf{H}$.
+\end{ex}
+\begin{proof}
+  A functor $F: \mathsf{G} \to \mathsf{H}$ sends the single object of $\mathsf{G}$ to the single object of $\mathsf{H}$, and it sends morphisms in $\mathsf{G}$ to morphisms in $\mathsf{H}$.
+  Thus, since the elements of $G$ and $H$ are identified via isomorphism with the morphisms in $\mathsf{G}$ and $\mathsf{H}$ respectively, we want to check that the preservation of the group operation (i.e. the data of a group homomorphism $G \to H$) maps on directly to the composition of corresponding morphisms by the functor $F$ (i.e. the morphism data of $F$).
+
+  Indeed, this falls right out of the definition.
+  To see this, take two morphisms $f, g \in \mathsf{G}$, and we get $F(g \circ f) = F(g) \circ F(f)$ and $F(\mathrm{id}_{\ast_\mathsf{G}}) = \mathrm{id}_{\ast_\mathsf{H}}$ by definition.
+  Now identifying $f$ and $g$ with their corresponding elements of $G$ by a slight abuse of notation, we see that $\varphi(fg) = \varphi(f)\varphi(g)$ is the same statement as above for any homomorphism $\varphi: G \to H$, and the identity in $G$ gets mapped to the identity in $H$ as a consequence.
+\end{proof}
+
+\end{document}

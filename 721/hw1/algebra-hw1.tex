@@ -1,0 +1,402 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{HOMEWORK 1\\BASICS, CATEGORIES, GROUPS AND EXAMPLES}
+\author{Connor Mooneyhan}
+\date{September 3, 2025}
+
+\begin{document}
+
+\maketitle
+
+Disclaimer: Generative AI was used to help me find a decent way to typeset a permutation and to determine whether I should say an element is an equivalence class ``over'' or ``under'' a relation.
+
+\begin{ex}
+	Let $\mathrm{Mat}_2(\mathbb{R})$ be the set of $2 \times 2$ matrices, and let $M = \begin{pmatrix}2 & 1 \\ 0 & 2\end{pmatrix}$.
+	Let \begin{equation*}
+		\mathcal{B} = \left\lbrace X \in \mathrm{Mat}_2(\mathbb{R}) \ |\  MX = XM \right\rbrace.
+	\end{equation*}
+	Find necessary and sufficient conditions for $\begin{pmatrix}p & q \\ r & s\end{pmatrix} \in \mathcal{B}$.
+	Challenge: Find an $\mathbb{R}$-basis of $\mathcal{B}$.
+\end{ex}
+\begin{proof}
+	In general, for $X = \begin{pmatrix}p & q \\ r & s\end{pmatrix} \in \mathrm{Mat}_2(\mathbb{R})$, we have \begin{equation*}
+		XM = \begin{pmatrix}
+			2 & 1 \\ 0 & 2
+		\end{pmatrix}\begin{pmatrix}
+			p & q \\ r & s
+		\end{pmatrix} = \begin{pmatrix}
+			2p + r & 2q + s \\ 2r & 2s
+		\end{pmatrix}
+	\end{equation*}
+	and \begin{equation*}
+		MX = \begin{pmatrix}
+			p & q \\ r & s
+		\end{pmatrix}\begin{pmatrix}
+			2 & 1 \\ 0 & 2
+		\end{pmatrix} = \begin{pmatrix}
+			2p & p + 2q \\ 2r & r + 2s
+		\end{pmatrix},
+	\end{equation*}
+	so the matrices $X$ which satisfy $MX = XM$ (i.e. $X \in \mathcal{B}$) are exactly those which solve the following system of equations: \begin{align*}
+		2p + r & = 2p      \\
+		2q + s & = p + 2q  \\
+		2r     & = 2r      \\
+		2s     & = r + 2s.
+	\end{align*}
+	The third equation tells us nothing, but the first and fourth equations imply that $r = 0$, while the second says that $s = p$.
+	This leaves us with $X = \begin{pmatrix}p & q \\ 0 & p\end{pmatrix}$.
+	This is necessary since we derived it from the general form of a $2 \times 2$ matrix $X$, but it is also sufficient since plugging the values back into the system of equations yields \begin{align*}
+		2p + 0 & = 2p      \\
+		2q + p & = p + 2q  \\
+		0      & = 0       \\
+		2p     & = 0 + 2p.
+	\end{align*}
+
+	(Challenge) We will show that the matrices $A = \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}$ and $B = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}$ form a basis for $\mathcal{B}$.
+	For a given $C = \begin{pmatrix}p & q \\ 0 & p\end{pmatrix} \in \mathcal{B}$, $C = pA + qB$, so the span of $A$ and $B$ contains $\mathcal{B}$.
+	But any linear combination of $A$ and $B$ is in $\mathcal{B}$, so in fact their span is exactly $\mathcal{B}$.
+	Finally, they are linearly independent since any scalar multiple of $A$ has an upper-right entry of 0, so it cannot be $B$.
+	Therefore, they form a basis for $\mathcal{B}$.
+\end{proof}
+
+\begin{ex}
+	Determine if the following relations give well-defined functions:
+	\begin{enumerate}[label=(\alph*)]
+		\item $f : \mathbb{Q} \to \mathbb{Z}$ given by $f(\frac{a}{b}) = a$.
+		\item $f : \mathbb{Q} \to \mathbb{Q}$ given by $f(\frac{a}{b}) = \frac{a^2}{b^2}$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Consider $a=4, b=6$.
+		      Then $f\left(\frac{a}{b}\right) = f\left(\frac{4}{6}\right) = 4$, but using the fact that $\frac{a}{b} = \frac{4}{6} = \frac{2}{3}$, we have $f\left(\frac{a}{b}\right) = f\left(\frac{2}{3}\right) = 2$.
+		      Thus $f$ is not well-defined.
+		\item Since $\frac{a^2}{b^2} = \left( \frac{a}{b} \right)^2$, this is equivalent to saying that $f(x) = x^2$ for any $x \in \mathbb{Q}$.
+		      This is unambiguous, and in particular it is not dependent on the representation of $x$ as a ratio of two integers like part (a), so it is well-defined.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $X$ and $Y$ be sets and let $f : X \to Y$ be a function.
+	Show that the relation $a \sim_f b \iff f(a) = f(b)$ for $a, b \in X$ forms an equivalence relation on $X$, and that the equivalence classes are the nonempty fibers of $f$.
+	Conversely, show that if $X$ is a set and $\sim$ is an equivalence relation on $X$, construct a surjective function $f : X \to Y$ (for some $Y$) such that $\sim = \sim_f$.
+\end{ex}
+\begin{proof}
+	If $a, b, c \in X$, then $f(a) = f(a)$, so $a \sim_f a$.
+	Also, if $a \sim_f b$, then $f(a) = f(b)$ and $f(b) = f(a)$, so $b \sim_f a$.
+	Finally, if $a \sim_f b$ and $b \sim_f c$, then $f(a) = f(b) = f(c)$, so $a \sim_f c$.
+	In short, $\sim_f$ ``inherits'' its reflexivity, symmetry, and transitivity from ``$=$''.
+
+	If $f^{-1}(\lbrace y \rbrace)$ is nonempty for some $y \in Y$, then for $a, b \in f^{-1}(\left\lbrace y \right\rbrace)$, we have $f(a) = f(b) = y$, so $a \sim_f b$.
+	Conversely, given some $a, b \in X$ where $a \sim_f b$, take $y = f(a) = f(b)$.
+	Then $a, b \in f^{-1}(\left\lbrace y \right\rbrace)$, so the equivalence classes under $\sim_f$ are exactly the nonempty fibers of $y$.
+
+	Finally, given an equivalence relation $\sim$ on a set $X$, define $f: X \to X/\sim$ by $f(x) = [x]_\sim$ for any $x \in X$, where $[x]_\sim$ is the equivalence class of $x$ under $\sim$.
+	Then $f$ is surjective since $[y]_\sim = f(y)$ for any $[y]_\sim \in X/\sim$.
+
+	If $a, b \in X$ such that $a \sim b$, then $f(a) = [a]_\sim = [b]_\sim = f(b)$, so $a \sim_f b$.
+	On the other hand, if $a \sim_f b$, then $f(a) = f(b) = [b]_\sim = [a]_\sim$, so $a \sim b$ since they have the same equivalence class under $\sim$.
+\end{proof}
+
+\begin{ex}
+	Find the greatest common divisor $d$ of $69$ and $372$, and find $a$ and $b$ such that $69a + 372b = d$.
+\end{ex}
+\begin{proof}
+	We use the Euclidean algorithm: \begin{align*}
+		372 & = 69 \cdot 5 + 27 \\
+		69  & = 27 \cdot 2 + 15 \\
+		27  & = 15 \cdot 1 + 12 \\
+		15  & = 12 \cdot 1 + 3  \\
+		12  & = 3 \cdot 4 + 0.
+	\end{align*}
+	This tells us that the $\gcd$ is 3, and we can follow it back through the algorithm to get \begin{align*}
+		3 & = 15 - 12                                                                                      \\
+		  & = 15 - (27 - 15)                                                                               \\
+		  & = (69 - 27 \cdot 2) - (27 - (69 - 27 \cdot 2))                                                 \\
+		  & = (69 - (372 - 69 \cdot 5) \cdot 2) - ((372 - 69 \cdot 5) - (69 - (372 - 69 \cdot 5) \cdot 2)) \\
+		  & = (69 - (372 - 69 \cdot 5) \cdot 2) - (372 - 69 \cdot 5 - 69 + (372 - 69 \cdot 5) \cdot 2)     \\
+		  & = (69 - 372 \cdot 2 + 69 \cdot 10) - (372 \cdot 3 - 69 \cdot 16)                               \\
+		  & = 69 \cdot 11 - 372 \cdot 2 - 372 \cdot 3 + 69 \cdot 16                                        \\
+		  & = 69 \cdot 27 - 372 \cdot 5.
+	\end{align*}
+	Thus $a = 27$ and $b = -5$.
+\end{proof}
+
+\begin{ex}
+	Prove that if $d$ divides $n$ then $\phi(d)$ divides $\phi(n)$.
+\end{ex}
+\begin{proof}
+	If $d$ divides $n$, then $n = dm$ for some integer $m$.
+	Write the prime factorization of $n$ as \begin{align*}
+		n & = \prod_{i \in I} p_i^{a_i}
+	\end{align*}
+	for some indexing set $I$.
+	Because $d | n$, we can partition $I$ into subsets $J$ and $K$ yielding sets of integers $\left\lbrace b_j \right\rbrace_{j \in J}$ and $\left\lbrace c_k \right\rbrace_{k \in K}$ such that $b_j = a_j$, $c_k < a_k$, and \begin{equation*}
+		d = \prod_{j \in J} p_j^{b_j} \prod_{k \in K} p_k^{c_k}.
+	\end{equation*}
+	Then we have \begin{align*}
+		\phi(n) & = \phi\left(\prod_{i \in I} p_i^{a_i} \right)                                                               \\
+		        & = \prod_{i \in I} \phi\left( p_i^{a_i} \right)                                                              \\
+		        & = \prod_{j \in J} \phi\left( p_j^{a_j} \right)\prod_{k \in K} \phi\left( p_k^{a_k} \right)                  \\
+		        & = \prod_{j \in J} \phi\left( p_j^{b_j} \right)\prod_{k \in K} p_k^{a_k-1}(p_k-1)                            \\
+		        & = \prod_{j \in J} \phi\left( p_j^{b_j} \right)\prod_{k \in K} p_k^{c_k - 1} p_k^{a_k-c_k}(p_k-1)            \\
+		        & = \prod_{j \in J} \phi\left( p_j^{b_j} \right)\prod_{k \in K} \phi(p_k^{c_k}) \prod_{k \in K} p_k^{a_k-c_k} \\
+		        & = \phi \left( \prod_{j \in J} p_j^{b_j}\prod_{k \in K} p_k^{c_k} \right) \prod_{k \in K} p_k^{a_k-c_k}      \\
+		        & = \phi ( d ) \prod_{k \in K} p_k^{a_k-c_k}.
+	\end{align*}
+	Thus $\phi(d)$ divides $\phi(n)$.
+\end{proof}
+
+\begin{ex}
+	Prove that the equation $a^2 + b^2 = 3c^2$ has no solutions in nonzero integers $a, b, c$.
+	Hint: First consider the equation mod 4 and think about what elements are squares mod 4.
+	Iterate the conclusion you draw from this analysis to reach a contradiction.
+\end{ex}
+\begin{proof}
+	Given $x \in \mathbb{Z}$, if $x$ is even, then $x = 2n$ for some integer $n$, and $x^2 = 4n^2$, so $x^2 \equiv 0 \bmod 4$.
+	If $x$ is odd, then $x = m + 1$ for some even $m$.
+	Note that $2m \equiv 0 \bmod 4$ since $m$ is even, so \begin{align*}
+		x^2 & \equiv m^2 + 2m + 1 \pmod 4 \\
+		    & \equiv 0 + 0 + 1 \pmod 4    \\
+		    & \equiv 1 \pmod 4.
+	\end{align*}
+	In general, then, $x^2$ is congruent to either $0$ or $1$ mod $4$ for any integer $x$.
+
+	Now consider $a^2 + b^2 = 3c^2 \bmod 4$.
+	For nonzero $a, b, c \in \mathbb{Z}$, since $c^2$ is congruent to either $0$ or $1$ mod $4$, $3c^2$ is congruent to either $0$ or $3$ mod $4$.
+	The left-hand side of the equation mod $4$ is either $0 + 0$, $0 + 1$, $1 + 0$, or $1 + 1$, so it cannot be $3$ mod $4$, and thus it must be $0$.
+	The only way for this to happen is to have $a^2 \equiv b^2 \equiv 0 \bmod 4$, so we can factor out a $4$ to get \begin{equation*}
+		4a_0^2 + 4b_0^2 = 3(4c_0^2)
+	\end{equation*}
+	where $a_0, b_0,$ and $c_0$ are integers.
+	Dividing by $4$ yields $a_0^2 + b_0^2 = 3c_0^2$, revealing another solution to the equation which, as we have shown, must be congruent to $0$ mod $4$ on both sides.
+	Since the prime factorization of an integer is of finite length, however, we can repeat this process of dividing by $4$ until we reach an equation where the sides are not congruent to $0$ mod $4$, which we have shown to be impossible.
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a set, and let $\mathcal{P}(X)$ be the power set of $X$ (i.e. the set of all subsets of $X$).
+	Let $\mathsf{C}$ be the category whose objects are the elements of $\mathcal{P}(X)$ and the morphisms in $\mathsf{C}$ from $U$ to $V$ is either the inclusion map $U \to V$ if $U \subseteq V$ and the empty set if $U \not\subseteq V$.
+	Prove that $\mathsf{C}$ is indeed a category.
+	Challenge: Generalize the construction given here to any partially ordered set $(X, \geq)$.
+\end{ex}
+\begin{proof}
+	Given $A, B, C \in \mathsf{C}$, $f \in \mathrm{Hom}(A, B)$, and $g \in \mathrm{Hom}(B, C)$, then by definition $A \subseteq B$ and $B \subseteq C$, so $A \subseteq C$ and $\mathrm{Hom}(A, C)$ is nonempty.
+	We define, as we must, $g \circ f = \varphi$ where $\varphi$ is the single element of $\mathrm{Hom}(A, C)$.
+	Now let $h \in \mathrm{Hom}(C, D)$ for some object $D$.
+	Then both $(h \circ g) \circ f$ and $h \circ (g \circ f)$ are in $\mathrm{Hom}(A, D)$, but since $\mathrm{Hom}(A, D)$ has only one element, they must be equal, making composition associative as desired.
+
+	Each set $A$ is a subset of itself, so indeed $\mathrm{Hom}(A, A)$ is nonempty for each $A \in \mathsf{C}$, and we call its single element the identity $\mathrm{id}_A$.
+	This acts as an identity with respect to composition because for any $A, B \in \mathsf{C}$ and $f \in \mathrm{Hom}(A, B)$, $\mathrm{id}_B \circ f \in \mathrm{Hom}(A, B)$ and $f \circ \mathrm{id}_A \in \mathrm{Hom}(A, B)$, so just as in the preceding paragraph, we conclude that the two are equal to $f$ since they all are in $\mathrm{Hom}(A, B)$, which has just one element.
+
+	\textbf{Challenge:} All that is needed to define an analagous category for a general partially ordered set $(X, \geq)$ is to define $\mathsf{C}$ such that $\mathrm{Obj}(\mathsf{C}) = X$ and $\mathrm{Hom}(A, B)$ has a single element if $B \geq A$ but is otherwise empty for all $A, B \in \mathsf{C}$.
+	The proof above then applies quite readily by replacing expressions like ``$A \subseteq B$'' with ``$B \geq A$''.
+	This is no accident, since the subset relation defines a natural partial ordering on the power set of any set.
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a group.
+	Explain how to encode the group law of $G$ into a category $\mathsf{C}$ with one object $*$.
+\end{ex}
+\begin{proof}
+	Let $\mathsf{C}$ be a category with one object $A$ where there exists a bijection $\varphi: \mathrm{Hom}(A, A) \to G$ satisfying $\varphi(g \circ f) = \varphi(f)\varphi(g)$.
+	This suggests a group isomorphism, and indeed, the operation of composition makes $\mathrm{Hom}(A, A)$ into a group, which we now prove.
+
+	The axioms of associativity and existence of identity are guaranteed by the definition of a category.
+	To show that inverses exist, first observe that \begin{equation*}
+		\varphi(\mathrm{id}_A) = \varphi(\mathrm{id}_A \circ \mathrm{id}_A) = \varphi(\mathrm{id}_A)\varphi(\mathrm{id}_A).
+	\end{equation*}
+	By cancellation, we see that $\varphi(\mathrm{id}_A) = e$.
+	Then let $f \in \mathrm{Hom}(A, A)$, $a = \varphi(f)$, and $g = \varphi^{-1}(a^{-1})$.
+	Then \begin{align*}
+		\varphi(f \circ g) & = \varphi(g)\varphi(f)                                  \\
+		                   & = \varphi(\varphi^{-1}(a^{-1}))\varphi(\varphi^{-1}(a)) \\
+		                   & = a^{-1}a                                               \\
+		                   & = e.
+	\end{align*}
+	A similar proof shows that $\varphi(g \circ f) = e$ as well, so since $\varphi$ is injective, $f \circ g = g \circ f = \mathrm{id}_A$, showing that $g$ is a two-sided inverse for $f$.
+
+	Thus $\mathrm{Hom}(A, A)$ is a group under composition, and $\varphi$ is an isomorphism between $\mathrm{Hom}(A, A)$ and $G$, showing that $G$ can be encoded as a category with one object.
+\end{proof}
+
+\begin{ex}
+	Prove that if $x^2 = 1$ for all $x \in G$, then $G$ is abelian.
+\end{ex}
+\begin{proof}
+	Indeed, $x = x^{-1}$ for all $x \in G$ since $x * x = 1$, so given $g, h \in G$, \begin{align*}
+		gh & = (gh)^{-1}    \\
+		   & = h^{-1}g^{-1} \\
+		   & = hg.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Consider the group $G$ with presentation \begin{equation*}
+		G = \left\langle u, v \ |\ u^4 = v^3 = 1, uv = v^2u^2 \right\rangle.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $v^2 = v^{-1}$.
+		\item Show that $v$ commutes with $u^3$.
+		\item Show that $v$ commutes with $u$.
+		\item Show that $uv = 1$.
+		\item Show that $u = 1$, deduce that $v = 1$, so that this is just a long-winded description of the trivial group!
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item \begin{align*}
+			      v^3 = 1 & \implies v^3 * v^{-1} = 1 * v^{-1}   \\
+			              & \implies v^2 * (v * v^{-1}) = v^{-1} \\
+			              & \implies v^2 * 1 = v^{-1}            \\
+			              & \implies v^2 = v^{-1}
+		      \end{align*}
+		\item First, observe that \begin{align*}
+			      v^2u^3v & = (v^2u^2)uv \\
+			              & = (uv)uv     \\
+			              & = uv(uv)     \\
+			              & = uv(v^2u^2) \\
+			              & = uv^3u^2    \\
+			              & = u^3.
+		      \end{align*}
+		      Multiplying by $v$ on the left, we get \begin{align*}
+			               & v^3u^3v  = vu^3 \\
+			      \implies & u^3v = vu^3.
+		      \end{align*}
+		\item First, we establish that \begin{align*}
+			      u^9 & = (u^8)u    \\
+			          & = (u^4u^4)u \\
+			          & = u,
+		      \end{align*}
+		      from which we derive \begin{align*}
+			      vu & = vu^9         \\
+			         & = (vu^3)u^3u^3 \\
+			         & = u^3(vu^3)u^3 \\
+			         & = u^3u^3(vu^3) \\
+			         & = u^3u^3u^3v   \\
+			         & = u^9v         \\
+			         & = uv.
+		      \end{align*}
+		\item Since $u$ and $v$ commute, we can transform the ``commuting'' relation like so: \begin{align*}
+			      uv & = v^2u^2   \\
+			         & = u^2v^2   \\
+			         & = u(uv)v   \\
+			         & = (uv)(uv) \\
+			         & = (uv)^2.
+		      \end{align*}
+		      Multiplying by $(uv)^{-1}$ on both sides yields $1 = uv$.
+		\item Indeed, \begin{align*}
+			      u & = u(1)^3    \\
+			        & = u(uv)^3   \\
+			        & = u^4v^3    \\
+			        & = 1 \cdot 1 \\
+			        & = 1.
+		      \end{align*}
+		      Then since $uv = 1$, substituting $1$ for $u$ yields $v = 1$.
+
+		      Rewriting the presentation in light of this, we have \begin{align*}
+			      G & = \left\langle u, v\ |\ u^4 = v^3 = 1, uv = v^2u^2 \right\rangle        \\
+			        & = \left\langle 1, 1\ |\ 1^4 = 1^3 = 1, 1 \cdot 1 = 1^21^2 \right\rangle \\
+			        & = \left\langle 1 \right\rangle
+		      \end{align*}
+		      where the third equality comes from removing duplicate generators and trivial relations.
+		      Thus, $G$ is the trivial group.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Suppose that $a$ and $b$ are commuting elements of a group $G$ such that $a^k = b^l$ implies that $k$ is a multiple of the order of $a$, and $l$ is a multiple of the order of $b$.
+	Show that the order of $ab$ is the least common multiple of $|a|$ and $|b|$.
+	Be sure to use the first problem to help simplify $(ab)^n$.
+	Also, it may help to review basic properties of lcms from chapter 0 in the text.
+\end{ex}
+\begin{proof}
+	We will show that $(ab)^{q} = e$ for all $q$ where $q$ is a multiple of both $|a|$ and $|b|$, and in fact all powers $p$ such that $(ab)^p = e$ are common multiples of of $|a|$ and $|b|$.
+	Then, having shown that the powers of $ab$ which yield the identity are exactly the common multiples of $|a|$ and $|b|$, we conclude that the least of them, and thus the order of $ab$, is $\lcm (|a|, |b|)$.
+
+	First, let $q \in \mathbb{Z}$ be a common multiple of $|a|$ and $|b|$, and write $q = m|a| = n|b|$ for some $m, n \in \mathbb{Z}$.
+	Then \begin{align*}
+		(ab)^{q} & = a^{q}b^{q}                                        \\
+		         & = a^{m|a|}b^{n|b|}                                  \\
+		         & = \left( a^{|a|} \right)^m \left( b^{|b|} \right)^n \\
+		         & = e^me^n                                            \\
+		         & = e.
+	\end{align*}
+	Now assume $p \in \mathbb{Z}$ such that $(ab)^p = e$.
+	Then \begin{align*}
+		         & a^pb^p = e    \\
+		\implies & a^p = b^{-p},
+	\end{align*}
+	and by hypothesis, this means that there exist $m, n \in \mathbb{Z}$ such that $p = m|a|$ and $-p = n|b|$.
+	Thus $p$ is a multiple of both $|a|$ and $|b|$ as desired.
+
+\end{proof}
+
+\begin{ex}
+	Let $\sigma$ be the 12-cycle $(1\;2\;3\;4\;5\;6\;7\;8\;9\;10\;11\;12)$.
+	For all $i \geq 1$, write the cycle decomposition of $\sigma^i$.
+	For which positive integers $i$ is $\sigma^i$ also a 12-cycle?
+	Formulate a result about when a power of an $n$-cycle is also an $n$-cycle.
+	(If you are having trouble coming up with what to prove here, try out cycles of different lengths).
+	Challenge: Prove your claim.
+\end{ex}
+\begin{proof}
+	\begin{align*}
+		\sigma      & = (1\;2\;3\;4\;5\;6\;7\;8\;9\;10\;11\;12)  \\
+		\sigma^2    & = (1\;3\;5\;7\;9\;11)(2\;4\;6\;8\;10\;12)  \\
+		\sigma^3    & = (1\;4\;7\;10)(2\;5\;8\;11)(3\;6\;9\;12)  \\
+		\sigma^4    & = (1\;5\;9)(2\;6\;10)(3\;7\;11)(4\;8\;12)  \\
+		\sigma^5    & = (1\;6\;11\;4\;9\;2\;7\;12\;5\;10\;3\;8)  \\
+		\sigma^6    & = (1\;7)(2\;8)(3\;9)(4\;10)(5\;11)(6\;12)  \\
+		\sigma^7    & = (1\;8\;3\;10\;5\;12\;7\;2\;9\;4\;11\;6)  \\
+		\sigma^8    & = (1\;9\;5)(2\;10\;6)(3\;11\;7)(4\;12\;8)  \\
+		\sigma^9    & = (1\;10\;7\;4)(2\;11\;8\;5)(3\;12\;9\;6)  \\
+		\sigma^{10} & = (1\;11\;9\;7\;5\;3)(2\;12\;10\;8\;6\;4)  \\
+		\sigma^{11} & = (1\;12\;11\;10\;9\;8\;7\;6\;5\;4\;3\;2)  \\
+		\sigma^{12} & = (1\;2\;3\;4\;5\;6\;7\;8\;9\;10\;11\;12),
+	\end{align*}
+	and in general $\sigma^i = \sigma^{i \bmod 12}$.
+	Let $\overline{a}$ denote the equivalence class represented by $a$ in $\mathbb{Z}/12 \mathbb{Z}$.
+	Then $\sigma^i$ is a 12-cycle for $i = \overline{1}, \overline{5}, \overline{7}, \overline{11}$.
+	I would conjecture, then, that a power of an $n$-cycle $\tau$, say $\tau^j$, is an $n$-cycle if and only if $\gcd(j, n) = 1$.
+
+	(Challenge) In general, the $i$-th power of an $n$-cycle $\sigma$ sends an element appearing at index $j$ in the cycle to the entry at index $(j+i \bmod n)$.
+  Thus, $\sigma^i$ is an $n$-cycle exactly when the process of adding $i \bmod n$ starting at any element ``hits every other element'' of $\sigma$.
+  This happens whenever $\gcd(i, n) = 1$, and in general $\sigma^i$ will have $\gcd(i, n)$ cycles.
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 2}
+\author{Connor Mooneyhan}
+\date{September 11, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	For each of the following conics, either find a rational point or prove that there are no rational points:
+	\begin{enumerate}[label=(\alph*)]
+		\item $x^2+y^2=6$
+		\item $3x^2 + 5y^2 = 4$
+		\item $3x^2 + 6y^2 = 4$
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item If there is a rational solution, we can write it so that the denominators of $x$ and $y$ are equal, which we represent as \begin{equation*}
+			      \left(\frac{a}{c}, \frac{b}{c}\right)
+		      \end{equation*} for some integers $a$, $b$, and $c$.
+		      Then the problem of finding rational solutions to $x^2 + y^2 = 6$ is reduced to the problem of finding integer solutions to $a^2 + b^2 = 6c^2$ where $c \neq 0$.
+
+		      We can evaluate the right hand side (RHS) mod 9 by noticing that since the only squares mod 9 are 0, 1, 4, and 7, the possible values for $6c^2$ mod 9 are \begin{align*}
+			       & 6(0) \equiv 0 \pmod 9  \\
+			       & 6(1) \equiv 6 \pmod 9  \\
+			       & 6(4) \equiv 6 \pmod 9  \\
+			       & 6(7) \equiv 6 \pmod 9.
+		      \end{align*}
+
+		      First, we consider when the RHS is congruent to 0 mod 9.
+		      The only pairing of 0, 1, 4, and 7 whose sum is congruent to 0 mod 9 is $(0, 0)$, so we would have \begin{equation*}
+			      a^2 \equiv b^2 \equiv 6c^2 \equiv 0 \bmod 9.
+		      \end{equation*}
+		      Since $(0, 0, 0)$ is not a solution, at least one of $a^2$ or $b^2$ must be nonzero, and thus we could divide by 6 on both sides repeatedly until we no longer had each term being congruent to 0 mod 9.
+		      This reduces the problem down to the only remaining case: where the equation is congruent to 6 mod 9.
+		      In this case however, we readily see that no pairing of 0, 1, 4, and 7 yields a sum congruent to 6 mod 9, so we conclude that there are no rational solutions to $x^2 + y^2 = 6$.
+		\item Using the same setup as part (a), we can reduce this to the problem of finding integer solutions to $3a^2 + 5b^2 = 4c^2$ where $c \neq 0$.
+		      Considered mod 3, we have \begin{align*}
+			      3a^2 & \equiv 0                \\
+			      5b^2 & \equiv 0 \text{ or } 2  \\
+			      4c^2 & \equiv 0 \text{ or } 1.
+		      \end{align*}
+		      Clearly, the only combination that works is if $3a^2 \equiv 5b^2 \equiv 4c^2 \equiv 0 \bmod 9$.
+		      But in this case, we run into the same issue as in (a), where we can divide by 3 until we get a term which is not congruent to $0$ mod 9, so this equation also has no rational solutions.
+		\item This one is even clearer, since taken mod 3, we get \begin{align*}
+			      3a^2 & \equiv 0                \\
+			      6b^2 & \equiv 0                \\
+			      4c^2 & \equiv 0 \text{ or } 1,
+		      \end{align*}
+		      so the only option is $3a^2 \equiv 6b^2 \equiv 4c^2 \equiv 0$, which runs into the same infinite regress argument as before.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Give a parametrization of the rational solutions to $x^2 + 2y^2 = 3$.
+\end{ex}
+\begin{proof}
+	We start with the point $(1, 1)$, which is a rational solution to the equation, and write out the general form of a line through that point: $y = mx - m + 1$.
+	Intersecting this with $x^2 + 2y^2 = 3$, we get \begin{align*}
+		0 & = x^2 + 2(mx - m + 1)^2 - 3                           \\
+		  & = x^2 + 2(m^2x^2 + (2m - 2m^2)x + (m^2 - 2m + 1)) - 3 \\
+		  & = x^2 + 2m^2x^2 + (4m - 4m^2)x + 2m^2 - 4m + 2 - 3    \\
+		  & = (2m^2 + 1)x^2 + (4m - 4m^2)x + (2m^2 - 4m - 1)      \\
+		  & = (x-1)((2m^2 + 1)x - (2m^2 - 4m - 1))
+	\end{align*}
+	where the third equality comes from using the known root $x=1$ to simplify the factoring process.
+	Solving for $x$ when $x \neq 1$, then, gives us \begin{equation*}
+		x = \frac{2m^2 - 4m - 1}{2m^2 + 1}.
+	\end{equation*}
+	We can plug this back into the line equation to get \begin{align*}
+		y & = m\frac{2m^2 - 4m - 1}{2m^2 + 1} - m + 1                  \\
+		  & = \frac{2m^3 - 4m^2 - m - (2m^3 + m) + (2m^2 + 1)}{2m^2+1} \\
+		  & = \frac{-2m^2 - 2m + 1}{2m^2 + 1}.
+	\end{align*}
+	Any rational value for $m$ will give us a rational point for $x$ and $y$, and indeed the line between $(1, 1)$ and any other rational point on the curve will have rational slope, so \begin{equation*}
+		f(m) = \left\langle \frac{2m^2 - 4m - 1}{2m^2 + 1}, \frac{-2m^2 -2m + 1}{2m^2 + 1} \right\rangle
+	\end{equation*}
+	is a parametrization for the rational solutions to $x^2 + 2y^2 = 3$.
+\end{proof}
+
+\begin{ex}
+	Let $C_1$ and $C_2$ be cubics given by the following equations: \begin{equation*}
+		C_1: x^3 + 2y^3 - x - 2y = 0 \quad C_2 : 2x^3 - y^3 - 2x + y = 0.
+	\end{equation*}
+	Find the nine points of intersection between $C_1$ and $C_2$.
+	One of these is $(0, 0)$ and let $P_1, P_2, \dots, P_8$ be the other 8 points.
+
+	Show the linear algebra that implies that if a cubic curve $ax^3 + bx^2y + cxy^2 + dy^3 + ex^2 + fxy + gy^2 + xh + iy + j = 0$ goes through all of $P_1, \dots, P_8$, then $j = 0$.
+	(Which means the curve goes through $(0, 0)$.)
+\end{ex}
+\begin{proof}
+  We begin by setting the curves equal to each other and then consolidating and factoring the $x$ terms on the left side and the $y$ terms on the right side to get \begin{equation*}
+    x(x+1)(x-1) = 3y(y+1)(y-1).
+  \end{equation*}
+	We determine the points of intersection to be $(0, 0)$ along with the other solutions that become obvious upon looking at the above equation: \begin{align*}
+		P_1 & = (0, -1)  \\
+		P_2 & = (0, 1)   \\
+		P_3 & = (-1, 0)  \\
+		P_4 & = (-1, -1) \\
+		P_5 & = (-1, 1)  \\
+		P_6 & = (1, 0)   \\
+		P_7 & = (1, -1)  \\
+		P_8 & = (1, 1).
+	\end{align*}
+\end{proof}
+
+\end{document}

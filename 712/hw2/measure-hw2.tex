@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 2 (Rewrite)}
+\author{Connor Mooneyhan}
+\date{September 12, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(1.A.8)
+	Suppose $f: [a, b] \to \mathbb{R}$ is Riemann integrable.
+  Prove that \begin{equation}\label{1.1}
+		\int_a^b f = \lim_{n \to \infty} \frac{b - a}{n} \sum_{j = 1}^n f \left( a + \frac{j(b-a)}{n} \right).
+	\end{equation}
+\end{ex}
+\begin{proof}
+	Define a partition $P_n = \left\lbrace a, a + \frac{b-a}{n}, \dots, a + \frac{(n-1)(b - a)}{n}, b \right\rbrace$ for each $n \in \mathbb{Z}^+$.
+	Let $\varepsilon > 0$ and choose $P$ such that $L(f, P, [a, b]) > \int_a^b f - \frac{\varepsilon}{2}$.
+
+  Then \begin{equation}\label{1.2}
+		\int_a^b f- \frac{\varepsilon}{2} < L(f, P, [a, b]) \leq L(f, P \cup P_n, [a, b]).
+	\end{equation}
+	We can choose $m$ large enough \textcolor{red}{(needs proof)} so that \begin{align*}
+		         & L(f, P \cup P_m, [a, b]) - L(f, P_m, [a, b]) < \frac{\varepsilon}{2} \\
+    \implies & - \frac{\varepsilon}{2} < L(f, P, [a, b]) - L(f, P \cup P_m, [a, b]).
+	\end{align*}
+  Adding this to \eqref{1.2}, we get \begin{equation*}
+    \int_a^b f - \varepsilon < L(f, P_m, [a, b]).
+  \end{equation*}
+  An analagous argument gives us an $m$ such that \begin{equation*}
+    \int_a^b f + \varepsilon > U(f, P_m, [a, b]).
+  \end{equation*}
+  Finally, we observe that since \begin{equation*}
+    \inf_{\left[a + \frac{(j-1)(b-a)}{n}, a + \frac{j(b-a)}{n}\right]} f \leq f \left( a + \frac{j(b-a)}{n} \right) \leq \sup_{\left[ a + \frac{(j-1)(b-a)}{n}, a + \frac{j(b-a)}{n} \right]} f,
+  \end{equation*}
+  \begin{equation*}
+    L(f, P_n, [a, b]) \leq \frac{b-a}{n} \sum_{j=1}^n f \left( a + \frac{j(b-a)}{n} \right) \leq U(f, P_n, [a,b]),
+  \end{equation*}
+  and thus since we showed that the lower and upper sums over $P_n$ create sequences which limit to $\int_a^b f$, the middle sum above is squeezed so that \eqref{1.1} is satisfied.
+\end{proof}
+
+\begin{ex}
+	(1.A.12)
+	Suppose $f: [a, b] \to \mathbb{R}$ is Riemann integrable.
+	Prove that $|f|$ is Riemann integrable and that \begin{equation*}
+		\left| \int_a^b f \right| \leq \int_a^b |f|.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Given a partition $P$ of $[a, b]$, since $x \leq |x|$ for all $x \in \mathbb{R}$, and thus $\inf_A f < \inf_A |f|$ and $\sup_A |f| \leq \sup_A f$, \begin{equation}\label{2.1}
+		L(f, P, [a, b]) \leq L(|f|, P, [a, b]) \leq U(|f|, P, [a, b]) \leq U(f, P, [a, b]).
+	\end{equation}
+	Since $f$ is Riemann integrable, for any $\varepsilon > 0$, we can find a partition $P_\varepsilon$ such that \begin{equation*}
+		U(f, P_\varepsilon, [a, b]) - L(f, P_\varepsilon, [a, b]) < \varepsilon,
+	\end{equation*}
+	so by \eqref{2.1}, we have
+\end{proof}
+
+\begin{ex}
+	(1.B.1)
+	Define $f: [0, 1] \to \mathbb{R}$ as follows: \begin{equation*}
+		f(a) = \begin{cases}
+			0           & \text{if $a$ is irrational},                                                                                                              \\
+			\frac{1}{n} & \parbox[t]{.55\textwidth}{if $a$ is rational and $n$ is the smallest positive integer such that $a = \frac{m}{n}$ for some integer $m $.}
+		\end{cases}
+	\end{equation*}
+	Show that $f$ is Riemann integrable and compute $\displaystyle\int_0^1 f$.
+\end{ex}
+\begin{proof}
+	Let $P = \left\lbrace 0 = p_0, p_1, \dots, p_n = 1 \right\rbrace$ be a partition of $[0, 1]$.
+	Since there is an irrational number within any interval $[p_{i-1}, p_i]$, $\inf_{[p_{i-1}, p_i]} f = 0$, and thus $L(f, P, [0, 1]) = 0$.
+	We proceed to show that for any $\varepsilon > 0$, there exists a partition $P$ such that \begin{equation*}
+		U(f, P, [0, 1]) - L(f, P, [0, 1]) = U(f, P, [0, 1]) < \varepsilon.
+	\end{equation*}
+
+	Let $\varepsilon > 0$, and let $p$ be a prime such that $1/p < \varepsilon$.
+	Then consider the partition $P = \left\lbrace 0, \frac{1}{p}, \frac{2}{p}, \dots, \frac{p-1}{p}, 1 \right\rbrace$.
+\end{proof}
+
+\begin{ex}
+	(1.B.4)
+	Give an example of bounded functions $f, g: [0, 1] \to \mathbb{R}$ such that \begin{equation*}
+		L(f, [0, 1]) + L(g, [0, 1]) < L(f + g, [0, 1])
+	\end{equation*}
+	and \begin{equation*}
+		U(f + g, [0, 1]) < U(f, [0, 1]) + U(g, [0, 1]).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Define \begin{equation*}
+		f(x) = \begin{cases}
+			1  & \text{if $x \in \mathbb{Q}$}    \\
+			-1 & \text{if $x \notin \mathbb{Q}$}
+		\end{cases}
+	\end{equation*}
+	and \begin{equation*}
+		g(x) = \begin{cases}
+			-1 & \text{if $x \in \mathbb{Q}$}     \\
+			1  & \text{if $x \notin \mathbb{Q}$}.
+		\end{cases}
+	\end{equation*}
+	Then $(f + g)(x) = 0$ for all $x \in [0, 1]$, so \begin{equation*}
+		L(f, [0, 1]) + L(g, [0, 1]) = -1 - 1 = -2 < 0 = L(f + g, [0, 1])
+	\end{equation*}  and \begin{equation*}
+		U(f, [0, 1]) + U(g, [0, 1]) = 1 + 1 = 2 > 0 = U(f + g, [0, 1]).
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	(2.A.1)
+	Prove that if $A$ and $B$ are subsets of $\mathbb{R}$ and $|B| = 0$, then $|A \cup B| = |A|$.
+\end{ex}
+\begin{proof}
+	By countable subadditivity, \begin{equation*}
+		|A \cup B| \leq |A| + |B| = |A| + 0 = |A|.
+	\end{equation*}
+	By monotonicity, since $A \subset A \cup B$, \begin{equation*}
+		|A| \leq |A \cup B|.
+	\end{equation*}
+	Therefore, $|A \cup B| = |A|$.
+\end{proof}
+
+\begin{ex}
+	(2.A.8)
+	Prove that if $A \subset \mathbb{R}$ and $t > 0$, then $|A| = |A \cap (-t, t)| + |A \cap (\mathbb{R} \setminus (-t, t))|$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\end{document}
