@@ -1,0 +1,163 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 3}
+\author{Connor Mooneyhan}
+\date{September 12, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(1.B.5)
+	Give an example of a sequence of continuous real-valued functions $f_1, f_2, \dots$ on $[0, 1]$ and a continuous real-valued function $f$ on $[0,1]$ such that \begin{equation*}
+		f(x) = \lim_{k \to \infty} f_k(x)
+	\end{equation*}
+	for each $x \in [0, 1]$ but \begin{equation*}
+		\int_0^1 f \neq \lim_{k \to \infty} \int_0^1 f_k.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Define \begin{equation*}
+		f_n(x) = \begin{cases}
+			2n^2x       & 0 \leq x < \frac{1}{2n}           \\
+			-2n^2x + 2n & \frac{1}{2n} \leq x < \frac{1}{n} \\
+			0           & \frac{1}{n} \leq x \leq 1,
+		\end{cases}
+	\end{equation*}
+	so that $\int_0^1 f_n = \frac{1}{2}$ for all $n \in \mathbb{Z}^+$ as shown below.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+					axis y line=middle,
+					axis x line=bottom,
+					xmin=0, xmax=1,
+					ymin=0, ymax=2,
+					xtick={0, 1/4, 2/4, 1},
+					xticklabels={$0$, $\frac{1}{2n}$, $\frac{1}{n}$, 1},
+					ytick={2},
+					yticklabels={$n$},
+				]
+				\addplot[domain=0:{1/4}, smooth, thick]{8*x};
+				\addplot[domain={1/4}:{1/2}, smooth, thick]{-8*x + 4};
+				\addplot[domain={1/2}:1, smooth, thick]{0};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	But the limit $f_n$ as $n \to \infty$ is $f(x) = 0$, since $f_n(0) = f_n(1) = 0$ for all $n$, and for any $x \in (0, 1)$ there is an $n$ large enough that $\frac{1}{n} < x$, so $f_m(x) = 0$ for all $m \geq n$.
+	Since $\int_0^1 f = 0$ and $\lim\limits_{n \to \infty} \int_0^1 f_n = \frac{1}{2}$, we have our contradiction.
+\end{proof}
+
+\begin{ex}
+	(2.A.9)
+	Prove that $|A| = \lim\limits_{t \to \infty}|A \cap (-t, t)|$ for all $A \subset \mathbb{R}$.
+\end{ex}
+\begin{proof}
+	\textcolor{red}{UNFINISHED}
+
+\end{proof}
+
+\begin{ex}
+	(2.A.11)
+	Prove that if $I_1, I_2, \dots $ is a disjoint sequence of open intervals, then \begin{equation*}
+		\left| \bigcup_{k=1}^\infty I_k \right| = \sum_{k=1}^\infty \ell(I_k).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	\textcolor{red}{UNFINISHED}
+	This follows immediately upon noticing two key relationships.
+	First, by countable subadditivity, \begin{equation*}
+		\left| \bigcup_{k=1}^\infty I_k \right| \leq \sum_{k=1}^\infty \ell(I_k).
+	\end{equation*}
+	Second, notice that the collection of intervals $I = \left\lbrace I_k \right\rbrace_{k \in \mathbb{Z}^+}$ is itself an open cover of $\cup_{k=1}^\infty I_k$.
+	By definition, for any open cover $J = \left\lbrace J_k \right\rbrace_{k \in \mathbb{Z}^+}$ of $\bigcup_{k=1}^\infty I_k$ consisting of open intervals, define an open cover $J' = \left\lbrace J_k \cap \bigcup I \right\rbrace$, which still consists of open intervals.
+\end{proof}
+
+\begin{ex}
+	(2.B.5)
+	Suppose $S$ is the smallest $\sigma$-algebra on $\mathbb{R}$ containing $\left\lbrace (r, r+1) : r \in \mathbb{Q} \right\rbrace$.
+	Prove that $S$ is the collection of Borel subsets of $\mathbb{R}$.
+\end{ex}
+\begin{proof}
+	By the definition Axler gives for Borel sets, we want to prove that the smallest $\sigma$-algebra on $\mathbb{R}$ containing $\mathcal{R} = \left\lbrace (r, r+1) : r \in \mathbb{Q} \right\rbrace$ is in fact the smallest $\sigma$-algebra containing all open subsets of $\mathbb{R}$.
+	Let $\mathcal{B}$ be the collection of Borel sets.
+	Since the elements of $\mathcal{R}$ are open, certainly $\mathcal{R} \subset \mathcal{B}$.
+
+	On the other hand, consider the fact that finite intersections of elements of $\mathcal{R}$ are also in $\mathcal{R}$ to see that $(p, q) \in \mathcal{R}$ where $p, q \in \mathbb{Q}$ such that $q - p < 1$, since $(p, q) = (p, p + 1) \cap (q - 1, q)$.
+	The set of all such ``rational intervals'', call it $\mathscr{U}$, is a basis for the topology of $\mathbb{R}$ (the proof of this fact is routine, but something I'm assuming we can brush past for the purposes of this course).
+	The important thing to realize here is that the open sets of $\mathbb{R}$ can be expressed as unions of elements of $\mathscr{U}$, and since $\mathscr{U}$ is countable, the unions of elements of $\mathscr{U}$ can be expressed as countable unions.
+	Thus, every open set is a countable union of elements of $\mathscr{U} \subset \mathcal{R}$, so every open set is in $\mathcal{R}$.
+	This makes $\mathcal{R}$ a $\sigma$-algebra containing all open sets, so $\mathcal{B}$, which is the \textit{smallest} $\sigma$-algebra containing all open sets, is a subset of $\mathcal{R}$.
+\end{proof}
+
+\begin{ex}
+	(2.B.11)
+	Suppose $\mathcal{T}$ is a $\sigma$-algebra on a set $Y$ and $X \in \mathcal{T}$.
+	Let $S = \left\lbrace E \in \mathcal{T} : E \subset X \right\rbrace$. \begin{enumerate}[label=(\alph*)]
+		\item Show that $S = \left\lbrace F \cap X : F \in \mathcal{T} \right\rbrace$.
+		\item Show that $S$ is a $\sigma$-algebra on $X$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $C = \left\lbrace F \cap X : F \in \mathcal{T} \right\rbrace$.
+		      If $F \in \mathcal{T}$, then $F \cap X \in \mathcal{T}$ since $\sigma$-algebras are closed under finite intersections, and thus $C \subset S$.
+		      On the other hand, if $E \in S$, then $E \in \mathcal{T}$ and $E \subset X$, so $E = E \cap X$, and we conclude that $S \subset C$.
+		\item Let $E \in \mathcal{T}$, $E \subset X$.
+		      See that \begin{align*}
+            X \setminus E & = X \cap (Y \setminus E),
+		      \end{align*}
+          and since both $X$ and $Y \setminus E$ are in $\mathcal{T}$, $X \setminus E \in \mathcal{T}$.
+          Also, $X \setminus E \subset X$, so $X \setminus E \in S$, making $S$ closed under complementation in $X$.
+
+          Let $\left\lbrace E_i \right\rbrace_{i \in \mathbb{Z}^+} \subset \mathcal{T}$ such that for each $i$, $E_i \subset X$.
+          Then $\bigcup_{i=1}^\infty E_i \in \mathcal{T}$ since $\mathcal{T}$ is closed under countable unions, and $\bigcup_{i = 1}^\infty E_i \subset X$, so $\bigcup_{i = 1}^\infty E_i \in S$.
+          Thus, $S$ is a $\sigma$-algebra on $X$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	(2.B.13)
+	Suppose $(X, S)$ is a measurable space, $E_1, \dots, E_n$ are disjoint subsets of $X$, and $c_1, \dots, c_n$ are distinct nonzero real numbers.
+	Prove that $c_1 \chi_{E_1} + \cdots + c_n\chi_{E_n}$ is an $S$-measurable function if and only if $E_1, \dots, E_n \in S$.
+\end{ex}
+\begin{proof}
+	\textcolor{red}{NOT STARTED}
+\end{proof}
+
+\end{document}

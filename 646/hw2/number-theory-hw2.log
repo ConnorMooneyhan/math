@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  7 SEP 2025 15:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  11 SEP 2025 18:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -710,7 +710,7 @@ L3 programming layer <2025-04-14>
 Here is how much of TeX's memory you used:
  15632 strings out of 469608
  321000 string characters out of 5470601
- 690601 words of memory out of 5000000
+ 690610 words of memory out of 5000000
  42172 multiletter control sequences out of 15000+600000
  662549 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -723,7 +723,7 @@ ocal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local
 live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/
 2025/texmf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/202
 5/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb>
-Output written on 646/hw2/number-theory-hw2.pdf (3 pages, 109572 bytes).
+Output written on 646/hw2/number-theory-hw2.pdf (3 pages, 110268 bytes).
 PDF statistics:
  61 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream
