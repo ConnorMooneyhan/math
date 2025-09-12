@@ -56,15 +56,15 @@
 		\int_a^b f- \frac{\varepsilon}{2} < L(f, P, [a, b]) \leq L(f, P \cup P_n, [a, b]).
 	\end{equation}
 
-  Let $\alpha$ be the number of points in $P$.
-  Since $P_n$ and $P \cup P_n$ agree on all subintervals of $P_n$ not containing a point of $P$, their difference is entirely determined by the behavior on subintervals containing a point of $P$, of which there are at most $\alpha$, and each of which has length $\frac{1}{n}$.
-  Since $f$ is Riemann integrable, it is bounded, so let $U = \sup f$ and $L = \inf f$.
-  Then any infimum along a subinterval is greater than or equal to $L$, and any supremum along a subinterval is less than or equal to $U$.
-  Thus we obtain an upper bound on the difference of the lower sums: \begin{equation*}
-    L(f, P \cup P_m, [a,b]) - L(f, P_m, [a,b]) \leq \frac{\alpha}{n}(U - L).
-  \end{equation*}
-  Since $\alpha$ is fixed, we can choose an $m$ large enough such that \begin{align*}
-		         & L(f, P \cup P_m, [a, b]) - L(f, P_m, [a, b]) < \frac{\varepsilon}{2}  \\
+	Let $\alpha$ be the number of points in $P$.
+	Since $P_n$ and $P \cup P_n$ agree on all subintervals of $P_n$ not containing a point of $P$, their difference is entirely determined by the behavior on subintervals containing a point of $P$, of which there are at most $\alpha$, and each of which has length $\frac{1}{n}$.
+	Since $f$ is Riemann integrable, it is bounded, so let $U = \sup f$ and $L = \inf f$.
+	Then any infimum along a subinterval is greater than or equal to $L$, and any supremum along a subinterval is less than or equal to $U$.
+	Thus we obtain an upper bound on the difference of the lower sums: \begin{equation*}
+		L(f, P \cup P_m, [a,b]) - L(f, P_m, [a,b]) \leq \frac{\alpha}{n}(U - L).
+	\end{equation*}
+	Since $\alpha$ is fixed, we can choose an $m$ large enough such that \begin{align*}
+		         & L(f, P \cup P_m, [a, b]) - L(f, P_m, [a, b]) < \frac{\varepsilon}{2}    \\
 		\implies & - \frac{\varepsilon}{2} < L(f, P_m, [a, b]) - L(f, P \cup P_m, [a, b]).
 	\end{align*}
 	Adding this to \eqref{1.2}, we get \begin{equation*}
@@ -91,9 +91,24 @@
 \end{ex}
 \begin{proof}
 	We begin by considering the relationship between $\sup_{[x, y]}|f| - \inf_{[x, y]} |f|$ and $\sup_{[x,y]}f - \inf_{[x,y]} f$ for any interval $[x,y]$.
-	In particular, we want to prove that $\sup_{[x,y]}|f| - \inf_{[x,y]}|f| \leq \sup_{[x,y]}f - \inf_{[x,y]}f$ \textcolor{red}{(needs proof)}.
+	In particular, we want to prove that $\sup_{[x,y]}|f| - \inf_{[x,y]}|f| \leq \sup_{[x,y]}f - \inf_{[x,y]}f$.
+	If $\inf_{[x,y]}f \geq 0$, then $|f| = f$, so the expression is an equality.
+	If $\sup_{[x,y]}f \leq 0$, then $|f| = -f$, so $\sup_{[x,y]}|f| = -\inf_{[x,y]}f$ and $\inf_{[x,y]}|f| = -\sup_{[x,y]}f$, so \begin{align*}
+		\sup_{[x,y]}|f| - \inf_{[x,y]}|f| = -\inf_{[x,y]}f + \sup_{[x,y]}f
+	\end{align*}
+	and we again have an equality.
+	The final case occurs when $\sup_{[x,y]}f \geq 0$ but $\inf_{[x,y]}f < 0$.
+	In this case, either $\sup_{[x,y]}|f| = -\inf_{[x,y]}f$ or $\sup_{[x,y]}|f| = \sup_{[x,y]}f$.
+	If the former is true, then we can note that $\sup_{[x,y]}|f| = \sup_{[x,y]}|-f| = \sup_{[x,y]}(-f)$ and \begin{equation*}
+		\sup_{[x,y]}|f| - \inf_{[x,y]}|f| = \sup_{[x,y]}|-f| - \inf_{[x,y]}|-f|,
+	\end{equation*}
+	so we can consider the latter case for $-f$ and get an equivalent result.
+	Having reduced it to the case where $\sup_{[x,y]}|f| = \sup_{[x,y]}f$, we observe that $\inf_{[x,y]}f \leq \inf_{[x,y]}|f|$, so \begin{align*}
+		\sup_{[x,y]}|f|-\inf_{[x,y]}|f| & \leq \sup_{[x,y]}|f|-\inf_{[x,y]}f \\
+		                                & = \sup_{[x,y]}f-\inf_{[x,y]}f.
+	\end{align*}
 
-	Now, let $\varepsilon > 0$ and choose a partition $P = \left\lbrace a = x_0, x_1, \dots, x_n = b \right\rbrace$ such that \begin{equation*}
+  Having proved that in every case $\sup_{[x,y]}|f| - \inf_{[x,y]}|f| \leq \sup_{[x,y]}f - \inf_{[x,y]}f$, we let $\varepsilon > 0$ and choose a partition $P = \left\lbrace a = x_0, x_1, \dots, x_n = b \right\rbrace$ such that \begin{equation*}
 		U(f, P, [a, b]) - L(f,P,[a,b]) < \varepsilon.
 	\end{equation*}
 	Then \begin{align*}
@@ -115,7 +130,7 @@
 		\implies & L(f, [a,b]) \leq L(|f|, [a,b])                           \\
 		\implies & \int_a^b f \leq \int_a^b |f|.
 	\end{align*}
-  The first inequality comes from the fact that $-\inf_{[x_{i-1}, x_i]} |f| \leq \inf_{[x_{i-1},x_i]} f$ since $-|f(x)| \leq f(x)$ for all $x$, so $L(-|f|, P, [a, b]) \leq L(f, P, [a, b])$.
+	The first inequality comes from the fact that $-\inf_{[x_{i-1}, x_i]} |f| \leq \inf_{[x_{i-1},x_i]} f$ since $-|f(x)| \leq f(x)$ for all $x$, so $L(-|f|, P, [a, b]) \leq L(f, P, [a, b])$.
 \end{proof}
 
 \begin{ex}

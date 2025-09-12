@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  11 SEP 2025 21:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  12 SEP 2025 17:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -698,7 +698,7 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 5/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-di
 st/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
 nc/dvips/lm/lm-mathex.enc}]
-Overfull \hbox (0.8105pt too wide) in paragraph at lines 93--95
+Overfull \hbox (0.8105pt too wide) in paragraph at lines 93--96
 []\OT1/mlmr/m/n/12 We be-gin by con-sid-er-ing the re-la-tion-ship be-tween $[]
 [] \OMS/mlmsy/m/n/12 j\OML/mlmm/m/it/12 f\OMS/mlmsy/m/n/12 j ^^@ [][] j\OML/mlm
 m/m/it/12 f\OMS/mlmsy/m/n/12 j$ \OT1/mlmr/m/n/12 and $[][] \OML/mlmm/m/it/12 f 
@@ -712,28 +712,30 @@ m/m/it/12 f\OMS/mlmsy/m/n/12 j$ \OT1/mlmr/m/n/12 and $[][] \OML/mlmm/m/it/12 f
 [3]
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 238--253
+Underfull \hbox (badness 10000) in paragraph at lines 253--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--253
+Underfull \hbox (badness 10000) in paragraph at lines 253--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--253
+Underfull \hbox (badness 10000) in paragraph at lines 253--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--253
+Underfull \hbox (badness 10000) in paragraph at lines 253--268
 
  []
 
 
 
-[5] (712/hw2/measure-hw2.aux)
+[5]
+
+[6] (712/hw2/measure-hw2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -742,7 +744,7 @@ L3 programming layer <2025-04-14>
 Here is how much of TeX's memory you used:
  15647 strings out of 469608
  321076 string characters out of 5470601
- 693674 words of memory out of 5000000
+ 694674 words of memory out of 5000000
  42182 multiletter control sequences out of 15000+600000
  672621 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -761,10 +763,10 @@ fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/hw2/measure-hw2.pdf (5 pages, 188332 bytes).
+Output written on 712/hw2/measure-hw2.pdf (6 pages, 189843 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
