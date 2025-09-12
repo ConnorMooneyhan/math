@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  9 SEP 2025 12:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  12 SEP 2025 09:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -700,7 +700,7 @@ st/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
 [2]
 LaTeX Font Info:    Trying to load font information for OT1+mlmss on input line
- 204.
+ 205.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmss.fd
 File: ot1mlmss.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
@@ -720,7 +720,7 @@ Here is how much of TeX's memory you used:
  42205 multiletter control sequences out of 15000+600000
  670721 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,6n,121p,484b,244s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,6n,121p,484b,316s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
@@ -734,7 +734,7 @@ xmf-dist/fonts/type1/public/mlmodern/mlmss12.pfb></usr/local/texlive/2025/texmf
 t/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/f
 onts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 721/hw2/algebra-hw2.pdf (4 pages, 159612 bytes).
+Output written on 721/hw2/algebra-hw2.pdf (4 pages, 160131 bytes).
 PDF statistics:
  89 PDF objects out of 1000 (max. 8388607)
  56 compressed objects within 1 object stream

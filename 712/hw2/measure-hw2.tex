@@ -91,8 +91,9 @@
 \end{ex}
 \begin{proof}
 	We begin by considering the relationship between $\sup_{[x, y]}|f| - \inf_{[x, y]} |f|$ and $\sup_{[x,y]}f - \inf_{[x,y]} f$ for any interval $[x,y]$.
-	Assume that $\sup_{[x,y]}|f| - \inf_{[x,y]}|f| \leq \sup_{[x,y]}f - \inf_{[x,y]}f$ \textcolor{red}{(needs proof)}.
-	Let $\varepsilon > 0$ and choose a partition $P = \left\lbrace a = x_0, x_1, \dots, x_n = b \right\rbrace$ such that \begin{equation*}
+	In particular, we want to prove that $\sup_{[x,y]}|f| - \inf_{[x,y]}|f| \leq \sup_{[x,y]}f - \inf_{[x,y]}f$ \textcolor{red}{(needs proof)}.
+
+	Now, let $\varepsilon > 0$ and choose a partition $P = \left\lbrace a = x_0, x_1, \dots, x_n = b \right\rbrace$ such that \begin{equation*}
 		U(f, P, [a, b]) - L(f,P,[a,b]) < \varepsilon.
 	\end{equation*}
 	Then \begin{align*}
@@ -114,7 +115,7 @@
 		\implies & L(f, [a,b]) \leq L(|f|, [a,b])                           \\
 		\implies & \int_a^b f \leq \int_a^b |f|.
 	\end{align*}
-	The first inequality \textcolor{red}{still needs proof}.
+  The first inequality comes from the fact that $-\inf_{[x_{i-1}, x_i]} |f| \leq \inf_{[x_{i-1},x_i]} f$ since $-|f(x)| \leq f(x)$ for all $x$, so $L(-|f|, P, [a, b]) \leq L(f, P, [a, b])$.
 \end{proof}
 
 \begin{ex}

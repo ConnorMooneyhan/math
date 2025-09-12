@@ -124,9 +124,9 @@
 	(Which means the curve goes through $(0, 0)$.)
 \end{ex}
 \begin{proof}
-  We begin by setting the curves equal to each other and then consolidating and factoring the $x$ terms on the left side and the $y$ terms on the right side to get \begin{equation*}
-    x(x+1)(x-1) = 3y(y+1)(y-1).
-  \end{equation*}
+	We begin by setting the curves equal to each other and then consolidating and factoring the $x$ terms on the left side and the $y$ terms on the right side to get \begin{equation*}
+		x(x+1)(x-1) = 3y(y+1)(y-1).
+	\end{equation*}
 	We determine the points of intersection to be $(0, 0)$ along with the other solutions that become obvious upon looking at the above equation: \begin{align*}
 		P_1 & = (0, -1)  \\
 		P_2 & = (0, 1)   \\
@@ -138,8 +138,28 @@
 		P_8 & = (1, 1).
 	\end{align*}
 
-  This induces a system of equations on the coefficients of a general cubic curve by plugging in values for $x$ and $y$, in order, as follows: \begin{align*}
-    -d + g -i + j = 0
+	This induces a system of equations on the coefficients of a general cubic curve by plugging in values for $x$ and $y$, in order, as follows: \begin{align*}
+		- d + g - i + j                         & = 0  \\
+		d + g + i + j                           & = 0  \\
+		- a + e - h + j                         & = 0  \\
+		- a - b - c - d + e + f + g - h - i + j & = 0  \\
+		- a + b - c + d + e - f + g - h + i + j & = 0  \\
+		a + e + h + j                           & = 0  \\
+		a - b + c - d + e - f + g + h - i + j   & = 0  \\
+		a + b + c + d + e + f + g + h + i + j   & = 0.
+	\end{align*}
+	Then, combining the first and second, third and sixth, fourth and fifth, and seventh and eighth, we get \begin{align*}
+		2g + 2j                       & = 0  \\
+		2e + 2j                       & = 0  \\
+		- 2a - 2c + 2e + 2g - 2h + 2j & = 0  \\
+		2a + 2c + 2e + 2g + 2h + 2j   & = 0.
+	\end{align*}
+	Combining the first and second, then third and fourth, then dividing the third and fourth by two, we get \begin{align*}
+		2g + 2e + 4j & = 0  \\
+		2e + 2g + 2j & = 0.
+	\end{align*}
+  Now we can subtract these two and make our conclusion: \begin{align*}
+    2j = 0 \implies j = 0.
   \end{align*}
 \end{proof}
 

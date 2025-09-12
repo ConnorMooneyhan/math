@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  11 SEP 2025 13:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  11 SEP 2025 21:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -712,22 +712,22 @@ m/m/it/12 f\OMS/mlmsy/m/n/12 j$ \OT1/mlmr/m/n/12 and $[][] \OML/mlmm/m/it/12 f
 [3]
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 237--252
+Underfull \hbox (badness 10000) in paragraph at lines 238--253
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 237--252
+Underfull \hbox (badness 10000) in paragraph at lines 238--253
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 237--252
+Underfull \hbox (badness 10000) in paragraph at lines 238--253
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 237--252
+Underfull \hbox (badness 10000) in paragraph at lines 238--253
 
  []
 
@@ -742,7 +742,7 @@ L3 programming layer <2025-04-14>
 Here is how much of TeX's memory you used:
  15647 strings out of 469608
  321076 string characters out of 5470601
- 692674 words of memory out of 5000000
+ 693674 words of memory out of 5000000
  42182 multiletter control sequences out of 15000+600000
  672621 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -761,7 +761,7 @@ fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/hw2/measure-hw2.pdf (5 pages, 187923 bytes).
+Output written on 712/hw2/measure-hw2.pdf (5 pages, 188332 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  61 compressed objects within 1 object stream
