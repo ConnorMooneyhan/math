@@ -88,8 +88,23 @@
 	Prove that $|A| = \lim\limits_{t \to \infty}|A \cap (-t, t)|$ for all $A \subset \mathbb{R}$.
 \end{ex}
 \begin{proof}
-	\textcolor{red}{UNFINISHED}
+	Using a result from the previous homework, we have \begin{align}
+		|A| & = \left| A \cap (-t, t) \right| + \left| A \cap (\mathbb{R} \setminus (-t, t)) \right| \geq |A \cap (-t, t)| \label{2.1}
+	\end{align}
+	for any $t > 0$.
+	By monotonicity, $|A \cap (-t, t)| \leq |A \cap (-(t + \varepsilon), t + \varepsilon)|$ for any $\varepsilon > 0$, so we can take the supremum over all such $t$ in \eqref{2.1} to get \begin{equation*}
+		|A| \geq \sup_{t > 0}|A \cap (-t, t)| = \lim_{t \to \infty} |A \cap (-t, t)|.
+	\end{equation*}
 
+	For the inequality in the other direction, we can break $|A|$ up like so: \begin{align*}
+		|A| & = \left| \bigcup_{n=-\infty}^\infty (A \cap [n-1, n]) \right|        \\
+		    & \leq \sum_{n=-\infty}^\infty \left|  A \cap [n-1, n] \right|         \\
+		    & = \lim_{N \to \infty} \sum_{n=-N}^N \left| A \cap [n - 1, n] \right| \\
+		    & = \lim_{N \to \infty} \sum_{n=-N}^N \left| A \cap (n - 1, n] \right| \\
+		    & = \lim_{n \to \infty} \left| A \cap (-n, n] \right|                  \\
+		    & = \lim_{n \to \infty} \left| A \cap (-n, n) \right|                  \\
+		    & = \lim_{t \to \infty} \left| A \cap (-t, t) \right|.
+	\end{align*}
 \end{proof}
 
 \begin{ex}
@@ -99,13 +114,17 @@
 	\end{equation*}
 \end{ex}
 \begin{proof}
-	\textcolor{red}{UNFINISHED}
 	This follows immediately upon noticing two key relationships.
 	First, by countable subadditivity, \begin{equation*}
-		\left| \bigcup_{k=1}^\infty I_k \right| \leq \sum_{k=1}^\infty \ell(I_k).
+		\left| \bigcup_{k=1}^\infty I_k \right| \leq \sum_{k=1}^\infty |I_k| = \sum_{k=1}^\infty \ell(I_k).
 	\end{equation*}
-	Second, notice that the collection of intervals $I = \left\lbrace I_k \right\rbrace_{k \in \mathbb{Z}^+}$ is itself an open cover of $\cup_{k=1}^\infty I_k$.
-	By definition, for any open cover $J = \left\lbrace J_k \right\rbrace_{k \in \mathbb{Z}^+}$ of $\bigcup_{k=1}^\infty I_k$ consisting of open intervals, define an open cover $J' = \left\lbrace J_k \cap \bigcup I \right\rbrace$, which still consists of open intervals.
+	Second, notice that the collection of intervals $I = \left\lbrace I_k \right\rbrace_{k \in \mathbb{Z}^+}$ is itself an open cover of $\bigcup_{k=1}^\infty I_k$.
+	For any open cover $J = \left\lbrace J_k \right\rbrace_{k \in \mathbb{Z}^+}$ of $\bigcup_{k=1}^\infty I_k$ consisting of open intervals, define a collection $K = \left\lbrace J_k \cap \left( \bigcup_{j \in \mathbb{Z}^+} I_j \right) \right\rbrace$, then reindex so that we have a collection of open intervals.
+	This collection still covers $I$ but has the property that for each $k$, $I_k \subset \bigcup \left\lbrace J_j \right\rbrace$, where each such union is disjoint.
+	We can now compare $I$ to $K$ and $K$ to $J$ like so: \begin{equation*}
+		\left| \sum |I_k| \right| \leq \left| \sum |K_k| \right| \leq \left| \sum |J_k| \right|.
+	\end{equation*}
+	Thus $\left| \sum I_k \right|$ is a lower bound on $\left\lbrace \sum_{k=1}^\infty \ell(L_k) : \bigcup I \subset \bigcup L_k \right\rbrace$, and so $\left| \sum I_k \right| = \sum_{k=1}^\infty \ell(I_k)$.
 \end{proof}
 
 \begin{ex}
@@ -140,14 +159,14 @@
 		      On the other hand, if $E \in S$, then $E \in \mathcal{T}$ and $E \subset X$, so $E = E \cap X$, and we conclude that $S \subset C$.
 		\item Let $E \in \mathcal{T}$, $E \subset X$.
 		      See that \begin{align*}
-            X \setminus E & = X \cap (Y \setminus E),
+			      X \setminus E & = X \cap (Y \setminus E),
 		      \end{align*}
-          and since both $X$ and $Y \setminus E$ are in $\mathcal{T}$, $X \setminus E \in \mathcal{T}$.
-          Also, $X \setminus E \subset X$, so $X \setminus E \in S$, making $S$ closed under complementation in $X$.
+		      and since both $X$ and $Y \setminus E$ are in $\mathcal{T}$, $X \setminus E \in \mathcal{T}$.
+		      Also, $X \setminus E \subset X$, so $X \setminus E \in S$, making $S$ closed under complementation in $X$.
 
-          Let $\left\lbrace E_i \right\rbrace_{i \in \mathbb{Z}^+} \subset \mathcal{T}$ such that for each $i$, $E_i \subset X$.
-          Then $\bigcup_{i=1}^\infty E_i \in \mathcal{T}$ since $\mathcal{T}$ is closed under countable unions, and $\bigcup_{i = 1}^\infty E_i \subset X$, so $\bigcup_{i = 1}^\infty E_i \in S$.
-          Thus, $S$ is a $\sigma$-algebra on $X$.
+		      Let $\left\lbrace E_i \right\rbrace_{i \in \mathbb{Z}^+} \subset \mathcal{T}$ such that for each $i$, $E_i \subset X$.
+		      Then $\bigcup_{i=1}^\infty E_i \in \mathcal{T}$ since $\mathcal{T}$ is closed under countable unions, and $\bigcup_{i = 1}^\infty E_i \subset X$, so $\bigcup_{i = 1}^\infty E_i \in S$.
+		      Thus, $S$ is a $\sigma$-algebra on $X$.
 	\end{enumerate}
 \end{proof}
 
@@ -157,7 +176,22 @@
 	Prove that $c_1 \chi_{E_1} + \cdots + c_n\chi_{E_n}$ is an $S$-measurable function if and only if $E_1, \dots, E_n \in S$.
 \end{ex}
 \begin{proof}
-	\textcolor{red}{NOT STARTED}
+	First, take the case $n = 1$.
+	We know from the text (Example 2.32) that $\chi_{E_1}$ is $S$-measurable if and only if $E_1 \in S$.
+	Furthermore, the function $g : \mathbb{R} \to \mathbb{R}$ defined by $g(x)=c_1x$ is Borel measurable since it is increasing and defined on a Borel set, even when restricted to $\left\lbrace 0, 1 \right\rbrace$ (Theorem 2.43).
+	Since $c_1\chi_{E_1}$ is the composition of a Borel measurable function with an $S$-measurable function (Theorem 2.44), it is $S$-measurable.
+
+	Proceeding by induction on $n$, assume that for some $n$, the theorem holds for $n-1$.
+	Then $c_n\chi_{E_n}$ is $S$-measurable if and only if $E_n \in S$ by the argument in the first paragraph, and $c_1\chi_{E_1} + \cdots + c_{n-1}\chi_{E_{n-1}}$ is $S$-measurable by hypothesis, then $c_1\chi_{E_1} + \cdots + c_{n-1}\chi_{E_{n-1}} + c_n\chi_{E_n}$ is $S$-measurable (Theorem 2.46).
 \end{proof}
+
+\section*{}
+
+\textbf{Do my current office hours allow you the opportunity to come and ask questions?}\\
+Yes!
+\\\\
+\textbf{Name 2 suggested problems where you would like to have a good hint.}\\
+2B.7 and 2B.24
+\\\\
 
 \end{document}

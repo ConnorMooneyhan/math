@@ -44,6 +44,7 @@
 
 \maketitle
 
+Disclaimer: Generative AI was used to help me understand how matrices of different types might act on $\mathbb{R}^n$ after I failed to be able to reason through it entirely alone (it's been a while since I did linear algebra and I couldn't find the relevant facts in my books).
 \begin{ex}
 	Let $\varphi: G \to H$ be a group homomorphism.
 	Define the kernel of $\varphi$ to be \begin{equation*}
@@ -97,10 +98,22 @@
 	\end{enumerate}
 \end{ex}
 \begin{proof}
-	\textcolor{red}{UNFINISHED}
 	\begin{enumerate}[label=(\alph*)]
-		\item Let $M_1, M_2$ be upper triangular matrices.
-      The inverse of an upper triangular matrix is itself upper triangular, so $M_1M_2^{-1}$ is the product of two upper triangular matrices, which is known to be upper triangular.
+		\item Let $M, N$ be upper triangular matrices.
+		      The inverse of an upper triangular matrix is itself upper triangular, so $MN^{-1}$ is the product of two upper triangular matrices, which is known to be upper triangular.
+          Thus $MN^{-1} \in B_n(F)$.
+		\item Indeed, if $M$ is a $n \times n$ matrix with determinant 1, then it is invertible since $1 \neq 0$, and \begin{align*}
+			               & MM^{-1} = I_n                     \\
+			      \implies & (\det M) (\det M^{-1}) = \det I_n \\
+			      \implies & \det M^{-1} = 1.
+		      \end{align*}
+		      Then for any two $n \times n$ matrices $M$ and $N$ both having determinant 1, \begin{equation*}
+			      \det(MN^{-1}) = (\det M) (\det N^{-1}) = 1,
+		      \end{equation*}
+          so $MN^{-1} \in \mathrm{SL}_n(F)$.
+        \item By definition, the transpose of an orthogonal matrix is its inverse and is also orthogonal. Coupling this with the standard fact from linear algebra that the product of orthogonal matrices is orthogonal, we see that for $M, N \in O_n(F)$, $MN^{-1} \in O_n(F)$.
+        \item As we have seen, a product of upper triangular matrices is upper triangular, and additionally, if there are 1s along the diagonal, both an upper triangular matrix and its inverse has 1s along the diagonal.
+          Given any $M, N \in H_n(F)$, then, since their product will also have 1s along the diagonal, $MN^{-1} \in H_n(F)$.
 	\end{enumerate}
 \end{proof}
 
@@ -146,7 +159,7 @@
 	Finally, we have commutativity by \begin{equation*}
 		(f + g)(x) = f(x) + g(x) = g(x) + f(x) = (g + f)(x).
 	\end{equation*}
-  Note that this actually only depends on $H$ beng abelian.
+	Note that this actually only depends on $H$ beng abelian.
 \end{proof}
 
 \begin{ex}
@@ -158,19 +171,19 @@
 	Also, prove that $G$ acts on the set of all subgroups of $G$ by conjugation.
 \end{ex}
 \begin{proof}
-  Since $e = xx^{-1} = xex^{-1}$, $e \in xHx^{-1}$, so $xHx^{-1}$ is nonempty.
-  Then let $g, h \in H$, and see that \begin{equation*}
-    xgx^{-1}(xhx^{-1})^{-1} = xgx^{-1}xh^{-1}x^{-1} =xgh^{-1}x^{-1},
-  \end{equation*}
-  and $gh^{-1} \in H$ since $H$ is a subgroup, so the subgroup criterion is satisfied.
+	Since $e = xx^{-1} = xex^{-1}$, $e \in xHx^{-1}$, so $xHx^{-1}$ is nonempty.
+	Then let $g, h \in H$, and see that \begin{equation*}
+		xgx^{-1}(xhx^{-1})^{-1} = xgx^{-1}xh^{-1}x^{-1} =xgh^{-1}x^{-1},
+	\end{equation*}
+	and $gh^{-1} \in H$ since $H$ is a subgroup, so the subgroup criterion is satisfied.
 
-  We proceed to show that $G$ acts on the set of subgroups of $G$ by conjugation.
-  The first paragraph shows that conjugation does indeed send subgroups to subgroups, so it remains to check the behavior of identities and compositions of conjugations.
-  Let $H$ be a subgroup of $G$.
-  Then, $eHe^{-1} = H$, and for $g, h \in G$, \begin{equation*}
-    g(hHh^{-1})g^{-1} = (gh)H(h^{-1}g^{-1}),
-  \end{equation*}
-  so conjugation does indeed act on the set of subgroups.
+	We proceed to show that $G$ acts on the set of subgroups of $G$ by conjugation.
+	The first paragraph shows that conjugation does indeed send subgroups to subgroups, so it remains to check the behavior of identities and compositions of conjugations.
+	Let $H$ be a subgroup of $G$.
+	Then, $eHe^{-1} = H$, and for $g, h \in G$, \begin{equation*}
+		g(hHh^{-1})g^{-1} = (gh)H(h^{-1}g^{-1}),
+	\end{equation*}
+	so conjugation does indeed act on the set of subgroups.
 \end{proof}
 
 \begin{ex}
@@ -185,14 +198,14 @@
 	where the right hand side is defined by Problem 6 above.
 \end{ex}
 \begin{proof}
-  We know that $e \in \mathrm{Stab}_G(x)$ because $e\cdot x = x$ by definition of an action.
-  Given $g, h \in \mathrm{Stab}_G(x)$, we have \begin{equation*}
-    g^{-1}\cdot x = g^{-1} \cdot (g \cdot x) = (g^{-1}g) \cdot x = e \cdot x = x,
-  \end{equation*}
-  and \begin{equation*}
-    (gh) \cdot x = g \cdot (h \cdot x) = g \cdot x = x,
-  \end{equation*}
-  so $\mathrm{Stab}_G(x)$ is closed under multiplication and taking inverses, and thus is a subgroup of $G$.
+	We know that $e \in \mathrm{Stab}_G(x)$ because $e\cdot x = x$ by definition of an action.
+	Given $g, h \in \mathrm{Stab}_G(x)$, we have \begin{equation*}
+		g^{-1}\cdot x = g^{-1} \cdot (g \cdot x) = (g^{-1}g) \cdot x = e \cdot x = x,
+	\end{equation*}
+	and \begin{equation*}
+		(gh) \cdot x = g \cdot (h \cdot x) = g \cdot x = x,
+	\end{equation*}
+	so $\mathrm{Stab}_G(x)$ is closed under multiplication and taking inverses, and thus is a subgroup of $G$.
 \end{proof}
 
 \begin{ex}
@@ -201,12 +214,14 @@
 	Determine the orbits of the action in each case (and prove your answer is correct).
 \end{ex}
 \begin{proof}
-  \textcolor{red}{UNFINISHED}
-  For $\mathsf{GL}_n(\mathbb{R})$, the orbits are $\mathbb{R}^n \setminus \left\lbrace 0 \right\rbrace$ and $\left\lbrace 0 \right\rbrace$.
-  Indeed, no nonzero vector in $\mathbb{R}^n$ can be taken by an invertible matrix $M$ to 0 since then 0 would be an eigenvalue of $M$, making the determinant 0.
-  On the other hand, so long as at least one component $x_i$ of a given $x \in \mathbb{R}^n$ is nonzero, then it can be transformed into any other nonzero vector $y \in \mathbb{R}^n$ by the matrix whose $i^{\text{th}}$ column is $y/x_i$ (as a column vector) and whose other entries are all zero.
+	For $\mathsf{GL}_n(\mathbb{R})$, the orbits are $\mathbb{R}^n \setminus \left\lbrace 0 \right\rbrace$ and $\left\lbrace 0 \right\rbrace$.
+  Indeed, any nonzero vector can be transformed into any other by way of a nonsingular matrix, and the 0 vector can only be transformed to itself.
 
-  For $\mathsf{SL}_n(\mathbb{R})$, 
+	For $\mathsf{SL}_n(\mathbb{R})$, we again have the orbits being $\mathbb{R}^n \setminus \left\lbrace 0 \right\rbrace$ and $\left\lbrace 0 \right\rbrace$.
+  To show that we can take any nonzero vector $v$ to another nonzero vector $w$, we can extend a nonzero vector $v \in \mathbb{R}^n$ to a basis, then send the first basis to the second so that $v$ maps to $w$, then scale $z$ as needed so that the determinant of this matrix turns out to be 1.
+
+  For $O_n(\mathbb{R})$, things start to get interesting.
+  Here, lengths are preserved under multiplication by an orthogonal matrix, so the orbits end up being $\left\lbrace 0 \right\rbrace$ and the $(n-1)$-spheres of radius $r > 0$ about the origin.
 \end{proof}
 
 \begin{ex}
@@ -214,12 +229,12 @@
 	Show that the data of a group homomorphism $\varphi : G \to H$ contains the same information as a functor $F: \mathsf{G} \to \mathsf{H}$.
 \end{ex}
 \begin{proof}
-  A functor $F: \mathsf{G} \to \mathsf{H}$ sends the single object of $\mathsf{G}$ to the single object of $\mathsf{H}$, and it sends morphisms in $\mathsf{G}$ to morphisms in $\mathsf{H}$.
-  Thus, since the elements of $G$ and $H$ are identified via isomorphism with the morphisms in $\mathsf{G}$ and $\mathsf{H}$ respectively, we want to check that the preservation of the group operation (i.e. the data of a group homomorphism $G \to H$) maps on directly to the composition of corresponding morphisms by the functor $F$ (i.e. the morphism data of $F$).
+	A functor $F: \mathsf{G} \to \mathsf{H}$ sends the single object of $\mathsf{G}$ to the single object of $\mathsf{H}$, and it sends morphisms in $\mathsf{G}$ to morphisms in $\mathsf{H}$.
+	Thus, since the elements of $G$ and $H$ are identified via isomorphism with the morphisms in $\mathsf{G}$ and $\mathsf{H}$ respectively, we want to check that the preservation of the group operation (i.e. the data of a group homomorphism $G \to H$) maps on directly to the composition of corresponding morphisms by the functor $F$ (i.e. the morphism data of $F$).
 
-  Indeed, this falls right out of the definition.
-  To see this, take two morphisms $f, g \in \mathsf{G}$, and we get $F(g \circ f) = F(g) \circ F(f)$ and $F(\mathrm{id}_{\ast_\mathsf{G}}) = \mathrm{id}_{\ast_\mathsf{H}}$ by definition.
-  Now identifying $f$ and $g$ with their corresponding elements of $G$ by a slight abuse of notation, we see that $\varphi(fg) = \varphi(f)\varphi(g)$ is the same statement as above for any homomorphism $\varphi: G \to H$, and the identity in $G$ gets mapped to the identity in $H$ as a consequence.
+	Indeed, this falls right out of the definition.
+	To see this, take two morphisms $f, g \in \mathsf{G}$, and we get $F(g \circ f) = F(g) \circ F(f)$ and $F(\mathrm{id}_{\ast_\mathsf{G}}) = \mathrm{id}_{\ast_\mathsf{H}}$ by definition.
+	Now identifying $f$ and $g$ with their corresponding elements of $G$ by a slight abuse of notation, we see that $\varphi(fg) = \varphi(f)\varphi(g)$ is the same statement as above for any homomorphism $\varphi: G \to H$, and the identity in $G$ gets mapped to the identity in $H$ as a consequence.
 \end{proof}
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  12 SEP 2025 09:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  12 SEP 2025 23:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -684,11 +684,11 @@ LaTeX Font Info:    Trying to load font information for U+rsfs on input line 45
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <12> on input line 48.
+(Font)              <12> on input line 47.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <8> on input line 48.
+(Font)              <8> on input line 47.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <6> on input line 48.
+(Font)              <6> on input line 47.
 
 
 [1
@@ -699,28 +699,31 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 st/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
 [2]
+
+[3{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
 LaTeX Font Info:    Trying to load font information for OT1+mlmss on input line
- 205.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmss.fd
+ 217.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmss.fd
 File: ot1mlmss.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 
-[3{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+[4]
 
-[4] (721/hw2/algebra-hw2.aux)
+[5] (721/hw2/algebra-hw2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15670 strings out of 469608
- 321678 string characters out of 5470601
+ 15672 strings out of 469608
+ 321734 string characters out of 5470601
  689632 words of memory out of 5000000
- 42205 multiletter control sequences out of 15000+600000
+ 42207 multiletter control sequences out of 15000+600000
  670721 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,6n,121p,484b,316s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,8n,121p,484b,318s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
@@ -734,10 +737,10 @@ xmf-dist/fonts/type1/public/mlmodern/mlmss12.pfb></usr/local/texlive/2025/texmf
 t/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/f
 onts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 721/hw2/algebra-hw2.pdf (4 pages, 160131 bytes).
+Output written on 721/hw2/algebra-hw2.pdf (5 pages, 163226 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

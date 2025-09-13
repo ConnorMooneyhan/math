@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  10 SEP 2025 21:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  13 SEP 2025 00:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -826,19 +826,36 @@ st/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
 nc/dvips/lm/lm-mathex.enc}]
 
 [2]
+Underfull \hbox (badness 10000) in paragraph at lines 190--196
 
-[3] (712/hw3/measure-hw3.aux)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--196
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--196
+
+ []
+
+
+
+[3]
+
+[4] (712/hw3/measure-hw3.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 26061 strings out of 469608
- 673122 string characters out of 5470601
- 1186333 words of memory out of 5000000
- 52465 multiletter control sequences out of 15000+600000
- 662549 words of font info for 81 fonts, out of 8000000 for 9000
+ 26066 strings out of 469608
+ 673218 string characters out of 5470601
+ 1188331 words of memory out of 5000000
+ 52470 multiletter control sequences out of 15000+600000
+ 668458 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  116i,9n,121p,715b,2151s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
@@ -852,13 +869,14 @@ live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/texlive
 mf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2025/texmf-di
 st/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025/texmf-dist/
 fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
-ype1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/rsfs/rsfs10.pfb>
-Output written on 712/hw3/measure-hw3.pdf (3 pages, 166597 bytes).
+ts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
+ype1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
+ype1/public/rsfs/rsfs10.pfb>
+Output written on 712/hw3/measure-hw3.pdf (4 pages, 188048 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 99 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
