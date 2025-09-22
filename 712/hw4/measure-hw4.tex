@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 4}
+\author{Connor Mooneyhan}
+\date{September 19, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(2B.23)
+	Suppose $f: \mathbb{R} \to \mathbb{R}$ is a strictly increasing function.
+	Prove that the inverse function $f^{-1} : f(\mathbb{R}) \to \mathbb{R}$ is a continuous function.
+	\newline[\textit{Note that this exercise does not have as a hypothesis that $f$ is continuous}]
+\end{ex}
+\begin{proof}
+	Let $U$ be open in $\mathbb{R}$.
+	We want to show that $(f^{-1})^{-1}(U) = f(U)$ is open in $f(\mathbb{R})$.
+	Let $x \in f(U)$.
+	Then let $(a, b) \subset \mathbb{R}$ such that $f^{-1}(x) \in (a, b) \subset U$.
+	Since $f$ is strictly increasing and $a < f^{-1}(x) < b$, $f(a) < x < f(b)$.
+	In particular, $x \in (f(a), f(b)) \subset f(U)$, which is open in the subspace/order topology on $f(\mathbb{R})$.
+	Thus every point of $f(U)$ has a neighborhood in $f(\mathbb{R})$ also contained in $U$, so $f(U)$ is open.
+\end{proof}
+
+\begin{ex}
+	(2B.24)
+	Suppose $B \subset \mathbb{R}$ is a Borel set and $f: B \to \mathbb{R}$ is an increasing function.
+	Prove that $f(B)$ is a Borel set.
+\end{ex}
+\begin{proof}
+  This one is escaping me.
+  Given that it comes right after the previous problem and has a similar setup, I tried especially hard to use it.
+  One option I thought was promising was to turn $f$ into a strictly increasing function by considering the function $g : B/\sim \,\to \mathbb{R}$ where $B/\sim$ is the collection of fibers over $g$.
+  Indeed, $g$ is strictly increasing, but unfortunately it is no longer a function from $\mathbb{R}$ to $\mathbb{R}$ since the elements of the domain are subsets of $\mathbb{R}$.
+  I tried to still recover the core idea, considering open sets in the quotient topology on $B/\sim$ and trying to figure out what they could tell me about how open sets map in $f$, but I haven't been able to figure it out.
+
+  Another idea included considering when $B$ is an open set, but nothing ocurred to me that made that case any easier.
+  If it had worked, I might have been able to make a similar argument about closed sets, then said something about countable unions (resp. intersections) of closed (resp. open) sets.
+
+  I think the difficulty lies in proving things about Borel sets directly.
+  If it were a \textit{collection} of potentially Borel sets, then I might be able to do something with showing that collection was a $\sigma$-algebra that contained open sets, but I don't see any room for that sort of argument here.
+\end{proof}
+
+\begin{ex}
+	(2C.5)
+	Suppose $(X, S, \mu)$ is a mesaure space such that $\mu(X) < \infty$.
+	Prove that if $\mathcal{A}$ is a set of disjoint sets in $S$ such that $\mu(A) > 0$ for every $A \in \mathcal{A}$, then $\mathcal{A}$ is a countable set.
+\end{ex}
+\begin{proof}
+	Let $\mu(X) = k$, and define $\mathcal{A}_n = \left\lbrace A \in \mathcal{A} : \mu(A) > \frac{1}{n} \right\rbrace$ for all $n \in \mathbb{Z^+}$.
+	Then \begin{equation*}
+		k \geq \mu \left( \bigcup_{A \in A_n} A \right) \geq \mu \left( \bigcup_{i = 1}^N A_i \right) = \sum_{i = 1}^N \mu(A) \geq \frac{N}{n}.
+	\end{equation*}
+	where the first and second inequalities come from monotonicity and the equality comes from finite additivity.
+	Note that the right hand side of the first inequality just represents any finite sum of elements of $\mathcal{A}_n$.
+	If $\mathcal{A}_n$ is empty, then we can take the right hand side of each inequality to be 0.
+	Thus, we cannot be allowed to take $N > kn$, so $\mathcal{A}_n$ must have at most $kn$ elements, and in particular, finitely many.
+	Then, since $\mathcal{A} = \bigcup_{n \in \mathbb{Z}^+} \mathcal{A}_n$ is a countable union of finite sets, $\mathcal{A}$ is countable.
+\end{proof}
+
+\begin{ex}
+	(2C.9)
+	Suppose $\mu$ and $\nu$ are measures on a measurable space $(X, S)$.
+	Prove that $\mu + \nu$ is a measure on $(X, S)$.
+		[Here $\mu + \nu$ is the usual sum of two functions: if $E \in S$, then $(\mu + \nu)(E) = \mu(E) + \nu(E)$.]
+\end{ex}
+\begin{proof}
+	First, $(\mu + \nu)(\varnothing) = \mu(\varnothing) + \nu(\varnothing) = 0 + 0 = 0$.
+	Now let $\mathcal{A} \subset S$ be a countable collection of measurable sets.
+	Then \begin{align*}
+		(\mu + \nu)\left( \bigcup_{A \in \mathcal{A}} A \right) & = \mu\left( \bigcup_{A \in \mathcal{A}} A \right) + \nu\left( \bigcup_{A \in \mathcal{A}} A \right) \\
+		                                                        & = \sum_{A \in \mathcal{A}}\mu(A) + \sum_{A \in \mathcal{A}}\nu(A)                                   \\
+		                                                        & = \sum_{A \in \mathcal{A}}\mu(A) + \nu(A)                                                           \\
+		                                                        & = \sum_{A \in \mathcal{A}}(\mu + \nu)(A)
+	\end{align*}
+	as desired.
+\end{proof}
+
+\begin{ex}
+	(2C.11)
+	Suppose $(X, S, \mu)$ is a measure space and $C, D, E \in S$ are such that \begin{equation*}
+		\mu(C \cap D) < \infty, \mu(C \cap E) < \infty, \text{ and } \mu(D \cap E) < \infty.
+	\end{equation*}
+	Find and prove a formula for $\mu(C \cup D \cup E)$ in terms of $\mu(C)$, $\mu(D)$, $\mu(E)$, $\mu(C \cap D)$, $\mu(C \cap E)$, $\mu(D \cap E)$, and $\mu(C \cap D \cap E)$.
+\end{ex}
+\begin{proof}
+	Our proof will use Theorem 2.61 (the formula for the measure of the union of two sets whose union is finite) extensively.
+	Two more facts to note are that \begin{equation*}
+		\mu((C \cup D) \cap E) = \mu((C \cap E) \cup (D \cap E)) \leq \mu(C \cap E) + \mu(D \cap E) < \infty
+	\end{equation*}
+  by subadditivity and \begin{equation*}
+    \mu((C \cap E) \cap (D \cap E)) = \mu(C \cap D \cap E) \leq \mu(C \cap D) < \infty
+  \end{equation*}
+  by monotonicity.
+	Now, we see that \begin{align*}
+		\mu(C \cup D \cup E) & = \mu((C \cup D) \cup E)                                                                                       \\
+		                     & = \mu(C \cup D) + \mu(E) - \mu((C \cup D) \cap E)                                                              \\
+		                     & = \mu(C) + \mu(D) - \mu(C \cap D) + \mu(E) - \mu((C \cap E) \cup (D \cap E))                                   \\
+		                     & = \mu(C) + \mu(D) - \mu(C \cap D) + \mu(E) - (\mu(C \cap E) + \mu(D \cap E) - \mu((C \cap E) \cap (D \cap E))) \\
+                         & = \mu(C) + \mu(D) + \mu(E) - \mu(C \cap D) - \mu(C \cap E) - \mu(D \cap E) + \mu(C \cap D \cap E).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	(2D.5)
+	Prove that if $A \subset \mathbb{R}$ is Lebesgue measurable, then there exists an increasing sequence $F_1 \subset F_2 \subset \cdots$ of closed sets contained in $A$ such that \begin{equation*}
+		\left| A \setminus \bigcup_{k=1}^\infty F_k \right| = 0.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+  By Theorem 2.71, we can choose closed sets $G_1, G_2, \dots$ contained in $A$ such that $\left| A \setminus \bigcup_{k=1}^\infty G_k \right| = 0$.
+  We want the sequence to be increasing, so define $F_n = \bigcup_{k=1}^n G_k$.
+  Then $F_n \subset F_{n+1}$ for all $n$, and each $F_n$ is closed since it is a finite union of closed sets.
+  Since $\bigcup_{k=1}^\infty F_k = \bigcup_{k=1}^\infty G_k$, we have \begin{equation*}
+    \left| A \setminus \bigcup_{k=1}^\infty F_k \right| = \left| A \setminus \bigcup_{k=1}^\infty G_k \right| = 0.
+  \end{equation*}
+\end{proof}
+
+\section*{}
+
+\textbf{What topics or problems would you like to review before Written Test \#1?}\\
+Riemann integration!
+\\\\
+
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 5}
+\author{Connor Mooneyhan}
+\date{September 26, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(2D.2)
+	Prove that there exists a bounded set $A \subset \mathbb{R}$ such that $|F| \leq |A| - 1$ for every closed set $F \subset A$.
+\end{ex}
+
+\begin{ex}
+	(2D.5)
+	Prove that if $A \subset \mathbb{R}$ is Lebesgue measurable, then there exists an increasing sequence $F_1 \subset F_2 \subset \cdots$ of closed sets contained in $A$ such that \begin{equation*}
+		\left| A \setminus \bigcup_{k=1}^\infty F_k \right| = 0.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	By Theorem 2.71, we can choose closed sets $G_1, G_2, \dots$ contained in $A$ such that $\left| A \setminus \bigcup_{k=1}^\infty G_k \right| = 0$.
+	We want the sequence to be increasing, so define $F_n = \bigcup_{k=1}^n G_k$.
+	Then $F_n \subset F_{n+1}$ for all $n$, and each $F_n$ is closed since it is a finite union of closed sets.
+	Since $\bigcup_{k=1}^\infty F_k = \bigcup_{k=1}^\infty G_k$, we have \begin{equation*}
+		\left| A \setminus \bigcup_{k=1}^\infty F_k \right| = \left| A \setminus \bigcup_{k=1}^\infty G_k \right| = 0.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	(2D.7)
+	Prove that if $A \subset \mathbb{R}$ is Lebesgue measurable, then there exists a decreasing sequence $G_1 \supset G_2 \supset \cdots$ of open sets containing $A$ such that \begin{equation*}
+		\left| \left( \bigcap_{k=1}^\infty G_k \right) \setminus A \right| = 0.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	By Theorem 2.71, there exist open sets $F_1, F_2, \dots$ containing $A$ such that \begin{equation*}
+		\left| \left( \bigcap_{k=1}^\infty F_k \right) \setminus A \right| = 0.
+	\end{equation*}
+  Similar to the proof to 2D.5, we can now define $G_1, G_2, \dots$ by $G_n = \bigcap_{k=1}^n F_k$.
+  Then each $G_n$ is open and contains $A$, and $\left\lbrace G_k \right\rbrace$ is a decreasing sequence, so \begin{equation*}
+		\left| \left( \bigcap_{k=1}^\infty G_k \right) \setminus A \right| = \left| \left( \bigcap_{k=1}^\infty F_k \right) \setminus A \right| = 0.
+  \end{equation*}
+\end{proof}
+
+\begin{ex}
+	(2D.9)
+	Prove that the collection of Lebesgue measurable subsets of $\mathbb{R}$ is dilation invariant.
+	More precisely, prove that if $A \subset \mathbb{R}$ is Lebesgue measurable and $t \in \mathbb{R}$, then $tA$ (which is defined to be $\left\lbrace ta : a \in A \right\rbrace$) is Lebesgue measurable.
+\end{ex}
+
+\end{document}

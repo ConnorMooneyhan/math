@@ -1,0 +1,124 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 2}
+\author{Connor Mooneyhan}
+\date{September 11, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $\mathbb{P}^2$ be the projective plane.
+	A line is defined to be the zero set of \begin{equation*}
+		\alpha X + \beta Y + \gamma Z = 0.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Show directly from the definition that two distinct points in $\mathbb{P}^2$ are contained in a unique line.
+		\item Similarly, show that any two distinct lines in $\mathbb{P}^2$ intersect in a unique point.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	For each of the pairs below, find all of the points of intersection between the curves $C_1$ and $C_2$ in $\mathbb{P}^2(\mathbb{C})$.
+	(So include complex points and points at infinity.)
+	\begin{enumerate}[label=(\alph*)]
+		\item $C_1 : x - y = 0$, $C_2 : x^2 - y = 0$.
+		\item $C_1 : x - y - 1 = 0$, $C_2: x^2 - y^2 + 2 = 0$.
+		\item $C_1 : x - y - 1 = 0$, $C_2 : x^2 - 2y^2 - 5 = 0$.
+		\item $C_1 : x-2=0$, $C_2 : y^2 - x^3 + 2x = 0$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item The points on $C_1$ can be written as $\left\langle x : x : 1 \right\rangle$ or $\left\langle 1 : 1 : 0 \right\rangle$.
+		      We need to homogenize $C_2$ as $x^2 - yz = 0$, so the points on $C_2$ are of the form $\left\langle x : x^2 : 1 \right\rangle$ or $\left\langle 0 : 1 : 0 \right\rangle$.
+		      They share no points at infinity, then, and we are reduced to the case where $x = x^2$, so $x = 1$.
+		      Thus, our point of interesection is $\left\langle 1 : 1 : 1 \right\rangle$.
+		\item First, we need to homogenize both equations: \begin{align*}
+			       & C_1 : x - y - z = 0         \\
+			       & C_2 : x^2 - y^2 + 2z^2 = 0.
+		      \end{align*}
+		      We then describe the points on $C_1$ and $C_2$ in projective coordinates: \begin{align*}
+			      C_1 & : \left\lbrace \left\langle x : x - 1 : 1 \right\rangle, \left\langle 1 : 1 : 0 \right\rangle \right\rbrace,             \\
+			      C_2 & : \left\lbrace \left\langle x : \pm\sqrt{x^2 + 2} : 1 \right\rangle, \left\langle 1 : 1 : 0 \right\rangle \right\rbrace.
+		      \end{align*}
+		      They agree at infinity, then.
+		      Back in the affine plane, we solve \begin{align*}
+			      x - 1        & = \pm\sqrt{x^2 + 2} \\
+			      x^2 - 2x + 1 & = x^2 + 2           \\
+			      2x           & = -1                \\
+			      x            & = -\frac{1}{2},
+		      \end{align*}
+		      but plugging $-\frac{1}{2}$ back into $x$, we get \begin{equation*}
+			      \pm\sqrt{\left(-\frac{1}{2}\right)^2 + 2} = \pm\sqrt{\frac{9}{4}} = \pm\frac{3}{2}
+		      \end{equation*}
+		      and \begin{equation*}
+			      -\frac{1}{2} - 1 = -\frac{3}{2},
+		      \end{equation*}
+		      so we get agreeement only when taking the negative square root.
+		      Finally, we can characterize all points of intersection as \begin{equation*}
+			      \left\lbrace \left\langle -\frac{1}{2} : -\frac{3}{2} : 1 \right\rangle, \left\langle 1 : 1 : 0 \right\rangle \right\rbrace.
+		      \end{equation*}
+		\item First, homogenize both equations: \begin{align*}
+			      C_1 & : x - y - z = 0          \\
+			      C_2 & : x^2 - 2y^2 - 5z^2 = 0.
+		      \end{align*}
+		      Now, express them in coordinate form: \begin{align*}
+			      C_1 & : \left\lbrace \left\langle x : x - 1 : 1 \right\rangle, \left\langle x : x : 0 \right\rangle \right\rbrace                                       \\
+			      C_2 & : \left\lbrace \left\langle x : \pm\sqrt{\frac{x^2-5}{2}} : 1 \right\rangle, \left\langle x : \frac{x}{\sqrt{2}} : 0 \right\rangle \right\rbrace.
+		      \end{align*}
+		      These agree on no points at infinity, but in the affine plane we have \begin{align*}
+			               & x - 1 = \sqrt{\frac{x^2-5}{2}} \\
+			      \implies & x^2 -2x + 1 = \frac{x^2-5}{2}  \\
+			      \implies & 2x^2 -4x + 2 = x^2-5           \\
+			      \implies & x^2 -4x + 7 = 0                \\
+			      \implies & (x-2)^2 + 3 = 0                \\
+			      \implies & x = \pm \sqrt{3}i + 2.
+		      \end{align*}
+		      To see if both solutions work, evaluate \begin{align*}
+			      \sqrt{\frac{(\pm\sqrt{3}i+2)^2-5}{2}} & = \sqrt{\frac{\pm 4\sqrt{3}i - 4}{2}} \\
+                                                  & = \sqrt{\pm 2\sqrt i - 2} \\
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Find a parametrization for all rational points on the curve $y^2 = x^3 - 2x^2 - 4x + 8$.
+	(Hint: There is a point on the curve, a singular point, with the property that any line through that point intersects the curve with multiplicity 2.
+	Because this curve is singular, it has genus 0.)
+\end{ex}
+
+\end{document}

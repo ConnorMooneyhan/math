@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  17 SEP 2025 07:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  18 SEP 2025 13:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -699,33 +699,41 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 st/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
 nc/dvips/lm/lm-mathex.enc}]
 
-[2] (646/hw3/number-theory-hw3.aux)
+[2]
+
+[3]
+
+[4]
+
+[5] (646/hw3/number-theory-hw3.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15632 strings out of 469608
- 321000 string characters out of 5470601
- 689600 words of memory out of 5000000
- 42172 multiletter control sequences out of 15000+600000
+ 15634 strings out of 469608
+ 321058 string characters out of 5470601
+ 694601 words of memory out of 5000000
+ 42174 multiletter control sequences out of 15000+600000
  662549 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,10n,121p,490b,324s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,11n,121p,490b,334s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 646/hw3/number-theory-hw3.pdf (2 pages, 111832 bytes).
+ocal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2025/texm
+f-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 646/hw3/number-theory-hw3.pdf (5 pages, 149672 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 82 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

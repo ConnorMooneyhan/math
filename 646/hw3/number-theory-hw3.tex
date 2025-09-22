@@ -32,9 +32,9 @@
 	\begin{ex}
 		}{\end{ex}}
 
-\title{Homework 2}
+\title{Homework 3}
 \author{Connor Mooneyhan}
-\date{September 11, 2025}
+\date{September 18, 2025}
 
 \begin{document}
 
@@ -50,6 +50,43 @@
 		\item Similarly, show that any two distinct lines in $\mathbb{P}^2$ intersect in a unique point.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\left\langle x_1 : y_1 : z_1 \right\rangle$ and $\left\langle x_2 : y_2 : z_2 \right\rangle$ be distinct points.
+		      Then since $(x_1, y_1, z_1)$ is not a scalar multiple of $(x_2, y_2, z_2)$, they are linearly independent over the reals.
+		      Any line that goes through them satisfies the equation \begin{equation*}
+			      \begin{pmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{pmatrix} \begin{pmatrix}
+				      \alpha \\ \beta \\ \gamma
+			      \end{pmatrix} = \begin{pmatrix}0 \\ 0\end{pmatrix}
+		      \end{equation*}
+		      and thus the null space of the linear transformation represented by the matrix on the left is 1-dimensional, meaning it is a unique line.
+		\item Say we have two lines \begin{align*}
+			      L_1 & : \alpha_1X + \beta_1Y + \gamma_1Z = 0  \\
+			      L_2 & : \alpha_2X + \beta_2Y + \gamma_2Z = 0.
+		      \end{align*}
+		      Then we can break each one up into two cases which we can represent nicely in projective coordinates: one where $Z = 0$ and one where $Z \neq 0$.
+		      If $Z \neq 0$, we can divide the equations by $Z$ and rename $X$ and $Y$ to get \begin{align*}
+			      L_1 & : \alpha_1X + \beta_1Y + \gamma_1 = 0  \\
+			      L_2 & : \alpha_2X + \beta_2Y + \gamma_2 = 0.
+		      \end{align*}
+		      If $Z = 0$, we get \begin{align*}
+			      L_1 & : \alpha_1X + \beta_1Y = 0  \\
+			      L_2 & : \alpha_2X + \beta_2Y = 0.
+		      \end{align*}
+		      Assume $\beta_1 \neq 0$ and $\beta_2 \neq 0$.
+		      Then we can write our lines in projective coordinates as \begin{align*}
+			      L_1 & : \left\lbrace \left\langle X : -\frac{\alpha_1}{\beta_1}X - \frac{\gamma_1}{\beta_1} : 1 \right\rangle, \left\langle X : -\frac{\alpha_1}{\beta_1}X : 0 \right\rangle \right\rbrace  \\
+			      L_2 & : \left\lbrace \left\langle X : -\frac{\alpha_2}{\beta_2}X - \frac{\gamma_2}{\beta_2} : 1 \right\rangle, \left\langle X : -\frac{\alpha_2}{\beta_2}X : 0 \right\rangle \right\rbrace.
+		      \end{align*}
+		      For the points at infinity, equality seems to come only when $\frac{\alpha_1}{\beta_1} = \frac{\alpha_2}{\beta_2}$, but in that case, the equality of affine points would imply that $\frac{\gamma_1}{\beta_1} = \frac{\gamma_2}{\beta_2}$, which implies that the two equations are linear multiples of each other, contradicting the fact that they're distinct lines.
+		      Taking the left equality then, we deduce that \begin{equation*}
+			      X = \frac{\frac{\gamma_1}{\beta_1} - \frac{\gamma_2}{\beta_2}}{\frac{\alpha_2}{\beta_2}-\frac{\alpha_1}{\beta_1}},
+		      \end{equation*}
+          which determines a single point of intersection.
+
+          I don't have time to work out the case(s) where $\beta_i = 0$ for some $i$.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
 	For each of the pairs below, find all of the points of intersection between the curves $C_1$ and $C_2$ in $\mathbb{P}^2(\mathbb{C})$.
@@ -65,9 +102,9 @@
 	\begin{enumerate}[label=(\alph*)]
 		\item The points on $C_1$ can be written as $\left\langle x : x : 1 \right\rangle$ or $\left\langle 1 : 1 : 0 \right\rangle$.
 		      We need to homogenize $C_2$ as $x^2 - yz = 0$, so the points on $C_2$ are of the form $\left\langle x : x^2 : 1 \right\rangle$ or $\left\langle 0 : 1 : 0 \right\rangle$.
-		      They share no points at infinity, then, and we are reduced to the case where $x = x^2$, so $x = 1$.
-		      Thus, our point of interesection is $\left\langle 1 : 1 : 1 \right\rangle$.
-		\item, First, we need to homogenize both equations: \begin{align*}
+		      They share no points at infinity, then, and we are reduced to the case where $x = x^2$, so $x = 0$ or $x = 1$.
+		      Thus, our points of interesection are $\left\langle 0 : 0 : 1 \right\rangle$ and $\left\langle 1 : 1 : 1 \right\rangle$.
+		\item First, we need to homogenize both equations: \begin{align*}
 			       & C_1 : x - y - z = 0         \\
 			       & C_2 : x^2 - y^2 + 2z^2 = 0.
 		      \end{align*}
@@ -88,10 +125,48 @@
 		      and \begin{equation*}
 			      -\frac{1}{2} - 1 = -\frac{3}{2},
 		      \end{equation*}
-          so we get agreeement only when taking the negative square root.
-          Finally, we can characterize all points of intersection as \begin{equation*}
-            \left\lbrace \left\langle -\frac{1}{2} : -\frac{3}{2} : 1 \right\rangle, \left\langle 1 : 1 : 0 \right\rangle \right\rbrace.
-          \end{equation*}
+		      so we get agreeement only when taking the negative square root.
+		      Finally, we can characterize all points of intersection as \begin{equation*}
+			      \left\lbrace \left\langle -\frac{1}{2} : -\frac{3}{2} : 1 \right\rangle, \left\langle 1 : 1 : 0 \right\rangle \right\rbrace.
+		      \end{equation*}
+		\item First, homogenize both equations: \begin{align*}
+			      C_1 & : x - y - z = 0          \\
+			      C_2 & : x^2 - 2y^2 - 5z^2 = 0.
+		      \end{align*}
+		      Now, express them in coordinate form: \begin{align*}
+			      C_1 & : \left\lbrace \left\langle x : x - 1 : 1 \right\rangle, \left\langle x : x : 0 \right\rangle \right\rbrace                                       \\
+			      C_2 & : \left\lbrace \left\langle x : \pm\sqrt{\frac{x^2-5}{2}} : 1 \right\rangle, \left\langle x : \frac{x}{\sqrt{2}} : 0 \right\rangle \right\rbrace.
+		      \end{align*}
+		      These agree on no points at infinity, but in the affine plane we have \begin{align*}
+			               & x - 1 = \sqrt{\frac{x^2-5}{2}} \\
+			      \implies & x^2 -2x + 1 = \frac{x^2-5}{2}  \\
+			      \implies & 2x^2 -4x + 2 = x^2-5           \\
+			      \implies & x^2 -4x + 7 = 0                \\
+			      \implies & (x-2)^2 + 3 = 0                \\
+			      \implies & x = \pm \sqrt{3}i + 2.
+		      \end{align*}
+		      To see if both solutions work, evaluate \begin{align*}
+			      \sqrt{\frac{(\pm\sqrt{3}i+2)^2-5}{2}} & = \sqrt{\frac{\pm 4\sqrt{3}i - 4}{2}} \\
+			                                            & = \sqrt{\pm 2\sqrt{3} i - 2}          \\
+			                                            & = \sqrt{-3 \pm 2\sqrt{3} i + 1}       \\
+			                                            & = \sqrt{(\pm\sqrt{3}i + 1)^2}         \\
+			                                            & = \pm\sqrt{3}i + 1                    \\
+			                                            & = (\pm\sqrt{3}i + 2) - 1.
+		      \end{align*}
+		      Thus, our two points of intersection are $\left\langle \pm\sqrt{3}i + 2 : \pm\sqrt{3}i + 1 : 1 \right\rangle$.
+		\item First, homogenize: \begin{align*}
+			      C_1 & : x - 2z = 0              \\
+			      C_2 & : y^2z - x^3 + 2xz^2 = 0.
+		      \end{align*}
+		      Then, write them in coordinate form: \begin{align*}
+			      C_1 & : \left\lbrace \left\langle 2 : y : 1 \right\rangle, \left\langle 0 : 1 : 0 \right\rangle \right\rbrace                 \\
+			      C_2 & : \left\lbrace \left\langle x : \pm\sqrt{x^3-2x} : 1 \right\rangle, \left\langle 0 : 1 : 0 \right\rangle \right\rbrace.
+		      \end{align*}
+		      These clearly agree on their point at infinity, and the only other possible point would be when $x = 2$.
+		      The $y$-coordinate is free in $C_1$, so we calculate that the $y$-coordinate of $C_2$ is \begin{equation*}
+			      \pm\sqrt{2^3-2\cdot 2} = \pm\sqrt{8-4} = \pm\sqrt{4} = \pm 2.
+		      \end{equation*}
+		      Thus, our three points of intersection are $\left\langle 2 : 2 : 1 \right\rangle$, $\left\langle 2 : -2 : 1 \right\rangle$, and $\left\langle 0 : 1 : 0 \right\rangle$.
 	\end{enumerate}
 \end{proof}
 
@@ -100,5 +175,34 @@
 	(Hint: There is a point on the curve, a singular point, with the property that any line through that point intersects the curve with multiplicity 2.
 	Because this curve is singular, it has genus 0.)
 \end{ex}
+\begin{proof}
+	We can factor the equation as \begin{equation*}
+		y^2 = (x-2)^2(x+2).
+	\end{equation*}
+	This tells us two important things.
+	First, $(2, 0)$ is our singular point.
+	Second, if $(x, y)$ is a rational point on the curve, then $y=\pm(x-2)\sqrt{x+2}$ is rational, so in particular $\sqrt{x+2}$ is rational.
+
+	Now take the general form of a line through $(2, 0)$, namely $y = m(x-2)$, where $m$ is our slope.
+	Intersecting this line with the curve, we get \begin{equation*}
+		m^2(x-2)^2 = (x-2)^2(x+2),
+	\end{equation*}
+	implying $x = m^2 - 2$ whenever $x \neq 2$.
+	Then \begin{equation*}
+		y = m(m^2 - 4) = m^3 - 4m,
+	\end{equation*}
+	so we can parametrize the rational points other than $(2, 0)$ as \begin{equation*}
+		\left\langle m^2 - 2, m^3 - 4m \right\rangle, m \in \mathbb{Q}.
+	\end{equation*}
+
+	Certainly, all points parametrized in this way are rational, but how do we know this parametrizes \textit{all} rational points on the curve?
+	Take a general rational point $(x, y)$ and $m = \pm\sqrt{x + 2}$.
+	Then the resulting point in the parametrization is \begin{align*}
+		\left\langle (x+2)-2, \pm\sqrt{x+2}^3-4\pm\sqrt{x+2} \right\rangle & = \left\langle x, \pm(\sqrt{x+2})(x+2-4) \right\rangle \\
+		                                                                   & = \left\langle x, \pm(\sqrt{x+2})(x-2) \right\rangle   \\
+		                                                                   & = \left\langle x, y \right\rangle,
+	\end{align*}
+	so we have produced a rational slope which parametrizes an arbitrary rational point, and thus we have parametrized all rational points on the curve.
+\end{proof}
 
 \end{document}
