@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  19 SEP 2025 22:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  23 SEP 2025 12:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -823,20 +823,22 @@ LaTeX Font Info:    External font `mlmex10' loaded for size
 al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 5/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-di
 st/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
-nc/dvips/lm/lm-mathex.enc}] (712/hw5/measure-hw5.aux)
+nc/dvips/lm/lm-mathex.enc}]
+
+[2] (712/hw5/measure-hw5.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 25588 strings out of 469608
- 659615 string characters out of 5470601
- 1181333 words of memory out of 5000000
- 51992 multiletter control sequences out of 15000+600000
+ 25590 strings out of 469608
+ 659671 string characters out of 5470601
+ 1186333 words of memory out of 5000000
+ 51994 multiletter control sequences out of 15000+600000
  662549 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,6n,121p,715b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,9n,121p,715b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
@@ -848,10 +850,10 @@ live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
 xmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/hw5/measure-hw5.pdf (1 page, 122478 bytes).
+Output written on 712/hw5/measure-hw5.pdf (2 pages, 126272 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 73 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

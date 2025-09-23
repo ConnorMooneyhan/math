@@ -47,6 +47,23 @@
 	(2D.2)
 	Prove that there exists a bounded set $A \subset \mathbb{R}$ such that $|F| \leq |A| - 1$ for every closed set $F \subset A$.
 \end{ex}
+\begin{proof}
+	Choose a bounded set $A$ which is not Lebesgue measurable.
+	Then there exists an $\varepsilon > 0$ such that given any closed set $F$ contained in $A$, we have $|A \setminus F| \geq \varepsilon$.
+	Now consider $\frac{1}{\varepsilon}A$.
+	Each closed subset of $\frac{1}{\varepsilon}A$ is of the form $\frac{1}{\varepsilon}F$ for some closed $F \subset A$.
+	Since $\frac{1}{\varepsilon}F$ and $F$ are Borel, \begin{align*}
+		\left| \frac{1}{\varepsilon}A \setminus \frac{1}{\varepsilon}F \right| & = \left|\frac{1}{\varepsilon}A\right| - \left|\frac{1}{\varepsilon}F\right| \\
+		                                                                       & = \frac{1}{\varepsilon} \left( |A| - |F| \right)                            \\
+		                                                                       & = \frac{1}{\varepsilon} |A \setminus F|.
+	\end{align*}
+	We can now conclude that \begin{align*}
+		\left|\frac{1}{\varepsilon}F\right| & = \left| \frac{1}{\varepsilon}A \right| - \left|\frac{1}{\varepsilon}A \setminus \frac{1}{\varepsilon}F \right| \\
+		                                    & = \left| \frac{1}{\varepsilon}A \right| - \frac{1}{\varepsilon}\left|A \setminus F \right|                      \\
+		                                    & \leq \left| \frac{1}{\varepsilon}A \right| - 1,
+	\end{align*}
+	so $\frac{1}{\varepsilon}A$ is our desired set.
+\end{proof}
 
 \begin{ex}
 	(2D.5)
@@ -73,10 +90,10 @@
 	By Theorem 2.71, there exist open sets $F_1, F_2, \dots$ containing $A$ such that \begin{equation*}
 		\left| \left( \bigcap_{k=1}^\infty F_k \right) \setminus A \right| = 0.
 	\end{equation*}
-  Similar to the proof to 2D.5, we can now define $G_1, G_2, \dots$ by $G_n = \bigcap_{k=1}^n F_k$.
-  Then each $G_n$ is open and contains $A$, and $\left\lbrace G_k \right\rbrace$ is a decreasing sequence, so \begin{equation*}
+	Similar to the proof to 2D.5, we can now define $G_1, G_2, \dots$ by $G_n = \bigcap_{k=1}^n F_k$.
+	Then each $G_n$ is open and contains $A$, and $\left\lbrace G_k \right\rbrace$ is a decreasing sequence, so \begin{equation*}
 		\left| \left( \bigcap_{k=1}^\infty G_k \right) \setminus A \right| = \left| \left( \bigcap_{k=1}^\infty F_k \right) \setminus A \right| = 0.
-  \end{equation*}
+	\end{equation*}
 \end{proof}
 
 \begin{ex}
@@ -84,5 +101,15 @@
 	Prove that the collection of Lebesgue measurable subsets of $\mathbb{R}$ is dilation invariant.
 	More precisely, prove that if $A \subset \mathbb{R}$ is Lebesgue measurable and $t \in \mathbb{R}$, then $tA$ (which is defined to be $\left\lbrace ta : a \in A \right\rbrace$) is Lebesgue measurable.
 \end{ex}
+\begin{proof}
+	Let $\varepsilon > 0$, and let $F$ be a closed subset of $A$ such that $|A \setminus F| < \varepsilon/t$.
+	Then since $F$ and $tF$ are Borel, \begin{align*}
+    \varepsilon & > |t||A \setminus F|   \\
+		 & = |t|(|A| - |F|)       \\
+		 & = |tA| - |tF|        \\
+		 & = |tA \setminus tF|.
+	\end{align*}
+  Since we can find such a closed $tF$ for any $\varepsilon > 0$, $tA$ is Lebesgue measurable.
+\end{proof}
 
 \end{document}
