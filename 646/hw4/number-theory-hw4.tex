@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 4}
+\author{Connor Mooneyhan}
+\date{September 25, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Use Magma to do the following tasks.
+	\begin{enumerate}[label=(\alph*)]
+		\item Find a rational point on the conic $127x^{2} + 257y^{2} = 641z^{2}$.
+		\item Let $E : y^{2} + 40xy + 128y = x^{3} - 304x^{2} + 512x + 32768$ be
+		      an elliptic curve. Find another equation for $E$ of the form
+		      $y^{2} = x^{3} + Ax + B$ with $|A|$ and $|B|$ as small as possible.
+		\item In class, we found a bijection between the rational points on
+		      $x^{3} + y^{3} = 6z^{3}$ and the points on the elliptic curve
+		      $y^{2}z = x^{3} - 243z^{3}$. Use this to find a way to represent
+		      $6$ as a sum of two cubes of \emph{positive} rational numbers
+		      other than $(17/21)^{3} + (37/21)^{3}$ or $(37/21)^{3} + (17/21)^{3}$.
+		      (This representation is quite complicated, so you can just specify
+		      the first 10 digits of the numerator and denominator of the $x$ you find).
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item The rational point it found is $(16/273 : 431/273 : 1)$.
+		\item The command ``MinimalModel'' gives us $y^2 = x^3 + 1$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Please do not use Magma on this problem.
+	Suppose that $E : y^{2} = x^{3} + x + c^{2}$ is an elliptic curve in short Weierstrass form
+	with $c \in \mathbb{Z}$ and $c \ne 0$. The point $P = (0,c)$ is on the elliptic curve. Show that $3P = P + P + P$ is also an integral point (that is, the $x$ and $y$ coordinates of $3P$ are both integers).
+\end{ex}
+\begin{proof}
+	First, we find $2P$.
+	We get this by finding $\frac{\dd y}{\dd x}$ via implicit differentiation, \begin{align*}
+		         & 2y \frac{\dd y}{\dd x} = 3x^2 + 1          \\
+		\implies & \frac{\dd y}{\dd x} = \frac{3x^2 + 1}{2y},
+	\end{align*}
+	then evaluating at $(0, c)$ to get \begin{equation*}
+		\frac{\dd y}{\dd x} = \frac{1}{2c}.
+	\end{equation*}
+	The line through $P$ tangent to $E$ is then $y = \frac{1}{2c}x + c$, and to find $P * P$ we solve (for $x \neq 0$) \begin{align*}
+		         & x^3 + x + c^2 = (\frac{1}{2c}x + c)^2       \\
+		\implies & x^3 + x + c^2 = \frac{1}{4c^2}x^2 + x + c^2 \\
+		\implies & x^3 - \frac{1}{4c^2}x^2 = 0                 \\
+		\implies & x - \frac{1}{4c^2} = 0                      \\
+		\implies & x = \frac{1}{4c^2}.
+	\end{align*}
+	To find the $y$ value, we plug this in to the line equation to get the full point $P * P = (\frac{1}{4c^2}, \frac{1 + 8c^4}{8c^3})$.
+	Finally, we get $2P = (\frac{1}{4c^2}, -\frac{1 + 8c^4}{8c^3})$.
+
+	Now we add this to $P$ by first finding the slope of the line between them, \begin{equation*}
+		\frac{c + \frac{1 + 8c^4}{8c^3}}{-\frac{1}{4c^2}} = \frac{8c^4 + 1 + 8c^4}{-2c} = -\frac{16c^4 + 1}{2c}.
+	\end{equation*}
+	Thus the line through them is \begin{equation*}
+		y = -\frac{16c^4 + 1}{2c}x + c.
+	\end{equation*}
+	To find the third point of intersection, we solve (again, where $x \neq 0$) \begin{align*}
+		         & x^3 + x + c^2 = \frac{256c^8 + 32c^4 + 1}{4c^2}x^2 - (16c^4 + 1)x + c^2 \\
+		\implies & x^3 - \frac{256c^8 + 32c^4 + 1}{4c^2}x^2 + (16c^4 + 2)x = 0             \\
+		\implies & x^2 - \frac{256c^8 + 32c^4 + 1}{4c^2}x + (16c^4 + 2) = 0                \\
+		\implies & \left(x - \frac{1}{4c^2}\right)\left( x - 4c^2(16c^4 + 2) \right) = 0,
+	\end{align*}
+	so the other point has $x$-coordinate $64c^6+8c^2$.
+	Plugging this into the line equation, we get \begin{equation*}
+		y = -(16c^4+1)(32c^5+4c) + c = -(512c^9 + 64c^5 + 32c^5 + 3c),
+	\end{equation*}
+	and thus $3P = (64c^6 + 8c^2, 512c^9 + 96c^5 + 3c)$, which is an integer since $c$ is an integer.
+\end{proof}
+
+\begin{ex}
+	$*$ Use Magma to find a right triangle with rational side lengths and with area equal to $23$. (This type of example was discussed briefly on day 1. You can represent this problem with a system of two homogeneous quadratic polynomials in 4 variables. This can be transformed into an elliptic curve, and it is easier to search for points on the elliptic curve that to search for points on the original system of equations.)
+\end{ex}
+
+\end{document}
