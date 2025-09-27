@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.10)  26 SEP 2025 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.10)  27 SEP 2025 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**646/hw4/number-theory-hw4.tex
-(./646/hw4/number-theory-hw4.tex
+**721/hw4/algebra-hw4.tex
+(./721/hw4/algebra-hw4.tex
 LaTeX2e <2023-06-01>
 L3 programming layer <2023-06-05>
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
@@ -559,7 +559,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \c@lma=\count302
 \c@ex=\count303
 LaTeX Font Info:    Trying to load font information for OT1+mlmr on input line 
-40.
+43.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mlmodern/ot1mlmr.fd
 File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
@@ -569,23 +569,23 @@ File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box66
 )
-(646/hw4/number-theory-hw4.aux)
-\openout1 = `number-theory-hw4.aux'.
+(721/hw4/algebra-hw4.aux)
+\openout1 = `algebra-hw4.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
 
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -644,87 +644,106 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 
-42.
+45.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mlmodern/omlmlmm.fd
 File: omlmlmm.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line
- 42.
+ 45.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mlmodern/omsmlmsy.fd
 File: omsmlmsy.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMX+mlmex on input line
- 42.
+ 45.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/mlmodern/omxmlmex.fd
 File: omxmlmex.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <14.4> on input line 42.
+(Font)              <14.4> on input line 45.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <10> on input line 42.
+(Font)              <10> on input line 45.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <7> on input line 42.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+(Font)              <7> on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 42
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 45
 .
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <12> on input line 47.
+(Font)              <12> on input line 48.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <8> on input line 47.
+(Font)              <8> on input line 48.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <6> on input line 47.
- [1
+(Font)              <6> on input line 48.
+
+Overfull \hbox (0.82462pt too wide) in paragraph at lines 92--96
+[]\OT1/mlmr/m/n/12 By La-grange's the-o-rem, $\OMS/mlmsy/m/n/12 j\OML/mlmm/m/it
+/12 Z\OT1/mlmr/m/n/12 (\OML/mlmm/m/it/12 G\OT1/mlmr/m/n/12 )\OMS/mlmsy/m/n/12 j
+ 2 []$\OT1/mlmr/m/n/12 . If $\OMS/mlmsy/m/n/12 j\OML/mlmm/m/it/12 Z\OT1/mlmr/m/
+n/12 (\OML/mlmm/m/it/12 G\OT1/mlmr/m/n/12 )\OMS/mlmsy/m/n/12 j \OT1/mlmr/m/n/12
+ = \OML/mlmm/m/it/12 p$ \OT1/mlmr/m/n/12 (resp. $\OML/mlmm/m/it/12 q$\OT1/mlmr/
+m/n/12 ), then $\OMS/mlmsy/m/n/12 j\OML/mlmm/m/it/12 G=Z\OT1/mlmr/m/n/12 (\OML/
+mlmm/m/it/12 G\OT1/mlmr/m/n/12 )\OMS/mlmsy/m/n/12 j \OT1/mlmr/m/n/12 =
+ []
+
+[1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 3/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2023/texmf-di
-st/fonts/enc/dvips/lm/lm-mathsy.enc}] [2{/usr/local/texlive/2023/texmf-dist/fon
-ts/enc/dvips/lm/lm-mathex.enc}] [3] (646/hw4/number-theory-hw4.aux)
+st/fonts/enc/dvips/lm/lm-mathsy.enc}] [2]
+LaTeX Font Info:    Trying to load font information for OT1+mlmss on input line
+ 160.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/mlmodern/ot1mlmss.fd
+File: ot1mlmss.fd 2021/01/11 v1.0 Font defs for mlmodern
+) [3{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [4]
+(721/hw4/algebra-hw4.aux)
  ***********
 LaTeX2e <2023-06-01>
 L3 programming layer <2023-06-05>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15621 strings out of 475735
- 320263 string characters out of 5782247
- 1867759 words of memory out of 5000000
- 36073 multiletter control sequences out of 15000+600000
- 549111 words of font info for 75 fonts, out of 8000000 for 9000
+ 15660 strings out of 475735
+ 320995 string characters out of 5782247
+ 1866759 words of memory out of 5000000
+ 36107 multiletter control sequences out of 15000+600000
+ 557283 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,9n,121p,490b,318s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,8n,121p,484b,316s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
-ocal/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local
-/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/tex
-live/2023/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
-/2023/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2023
-/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2023/texm
-f-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2023/texmf-d
-ist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2023/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 646/hw4/number-theory-hw4.pdf (3 pages, 136236 bytes).
+ocal/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local
+/texlive/2023/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/tex
+live/2023/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/texlive
+/2023/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive/202
+3/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2023/tex
+mf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2023/texmf-
+dist/fonts/type1/public/mlmodern/mlmss12.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2023/texmf-dist/f
+onts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts
+/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 721/hw4/algebra-hw4.pdf (4 pages, 163690 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

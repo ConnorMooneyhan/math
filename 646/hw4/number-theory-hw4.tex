@@ -61,6 +61,10 @@
 	\begin{enumerate}[label=(\alph*)]
 		\item The rational point it found is $(16/273 : 431/273 : 1)$.
 		\item The command ``MinimalModel'' gives us $y^2 = x^3 + 1$.
+    \item If I start with the point ``P := E![7/36,17/216,1];'' and take inverse maps of multiples, I find that taking the inverse map of $6*P$ gives me (with \textit{all} digits included) \begin{align*}
+        x = \frac{1659187585671832817045260251600163696204266708036135112763}{1097408669115641639274297227729214734500292503382977739220} \\
+        y = \frac{1498088000358117387964077872464225368637808093957571271237}{1097408669115641639274297227729214734500292503382977739220}.
+    \end{align*}
 	\end{enumerate}
 \end{proof}
 
@@ -110,5 +114,14 @@
 \begin{ex}
 	$*$ Use Magma to find a right triangle with rational side lengths and with area equal to $23$. (This type of example was discussed briefly on day 1. You can represent this problem with a system of two homogeneous quadratic polynomials in 4 variables. This can be transformed into an elliptic curve, and it is easier to search for points on the elliptic curve that to search for points on the original system of equations.)
 \end{ex}
+\begin{proof}
+  As mentioned in the notes from week 1, the relevant elliptic curve whose points where $y \neq 0$ correspond directly to solutions to this problem is \begin{equation*}
+    y^2z = x^3 - 23^2xz^2.
+  \end{equation*}
+  I found the rational point \begin{equation*}
+    \left(\frac{42025}{289} : \frac{8506680}{4913} : 1 \right)
+  \end{equation*}
+  using Magma, but I cannot for the life of me figure out how to find the bijection between the system of equations and the curve so that I can convert this into triangle legs!
+\end{proof}
 
 \end{document}
