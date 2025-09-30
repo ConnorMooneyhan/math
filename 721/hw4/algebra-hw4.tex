@@ -44,6 +44,8 @@
 
 \maketitle
 
+Disclaimer: Generative AI was used on problems 2(a), 3, and 8(a) after having much difficulty coming up with the fundamental approach for the proofs.
+
 \begin{ex}
 	Let $G$ be a group, and let $H, K$ be subgroups of $G$.
 	Let $HK = \left\lbrace hk : h \in H, k \in K \right\rbrace$.
@@ -84,10 +86,9 @@
 \end{ex}
 \begin{proof}\
 	\begin{enumerate}[label=(\alph*)]
-		\item \textcolor{red}{UNFINISHED} Let $g, h \in G$, and choose $x \in G$ such that $xZ(G)$ generates $G/Z(G)$.
-		      If either $g$ or $h$ is in $Z(G)$, then $gh = hg$ by definition, so consider when neither is in $Z(G)$.
-		      Then $gZ(G) = x^mZ(G)$ and $hZ(G) = x^nZ(G)$ for some $m, n \in \mathbb{Z}^+$, so (letting $\overline{\cdot}$ denote $\cdot Z(G)$), \begin{equation*}
-			      \overline{g}\overline{h} = \overline{x^m }\overline{x^n} = \overline{x^{m+n}} = \overline{x^{n + m }} = \overline{x^n}\overline{x^m } = \overline{h}\overline{g}
+		\item Let $a, b \in G$ and let $xH$ be a generator for $G/Z(G)$.
+		      Then $a = x^mg$ and $b = x^nh$ for some $m, n \in \mathbb{Z}^{\geq 0}$ and $g, h \in Z(G)$, so \begin{equation*}
+			      ab = x^mgx^nh = x^{m+n}gh = x^{n+m}hg = x^nhx^mg = ba.
 		      \end{equation*}
 		\item By Lagrange's theorem, $|Z(G)| \in \left\lbrace 1, p, q, pq \right\rbrace$.
 		      If $|Z(G)| = p$ (resp. $q$), then $|G/Z(G)| = q$ (resp. $p$), so $G/Z(G)$ is cyclic since it has prime order and part (a) shows that $G$ is abelian.
@@ -101,7 +102,19 @@
 	Prove that $H$ is normal in $G$.
 \end{ex}
 \begin{proof}
-	\textcolor{red}{NOT STARTED}
+	Let $G$ act on $G/H$ (the set of left-cosets of $H$ in $G$) by left translation.
+	This is a homomorphism $\varphi : G \to S_p$, and $G/\ker \varphi \cong \im \varphi$.
+	Clearly $|H| \subset \ker \varphi$, so $|H| \leq |\ker \varphi|$.
+
+	Now consider that $|\im \varphi| = |\varphi(G)|$ divides $|G|$ and $|\im\varphi|$ divides $|S_p|=p!$.
+	Let $q$ be a prime divisor of $|\im\varphi|$.
+	Then $q \geq p$ since $p$ is the smallest prime dividing $|G|$, but also $q$ divides $p!$, so $q \leq p$ since $p$ is the largest prime dividing $p!$.
+	Thus all the prime factors of $|\im\varphi|$ are $p$, but there is only one factor of $p$ in $p!$, so in fact $|\im\varphi|=p$.
+
+	Tying this all together, we see that \begin{equation*}
+		|G|/|H| = [G : H] = p = |\im\varphi| = |G/\ker\varphi| = |G|/|\ker\varphi|,
+	\end{equation*}
+	so $|H| = |\ker\varphi|$, and since $H \subset \ker\varphi$, $H = \ker\varphi$, which is normal.
 \end{proof}
 
 \begin{ex}
@@ -110,8 +123,8 @@
 \end{ex}
 \begin{proof}
 	Since $\varphi$ is injective, $|G| = |\varphi(G)|$ and $|K| = |\varphi(K)|$, so by Lagrange's theorem, \begin{equation*}
-    [G : K] = \frac{|G|}{|K|} = \frac{|\varphi(G)|}{|\varphi(K)|} = [\varphi(G) : \varphi(K)].
-  \end{equation*}
+		[G : K] = \frac{|G|}{|K|} = \frac{|\varphi(G)|}{|\varphi(K)|} = [\varphi(G) : \varphi(K)].
+	\end{equation*}
 \end{proof}
 
 \begin{ex}
@@ -198,7 +211,7 @@
 		\item Show that $G$ acts transitively on the set of $H$-conjugacy classes contained in $\mathcal{K}$. Also, provide an explicit bijection between $[a]_H$ and $[b]_H$ for $a, b \in \mathcal{K}$.
 		\item We now compute the stabilizer of an $H$-conjugacy class.
 		      To begin, show that if $g \in \mathrm{Stab}_G([x]_H)$, then $gxg^{-1} \in [x]_H$.
-		      Use this to conclude that $\mathrm{Stab}([x]_H) \subset HC_G(x)$.
+		      Use this to conclude that $\mathrm{Stab}_G([x]_H) \subset HC_G(x)$.
 		      Then use Problem 1 to conclude the reverse containment.
 		\item Use the Orbit-Stabilizer theorem (Problem 8 on Homework 3) to conclude that the number of $H$-conjugacy classes that union to give $\mathcal{K}$ is equal to $[G : HC_G(x)]$.
 		\item For an application, take $G = S_n$ and $H = A_n$.
@@ -206,8 +219,23 @@
 		      Prove that in this case, $[x]_{S_n} = [x]_{A_n}$ if and only if $x$ commutes with some odd permutation.
 	\end{enumerate}
 \end{ex}
-\begin{proof}
-  \textcolor{red}{NOT STARTED}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $h \in H$, so that $hah^{-1} \in [a]_H$.
+		      Then $ghah^{-1}g^{-1} = (ghg^{-1})(gag^{-1})(gh^{-1}g^{-1})$, where all three terms are in $H$ by normality of $H$, so $ghah^{-1}g^{-1} \in [gag^{-1}]_H$.
+		      On the flip side, any element $hgag^{-1}h^{-1} = (gh_1g^{-1})(gag^{-1})(gh_2g^{-1}) \in [a]_H$ for some $h_1,h_2 \in H$.
+		\item $H$ acts on $\mathcal{K}$ by conjugation since given $h \in H$ and $gkg^{-1} \in \mathcal{K}$, $hgkg^{-1}h^{-1} = (hg)k(hg)^{-1} \in \mathcal{K}$.
+		      If $[a]_H$ is an $H$-conjugacy class contained in $\mathcal{K}$, then the above shows that $g \cdot ([a]_H) \subset \mathcal{K}$, and given $hah^{-1} \in [a]_H$ and $g \in H$, $ghah^{-1}g^{-1} = (gh)a(gh)^{-1} \in \mathcal{K}$.
+		\item It suffices to provide the stated bijection.
+		      Given $a, b \in \mathcal{K}$\dots
+		\item If $g \in \mathrm{Stab}_G([x]_H)$, then by definition $[x]_H = g[x]_Hg^{-1}$, and in particular $gxg^{-1} \in [x]_H$.
+		      Then $gxg^{-1} = hxh^{-1}$ for some $h \in H$\dots
+
+		      On the other hand, $HC_G(x) \subset \mathrm{Stab}([x]_H)$ by problem 1 since $H \subset \mathrm{Stab}_G([x]_H)$ and $C_G(x) \subset \mathrm{Stab}_G([x]_H)$.
+		\item Since the action is transitive, \begin{equation*}
+			      |\mathcal{K}| = |\mathrm{Orb}_G(x)| = [G : \mathrm{Stab}_G(x)] = [G : HC_G(x)].
+		      \end{equation*}
+	\end{enumerate}
 \end{proof}
 
 \end{document}

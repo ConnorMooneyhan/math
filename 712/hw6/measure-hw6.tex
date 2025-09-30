@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 6}
+\author{Connor Mooneyhan}
+\date{October 3, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  (2D.11)
+  Prove that if $A \subset \mathbb{R}$ and $|A| > 0$, then there exists a subset of $A$ that is not Lebesgue measurable.
+\end{ex}
+
+\begin{ex}
+  (2D.24)
+  For $A \subset \mathbb{R}$, the quantity \begin{equation*}
+    \sup \left\lbrace |F| : F \text{ is a closed bounded subset of $\mathbb{R}$ and $F \subset A$ } \right\rbrace
+  \end{equation*}
+  is called the \textit{inner measure} of $A$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Show that if $A$ is a Lebesgue measurable subset of $\mathbb{R}$, then the inner measure of $A$ equals the outer measure of $A$.
+    \item Show that inner measure is not a measure on the $\sigma$-algebra of all subsets of $\mathbb{R}$.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  (2E.2)
+  Give an example of a sequence of functions from $\mathbb{Z}^+$ to $\mathbb{R}$ that converges pointwise on $\mathbb{Z}^+$ but does not converge uniformly on $\mathbb{Z}^+$.
+\end{ex}
+
+\begin{ex}
+  (2E.5)
+  Give an example to show that Egorov's Theorem can fail without the hypothesis that $\mu(X) < \infty$.
+\end{ex}
+
+\textbf{Now that you have gone through one month of the class and have had a written test, homework, and possibly an oral test and a mastery test, do you have any thoughts about how well you are preparing for this class? Do you have any suggestions for how our use of class time, and time outside of class, might be more beneficial?}\\
+It's been a challenge for me to find the time to do any studying outside of doing homework, so that's been the biggest thing.
+I think I've finally figured out how to get ahead of it and have time to really read the book and understand.
+Also, I'm going to be doing a lot more reviewing of book material and homework proofs so I make sure I know all the tricks and don't get caught off guard.
+\\\\
+
+\end{document}
