@@ -88,12 +88,49 @@
 			                                       & = \frac{f''(x)2y - \frac{f'(x)}{y}f'(x)}{4f(x)}               \\
 			                                       & = \frac{f''(x)2y^2 - f'(x)^2}{4yf(x)}                         \\
 			                                       & = \frac{2f''(x)f(x) - f'(x)^2}{4yf(x)}                        \\
-                                             & = \frac{\psi_3(x)}{4yf(x)}.
+			                                       & = \frac{\psi_3(x)}{4yf(x)}.
 		      \end{align*}
-          Certainly, $P$ is of order 1 if and only if $P = \mathcal{O}$ since $\mathcal{O}$ is the identity, so $P \neq \mathcal{O}$ if $P$ is of order 3.
-          By definition, points of inflection are points where the second derivative is equal to 0, and the expression above is equal to 0 if and only if $\psi_3(x) = 0$ and $y \neq 0$ (since $y = 0$ if and only if $f(x) = 0$).
-          Indeed, if $y$ were 0, then $P$ would be of order 2, not 3, so we can omit the restriction on $y$ and determine that the points of order 3 are exactly the points of inflection which are not $\mathcal{O}$.
-        \item 
+		      Certainly, $P$ is of order 1 if and only if $P = \mathcal{O}$ since $\mathcal{O}$ is the identity, so $P \neq \mathcal{O}$ if $P$ is of order 3.
+		      By definition, points of inflection are points where the second derivative is equal to 0, and the expression above is equal to 0 if and only if $\psi_3(x) = 0$ and $y \neq 0$ (since $y = 0$ if and only if $f(x) = 0$).
+		      Indeed, if $y$ were 0, then $P$ would be of order 2, not 3, so we can omit the restriction on $y$ and determine that the points of order 3 are exactly the points of inflection which are not $\mathcal{O}$.
+		\item Note that if $a = b = c = 0$, then there is exactly one distinct real root, so we will prove the hypothesis at least for \textit{most} cases.
+		      Importantly, when $a = b = c = 0$, the curve is singular, so perhaps the other cases that this may not work for are also cases where the curve is singular.
+		      Given that we have not discussed any criteria for determining whether a curve is singular, we will simply ignore edge cases such as this one after acknowledging them.
+
+		      First, recall that \begin{align*}
+			      \psi_3(x) & = 3x^4 + 4ax^3 + 6bx^2 + 12cx + 4ac - b^2 \\
+			                & = 2f(x)f''(x)-f'(x)^2
+		      \end{align*} and note that \begin{align*}
+			      f(x)   & = x^3 + ax^2 + bx + c \\
+			      f'(x)  & = 3x^2 + 2ax + b      \\
+			      f''(x) & = 6x + 2a,
+		      \end{align*}
+		      so $f''(x) = 0$ if and only if $x = -a/3$.
+		      At this same $x$-value, we have \begin{align*}
+			      f'(-a/3) & = 3(-a/3)^2 + 2a(-a/3) + b           \\
+			               & = \frac{a^2}{3} - \frac{2a^2}{3} + b \\
+			               & = \frac{3b - a^2}{3}.
+		      \end{align*}
+		      Thus $f'(-a/3) = 0$ whenever $3b = a^2$.
+		      We will ignore this case because to handle it using this method, we would need to find general roots of $f(x)$, which we determine is beyond the scope of this course.
+
+		      Thus, if $3b \neq a^2$, \begin{equation*}
+			      \psi_3(-a/3) = 2f(-a/3)f''(-a/3) - f'(-a/3)^2 = 0 - f'(-a/3)^2 < 0.
+		      \end{equation*}
+		      Since $\psi_3$ is a quartic with positive leading coefficient, \begin{equation*}
+			      \lim_{x \to -\infty} \psi_3(x) = \lim_{x \to \infty} \psi_3(x) = \infty,
+		      \end{equation*}
+          so the Intermediate Value Theorem tells us that $\psi_3$ has at least two real roots.
+
+          It is not clear to me how to show that there are exactly two roots.
+          My only idea is to turn to finding roots of $\psi_3'(x)$: \begin{align*}
+            \psi_3'(x) = 12x^3 + 12ax^2 + 12bx + 12c = 12f(x).
+          \end{align*}
+          Thus $\psi_3'(x) = 0$ whenever $f(x) = 0$, which we know occurs at either 1 or 3 values.
+          By graphing, it seems that $\psi_3'$ can in fact have 1, 2, or 3 distinct roots.
+          If it were always one root, then we would have shown the graph could never ``go below the $x$-axis'' a second time, restricting the number of roots of $\psi_3$ to two, but this is not the case.
+
+          Continuing on, then, we show that
 	\end{enumerate}
 \end{proof}
 
@@ -110,5 +147,11 @@
 	$y^{2} = x^{3} + Ax + B$ where $A, B \in \mathbb{Z}$ and $0 \leq A,B \leq 100$) will likely work for finding a rank $4$ curve. For rank $\geq 5$ you need a way to decrease the number of curves
 	you are testing, or find a systematic way to construct curves with lots of rational points on them.
 \end{ex}
+\begin{proof}
+  Rank 4: $y^2 = x^3 + 2x + 438$.
+  Rank 5: $y^2 = x^3 + 364x + 1961$.
+  (364,1961)
+  (371,1156)
+\end{proof}
 
 \end{document}
