@@ -148,10 +148,13 @@
 	you are testing, or find a systematic way to construct curves with lots of rational points on them.
 \end{ex}
 \begin{proof}
-  Rank 4: $y^2 = x^3 + 2x + 438$.
-  Rank 5: $y^2 = x^3 + 364x + 1961$.
-  (364,1961)
-  (371,1156)
+  Here's a rank 4 for good measure: $y^2 = x^3 + 2x + 438$.
+
+  And then here's a rank 5: $y^2 = x^3 + 364x + 1961$.
+  And a second one with relatively similar coefficients: $y^2 = x^3 + 371x + 1156$.
+
+  I fully admit, I found these by searching in a box, but I did find them! 
+  The box I searched in was EllipticCurve([a,b]) with $a,b \in [1, 2000]$ using nested for loops.
 \end{proof}
 
 \end{document}
