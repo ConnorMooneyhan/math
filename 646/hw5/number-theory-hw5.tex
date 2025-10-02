@@ -120,17 +120,17 @@
 		      Since $\psi_3$ is a quartic with positive leading coefficient, \begin{equation*}
 			      \lim_{x \to -\infty} \psi_3(x) = \lim_{x \to \infty} \psi_3(x) = \infty,
 		      \end{equation*}
-          so the Intermediate Value Theorem tells us that $\psi_3$ has at least two real roots.
+		      so the Intermediate Value Theorem tells us that $\psi_3$ has at least two real roots.
 
-          It is not clear to me how to show that there are exactly two roots.
-          My only idea is to turn to finding roots of $\psi_3'(x)$: \begin{align*}
-            \psi_3'(x) = 12x^3 + 12ax^2 + 12bx + 12c = 12f(x).
-          \end{align*}
-          Thus $\psi_3'(x) = 0$ whenever $f(x) = 0$, which we know occurs at either 1 or 3 values.
-          By graphing, it seems that $\psi_3'$ can in fact have 1, 2, or 3 distinct roots.
-          If it were always one root, then we would have shown the graph could never ``go below the $x$-axis'' a second time, restricting the number of roots of $\psi_3$ to two, but this is not the case.
+		      It is not clear to me how to show that there are exactly two roots.
+		      My only idea is to turn to finding roots of $\psi_3'(x)$: \begin{align*}
+			      \psi_3'(x) = 12x^3 + 12ax^2 + 12bx + 12c = 12f(x).
+		      \end{align*}
+		      Thus $\psi_3'(x) = 0$ whenever $f(x) = 0$, which we know occurs at either 1 or 3 values.
+		      By graphing, it seems that $\psi_3'$ can in fact have 1, 2, or 3 distinct roots.
+		      If it were always one root, then we would have shown the graph could never ``go below the $x$-axis'' a second time, restricting the number of roots of $\psi_3$ to two, but this is not the case.
 
-          Continuing on, then, we show that
+		      Continuing on, then, we show that
 	\end{enumerate}
 \end{proof}
 
@@ -148,13 +148,13 @@
 	you are testing, or find a systematic way to construct curves with lots of rational points on them.
 \end{ex}
 \begin{proof}
-  Here's a rank 4 for good measure: $y^2 = x^3 + 2x + 438$.
+	Here's a rank 4 for good measure: $y^2 = x^3 + 2x + 438$.
 
-  And then here's a rank 5: $y^2 = x^3 + 364x + 1961$.
-  And a second one with relatively similar coefficients: $y^2 = x^3 + 371x + 1156$.
+	And then here's a rank 5: $y^2 = x^3 + 364x + 1961$.
+	And a second one with relatively similar coefficients: $y^2 = x^3 + 371x + 1156$.
 
-  I fully admit, I found these by searching in a box, but I did find them! 
-  The box I searched in was EllipticCurve([a,b]) with $a,b \in [1, 2000]$ using nested for loops.
+	I fully admit, I found these by searching in a box, but I did find them!
+	I searched EllipticCurve([a,b]) with $a,b \in [1, 2000]$ using nested for loops.
 \end{proof}
 
 \end{document}
