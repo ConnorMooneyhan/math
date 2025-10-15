@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Written Test 1 Rewrite}
+\author{Connor Mooneyhan}
+\date{October 5, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(2a)
+	Show that outer measure is countably subadditive on subsets of $\mathbb{R}$.
+\end{ex}
+\begin{proof}
+	We want to prove that given a sequence $A_1, A_2, \dots$ of subsets of $\mathbb{R}$, then \begin{equation*}
+		\left| \bigcup_{k=1}^\infty A_k \right| \leq \sum_{k=1}^\infty |A_k|.
+	\end{equation*}
+	First, if $|A_k| = \infty$ for any $k$, then the RHS is $\infty$, and the LHS is $\infty$ by monotonicity,.
+	Otherwise, let $\varepsilon > 0$.
+	Then we can choose a sequence of open intervals $I_{1,k}, I_{2,k}, \dots$ for each $A_k$ such that \begin{equation*}
+		\sum_{j=1}^\infty \ell(I_{j,k}) \leq \frac{\varepsilon}{2^k} + |A_k|.
+	\end{equation*}
+	Then \begin{equation*}
+		\sum_{k=1}^\infty\sum_{j=1}^\infty \ell(I_{j,k}) \leq \varepsilon + \sum_{k=1}^\infty|A_k|.
+	\end{equation*}
+	The collection $\left\lbrace I_{j,k} : j, k \in \mathbb{Z}^+ \right\rbrace$ is countable since it is a countable collection of open intervals, and it covers $\bigcup_{k=1}^\infty A_k$, so \begin{equation*}
+		\left|\bigcup_{k=1}^\infty A_k\right| \leq \sum_{k=1}^\infty\sum_{j=1}^\infty \ell(I_{j,k}) \leq \varepsilon + \sum_{k=1}^\infty|A_k|.
+	\end{equation*}
+	This is true for every $\varepsilon > 0$, so countable subadditivity holds.
+\end{proof}
+
+% \begin{ex}
+% 	(2b)
+% 	Let $(X, S, \mu)$ be a measure space.
+% 	Let $f_n : X \to \mathbb{R}$ be a sequence of $S$-measurable functions such that $|f_n(x)| \leq M$ for all $n \in \mathbb{N}$ and all $x \in [a,b]$.
+% 	Show that \begin{equation*}
+% 		g(x) := \inf_{n \in \mathbb{N}}(f_n(x))
+% 	\end{equation*}
+% 	is an $S$-measurable function.
+% \end{ex}
+% \begin{proof}
+% 	We first prove the related result for $-g$, namely \begin{equation*}
+% 		-g(x) = \sup \left\lbrace -f_k(x) : k \in \mathbb{Z}^+ \right\rbrace.
+% 	\end{equation*}
+% \end{proof}
+
+\begin{ex}
+	(2c)
+	Let $(X, S, \mu)$ be a measure space.
+	Let $\left\lbrace A_n \right\rbrace_{n=1}^\infty \subset S$ such that $A_n \subset A_{n+1}$ for all $n$.
+	Show that \begin{equation*}
+		\mu \left( \bigcup_{n=1}^\infty A_n \right) = \lim_{n\to\infty} \mu(A_n).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	First, if $\mu(A_k) = \infty$ for some $k$, then the LHS is $\infty$ by monotonicity, and the RHS is $\infty$ since $A_{j} = \infty$ for all $j > k$ by monotonicity.
+	Then assuming $\mu(A_k) < \infty$ for all $k$ and letting $A_0 = \varnothing$ for convenience, \begin{equation*}
+		\bigcup_{k = 1}^\infty A_k = \bigcup_{j=1}^\infty(A_j \setminus A_{j-1}).
+	\end{equation*}
+	The RHS is a disjoint union, so \begin{align*}
+		\mu \left( \bigcup_{k=1}^\infty A_k \right) & = \sum_{j=1}^\infty \mu(A_j \setminus A_{j-1})                \\
+		                                            & = \lim_{N \to \infty} \sum_{j=1}^N \mu(A_j \setminus A_{j-1}) \\
+		                                            & = \lim_{N \to \infty} \sum_{j=1}^N \mu(A_j) - \mu(A_{j-1})    \\
+		                                            & = \lim_{N \to \infty} \mu(A_N).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	(2d)
+	Let $A \subset \mathbb{R}$ and let $F \subset \mathbb{R}$ be a closed set with $A \cap F = \varnothing$.
+	Show that \begin{equation*}
+		|A \cup F| = |A| + |F|.
+	\end{equation*}
+	You may assume that a similar statement has already been proved when an open set $G$ is substituted for $F$.
+\end{ex}
+\begin{proof}
+	Choose a sequence $I_1, I_2, \dots$ of open intervals whose union $G = \bigcup_{k=1}^\infty I_k$ contains $A \cup F$.
+	Then $G$ is open, so $A \subset G \setminus F$ (also open), and thus \begin{equation}\label{4.1}
+		|A| \leq |G \setminus F|.
+	\end{equation}
+	Then since $G = F \cup (G \setminus F)$, \begin{equation*}
+		|G| = |F| + |G \setminus F|
+	\end{equation*}
+	by the assumed similar statement about open sets..
+	Adding $|F|$ to $\eqref{4.1}$ yields \begin{equation*}
+		|A| + |F| \leq |F| + |G \setminus F| = |G| \leq \sum_{k=1}^\infty \ell(I_k),
+	\end{equation*}
+	so $|A| + |F| \leq |A \cup F|$.
+	The other direction is immediate due to countable subadditivity, so $|A| + |F| = |A \cup F|$.
+\end{proof}
+
+\begin{ex}
+	(3c)
+	Show that outer measure is countably additive on $\mathcal{L}$, the $\sigma$-algebra of Lebesgue measurable sets.
+	You may assume that the various equivalent definitions for the term \textit{Lebesgue measurable} have all been proved.
+\end{ex}
+\begin{proof}
+	Given a disjoint sequence $A_1, A_2, \dots$ of sets in $\mathcal{L}$, we can choose a (naturally disjoint) sequence of Borel sets $B_1, B_2, \dots$ where each $B_i \subset A_i$ so that $|A_i \setminus B_i| = 0$.
+	Then $|B_i| \leq |A_i|$ by monotonicity, and countable subadditivity shows that \begin{align*}
+		|A_i| & = |(A_i \setminus B_i) \cup B_i| \\
+		      & \leq |A_i \setminus B_i| + |B_i|    \\
+          & = |B_i|,
+	\end{align*}
+	so $|A_i| = |B_i|$ for each $i$.
+  Then \begin{align*}
+		\left| \bigcup_{k=1}^\infty A_k \right| & \geq \left| \bigcup_{k=1}^\infty B_k \right| \\
+		                                        & = \sum_{k=1}^\infty |B_k|                    \\
+		                                        & = \sum_{k=1}^\infty |A_k|.
+	\end{align*}
+	Since countable subadditivity shows the other direction, the proof is complete.
+\end{proof}
+
+\end{document}

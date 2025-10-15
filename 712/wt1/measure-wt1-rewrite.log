@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  3 OCT 2025 22:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  5 OCT 2025 21:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**712/hw6/measure-hw6.tex
-(./712/hw6/measure-hw6.tex
+**712/wt1/measure-wt1-rewrite.tex
+(./712/wt1/measure-wt1-rewrite.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -691,8 +691,8 @@ File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count332
 )
-(712/hw6/measure-hw6.aux)
-\openout1 = `measure-hw6.aux'.
+(712/wt1/measure-wt1-rewrite.aux)
+\openout1 = `measure-wt1-rewrite.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
@@ -822,33 +822,25 @@ LaTeX Font Info:    External font `mlmex10' loaded for size
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 5/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-di
-st/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
+st/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
+nc/dvips/lm/lm-mathsy.enc}]
 
- []
+[2]
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
-
- []
-
-
-
-[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
-(712/hw6/measure-hw6.aux)
+[3] (712/wt1/measure-wt1-rewrite.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 25608 strings out of 469608
- 659944 string characters out of 5470601
- 1180333 words of memory out of 5000000
- 52007 multiletter control sequences out of 15000+600000
- 666712 words of font info for 87 fonts, out of 8000000 for 9000
+ 25593 strings out of 469608
+ 659832 string characters out of 5470601
+ 1183341 words of memory out of 5000000
+ 51997 multiletter control sequences out of 15000+600000
+ 662549 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,9n,121p,715b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,9n,121p,723b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
@@ -860,10 +852,10 @@ live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
 xmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/hw6/measure-hw6.pdf (2 pages, 135086 bytes).
+Output written on 712/wt1/measure-wt1-rewrite.pdf (3 pages, 134158 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 76 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -44,31 +44,79 @@
 \maketitle
 
 \begin{ex}
-  (2D.11)
-  Prove that if $A \subset \mathbb{R}$ and $|A| > 0$, then there exists a subset of $A$ that is not Lebesgue measurable.
+	(2D.11)
+	Prove that if $A \subset \mathbb{R}$ and $|A| > 0$, then there exists a subset of $A$ that is not Lebesgue measurable.
 \end{ex}
+\begin{proof}
+	Skipped as directed.
+\end{proof}
 
 \begin{ex}
-  (2D.24)
-  For $A \subset \mathbb{R}$, the quantity \begin{equation*}
-    \sup \left\lbrace |F| : F \text{ is a closed bounded subset of $\mathbb{R}$ and $F \subset A$ } \right\rbrace
-  \end{equation*}
-  is called the \textit{inner measure} of $A$.
-  \begin{enumerate}[label=(\alph*)]
-    \item Show that if $A$ is a Lebesgue measurable subset of $\mathbb{R}$, then the inner measure of $A$ equals the outer measure of $A$.
-    \item Show that inner measure is not a measure on the $\sigma$-algebra of all subsets of $\mathbb{R}$.
-  \end{enumerate}
+	(2D.24)
+	For $A \subset \mathbb{R}$, the quantity \begin{equation*}
+		\sup \left\lbrace |F| : F \text{ is a closed bounded subset of $\mathbb{R}$ and $F \subset A$ } \right\rbrace
+	\end{equation*}
+	is called the \textit{inner measure} of $A$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that if $A$ is a Lebesgue measurable subset of $\mathbb{R}$, then the inner measure of $A$ equals the outer measure of $A$.
+		\item Show that inner measure is not a measure on the $\sigma$-algebra of all subsets of $\mathbb{R}$.
+	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\nu$ denote inner measure, and let $A \subset \mathbb{R}$ be Lebesgue measurable.
+		      First, notice that given $B \subset A$, any closed bounded subset of $B$ is a closed bounded subset of $A$, so $\nu(B) \leq \nu(A)$ (i.e. $\nu$ is monotonic).
+
+		      % Now, we handle the case where $A$ is unbounded.
+		      % Note that \begin{equation*}
+		      % |A| = \lim_{n \to \infty} |A \cap [-n, n]|,
+		      % \end{equation*}
+		      % which is a limit of bounded sets, each of which can be 
+
+		      Now, assume $A$ is bounded.
+		      Then given $\varepsilon > 0$, there exists a closed set $F_\varepsilon \subset A$ such that \begin{equation*}
+			      |A \setminus F_\varepsilon| = |A| - |F_\varepsilon| < \varepsilon \implies |A| < |F_\varepsilon| + \varepsilon,
+		      \end{equation*} and since $A$ is bounded, so is $F_\varepsilon$\dots
+		      Not quite sure how to complete this one yet.
+		      If this is one that you grade, I should definitely rewrite it.
+		\item I plan to show that inner measure \begin{enumerate}[label=(\roman*)]
+			      \item gives the expected length on intervals (which is implied by part (a))
+			      \item is translation invariant.
+              This will imply (by 2.22, to be specific) that since $\mu$ is a function from $2^\mathbb{R}$ to $[0, \infty]$, it must not be countably additive.
+		      \end{enumerate}
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
-  (2E.2)
-  Give an example of a sequence of functions from $\mathbb{Z}^+$ to $\mathbb{R}$ that converges pointwise on $\mathbb{Z}^+$ but does not converge uniformly on $\mathbb{Z}^+$.
+	(2E.2)
+	Give an example of a sequence of functions from $\mathbb{Z}^+$ to $\mathbb{R}$ that converges pointwise on $\mathbb{Z}^+$ but does not converge uniformly on $\mathbb{Z}^+$.
 \end{ex}
+\begin{proof}
+	Define $f_k : \mathbb{Z}^+ \to \mathbb{R}$ by \begin{equation*}
+		f_k(x) = \begin{cases}
+			1 & x \geq k          \\
+			0 & \text{otherwise}.
+		\end{cases}
+	\end{equation*}
+	In other words, $f_k = \chi_{[k, \infty)}$.
+	Then $\lim_{k \to \infty}f_k(x) = 0$ for all $x \in \mathbb{Z}^+$ since $f_k(x) = 0$ whenever $k > x$.
+	Let $f = \chi_\varnothing$ so that $f_k \to f$.
+	However, this sequence of functions does not converge uniformly since given $\varepsilon$ where $0 < \varepsilon < 1$, $f_k(x) - f(x) = 1 > \varepsilon$ for all $x \geq k$ for each $k \in \mathbb{Z}^+$.
+
+\end{proof}
 
 \begin{ex}
-  (2E.5)
-  Give an example to show that Egorov's Theorem can fail without the hypothesis that $\mu(X) < \infty$.
+	(2E.5)
+	Give an example to show that Egorov's Theorem can fail without the hypothesis that $\mu(X) < \infty$.
 \end{ex}
+\begin{proof}
+	The setup is quite similar to the previous problem.
+	Define (for $k \in \mathbb{Z}^+$) $f_k = \chi_{[k,\infty)}$ where $f_k : \mathbb{R}^+ \to \mathbb{R}$ and we consider Lebesgue measure restricted to $\mathbb{R}^+$.
+	Pointwise, $f_k \to f = \chi_\varnothing$, since given any $x \in \mathbb{R}$, $f_k(x) = 0$ whenever $k > x$.
+
+	Since $\mu(\mathbb{R}^+) = \infty$, given $\varepsilon > 0$ and measurable $E \subset \mathbb{R}$ such that $\mu(\mathbb{R}^+ \setminus E) < \varepsilon$, we must have $\mu(E) = \infty$, which requires that $E$ be unbounded.
+	However, this means $f_k$ cannot converge uniformly on $E$ since for any $f_k$, $f_k(x) - f(x) = 1$ for all $x \geq k$.
+\end{proof}
 
 \textbf{Now that you have gone through one month of the class and have had a written test, homework, and possibly an oral test and a mastery test, do you have any thoughts about how well you are preparing for this class? Do you have any suggestions for how our use of class time, and time outside of class, might be more beneficial?}\\
 It's been a challenge for me to find the time to do any studying outside of doing homework, so that's been the biggest thing.

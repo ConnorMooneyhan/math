@@ -1,0 +1,241 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 4}
+\author{Connor Mooneyhan}
+\date{September 29, 2025}
+
+\begin{document}
+
+\maketitle
+
+Disclaimer: Generative AI was used on problems 2(a), 3, and 8(a) after having much difficulty coming up with the fundamental approach for the proofs.
+
+\begin{ex}
+	Let $G$ be a group, and let $H, K$ be subgroups of $G$.
+	Let $HK = \left\lbrace hk : h \in H, k \in K \right\rbrace$.
+	Prove that $HK$ is a subgroup of $G$ if and only if $HK = KH$.
+	Conclude that if $H$ is normal, then $HK$ is always a subgroup.
+	Also show that if $HK$ is a subgroup, it is the smallest subgroup containing $H$ and $K$.
+\end{ex}
+\begin{proof}
+	If $HK$ is a subgroup of $G$, then given $g_1 = hk$ for some $h \in H$ and $k \in K$, \begin{equation*}
+		g_1^{-1} = (hk)^{-1} = k^{-1}h^{-1} \in KH.
+	\end{equation*}
+	Since $g_1^{-1}$ is also in $HK$, the same argument gives us $(g_1^{-1})^{-1} = g_1 \in KH$.
+	Likewise, let $g_2 = kh$ ($h \in H, k \in K$).
+	Then $g_2^{-1} = h^{-1}k^{-1} \in HK$, and since $HK$ is closed under inverses, $g_2 \in HK$.
+
+	On the other hand, if $HK = KH$, then given $h_1,h_2 \in H$ and $k_1,k_2 \in K$, we have \begin{align*}
+		(h_1k_1)(h_2k_2)^{-1} = (h_1k_1)(k_2^{-1}h_2^{-1}) \in HK
+	\end{align*}
+	since both terms on the right hand side are in $HK = KH$.
+
+	Indeed, if $H$ is normal, then given $h_1 \in H$ and $k \in K$, there exists $h_2 \in H$ such that \begin{align*}
+		         & kh_1k^{-1} = h_2              \\
+		\implies & kh_1 = h_2k \in HK            \\
+		\implies & h_1k^{-1} = k^{-1}h_1 \in KH,
+	\end{align*}
+	so $HK = KH$ and thus $HK$ is a subgroup.
+
+	Also, for any subgroup $J$ containing $H$ and $K$, given any $h \in H$ and $k \in K$, $h$ and $k$ are also in $J$, so $hk \in J$, and thus $HK \subset J$.
+\end{proof}
+
+\begin{ex}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $G$ be a group.
+		      Prove that if $G/Z(G)$ is cyclic then $G$ is abelian.
+		\item Suppose $G$ is a group of order $pq$ for primes $p$ and $q$.
+		      Prove that either $G$ is abelian or has trivial center.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $a, b \in G$ and let $xH$ be a generator for $G/Z(G)$.
+		      Then $a = x^mg$ and $b = x^nh$ for some $m, n \in \mathbb{Z}^{\geq 0}$ and $g, h \in Z(G)$, so \begin{equation*}
+			      ab = x^mgx^nh = x^{m+n}gh = x^{n+m}hg = x^nhx^mg = ba.
+		      \end{equation*}
+		\item By Lagrange's theorem, $|Z(G)| \in \left\lbrace 1, p, q, pq \right\rbrace$.
+		      If $|Z(G)| = p$ (resp. $q$), then $|G/Z(G)| = q$ (resp. $p$), so $G/Z(G)$ is cyclic since it has prime order and part (a) shows that $G$ is abelian.
+		      If $|Z(G)| = pq$, then $Z(G) = G$, so $G$ is abelian.
+		      Otherwise, $|Z(G)| = 1$, so $Z(G)$ is trivial.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a finite group, and suppose that $H$ is a subgroup of index $p$ where $p$ is the smallest prime that divides $|G|$.
+	Prove that $H$ is normal in $G$.
+\end{ex}
+\begin{proof}
+	Let $G$ act on $G/H$ (the set of left-cosets of $H$ in $G$) by left translation.
+	This is a homomorphism $\varphi : G \to S_p$, and $G/\ker \varphi \cong \im \varphi$.
+	Clearly $|H| \subset \ker \varphi$, so $|H| \leq |\ker \varphi|$.
+
+	Now consider that $|\im \varphi| = |\varphi(G)|$ divides $|G|$ and $|\im\varphi|$ divides $|S_p|=p!$.
+	Let $q$ be a prime divisor of $|\im\varphi|$.
+	Then $q \geq p$ since $p$ is the smallest prime dividing $|G|$, but also $q$ divides $p!$, so $q \leq p$ since $p$ is the largest prime dividing $p!$.
+	Thus all the prime factors of $|\im\varphi|$ are $p$, but there is only one factor of $p$ in $p!$, so in fact $|\im\varphi|=p$.
+
+	Tying this all together, we see that \begin{equation*}
+		|G|/|H| = [G : H] = p = |\im\varphi| = |G/\ker\varphi| = |G|/|\ker\varphi|,
+	\end{equation*}
+	so $|H| = |\ker\varphi|$, and since $H \subset \ker\varphi$, $H = \ker\varphi$, which is normal.
+\end{proof}
+
+\begin{ex}
+	Suppose $\varphi : G \to H$ is an injective group homomorphism.
+	Prove that if $K$ is a subgroup of $G$, then the index of $K$ in $G$ is the same as the index of $\varphi(K)$ in $\varphi(G)$.
+\end{ex}
+\begin{proof}
+	Since $\varphi$ is injective, $|G| = |\varphi(G)|$ and $|K| = |\varphi(K)|$, so by Lagrange's theorem, \begin{equation*}
+		[G : K] = \frac{|G|}{|K|} = \frac{|\varphi(G)|}{|\varphi(K)|} = [\varphi(G) : \varphi(K)].
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Let $M$ and $N$ be normal subgroups of a group $G$ such that $G = MN$.
+	Prove that $G/(M \cap N) \cong (G/M) \times (G/N)$.
+\end{ex}
+\begin{proof}
+	Define $\varphi : G \to (G/M) \times (G/N)$ by $g \mapsto (gM, gN)$.
+	Then given $g, h \in G$, \begin{equation*}
+		\varphi(gh) = (ghM, ghN) = (gM, gN)(hM, hN) = \varphi(g)\varphi(h),
+	\end{equation*}
+	so $\varphi$ is a homomorphism.
+
+	Now let $m \in M$ and $n \in N$.
+	Then since $N$ is normal, there exists $n' \in N$ such that \begin{equation*}
+		mn'm^{-1} = n \implies mn' = nm.
+	\end{equation*}
+	Then \begin{align*}
+		\varphi(mn') & = (mn'M, mn'N) \\
+		             & = (nmM, mn'N)  \\
+		             & = (nM, mN).
+	\end{align*}
+	Thus $\varphi$ is surjective since all cosets of $M$ (resp. $N$) have representatives in $N$ (resp. $M$) because $G = MN = NM$.
+
+	Also, clearly $\ker \varphi = M \cap N$.
+	By the first isomorphism theorem, then, $G/(M \cap N) \cong (G/M) \times (G/N)$.
+\end{proof}
+
+\begin{ex}
+	Let $G = S^1$, the unit circle in $\mathbb{C}$ under multiplication, and let $n \geq 2$ be an integer.
+	Prove that the map $\varphi : G \to G$ given by $\varphi(x) = x^n$ is a surjective group homomorphism and identify its kernel.
+	Conclude that $G$ is isomorphic to a proper quotient of itself.
+\end{ex}
+\begin{proof}
+	Let $g, h \in G$, and write $g = e^{ix}$ and $h = e^{iy}$.
+	Then \begin{equation*}
+		\varphi(gh) = \varphi(e^{i(x + y)}) = e^{in(x + y)} = e^{inx}e^{iny} = \varphi(g)\varphi(h),
+	\end{equation*}
+	so $\varphi$ is a homomorphism.
+	Also, given any $e^{iz} \in G$, $\varphi(e^{i z/n}) = e^{iz}$, so $\varphi$ is surjective.
+	The kernel of $\varphi$ is $\left\lbrace e^{i (2\pi m)/n} \right\rbrace$ where $0 \leq m < n$, which is nontrivial since $n \geq 2$.
+	Thus the first isomorphism theorem lets us conclude that $G$ is isomorphic to a proper quotient of itself.
+\end{proof}
+
+\begin{ex}
+	Let $\mathsf{C}$ be a category.
+	An object $I$ of $\mathsf{C}$ is called \textit{initial} if given any object $X$ of $\mathsf{C}$, there is a unique morphism $I \to X$ in $\mathsf{C}$.
+	There is a similar notion of \textit{final} object of a category.
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that initial objects in a category are unique up to unique isomorphism.
+		\item Prove that the trivial group is both initial and final in the category of groups.
+		\item Let $G$ be a group and let $N$ be a normal subgroup of $G$.
+		      Let $\mathsf{C}$ be the category whose objects are group homomorphisms $\varphi : G \to H$, such that $N \subset \ker \varphi$.
+		      A morphism from $\varphi_1 : G \to H_1$ to $\varphi_2 : G \to H_2$ in $\mathsf{C}$ is a group homomorphism $\psi : H_1 \to H_2$ such that $\varphi_2 = \psi\varphi_1$.
+		      Show that $\mathsf{C}$ is a category, and explain why the projection map $\pi : G \to G / N$ is initial in $\mathsf{C}$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $I_1, I_2$ be initial in a category $\mathsf{C}$.
+		      Then there exist unique isomorphisms $\varphi: I_1 \to I_2$ and $\psi: I_2 \to I_1$, but in fact $\varphi^{-1} : I_2 \to I_1$ and $\psi^{-1} : I_1 \to I_2$ are also isomorphisms since the inverse of an isomorphism is an isomorphism, so uniqueness gives us $\varphi = \psi^{-1}$ and $\psi = \varphi^{-1}$, and we conclude that $I_1$ and $I_2$ are isomorphic up to unique isomorphism.
+		\item Since all homomorphisms take the identity to the identity, the only option for a homomorphism from the trivial group to a given group $G$ is the map $\varphi$ sending the identity to the identity, and this is in fact a homomorphism since \begin{equation*}
+			      \varphi(e \cdot e) = \varphi(e) = e_G = e_G \cdot e_G = \varphi(e)\cdot\varphi(e).
+		      \end{equation*}
+		      On the other hand, the only possible map from $G$ to the trivial group is the one that sends everything to the identity, i.e. the trivial homomorphism.
+		\item The identity morphism criterion is satisfied by the identity homomorphism on each object.
+		      Also, given objects $f : G \to H_1$, $g : G \to H_2$, and $h : G \to H_3$ along with morphisms $\varphi : H_1 \to H_2$ and $\psi : H_2 \to H_3$ such that $\varphi f = g$ and $\psi g = h$, we have $(\psi\varphi) f = \psi g = h$, so composition holds, and clearly the identity morphisms act as identities with respect to composition.
+
+		      The statement that the projection map is initial in $\mathsf{C}$ is merely a restatement of the universal property of quotient groups (or quotient maps, if you prefer) in categorical terms.
+		      In fact, the fact that it is initial or final in some category is what justifies the name ``universal property.''
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a group, let $H$ be a normal subgroup, let $x \in H$, and let $\mathcal{K} = [x]_G$.
+	Our goal is to prove that $\mathcal{K}$ is the union of $[G : HC_G(x)]$ many conjugacy classes of $H$, all of equal size.
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $g \in G$ and $a \in H$.
+		      Show that $g \cdot ([a]_H) = \left\lbrace ghg^{-1} : h \in [a]_H \right\rbrace$ is equal to $[b]_H$ for some $b \in H$.
+		      Note that this gives a $G$-action on the set of all conjugacy classes of $H$.
+		\item Suppose $\mathcal{K}$ is a conjugacy class in $G$, and that $\mathcal{K} \subset H$.
+		      Explain why $H$ acts on $\mathcal{K}$ by conjugation, so that $\mathcal{K}$ is a union of $H$-conjugacy classes.
+		      Show that if $[a]_H$ is one such $H$-conjugacy class, then $g \cdot ([a]_H)$ is as well.
+		\item Show that $G$ acts transitively on the set of $H$-conjugacy classes contained in $\mathcal{K}$. Also, provide an explicit bijection between $[a]_H$ and $[b]_H$ for $a, b \in \mathcal{K}$.
+		\item We now compute the stabilizer of an $H$-conjugacy class.
+		      To begin, show that if $g \in \mathrm{Stab}_G([x]_H)$, then $gxg^{-1} \in [x]_H$.
+		      Use this to conclude that $\mathrm{Stab}_G([x]_H) \subset HC_G(x)$.
+		      Then use Problem 1 to conclude the reverse containment.
+		\item Use the Orbit-Stabilizer theorem (Problem 8 on Homework 3) to conclude that the number of $H$-conjugacy classes that union to give $\mathcal{K}$ is equal to $[G : HC_G(x)]$.
+		\item For an application, take $G = S_n$ and $H = A_n$.
+		      Show that every $S_n$-conjugacy class of $S_n$ contained in $A_n$ is either an $A_n$-conjugacy class, or the union of two $A_n$-conjugacy classes of the same size.
+		      Prove that in this case, $[x]_{S_n} = [x]_{A_n}$ if and only if $x$ commutes with some odd permutation.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $h \in H$, so that $hah^{-1} \in [a]_H$.
+		      Then $ghah^{-1}g^{-1} = (ghg^{-1})(gag^{-1})(gh^{-1}g^{-1})$, where all three terms are in $H$ by normality of $H$, so $ghah^{-1}g^{-1} \in [gag^{-1}]_H$.
+		      On the flip side, any element $hgag^{-1}h^{-1} = (gh_1g^{-1})(gag^{-1})(gh_2g^{-1}) \in [a]_H$ for some $h_1,h_2 \in H$.
+		\item $H$ acts on $\mathcal{K}$ by conjugation since given $h \in H$ and $gkg^{-1} \in \mathcal{K}$, $hgkg^{-1}h^{-1} = (hg)k(hg)^{-1} \in \mathcal{K}$.
+		      If $[a]_H$ is an $H$-conjugacy class contained in $\mathcal{K}$, then the above shows that $g \cdot ([a]_H) \subset \mathcal{K}$, and given $hah^{-1} \in [a]_H$ and $g \in H$, $ghah^{-1}g^{-1} = (gh)a(gh)^{-1} \in \mathcal{K}$.
+		\item It suffices to provide the stated bijection.
+		      Given $a, b \in \mathcal{K}$\dots
+		\item If $g \in \mathrm{Stab}_G([x]_H)$, then by definition $[x]_H = g[x]_Hg^{-1}$, and in particular $gxg^{-1} \in [x]_H$.
+		      Then $gxg^{-1} = hxh^{-1}$ for some $h \in H$\dots
+
+		      On the other hand, $HC_G(x) \subset \mathrm{Stab}([x]_H)$ by problem 1 since $H \subset \mathrm{Stab}_G([x]_H)$ and $C_G(x) \subset \mathrm{Stab}_G([x]_H)$.
+		\item Since the action is transitive, \begin{equation*}
+			      |\mathcal{K}| = |\mathrm{Orb}_G(x)| = [G : \mathrm{Stab}_G(x)] = [G : HC_G(x)].
+		      \end{equation*}
+	\end{enumerate}
+\end{proof}
+
+\end{document}

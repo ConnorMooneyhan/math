@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Miderm Exam I (Take Home)}
+\author{Connor Mooneyhan}
+\date{October 15, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{6}\
+	\begin{enumerate}[label=(\alph*)]
+		\item The fact that $S$ is closed under $\star$ comes from the fact that (with notation as in the problem statement) $g_1g_2$ and $g_1g_2^{-1}$ are both in $G$ by the closure of $G$, and $h_1h_2 \in H$ by the closure of $H$, and so $(g_1g_2^{h_1}, h_1h_2) \in G \times H = S$.
+		      Associativity comes by the following argument: \begin{align*}
+			      \left((g_1, h_1) \star (g_2, h_2)\right) \star (g_3, h_3) & = (g_1g_2^{h_1}, h_1h_2) \star (g_3, h_3)                   \\
+			                                                                & = (g_1g_2^{h_1}g_3^{h_1h_2}, h_1h_2h_3)                     \\
+			                                                                & = (g_1g_2^{h_1}g_3^{h_2h_1}, h_1h_2h_3)                     \\
+			                                                                & = (g_1(g_2g_3^{h_2})^{h_1}, h_1h_2h_3)                      \\
+			                                                                & = (g_1, h_1) \star (g_2g_3^{h_2}, h_2h_3)                   \\
+			                                                                & = (g_1, h_1) \star \left((g_2, h_2) \star (g_3, h_3)\right)
+		      \end{align*}
+		      The identity is $(e, 1)$, where $e$ is the identity in $G$, since given $(g, h) \in S$, \begin{equation*}
+			      (g, h) \star (e, 1) = (g \cdot e^{h}, h \cdot 1) = (g, h).
+		      \end{equation*}
+		      Finally, the inverse of $(g, h)$ is $(g^{-h}, h^{-1})$ since \begin{align*}
+			      (g, h) \star (g^{-h}, h^{-1}) & = (g(g^{-h})^{h}, hh^{-1}) \\
+			                                    & = (gg^{-h^2}, 1)           \\
+			                                    & = (gg^{-1}, 1)             \\
+			                                    & = (e, 1).
+		      \end{align*}
+		\item Take $(g, 1), (h, 1) \in \widehat{G}$.
+		      Then using the inverse formula from part (a), we show \begin{equation*}
+			      (g, 1) \star (h^{-1}, 1) = (gh^{-1}, 1) \in S
+		      \end{equation*}
+		      since $gh^{-1} \in G$.
+		      Thus $\widehat{G}$ is a subgroup.
+		      To show that it is normal, consider $(g, 1) \in \widehat{G}$ and $(a, b) \in S$.
+		      Then \begin{align*}
+			      (a, b) \star (g, 1) \star (a, b)^{-1} & = (a, b) \star (g, 1) \star (a^{-b}, b^{-1}) \\
+			                                            & = (ag^{b}, b) \star (a^{-b}, b^{-1})         \\
+			                                            & = (ag^ba^{-b^2}, 1)                          \\
+			                                            & = (ag^ba^{-1}, 1)                            \\
+			                                            & = (aa^{-1}g^b, 1)                            \\
+			                                            & = (g^b, 1) \in \widehat{G}.
+		      \end{align*}
+		\item Using the last line of part (b), we see that conjugacy classes of elements of $\widehat{G}$ consist of two elements each since each is of the form $\left\lbrace (g, 1), (g^{-1}, 1) \right\rbrace$.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{8}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Using parts (b) and (c), we see that $|Z(G)| = 2$ and $|G/Z(G)| = 8$, so by Lagrange's theorem, $|G| = 16$.
+		      % \item We will find the order of $G$ be finding the order of $\langle x \rangle$ and the index $|G : \langle x \rangle|$, then applying Lagrange's theorem.
+		      %       By the relation $x^8 = 1$, we get immediately that $|\langle x \rangle| = 8$.
+		      %       Now consider a general coset $x^ay^b\langle x \rangle$, where $0 \leq a \leq 7$ and $0 \leq b \leq 1$.
+		      %       If $b = 0$, then $x^a\langle x \rangle = \langle x \rangle$.
+		      %       If $b = 1$, then write $a = 3n + r$ where $0 \leq n \leq 2$ and $0 \leq r \leq 2$, and see that \begin{align*}
+		      % 	      x^ay^b\langle x \rangle & = x^{3n + r}y\langle x \rangle \\
+		      % 	                              & = x^ryx^n \langle x \rangle    \\
+		      % 	                              & = x^ry \langle x \rangle.
+		      %       \end{align*}
+		      %       Assuming for the sake of time that each choice of $r$ gives us a unique coset $x^ry \langle x \rangle$, we get that there are 4 distinct left-cosets of $\langle x \rangle$ since there is one coset when $b = 0$ and there are three (for the three values of $r$) when $b = 1$.
+		      %       Lagrange's theorem now gives us that \begin{equation*}
+		      % 	      |G| = |\langle x \rangle||G : \langle x \rangle| = 8 \cdot 4 = 32.
+		      %       \end{equation*}
+		\item We want to find a general element $x^ay^b$ such that $(x^ay^b)(x^cy^d) = (x^cy^d)(x^ay^b)$ for any appropriate choices of $c$ and $d$ (i.e. $c$ is between 0 and 7 and $d$ is either 0 or 1).
+		      If our $b$ is 0, then the equation becomes \begin{equation*}
+			      x^{a+c}y = x^cyx^a = x^{c + 3a}y,
+		      \end{equation*}
+		      which after multiplying on the right by $y^{-1}$, $x^{-c}$, and $x^{-a}$, gives us $1 = x^{2a}$.
+		      This is true whenever $a = 0$ or $a = 4$, so $1$ and $x^4$ are in $Z(G)$.
+
+		      When $b = 1$, we can do a similar calculation when $d = 1$ to get \begin{align*}
+			           & x^ayx^cy = x^cyx^ay       \\
+			      \iff & x^{a+3c}y^2 = x^{c+3a}y^2 \\
+			      \iff & x^{a+3c} = x^{c+3a}       \\
+			      \iff & x^{2c} = x^{2a}.
+		      \end{align*}
+		      Since this is dependent on the value of $c$, we conclude that when $b=1$, $x^ay$ does not commute with every element, and thus $Z(G) = \left\lbrace 1, x^4 \right\rbrace$.
+		\item This gives us a natural surjective homomorphism from $G$ to $\left\lbrace x, y : x^4 = y^2 = 1, yx=x^3y \right\rbrace$ where $Z(G)$ is the kernel, so we can identify $G/Z(G)$ with $D_8$.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{9}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Indeed, the identity homomorphism $\mathrm{id}_G$ acts as the identity since $\mathrm{id}_G \cdot g = \mathrm{id}_G(g) = g$, and given $\varphi, \psi \in \mathrm{Aut}(G)$, \begin{align*}
+			      \varphi \cdot (\psi \cdot g) & = \varphi \cdot \psi(g)         \\
+			                                   & = \varphi(\psi(g))              \\
+			                                   & = (\varphi \circ \psi)(g)       \\
+			                                   & = (\varphi \circ \psi) \cdot g,
+		      \end{align*}
+		      so this is an action.
+		\item If $H = \bigcup_{g \in A \subset G} \mathrm{Orb}(g)$, and given an automorphism $\varphi \in \mathrm{Aut}(G)$ and $h \in H$, then $h \in \mathrm{Orb}(g_h)$ for some $g_h \in A$.
+		      Since orbits partition $G$ and $\mathrm{Orb}(h) \cap \mathrm{Orb}(g_h) \neq \varnothing$, we must have $\mathrm{Orb}(h) = \mathrm{Orb}(g_h)$.
+		      Thus \begin{equation*}
+			      \varphi \cdot h = \varphi(h) \in \mathrm{Orb}(h) = \mathrm{Orb}(g_h) \subset H,
+		      \end{equation*}
+		      so $\varphi \cdot H = H$.
+
+		      On the other hand, if $H$ is characteristic in $G$, then we want to show that for any $h \in H$, $\mathrm{Orb}(h) \subset H$.
+		      We can represent a general element of $\mathrm{Orb}(h)$ as $\varphi(h)$ for some $\varphi \in \mathrm{Aut}(G)$.
+		      Since $H$ is characteristic, $\varphi(H) = H$, so in particular $\varphi(h) \in H$, and we are done.
+		\item When $G$ is finite cyclic of order $n$, presented multiplicatively as $\left\langle x : x^n = 1 \right\rangle$, the automorphisms are exactly those homomorphisms which send $x$ to $x^m$, where $m$ is relatively prime to $n$.
+		      Thus the orbit of $x$ is $\left\lbrace x^m : \gcd(m, n) = 1\text{, }0 < m < n \right\rbrace$.
+		      The identity will always be sent to the identity, so another orbit is just $\left\lbrace 1 \right\rbrace$.
+		      The other orbits will be orbits of $x^a$ where $2 \leq a < n$, and these orbits can be represented as $\left\lbrace x^{am} : \gcd(m, n) = 1\text{, }0 < m < n \right\rbrace$.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{10}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Given two morphisms $\varphi : X \to Y$ and $\psi : Y \to Z$, we define $\psi \circ \varphi$ as function composition, namely $(\psi \circ \varphi)(x) = \psi(\varphi(x))$.
+		      This is indeed a morphism since given $g \in G$ and $x \in X$, \begin{align*}
+			      (\psi \circ \varphi) (g \cdot x) & = \psi(\varphi(g \cdot x))         \\
+			                                       & = \psi(g \cdot \varphi(x))         \\
+			                                       & = g \cdot \psi(\varphi(x))         \\
+			                                       & = g \cdot (\psi \circ \varphi)(x).
+		      \end{align*}
+		      The identities $\mathrm{id}_X$ and $\mathrm{id}_Y$ act as identities with respect to this composition since \begin{align*}
+			      \mathrm{id}_Y (\varphi(x)) = \varphi(x)
+		      \end{align*}
+		      and \begin{equation*}
+			      \varphi(\mathrm{id}_X(x)) = \varphi(x),
+		      \end{equation*}
+		      and these identites are in fact morphisms since they are $G$-equivariant.
+		\item Let $a \in \mathrm{Orb}_G(\varphi(x))$.
+		      Then there exists a $g \in G$ such that \begin{equation*}
+			      a = g \cdot \varphi(x) = \varphi(g \cdot x) \in \varphi(\mathrm{Orb}_G(x)).
+		      \end{equation*}
+		      Similarly, given $b \in \varphi(\mathrm{Orb}_G(x))$, there exists a $g \in G$ such that \begin{equation*}
+			      b = \varphi(g \cdot x) = g \cdot \varphi(x) \in \mathrm{Orb}_G(\varphi(x)).
+		      \end{equation*}
+          Thus $\mathrm{Orb}_G(\varphi(x)) = \varphi(\mathrm{Orb}_G(x))$.
+        \item Let $g \in \mathrm{Stab}_G(x)$.
+          Then $g \cdot x = x$, so $g \cdot \varphi(x) = \varphi(g \cdot x) = \varphi(x)$, so $g \in \mathrm{Stab}_G(\varphi(x))$.
+          Now let $h \in \mathrm{Stab}_G(\varphi(x))$.
+          Then $\varphi(x) = h \cdot \varphi (x) = \varphi(h \cdot x)$.
+          If $\varphi$ is not injective, we may not be able to go any further, but if it is, then we can left-cancel $\varphi$ and get $x = h \cdot x$, and thus $h \in \mathrm{Stab}_G(x)$.
+	\end{enumerate}
+\end{exercise}
+
+\end{document}
