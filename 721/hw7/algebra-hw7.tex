@@ -1,0 +1,196 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\wt}{\ensuremath{\operatorname{wt}}}
+\newcommand{\LT}{\ensuremath{\text{\sc lt}}}
+\newcommand{\Mat}{\ensuremath{\textsf{Mat}}}
+\newcommand{\solution}{\noindent\textbf{Solution:~~}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\imag}{\operatorname{im}}
+\newcommand{\Orb}{\operatorname{Orb}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 7}
+\author{Connor Mooneyhan}
+\date{November 10, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	List all the isomorphism classes of abelian groups of order 5400.  Provide both
+	the elementary divisor decomposition and the invariant factor decomposition of each.
+\end{ex}
+\begin{proof}
+	The prime factorization of 5400 is $2^3 \cdot 3^3 \cdot 5^2$.
+	\begin{equation*}
+		\begin{array}{c|c}
+			\textbf{Invariant factor decomposition} & \textbf{Elementary divisor decomposition}                                                      \\
+			\hline
+			\Z_{5400}                               & \Z_{25} \times \Z_{27} \times \Z_{8}                                                           \\
+			\Z_{2700} \times \Z_2                   & (\Z_{25} \times \Z_{27} \times \Z_{4}) \times \Z_2                                             \\
+			\Z_{1800} \times \Z_3                   & (\Z_{25} \times \Z_{9} \times \Z_8) \times \Z_3                                                \\
+			\Z_{1350} \times \Z_2 \times \Z_2       & (\Z_{25} \times \Z_{27} \times \Z_2) \times \Z_2 \times \Z_2                                   \\
+			\Z_{1080} \times \Z_5                   & (\Z_{5} \times \Z_{27} \times \Z_{8}) \times \Z_5                                              \\
+			\Z_{900} \times \Z_{6}                  & (\Z_{25} \times \Z_{9} \times \Z_{4}) \times (\Z_{3} \times \Z_2)                              \\
+			\Z_{600} \times \Z_3 \times \Z_3        & (\Z_{25} \times \Z_{3} \times \Z_{8}) \times \Z_3 \times \Z_3                                  \\
+			\Z_{540} \times \Z_{10}                 & (\Z_5 \times \Z_{27} \times \Z_{4}) \times (\Z_{5} \times \Z_2)                                \\
+			\Z_{450} \times \Z_{6} \times \Z_2      & (\Z_{25} \times \Z_{9} \times \Z_{2}) \times (\Z_{3} \times \Z_{2}) \times \Z_2                \\
+			\Z_{360} \times \Z_{15}                 & (\Z_{5} \times \Z_{9} \times \Z_{8}) \times (\Z_5 \times \Z_3)                                 \\
+			\Z_{300} \times \Z_{6} \times \Z_3      & (\Z_{25} \times \Z_3 \times \Z_4) \times (\Z_3 \times \Z_2) \times \Z_3                        \\
+			\Z_{270} \times \Z_{10} \times \Z_2     & (\Z_5 \times \Z_{27} \times \Z_2) \times (\Z_5 \times \Z_2) \times \Z_2                        \\
+			\Z_{180} \times \Z_{30}                 & (\Z_{5} \times \Z_{9} \times \Z_{4}) \times (\Z_5 \times \Z_{3} \times \Z_2)                   \\
+			\Z_{150} \times \Z_{6} \times \Z_6      & (\Z_{25} \times \Z_3 \times \Z_2) \times (\Z_3 \times \Z_2) \times (\Z_3 \times \Z_2)          \\
+			\Z_{120} \times \Z_{15} \times \Z_3     & (\Z_{5} \times \Z_{3} \times \Z_{8}) \times (\Z_5 \times \Z_3) \times \Z_3                     \\
+			\Z_{90} \times \Z_{30} \times \Z_2      & (\Z_5 \times \Z_9 \times \Z_2) \times (\Z_5 \times \Z_3 \times \Z_2) \times \Z_2               \\
+			\Z_{60} \times \Z_{30} \times \Z_3      & (\Z_{5} \times \Z_3 \times \Z_{4}) \times (\Z_5 \times \Z_3 \times \Z_2) \times \Z_3           \\
+			\Z_{30} \times \Z_{30} \times \Z_6      & (\Z_5 \times \Z_3 \times \Z_2) \times (\Z_5 \times \Z_3 \times \Z_2) \times (\Z_3 \times \Z_2) \\
+		\end{array}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a group of order $225$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $|Z(G)| \neq 1$.
+		\item Prove that if the Sylow $5$-subgroup is cyclic, then $G$ is abelian.
+		\item Find presentations for two non-isomorphic nonabelian groups of order 225.
+		\item Generalize part (a) to a group of order $p^2q^2$ for primes $p < q$.
+		      What hypotheses on $p$ and $q$ do you need for your argument from part (a) to hold?
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	Note that $225 = 3^2 \cdot 5^2$.
+\end{proof}
+
+\begin{ex}
+	Let $H$ and $K$ be groups, and let $\varphi\colon K \to \Aut(H)$ be a group homomorphism.
+	Let $G$ be the \emph{set}(not the group) $H \times K$; i.e. the set of ordered pairs $(h,k)$ such
+	that $h \in H$ and $k \in K$.  For each $k \in K$, $\varphi(k) \in \Aut(H)$,
+	so $\varphi(k)(h) \in H$.
+
+	Define the product on $G$ by
+	$$(h_1,k_1)(h_2,k_2) = (h_1\varphi(k_1)(h_2),k_1k_2).$$
+
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that this operation turns $G$ into a group.  This group is called the semidirect product
+		      of $H$ and $K$ with respect to $\varphi$, and is denoted $H \rtimes_\varphi K$.
+		\item Show that the map $\varphi : G \to H \times K$ defined by $\varphi(h,k) = (h,k)$ is a group
+		      homomorphism if and only if $\varphi \colon K \to \Aut(H)$ is the trivial homomorphism;
+		      i.e. $\varphi(k) = \id_H$ for all $k \in K$.  Note that this means in this case,
+		      $G \cong H \times K$.
+		\item Prove that $\{(h,1)~|~h \in H\}$ and $\{(1,k)~|~k \in K\}$ are subgroups of $G$,
+		      with the first isomorphic to $H$ and the second isomorphic to $K$.
+		      In this way, we identify $H$ and $K$ with these subsets of $G$.  So from now on,
+		      $H$ will either mean $H$ or the first subgroup mentioned above; similarly for $K$.
+		\item Prove that $H$ is normal in $G$ and that $H \cap K = \{1\}$.
+		\item Show that under the identification of $h \in H$ with $(h,1) \in G$
+		      and $k \in K$ with $(1,k) \in G$, the equality $khk^{-1} = \varphi(k)(h)$ holds for all $h \in H$ and $k \in K$.
+		      This means that we have realized the action of $K$ on $H$ via the homomorphism $\varphi : K \to \Aut(H)$
+		      as the conjugation action of the subgroup $K$ on the normal subgroup $H$.
+		\item Show that $K$ is normal in $G$ if and only if $G \cong H \times K$.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Suppose $H$ and $K$ are subgroups of a group $G$ with $H$ normal in $G$ and $H \cap K = \{1\}$.
+	Let $\varphi\colon K \to \Aut(H)$ be the homomorphism given by $\varphi(k)(h) = khk^{-1}$.
+	Prove that $HK \cong H \rtimes_\varphi K$.
+\end{ex}
+
+\begin{ex}
+	(Optional, but very useful!) Let $K$ be a finite cyclic group, $H$ an arbitrary group,
+	and let $\varphi_1,\varphi_2 : K \to \Aut(H)$ be group homomorphisms.
+
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that if $\varphi_1(K)$ and $\varphi_2(K)$ are conjugate in $\Aut(H)$, then there exists $\sigma \in \Aut(H)$ and $a \in \mathbb{Z}$ such that
+		      $\sigma\varphi_1(k)\sigma^{-1} = \varphi_2(k^a)$ for all $k \in K$.
+		\item For the next part, we need a number-theoretic lemma, which we will simply assume:
+		      \begin{quote}
+			      \textbf{Lemma:} Suppose that $a,m,n$ are integers such that $m | n$ and $\gcd(a,m) = 1$.
+			      Then there exists an integer $a'$ such that $a' \equiv a~\mod~m$ and $\gcd(a',n) = 1$.
+		      \end{quote}
+		      Use the lemma to prove that the $a$ in part (a) can be chosen to be relatively prime to $|K|$.
+		\item With the $\sigma$ and $a$ as in the previous parts, prove that the following map
+		      is a group homomorphism:
+		      \begin{eqnarray*}
+			      \Phi : H \rtimes_{\varphi_1} K & \to & H \rtimes_{\varphi_2} K \\
+			      (h,k) & \mapsto & (\sigma(h), k^a)
+		      \end{eqnarray*}
+		\item Prove\footnote{The integer $a$ and the order of $K$ are relatively prime, so
+			      there must exist a $b$ such that $ab \equiv 1$ modulo $|K|$.  Use this to show
+			      $\sigma^{-1}\varphi_2(k)\sigma = \varphi_1(k^b)$ for all $k \in K$.} $\Phi$ is an
+		      isomorphism by constructing a two-sided inverse.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Find a nonabelian group of order 27 expressed as a semidirect product.
+	Use this information to find a presentation of your group.
+\end{ex}
+\begin{proof}
+	Consider $\Z_3 \rtimes \Z_9$.
+	This has the presentation \begin{equation*}
+		\left\langle x, y : x^3 = y^9 = e, yxy^{-1} = x^{-1} \right\rangle.
+	\end{equation*}
+	It is nonabelian since $yx = x^{-1}y = x^2y$.
+\end{proof}
+
+\begin{ex}
+	Determine (with justification) all groups of order 1805 up to isomorphism,
+	and find\footnote{The matrix $\begin{pmatrix}4&1 \\ -1&0\end{pmatrix}$ has order
+		five in $\GL_2(\mathbb{F}_{19})$.} a presentation of each.
+\end{ex}
+\begin{proof}
+	Since $1805 = 5 \cdot 19^2$, we only have two possible invariant factor decompositions: $\Z_{1805}$ and $\Z_{95} \times \Z_{19}$.
+	This is due to the restrictions on divisibility ($|\Z_{i+1}|$ divides $|\Z_{i}|$) together with the fact that their orders must multiply to 1805.
+
+	A presentation of $\Z_{1805}$ is easy; just take \begin{equation*}
+		\left\langle x : x^{1805} = e \right\rangle.
+	\end{equation*}
+	For the other, notice that $\Z_{95} \cong \Z_{19} \times \Z_{5}$ since 19 and 5 are coprime.
+	Thus the group becomes $\Z_{19} \times \Z_{19} \times \Z_{5}$, which has the easy presentation \begin{equation*}
+		\left\langle x, y, z : x^{19} = y^{19} = z^{5} = e \right\rangle.
+	\end{equation*}
+\end{proof}
+
+\end{document}

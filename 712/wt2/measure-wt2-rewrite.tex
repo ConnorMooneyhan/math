@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Written Test 2 Rewrite}
+\author{Connor Mooneyhan}
+\date{November 14, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{1(a)}
+	Suppose that $A \subset \mathbb{R}$ and $|A| < \infty$.
+	Prove that if $A$ is Lebesgue measurable then for every $\varepsilon > 0$ there exists a set $G$ that is the union of finitely many disjoint bounded open intervals such that \begin{equation*}
+		|A \setminus G| + |G \setminus A| < \varepsilon.
+	\end{equation*}
+\end{exercise}
+\begin{proof}\end{proof}
+
+\begin{exercise}{1(b)}
+	State and prove Egorov's Theorem.
+\end{exercise}
+Statement: Supposee $(X, S, \mu)$ is a measure space with $\mu(X) < \infty$.
+Suppose $f_1, f_2, \dots$ is a sequence of $S$-measurable functions from $X$ to $\mathbb{R}$ that converges pointwise on $X$ to a function $f : X \to \mathbb{R}$.
+Then for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X \setminus E) < \varepsilon$ and $f_1, f_2, \dots$ converges uniformly to $f$ on $E$.
+\begin{proof}
+	Let $\varepsilon > 0$, and fix $n \in \mathbb{Z}^+$.
+	For $m \in \mathbb{Z}^+$, let \begin{equation*}
+		A_{m, n} = \bigcap_{k=m}^\infty \left\lbrace x \in X : |f_k(x) - f(x)| < \frac{1}{n} \right\rbrace.
+	\end{equation*}
+	Then the definition of pointwise continuity guarantees that \begin{equation*}
+		\bigcup_{m=1}^\infty A_{m,n} = X.
+	\end{equation*}
+	Moreover, $A_{1, n}, A_{2, n}, \dots$ is an increasing sequence of sets, so \begin{equation*}
+		\lim_{m \to \infty} \mu(A_{m,n}) = \mu(X).
+	\end{equation*}
+	Then there exists an $m_n \in \mathbb{Z}^+$ such that \begin{equation*}
+		\mu(X) - \mu(A_{m,n}) < \frac{\varepsilon}{2^n}.
+	\end{equation*}
+	Letting $n$ vary now, let \begin{equation*}
+		E = \bigcap_{n = 1}^\infty A_{m_n, n}.
+	\end{equation*}
+	Then \begin{align*}
+		\mu(X \setminus E) & = \mu \left( X \setminus \bigcap_{n=1}^\infty A_{m_n, n} \right)   \\
+		                   & = \mu \left( \bigcup_{n=1}^\infty (X \setminus A_{m_n, n}) \right) \\
+		                   & \leq \sum_{n=1}^\infty \mu(X \setminus A_{m_n, n})                 \\
+		                   & < \varepsilon.
+	\end{align*}
+
+  Now to prove that $f_1, f_2, \dots$ converges uniformly to $f$ on $E$, let $\varepsilon' > 0$ and let $n \in \mathbb{Z}^+$ such that $1/n < \varepsilon'$.
+  Then $E \subset A_{m_n, n}$, so \begin{equation*}
+    |f_k(x) - f(x)| < \frac{1}{n} < \varepsilon'
+  \end{equation*}
+  for all $k \geq m_n$ and $x \in E$ due to our choice of $m_n$.
+\end{proof}
+
+\begin{exercise}{1(c)}
+	Give an example, with justification, of a measure space $(\mathbb{Z}^+, 2^{\mathbb{Z}^+}, \mu)$ such that \begin{equation*}
+		\left\lbrace \mu(E) : E \subset \mathbb{Z}^+ \right\rbrace = [0, 1].
+	\end{equation*}
+	You must show that it is a measure space.
+\end{exercise}
+\begin{proof}\end{proof}
+
+\begin{exercise}{2(c)}
+	State and prove a theorem that justifies the claim \textit{Integrable functions live mostly on sets of finite measure}.
+\end{exercise}
+\begin{proof}\end{proof}
+
+\begin{exercise}{3(b)}
+	State and prove a theorem that justifies one of Littlewood's Three Principles.
+	A brief paraphrase of those principles is \begin{enumerate}[label=\roman*.]
+		\item Every Lebesgue measurable set is nearly an open set.
+		\item Every Lebesgue integrable function is nearly continuous.
+		      (Briefly outline the three major steps of this proof and then provide details for one of those steps.)
+		\item Every pointwise convergent sequence of Lebesgue integrable functions is nearly uniformly convergent.
+	\end{enumerate}
+	If you have already addressed one or more of these principles in previous problems, then make a different choice here.
+\end{exercise}
+\begin{proof}\end{proof}
+
+\begin{exercise}{3(c)}
+	Suppose $\lambda$ is Lebesgue measure on $\mathbb{R}$ and $f: \mathbb{R} \to \mathbb{R}$ is a Borel measurable function such that $\int_R |f| \dd \lambda < \infty$.
+	Let $g : \mathbb{R} \to \mathbb{R}$ such that \begin{equation*}
+		g(x) \coloneq \int_{(x-1, x+1)} f \dd\lambda.
+	\end{equation*}
+	Prove that $g$ is uniformly continuous on $\mathbb{R}$.
+\end{exercise}
+\begin{proof}\end{proof}
+
+\end{document}

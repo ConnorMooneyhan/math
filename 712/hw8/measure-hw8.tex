@@ -1,0 +1,190 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 8}
+\author{Connor Mooneyhan}
+\date{October 24, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(3A.17)
+	Suppose that $(X, S, \mu)$ is a measure space and $f_1, f_2, \dots$ is a sequence of non-negative $S$-measurable functions on $X$.
+	Define a function $f : X \to [0, \infty]$ by $f(x) = \liminf_{k \to \infty} f_k(x)$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $f$ is an $S$-measurable function.
+		\item Prove that \begin{equation*}
+			      \int f \dd \mu \leq \liminf_{k \to \infty} \int f_k \dd \mu.
+		      \end{equation*}
+		\item Give an example showing that the inequality in (b) can be a strict inequality even when $\mu(X) < \infty$ and the family of functions $\lbrace f_k \rbrace_{k \in \mathbb{Z}}$ is uniformly bounded.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item This falls straight out of the definition: \begin{align*}
+			      \liminf_{k \to \infty} f_k & = \lim_{k \to \infty} \left(\inf_{n \geq k} f_n \right).
+		      \end{align*}
+		      Indeed, the infimums are measurable by the result that the infimum of a sequence of measurable functions is measurable, and the limit of them is measurable due to the result that the limit of measurable functions is measurable.
+		\item Define $g_k = \inf_{n \geq k} f_n$ for each $k$.
+		      Then $f_k \geq g_k$ for all $k$, so \begin{equation*}
+			      \int_X f_k\dd\mu \geq \int_X g_k\dd\mu.
+		      \end{equation*}
+		      Also, $\left\lbrace g_k \right\rbrace_1^\infty$ is an increasing sequence of nonneegative functions, and thus $\left\lbrace \int g_k \right\rbrace_1^\infty$ is also increasing, so the Monotone Convergence Theorem gives us \begin{align*}
+			      \liminf_{k \to \infty} \int f_k\dd\mu & \geq \liminf_{k \to \infty} \int g_k\dd\mu          \\
+			                                            & = \lim_{k \to \infty} \int g_k \dd\mu               \\
+			                                            & = \int \lim_{k\to\infty} g_n \dd\mu                 \\
+			                                            & = \int \lim_{k\to\infty} \inf_{n \geq k} f_n \dd\mu \\
+			                                            & = \int \liminf_{k\to\infty} f_k \dd\mu              \\
+			                                            & = \int f \dd\mu.
+		      \end{align*}
+		\item This one is eluding me.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	(3A.20)
+	Suppose $(X, S, \mu)$ is a measure space and $f_1, f_2, \dots$ is a monotone (meaning either increasing or decreasing) sequence of $S$-measurable functions.
+	Define $f: X \to [-\infty, \infty]$ by \begin{equation*}
+		f(x) = \lim_{k \to \infty} f_k(x).
+	\end{equation*}
+	Prove that if $\int |f_1| \dd \mu < \infty$, then \begin{equation*}
+		\lim_{k \to \infty} \int f_k \dd \mu = \int f \dd \mu.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	First, assume $\left\lbrace f_n \right\rbrace$ is increasing.
+	Define $g_k$ for each $k \in \mathbb{Z}^+$ by \begin{equation*}
+		g_k(x) = f_k(x) - f_1(x).
+	\end{equation*}
+	Then $\left\lbrace g_n \right\rbrace_1^\infty$ is an increasing sequence of nonnegative $S$-measurable functions, so \begin{equation*}
+		\lim_{k \to \infty} \int g_k \dd \mu = \int \lim_{k \to \infty} g_k \dd \mu
+	\end{equation*}
+	by the Monotone Convergence Theorem.
+	Then \begin{align*}
+		\int f(x) & = \int \lim_{k \to \infty} f_k(x)                              \\
+		          & = \int \lim_{k \to \infty} \left(g_k(x) + f_1(x)\right)        \\
+		          & = \int \left( f_1(x) + \lim_{k \to \infty} g_k(x) \right)      \\
+		          & = \int f_1(x) + \int \lim_{k \to \infty} g_k(x)                \\
+		          & = \int f_1(x) + \lim_{k \to \infty} \int g_k(x)                \\
+		          & = \lim_{k \to \infty} \left( \int f_1(x) + \int g_k(x) \right) \\
+		          & = \lim_{k \to \infty} \int \left( f_1(x) + g_k(x) \right)      \\
+		          & = \lim_{k \to \infty} \int f_k(x).
+	\end{align*}
+
+	The proof when $\left\lbrace f_n \right\rbrace$ is decreasing is similar, but different enough to work out on its own.
+	This time, define $g_k$ for each $k \in \mathbb{Z}^+$ by \begin{equation*}
+		g_k(x) = f_1(x) - f_k(x).
+	\end{equation*}
+	Then $\left\lbrace g_n \right\rbrace_1^\infty$ is again an increasing sequence of nonnegative $S$-measurable functions, so \begin{equation*}
+		\lim_{k \to \infty} \int g_k \dd \mu = \int \lim_{k \to \infty} g_k \dd \mu.
+	\end{equation*}
+	Then \begin{align*}
+		\int f(x) & = \int \lim_{k \to \infty} f_k(x)                               \\
+		          & = \int \lim_{k \to \infty} \left( f_1(x) - g_k(x) \right)       \\
+		          & = \int \left( f_1(x) - \lim_{k \to \infty} g_k(x) \right)       \\
+		          & = \int f_1(x) - \int \lim_{k \to \infty} g_k(x)                 \\
+		          & = \int f_1(x) - \lim_{k \to \infty} \int  g_k(x)                \\
+		          & =  \lim_{k \to \infty} \left( \int f_1(x) - \int g_k(x) \right) \\
+		          & =  \lim_{k \to \infty} \int \left( f_1(x) - g_k(x) \right)      \\
+		          & =  \lim_{k \to \infty} \int f_k(x).
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	(3B.3)
+	Suppose $\lambda$ is Lebesgue measure on $\mathbb{R}$ and $f : \mathbb{R} \to \mathbb{R}$ is a Borel measurable function such that $\int |f| \dd \lambda < \infty$.
+	Define $g : \mathbb{R} \to \mathbb{R}$ by \begin{equation*}
+		g(x) = \int_{(-\infty, x)} f \dd \lambda.
+	\end{equation*}
+	Prove that $g$ is uniformly continuous on $\mathbb{R}$.
+\end{ex}
+\begin{proof}
+	Note that if $b > a$, then \begin{align*}
+		g(b) - g(a) & = \int_{(-\infty, b)} f \dd \lambda - \int_{(-\infty, a)} f \dd \lambda                                   \\
+		            & = \int_{\mathbb{R}} f\chi_{(-\infty, b)} \dd \lambda - \int_{\mathbb{R}} f\chi_{(-\infty, a)} \dd \lambda \\
+		            & = \int_{\mathbb{R}} f\chi_{(-\infty, b)} - f\chi_{(-\infty, a)} \dd \lambda                               \\
+		            & = \int_{\mathbb{R}} f\left(\chi_{(-\infty, b)} - \chi_{(-\infty, a)}\right) \dd \lambda                   \\
+		            & = \int_{\mathbb{R}} f\chi_{[a, b)} \dd \lambda                                                            \\
+		            & = \int_{[a, b)} f \dd \lambda.
+	\end{align*}
+	Also, given $\varepsilon > 0$, there is a $\delta > 0$ such that any $B \in S$ with $\mu(B) < \delta$ satisfies \begin{equation*}
+		\int_B g \dd \mu < \varepsilon.
+	\end{equation*}
+	Thus whenever $a$ and $b$ satisfy $b - a < \delta$, we get \begin{align*}
+		g(b) - g(a) = \int_{[a, b)} f \dd\lambda < \varepsilon
+	\end{align*}
+	as desired.
+\end{proof}
+
+\begin{ex}
+	(3B.5)
+	Let $\lambda$ denote Lebesgue measure on $\mathbb{R}$.
+	Suppose $f : \mathbb{R} \to \mathbb{R}$ is a Borel measurable function such that $\int |f| \dd \lambda < \infty$.
+	Prove that \begin{equation*}
+		\lim_{k \to \infty} \int_{[-k, k]} f \dd \lambda = \int f \dd \lambda.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Define $g_k$ for each $k \in \mathbb{Z}^+$ by $g_k = f\chi_{[-k, k]}$.
+	Then $|g_k(x)| \leq |f(x)|$ for all $x$, so the sequence $g_k$ is dominated by $|f|$ in the sense of the Dominated Convergence Theorem, and we conclude that \begin{align*}
+		\lim_{k \to \infty} \int_{[-k, k]} f\dd\lambda & = \lim_{k\to\infty}\int f\chi_{[-k,k]} \dd\lambda \\
+		                                               & = \lim_{k\to\infty}\int g_k \dd\lambda            \\
+		                                               & = \int\lim_{k\to\infty} g_k \dd\lambda            \\
+		                                               & = \int f \dd\lambda.
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	(3B.11)
+	Suppose $(X, S, \mu)$ is a measure space and $f \in \mathcal{L}^1(\mu)$.
+	Prove that the set $\left\lbrace x \in X : f(x) \neq 0 \right\rbrace$ is the countable union of sets with finite $\mu$-measure.
+\end{ex}
+\begin{proof}
+	Consider the sets $E_n = \left\lbrace x : |f(x)| > 1/n \right\rbrace$.
+	The fact that $\int |f| \dd\lambda < \infty$ forces $\mu(E_n) < \infty$ for all $n \in \mathbb{Z}^+$ since if $\mu(E_n) = \infty$, then \begin{equation*}
+		\int_{E_n} |f| \dd\lambda \geq \int_{E_n} \frac{1}{n} \dd\lambda = \infty.
+	\end{equation*}
+	Each $x \in X$ for which $f(x) \neq 0$ satisfies $f(x) > 1/n$ for some $n$, and certainly if $f(x) > 1/n$ then $f(x) \neq 0$, so we have that \begin{equation*}
+		\left\lbrace x \in X : f(x) \neq 0 \right\rbrace = \bigcup_{n=1}^\infty E_n
+	\end{equation*}
+	as desired.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 7}
+\author{Connor Mooneyhan}
+\date{October 17, 2025}
+
+\begin{document}
+
+\maketitle
+
+I waited too long to start thinking about these. I'll be back on track next week.
+
+\begin{ex}
+	(2E.3)
+	Give an example of a sequence of continuous functions $f_1, f_2, \dots$ from $[0, 1]$ to $\mathbb{R}$ that converges pointwise to a function $f : [0, 1] \to \mathbb{R}$ that is not a bounded function.
+\end{ex}
+
+\begin{ex}
+	(2E.6)
+	Suppose $(X, S, \mu)$ is a measure space with $\mu(X) < \infty$.
+	Suppose $f_1, f_2, \dots$ is a sequence of $S$-measurable functions from $X$ to $\mathbb{R}$ such that $\lim_{k \to \infty}f_k(x) = \infty$ for each $x \in X$.
+	Prove that for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X \setminus E) < \varepsilon$ and $f_1, f_2, \dots$ converges uniformly to $\infty$ on $E$ (meaning that for every $t > 0$, there exists $n \in \mathbb{Z}^+$ such that $f_k(x) > t$ for all integers $k \geq n$ and all $x \in E$.)
+\end{ex}
+
+\begin{ex}
+	(3A.3)
+	Suppose $(X, S, \mu)$ is a measure space and $f : X \to [0, \infty]$ is an $S$-measurable function.
+	Prove that \begin{equation*}
+		\int f \dd \mu > 0 \text{ if and only if } \mu(\lbrace x \in X : f(x) > 0 \rbrace) > 0.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+	(3A.4)
+	Give an example of a Borel measurable function $f : [0, 1] \to (0, \infty)$ such that $L(f, [0, 1]) = 0$.
+\end{ex}
+
+\begin{ex}
+	(3A.5)
+	Verify the assertion that integration with respect to counting measure is summation.
+\end{ex}
+% \begin{proof}
+% 	Suppose $\mu$ is counting measure on $\mathbb{Z}^+$ and $b_1, b_2, \dots$ is a sequence of nonnegative numbers.
+% 	Let $b$ be the function from $\mathbb{Z}^+$ to $[0, \infty)$ defined by $b(k) = b_k$.
+% 	Then \begin{align*}
+% 		\int b \dd \mu & = \sup \left\lbrace \mathcal{L}(b, P) : \text{$P$ is an $S$-partition of $\mathbb{Z}^+$} \right\rbrace                                    \\
+% 		               & = \sup \left\lbrace \sum_{j=1}^m \mu(A_j) \inf_{A_j} b : \text{$P = A_1, \dots, A_m$ is an $S$-partition of $\mathbb{Z}^+$} \right\rbrace \\
+% 	\end{align*}
+% \end{proof}
+
+\end{document}

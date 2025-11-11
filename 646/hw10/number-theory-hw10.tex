@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 10}
+\author{Connor Mooneyhan}
+\date{November 6, 2025}
+
+\begin{document}
+
+\begin{center}
+	{\bf\Large MTH 346/646 homework cover sheet}
+\end{center}
+
+\vspace{0.5in}
+
+\noindent{\large Name}: Connor Mooneyhan \\
+{\large Homework number}: 10 \\
+{\large Date}: November 8, 2025 \\
+
+{\Large What topics did this assignment cover? How comfortable do you feel with
+each of those topics?}
+
+This covered the homomorphisms between a curve and its ``friend'' as well as finding the ranks of curves using methods from the proof of Mordell's theorem.
+The former concept is easy enough from the definitions.
+I feel like I have a surface-level understanding of the ideas around ranks, but I'm still lacking in depth surrounding what's actually going on with $C(\mathbb{Q})/2C(\mathbb{Q})$.
+
+\vspace{1.75in}
+
+{\Large In the course of doing this assignment, where did you get stuck?
+	How did you get unstuck?}
+
+I did a lot of reading the book to try to understand the theory surrounding finding the rank.
+
+\vspace{1.75in}
+
+{\Large Is there anything you've done here that you're not confident about, that you want me to take a really close look at, or that you want me to suggest an alternate approach to?}
+
+As you'll see, I wasn't really sure how to cap off problems 2 and 3.
+
+\pagebreak
+
+\begin{ex}
+	Let $C : y^{2} = x^{3} - 2x^{2} - 267x$ and
+	$\overline{C} : y^{2} = x^{3} + 4x^{2} + 1072x$ and
+	let $\phi : C \to \overline{C}$ be the homomorphism described in class.
+
+	Let $\overline{P} = (173889/4900,101618313/343000) \in \overline{C}(\Q)$. Find a
+	point $P \in C(\Q)$ so that $\phi(P) = \overline{P}$.
+\end{ex}
+\begin{proof}
+	I started by writing down the equations \begin{equation*}
+		\frac{y^2}{x^2} = \frac{173889}{4900}
+	\end{equation*}
+	and \begin{equation*}
+		\frac{y(x^2+267)}{x^2} = \frac{101618313}{343000}.
+	\end{equation*}
+	Squaring the second equation and moving things around in both so that you get a $y^2 =$ in each allows us to combine the equations to get \begin{equation*}
+		\frac{173889}{4900}(x^3+267x)^2 = \left( \frac{101618313}{343000} \right)^2 x^4
+	\end{equation*}
+	after some further simplifications.
+	I plugged this directly into Wolfram Alpha and got a few solutions for $x$.
+	Not all give a real value for $y$ after plugging it into $C$, but one that does gives the point \begin{equation*}
+		P = \left( -\frac{300}{49}, \frac{12510}{343} \right).
+	\end{equation*}
+	I checked that this does indeed map back to $\overline{P}$ as desired.
+\end{proof}
+
+\begin{ex}
+	Compute the rank of the elliptic curve $C : y^{2} = x^{3} + 73x$. Give representatives for the cosets of
+	$2C(\Q)$ in $C(\Q)$.
+
+	It is OK to use Magma to check your answer, but none of your justification can rely
+	on Magma computations.
+\end{ex}
+\begin{proof}
+	We consider the divisors of 73, which are $1$, $-1$, $73$, and $-73$.
+	Since $a = 0$, the equations corresponding to these are \begin{align*}
+		(\text{i})   & \ N^2 = M^4 + 73e^4   \\
+		(\text{ii})  & \ N^2 = -M^4 - 73e^4  \\
+		(\text{iii}) & \ N^2 = 73M^4 + e^4   \\
+		(\text{iv})  & \ N^2 = -73M^4 - e^4.
+	\end{align*}
+	Clearly (ii) and (iv) can have no solutions since both would have a nonnegative LHS and negative RHS (since $M > 0$).
+	The solution $(M, e, N) = (1, 0, 1)$ holds for (i), and a far less obvious solution to (iii) is $(1, 6, 37)$.
+	I found the latter by setting $M = 1$ and trying low values of $e$.
+	Thus both (i) and (iii) have solutions, so we conclude that $\alpha(C(\mathbb{Q}))$ has order 2.
+
+	Now we do the same for $\overline{C}: y^2 = x^3 - 292x$.
+	The divisors of $292$ are $\pm 1$, $\pm 2$, $\pm 4$, $\pm 73$, $\pm 146$, and $\pm 292$.
+	Considering just square-free divisors, we narrow this down to $\pm 1$, $\pm 2$, $\pm 73$, and $\pm 146$.
+	We will cheat a little bit (not really) by omitting the negatives at the start, since as before, they will not yield solutions.
+	This leaves us with just four equations to check: \begin{align*}
+		(\text{i})   & \ N^2 = M^4 + 292e^4   \\
+		(\text{ii})  & \ N^2 = 2M^4 + 146e^4  \\
+		(\text{iii}) & \ N^2 = 73M^4 + 4e^4   \\
+		(\text{iv})  & \ N^2 = 146M^4 + 2e^4.
+	\end{align*}
+	The first equation again has the solution $(M, e, N) = (1, 0, 1)$.
+	Using some JavaScript, I was able to find the solution $(1786, 9368, 1060410750)$ for equation (ii).
+	Similarly, we have the solutions $(40, 213, 91762)$ for (iii) and $(3130, 3795, 120115807)$ for (iv).
+	This tells us that the order of $\overline{\alpha}(\overline{C}(\mathbb{Q}))$ is 4.
+	Combining this with the previous result, we get that \begin{equation*}
+		2^r = \frac{2 \cdot 4}{4} = 2,
+	\end{equation*}
+	where $r$ is the rank of $C$, so $C$ has rank 1.
+
+	I'm not quite sure what to do to find representatives for $C(\mathbb{Q})/2C(\mathbb{Q})$.
+	Using the equations \begin{equation*}
+		x = \frac{b_1M^2}{e^2}, y = \frac{b_1MN}{e^3}
+	\end{equation*}
+	with our values for $b_1$, $M$, $e$, and $N$ from the previous two paragraphs, we could find points on the curve, but that only gives us 6 possibilities, and we need 8.
+\end{proof}
+
+\begin{ex}
+	$*$ Prove that if $p \equiv 3 \pmod{8}$, then
+	$C : y^{2} = x^{3} - p^{2} x$ has rank zero. (You will want to use
+	the fact that if $p \equiv 3 \pmod{4}$ is a prime, there are no integer
+	solutions to the congruence $z^{2} \equiv -1 \pmod{p}$.)
+\end{ex}
+\begin{proof}
+	I'm assuming $p$ is prime.
+	The square-free divisors of $-p^2$ are $\pm 1$ and $\pm p$.
+	Thus we look at the equations \begin{align*}
+		(\text{i})   & \ N^2 = M^4 - p^2e^4  \\
+		(\text{ii})  & \ N^2 = -M^4 + p^2e^4 \\
+		(\text{iii}) & \ N^2 = pM^4 - pe^4   \\
+		(\text{iv})  & \ N^2 = -pM^4 + pe^4.
+	\end{align*}
+	We find that $(M, e, N) = (1, 0, 1)$ is a solution to (i) and $(1, 1, 0)$ is a solution to both (iii) and (iv).
+	Since the total number of equations with solutions here must be a power of 2, we get (ii) for free and conclude that $\#\alpha(C(\mathbb{Q})) = 4$.
+
+	Now $\overline{C}$ is $y^2 = x^3 + 4p^2x$.
+	The square-free divisors of $4p^2$ are $\pm 1$, $\pm 2$, $\pm p$, and $\pm 2p$.
+	As in problem 2, negatives will give us no solutions, so we check \begin{align*}
+		(\text{i})   & \ N^2 = M^4 + 4p^2e^4  \\
+		(\text{ii})  & \ N^2 = 2M^4 + 2p^2e^4 \\
+		(\text{iii}) & \ N^2 = pM^4 + 4pe^4   \\
+		(\text{iv})  & \ N^2 = 2pM^4 + 2pe^4.
+	\end{align*}
+	Again $(1, 0, 1)$ is a solution to (i).
+	I'm not seeing how I can show that the others have no solutions.
+	I've tried considering them mod 4 and mod $p$ (especially the latter given the hint), but I haven't found the right combination of facts that will help me get there.
+
+	If I could show that (ii), (iii), and (iv) had no solutions, then we could conclude that $2^r = 4 \cdot 1 / 4 = 1$, so the rank $r = 0$.
+\end{proof}
+
+\end{document}

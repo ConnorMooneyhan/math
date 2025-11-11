@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 9}
+\author{Connor Mooneyhan}
+\date{November 7, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{3}
+	Suppose $(X, S, \mu)$ is a measure space.
+	Suppose $h \in \mathcal{L}^1(\mu)$ and $||h||_1 > 0$.
+	Prove that there is at most one number $c \in (0, \infty)$ such that \begin{equation*}
+		\mu \left( \left\lbrace x \in X : |h(x)| \geq c \right\rbrace \right) = \frac{1}{c} ||h||_1. \label{3.1}
+	\end{equation*}
+\end{exercise}
+\begin{proof}
+	For notational convenience, define $E_\alpha = \mu(\lbrace x \in X : |h(x)| \geq \alpha \rbrace)$.
+	Suppose that $c$ and $d$ both satisfy \eqref{3.1}, and $c < d$.
+	Then \begin{align*}
+		\mu(\lbrace x \in X : c \leq |h(x)| < d \rbrace) & = E_c - E_d                                     \\
+		                                                 & = \frac{1}{c}||h||_1 - \frac{1}{d}||h||_1       \\
+		                                                 & = \left(\frac{1}{c} - \frac{1}{d}\right)||h||_1
+	\end{align*}
+\end{proof}
+
+\begin{exercise}{4}
+	Show that the constant 3 in the Vitali Covering Lemma cannot be replaced by a smaller positive constant.
+\end{exercise}
+\begin{proof}
+	We will study the set of intervals $\lbrace I_1 = (-1 - \varepsilon, 1 + \varepsilon), I_2 = (1, 3)\rbrace$ for some choice of $\varepsilon > 0$.
+	This collection is not already disjoint, so to satisfy the lemma, we would need to find one of them, $I_\alpha$, such that $cI_\alpha$ contains the other.
+	Multiplying these by a constant $c > 0$ yields \begin{align*}
+		 & cI_1 = (-c - c\varepsilon, c + c\varepsilon) \\
+		 & cI_2 = (-c + 2, c + 2).
+	\end{align*}
+
+	Consider $0 < c < 1$.
+  We want to see if we can find an $\varepsilon > 0$ such that $c + c\varepsilon \leq 1$ and $1 + \varepsilon \leq -c + 2$.
+  This would make $I_1 \cap cI_2 = cI_1 \cap I_2 = \varnothing$.
+  Indeed, just by manipulating the inequalities above, we get \begin{equation*}
+    \varepsilon \leq \frac{1-c}{c}
+  \end{equation*}
+  and \begin{equation*}
+    \varepsilon \leq 1 - c.
+  \end{equation*}
+  We choose the smaller of these, which is \begin{equation*}
+    \varepsilon = 1 - c
+  \end{equation*}
+  since $1/c > 1$.
+  Since $1 - c > 0$, we have found a counterexample when $0 < c < 1$.
+
+	Now consider when $c \geq 1$.
+	Then as we saw in the previous paragraph, since $\varepsilon > 0$, we always have the right end of $cI_1$ overlapping $I_2$, and likewise the left end of $cI_2$ overlaps $I_1$.
+	Thus for the lemma to \textit{not} be satisfied, we would need $c + 2 < 1$ and 
+\end{proof}
+
+\begin{exercise}{6}
+\end{exercise}
+
+\begin{exercise}{9}
+\end{exercise}
+
+\begin{exercise}{10}
+\end{exercise}
+
+\begin{exercise}{12}
+\end{exercise}
+
+\end{document}
