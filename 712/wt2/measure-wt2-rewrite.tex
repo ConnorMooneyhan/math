@@ -50,7 +50,44 @@
 		|A \setminus G| + |G \setminus A| < \varepsilon.
 	\end{equation*}
 \end{exercise}
-\begin{proof}\end{proof}
+\begin{proof}
+	Let $A$ be Lebesgue measurable, and first assume that $A$ is bounded.
+	Let $\varepsilon > 0$.
+	Then we can choose a closed $F$ such that $F \subset A$ and $|A \setminus F| < \varepsilon/2$, and we can also choose an open $U$ such that $A \subset U$ and $|U \setminus A| < \varepsilon/2$.
+	Now express $U$ as the union of open intervals, so $U = \bigcup_{n=1}^\infty I_n$.
+	Since $F$ is closed and bounded, we have \begin{equation*}
+		F \subset G
+	\end{equation*}
+	for some reindexed finite subcollection $G = \left\lbrace I_n \right\rbrace_{1}^k$.
+	Then $|A \setminus G| \leq |A \setminus F| < \varepsilon/2$ and $|G \setminus A| \leq |U \setminus A| \leq \varepsilon/2$, so \begin{equation*}
+		|A \setminus G| + |G \setminus A| < \varepsilon
+	\end{equation*}
+	as desired.
+
+	Now we consider the general case where just $|A| < \infty$.
+	Choose $A_N \coloneq A \cap [-N, N]$ such that $|A \setminus A_N| < \varepsilon/3$, and let $G = \bigcup_{n=1}^k I_n$ be such that $|A_N \setminus G| + |G \setminus A_N| < \varepsilon/3$, using the first case.
+	Then \begin{align*}
+		A \setminus G = A \cap G^c & = (A_N \cap G^c) \cup (A \setminus A_N \cap G^c)          \\
+		                           & = (A_n \setminus G) \cup ((A \setminus A_N) \setminus G).
+	\end{align*}
+	Thus \begin{align*}
+		|A \setminus G| & = |A_N \setminus G| + |(A \setminus A_N) \setminus G| \\
+		                & = |A_N \setminus G| + \varepsilon / 3.
+	\end{align*}
+	Also, $|G \setminus A| \leq |G \setminus A_N| < \varepsilon/3$ by monotonicity, so \begin{align*}
+		|A \setminus G| + |G \setminus A| & \leq |A_N \setminus G| + |G \setminus A_N| + \frac{2\varepsilon}{3} \\
+		                                  & \leq \varepsilon.
+	\end{align*}
+	Assume that for any $\varepsilon > 0$, there exists a $G \in \bigcup_{n=1}^k I_n$ such that $|A \setminus G| + |G \setminus A| < \varepsilon$.
+	Since $|A \setminus G| < \varepsilon$, there exists an open $\widetilde{G} \supset A \setminus G$ where $|A \setminus G| \geq |\widetilde{G}| + \varepsilon$.
+	Thus $A \subset G \cup \widetilde{G} = U$.
+
+	Since $U$ is open, $A \subset U$, and \begin{align*}
+		|U \setminus A| & \leq |G \setminus A| + |\widetilde{G}|                \\
+		                & \leq |G \setminus A| + |A \setminus G| + \varepsilon,
+	\end{align*}
+	so $A$ is Lebesgue measurable.
+\end{proof}
 
 \begin{exercise}{1(b)}
 	State and prove Egorov's Theorem.
@@ -82,11 +119,11 @@ Then for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X 
 		                   & < \varepsilon.
 	\end{align*}
 
-  Now to prove that $f_1, f_2, \dots$ converges uniformly to $f$ on $E$, let $\varepsilon' > 0$ and let $n \in \mathbb{Z}^+$ such that $1/n < \varepsilon'$.
-  Then $E \subset A_{m_n, n}$, so \begin{equation*}
-    |f_k(x) - f(x)| < \frac{1}{n} < \varepsilon'
-  \end{equation*}
-  for all $k \geq m_n$ and $x \in E$ due to our choice of $m_n$.
+	Now to prove that $f_1, f_2, \dots$ converges uniformly to $f$ on $E$, let $\varepsilon' > 0$ and let $n \in \mathbb{Z}^+$ such that $1/n < \varepsilon'$.
+	Then $E \subset A_{m_n, n}$, so \begin{equation*}
+		|f_k(x) - f(x)| < \frac{1}{n} < \varepsilon'
+	\end{equation*}
+	for all $k \geq m_n$ and $x \in E$ due to our choice of $m_n$.
 \end{proof}
 
 \begin{exercise}{1(c)}
@@ -95,12 +132,43 @@ Then for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X 
 	\end{equation*}
 	You must show that it is a measure space.
 \end{exercise}
-\begin{proof}\end{proof}
+\begin{proof}
+	Consider $\mu$ defined by \begin{equation*}
+		\mu(E) = \sum_{n \in E} 2^{-n},
+	\end{equation*}
+	and define, $\mu(\varnothing) = 0$.
+	The standard way to represent the resulting measures will be as the binary representation of some real number.
+	Indeed, $\mu(\mathbb{Z}^+) = .\overline{1} = 1$, and for any $x \in (0, 1)$, $\mu(E) = x$ where $E$ is defined as the set containing exactly those $n$ for which the $n^{\text{th}}$ binary digit of $x$ after the period (henceforth called the $n^{\text{th}}$ ``binary place'') is 1.
+
+	Given disjoint $\left\lbrace E_i \right\rbrace_{\mathbb{Z+}}$, $\mu(\bigcup \lbrace E_i\rbrace)$ has $n^{\text{th}}$ binary place 1 exactly when $n \in E_i$ for some $i$.
+	Since $n \in E_i$ for at most one $i$, $\sum \mu(E_i)$ has $n^{\text{th}}$ binary place 0 if $n \notin E_i$ for all $i$ and has $n^{\text{th}}$ binary place equal to the sum of one 1 with all the rest of the terms being 0 if $n \in E_i$ for some $i$.
+	Thus \begin{equation*}
+		\mu\left(\bigcup \lbrace E_i \rbrace\right) = \sum \mu(E_i)
+	\end{equation*}
+	as desired.
+\end{proof}
 
 \begin{exercise}{2(c)}
 	State and prove a theorem that justifies the claim \textit{Integrable functions live mostly on sets of finite measure}.
 \end{exercise}
-\begin{proof}\end{proof}
+Statement: Suppose $(X, S, \mu)$ is a measure space, $g : X \to [0, \infty]$ is $S$-measurable, and $\int g \dd \mu < \infty$.
+Then for every $\varepsilon > 0$, there exists $E \in S$ such that $\mu(E) < \infty$ and \begin{equation*}
+	\int_{X \setminus E} g \dd \mu < \varepsilon.
+\end{equation*}
+\begin{proof}
+	Suppose $\varepsilon > 0$.
+	Let $P$ be an $S$-partition $A_1, \dots, A_m$ of $X$ where \begin{equation*}
+		\int g \dd\mu < \mathcal{L}(g, P) + \varepsilon.
+	\end{equation*}
+	Let $E$ be the union of the $A_i$ satisfying $\inf_{A_i} f > 0$.
+	Then $\mu(E) < \infty$ since otherwise we would have $\mathcal{L}(g, P) = \infty$.
+	Then \begin{align*}
+		\int_{X \setminus E} g \dd\mu & = \int g \dd\mu - \int \chi_E g \dd \mu                       \\
+		                              & < (\mathcal{L}(g, P) + \varepsilon) - \mathcal{L}(\chi_Eg, P) \\
+		                              & = \varepsilon,
+	\end{align*}
+	where the last line follows because $\inf_{A_j} f = 0 $ for all $A_j \not\subset E$.
+\end{proof}
 
 \begin{exercise}{3(b)}
 	State and prove a theorem that justifies one of Littlewood's Three Principles.
@@ -112,7 +180,23 @@ Then for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X 
 	\end{enumerate}
 	If you have already addressed one or more of these principles in previous problems, then make a different choice here.
 \end{exercise}
-\begin{proof}\end{proof}
+Statement (for ii): Let $(X, S, \mu)$ be a measure space, and let $\varepsilon > 0$.
+Then given $f \in \mathcal{L}^1(\mu)$, there exists a continuous function $h$ such that $||f-h||_1 < \varepsilon$.
+\begin{proof}
+	The proof consists of first proving that we can approximate $\mathcal{L}^1(\mu)$ functions by simple functions, then that we can approximate simple functions by step functions, and finally that we can approximate step functions by continuous functions.
+	I'll detail the first step.
+
+	Let $f \in \mathcal{L}^1(\mu)$ and let $\varepsilon > 0$.
+	Then there exist simple functions $g_1, g_2 \in \mathcal{L}^1(\mu)$ such that $0 \leq g_1 \leq f^+$ and $0 \leq g_2 \leq f^-$ and \begin{equation*}
+		\int(f^+ - g_1)\dd\mu < \frac{\varepsilon}{2} \hspace{1em}\text{and}\hspace{1em} \int(f^- - g_2) \dd\mu < \frac{\varepsilon}{2}.
+	\end{equation*}
+	Then $g = g_1 - g_2$ is a simple function in $\mathcal{L}^1(\mu)$ and \begin{align*}
+		||f - g||_1 & = ||(f^+ - g_1) - (f^- - g_2)||_1                 \\
+		            & = \int (f^+ - g_1)\dd\mu + \int (f^- - g_2)\dd\mu \\
+		            & < \varepsilon
+	\end{align*}
+	as desired.
+\end{proof}
 
 \begin{exercise}{3(c)}
 	Suppose $\lambda$ is Lebesgue measure on $\mathbb{R}$ and $f: \mathbb{R} \to \mathbb{R}$ is a Borel measurable function such that $\int_R |f| \dd \lambda < \infty$.
@@ -121,6 +205,8 @@ Then for every $\varepsilon > 0$, there exists a set $E \in S$ such that $\mu(X 
 	\end{equation*}
 	Prove that $g$ is uniformly continuous on $\mathbb{R}$.
 \end{exercise}
-\begin{proof}\end{proof}
+\begin{proof}
+	I'm very disappointed that I haven't been able to figure this one out in time.
+\end{proof}
 
 \end{document}

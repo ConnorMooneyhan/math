@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 10}
+\author{Connor Mooneyhan}
+\date{November 14, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{4B.2}
+	Suppose $f \in \mathcal{L}^1(\mathbb{R})$.
+	Prove that \begin{equation*}
+		\lim_{t \downarrow 0} \sup \left\lbrace \frac{1}{|I|} \int_I |f - f_I| : I \text{ is an interval of length $t$ containing $b$} \right\rbrace = 0
+	\end{equation*}
+	for almost every $b \in \mathbb{R}$.
+\end{exercise}
+\begin{proof}
+	Let $t > 0$. Then \begin{equation}
+		\int_I |f - f_I| \leq \int_I |f-f(b)| + \int_I |f(b) - f_I|.\label{4B.2.1}
+	\end{equation}
+	Note that $I \subset [b-t, b+t]$, so we can say \begin{align*}
+		\frac{1}{t} \int_I |f - f(b)| & \leq \frac{1}{t}\int_{b-t}^{b+t}|f-f(b)|                  \\
+		                              & = 2 \left( \frac{1}{2t} \int_{b-t}^{b+t}|f-f(b)| \right),
+	\end{align*}
+	which goes to 0 as $t$ goes to 0 from the right.
+	Also, \begin{align*}
+		\frac{1}{t}\int_I |f(b) - f_I| & = |f(b) - f_I| \frac{1}{t} \int_I 1                           \\
+		                               & = \left|\frac{1}{t} \int_I f(b) - \frac{1}{t} \int_I f\right| \\
+		                               & \leq \frac{1}{t} \int_I |f - f(b)|                            \\
+		                               & \leq 2 \left( \frac{1}{2t} \int_{b-a}^{b+a} |f-f(b)| \right).
+	\end{align*}
+	Given $\varepsilon > 0$, there is a $\delta > 0$ such that if $0 < t < \delta$ then \begin{equation*}
+		\frac{1}{2t}\int_{b-a}^{b+a} |f-f(b)| < \frac{\varepsilon}{4}
+	\end{equation*}
+	by the Lebesgue Differentiation Theorem.
+	Thus \begin{equation*}
+		\sup \left\lbrace \frac{1}{|I|} \int_I |f - f_I| : I \text{ is an interval of length $t$ containing $b$} \right\rbrace < \varepsilon
+	\end{equation*}
+	for $0 < t < \delta$.
+	Since this is true for any such $\varepsilon$, the proof is complete.
+\end{proof}
+
+\begin{exercise}{4B.1}
+	Suppose $f \in \mathcal{L}^1(\mathbb{R})$.
+	Prove that \begin{equation*}
+		\lim_{t \downarrow 0} \frac{1}{2t} \int_{b-t}^{b+t}|f - f_{[b-t, b+t]}| = 0
+	\end{equation*}
+	for almost every $b \in \mathbb{R}$.
+\end{exercise}
+\begin{proof}
+	We have \begin{align*}
+		     & \lim_{t \downarrow 0} \frac{1}{2t} \int_{b-t}^{b+t}|f - f_{[b-t, b+t]}|                                                                       \\
+		\leq & \lim_{t \downarrow 0} \sup \left\lbrace \frac{1}{|I|} \int_I |f - f_I| : I \text{ is an interval of length $2t$ containing $b$} \right\rbrace \\
+		=    & \ 0
+	\end{align*}
+	by 4B.2.
+\end{proof}
+
+\begin{exercise}{4B.4}
+	Prove that the Lebesgue Differentiation Theorem still holds if the hypothesis that $\int_{-\infty}^\infty |f| < \infty$ is weakened to the requirement that $\int_{-\infty}^x |f| < \infty$ for all $x \in \mathbb{R}$.
+\end{exercise}
+
+\begin{exercise}{7A.1}
+	Suppose $\mu$ is a measure.
+	Prove that \begin{equation*}
+		||f + g||_{\infty} \leq ||f||_{\infty} + ||g||_\infty \hspace{1em}\text{and}\hspace{1em} ||\alpha f||_\infty = |\alpha| ||f||\infty
+	\end{equation*}
+	for all $f, g \in \mathcal{L}^\infty(\mu)$ and all $\alpha \in \mathbb{F}$.
+	Conclude that with the usual operations of addition and scalar multiplication of functions, $\mathcal{L}^\infty(\mu)$ is a vector space.
+\end{exercise}
+\begin{proof}
+	Given $x \in X$, we have \begin{align*}
+		|f(x) + g(x)| & \leq |f(x)| + |g(x)|                                        \\
+		              & \leq ||f||_\infty + ||g||_\infty \text{ almost everywhere}.
+	\end{align*}
+	It follows that $||f + g||_\infty \leq ||f||_\infty + ||g||_\infty$ almost everywhere.
+\end{proof}
+
+\begin{exercise}{7A.2}
+	Suppose $a \geq 0$, $b \geq 0$, and $1 < p < \infty$.
+	Prove that \begin{equation*}
+		ab = \frac{a^p}{p} + \frac{b^{p'}}{p'}
+	\end{equation*}
+	if and only if $a^p = b^{p'}$.
+\end{exercise}
+\begin{proof}
+	As in the proof of Young's Inequality, we fix $b > 0$ and define $f : (0, \infty) \to \mathbb{R}$ by \begin{equation*}
+		f(a) = \frac{a^p}{p} + \frac{b^{p'}}{p'} - ab.
+	\end{equation*}
+	As noted in that proof, the global minimum is at $b^{1/(p-1)}$, so setting $p' = p/(p-1)$, we get $f(b^{1/(p-1)}) = 0$.
+  The desired result is then obtained by writing this as $a = b^{1/(p-1)}$, and then raising to the $p^\text{th}$ power to get \begin{equation*}
+    a^p = b^{\frac{p}{p-1}} = b^{p'}.
+  \end{equation*}
+\end{proof}
+
+\begin{exercise}{7A.4}
+	Prove Hölder's inequality in the cases $p = 1$ and $p = \infty$.
+\end{exercise}
+\begin{proof}
+	We have \begin{align*}
+		||fg||_1 & = \int_X |fg|                                          \\
+		         & = \int_X |f||g|                                        \\
+		         & \leq \int_X |f| ||g||_\infty \text{ almost everywhere} \\
+		         & = ||g||_\infty \int_X |f|                              \\
+		         & = ||g||_\infty ||f||_1                                 \\
+		         & = ||f||_1 ||g||_\infty,
+	\end{align*}
+	which proves both cases.
+\end{proof}
+
+\end{document}

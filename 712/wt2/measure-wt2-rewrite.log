@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  11 NOV 2025 12:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  14 NOV 2025 23:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -825,7 +825,11 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
 st/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/e
 nc/dvips/lm/lm-mathex.enc}]
 
-[2] (712/wt2/measure-wt2-rewrite.aux)
+[2]
+
+[3]
+
+[4] (712/wt2/measure-wt2-rewrite.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -834,7 +838,7 @@ L3 programming layer <2025-04-14>
 Here is how much of TeX's memory you used:
  25598 strings out of 469608
  659965 string characters out of 5470601
- 1181341 words of memory out of 5000000
+ 1182341 words of memory out of 5000000
  52002 multiletter control sequences out of 15000+600000
  662549 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -852,10 +856,10 @@ st/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025/texmf-dist/
 fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 712/wt2/measure-wt2-rewrite.pdf (2 pages, 154961 bytes).
+Output written on 712/wt2/measure-wt2-rewrite.pdf (4 pages, 170060 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

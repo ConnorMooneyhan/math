@@ -1,0 +1,239 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 11}
+\author{Connor Mooneyhan}
+\date{November 13, 2025}
+
+\begin{document}
+
+\begin{center}
+	{\bf\Large MTH 346/646 homework cover sheet}
+\end{center}
+
+\vspace{0.5in}
+
+\noindent{\large Name}: Connor Mooneyhan \\
+{\large Homework number}: 11 \\
+{\large Date}: November 13, 2025 \\
+
+{\Large What topics did this assignment cover? How comfortable do you feel with
+each of those topics?}
+
+This was mostly about ranks and the images of $\alpha$ and $\overline{\alpha}$.
+I feel like I'm comfortable with it, but I also feel like I'm getting the wrong answers, so I'm not sure.
+
+\vspace{1.75in}
+
+{\Large In the course of doing this assignment, where did you get stuck?
+	How did you get unstuck?}
+
+  I wasn't necessarily stuck anywhere.
+
+
+\vspace{1.75in}
+
+{\Large Is there anything you've done here that you're not confident about, that you want me to take a really close look at, or that you want me to suggest an alternate approach to?}
+
+I suspect my answer to 1 is wrong somehow, but I'm not sure why. It could be something about the gcd conditions, I just didn't have much time this week.
+
+\pagebreak
+
+\begin{ex}
+	Let $C : y^{2} = x^{3} - 49042x$. Compute the rank of $C$ by computing
+	the image of $\alpha$ and $\overline{\alpha}$ with assistance from Magma,
+	but do not ask Magma for the rank or the Mordell-Weil group. (This is like
+	the last example from the notes on 11/14.)
+\end{ex}
+\begin{proof}
+	The prime factorization of $49042$ is $2 \cdot 7 \cdot 31 \cdot 113$, so the divisors are \begin{align*}
+		D = \lbrace \pm 1, \pm 2, \pm 7, \pm 14, \pm 31, \pm 62, \pm 113, \pm 217, \pm 226, \pm 434, \\
+		\pm 791, \pm 1582, \pm 3503, \pm 7006, \pm 24521, \pm 49042 \rbrace
+	\end{align*}
+
+	I used JavaScript to find the following points, given as solutions to the equation $N^2 = dM^4 - (49042/d) e^4$: \begin{equation*}
+		\begin{array}{r|c}
+			\textbf{Divisor} & \textbf{(M, e, N)}       \\
+			\hline
+			1                & (1, 0, 1)                \\
+			-1               & (5289, 1999, 884489296)  \\
+			2                & (11, 1, 69)              \\
+			-2               & (13105, 1387, 178211938) \\
+			7                & (7, 1, 99)               \\
+			-7               & (2902, 2550, 543815019)  \\
+			14               & (4, 1, 9)                \\
+			-14              & (7619, 3081, 518145689)  \\
+			31               & (86508, 4, 41667111046)  \\
+			-31              & (1, 2, 159)              \\
+			62               & (19798, 0, 3086302457)   \\
+			-62              & (1, 1, 27)               \\
+			113              & (3, 2, 47)               \\
+			-113             & (4442, 4233, 308785241)  \\
+			217              & (98892, 0, 144062911405) \\
+			-217             & (1, 1, 3)                \\
+			226              & (1, 1, 3)                \\
+			-226             & (1279, 8908, 1168676075) \\
+			434              & (89854, 0, 168197561503) \\
+			-434             & (2, 3, 47)               \\
+			791              & (26243, 0, 19369356948)  \\
+			-791             & (3237, 6399, 130798511)  \\
+			1582             & (45090, 0, 80865580813)  \\
+			-1582            & (901, 10405, 601923169)  \\
+			3503             & (65544, 0, 254264630822) \\
+			-3503            & (1, 4, 9)                \\
+			7006             & (71111, 0, 423261374961) \\
+			-7006            & (1, 7, 99)               \\
+			24521            & (62521, 0, 612097943287) \\
+			-24521           & (1, 11, 69)              \\
+			49042            & (37918, 0, 318401372375) \\
+			-49042           & (2, 43, 1623).
+		\end{array}
+	\end{equation*}
+	So in fact $\im\alpha = D$ and $|\im\alpha| = 32$.
+
+	Now for $\overline{C}: y^2 = x^3 + 196168$, we consider only positive divisors $d$ which satisfy $N^2 = dM^4 + (196168/d)e^4$.
+	This gives us the list \begin{equation*}
+		\begin{array}{r|c}
+			\textbf{Divisor} & \textbf{(M, e, N)}        \\
+			\hline
+			1                & (1, 0, 1)                 \\
+			2                & (4, 1, 314)               \\
+			4                & (1, 0, 2)                 \\
+			7                & (78526, 11, 16314582762)  \\
+			8                & (2, 1, 157)               \\
+			14               & (81457, 5, 24826805419)   \\
+			28               & (82577, 5, 36082549636)   \\
+			31               & (96105, 13, 51424823882)  \\
+			56               & (81457, 10, 49653610838)  \\
+			62               & (19798, 0, 3086302457)    \\
+			113              & (1, 1, 43)                \\
+			124              & (84857, 9, 80183718050)   \\
+			217              & (98892, 0, 144062911405)  \\
+			226              & (6, 1, 542)               \\
+			248              & (19798, 0, 6172604914)    \\
+			434              & (89854, 0, 168197561503)  \\
+			452              & (1, 2, 86)                \\
+			791              & (26243, 0, 19369356948)   \\
+			868              & (98892, 0, 288125822810)  \\
+			904              & (56897, 0, 97333636911)   \\
+			1582             & (45090, 0, 80865580813)   \\
+			1736             & (89854, 0, 336395123006)  \\
+			3164             & (26243, 0, 38738713896)   \\
+			3503             & (65544, 0, 254264630822)  \\
+			6328             & (45090, 0, 161731161626)  \\
+			7006             & (71111, 0, 423261374961)  \\
+			14012            & (32772, 0, 127132315411)  \\
+			24521            & (62521, 0, 612097943287)  \\
+			28024            & (62438, 0, 652623982229)  \\
+			49042            & (37918, 0, 318401372375)  \\
+			98084            & (34993, 0, 383496529291)  \\
+			196168           & (37918, 0, 636802744750).
+		\end{array}
+	\end{equation*}
+	This is also of size 32, so we should have \begin{equation*}
+		2^r = \frac{|\im\alpha||\im\overline{\alpha}|}{4} = \frac{32\cdot 32}{4} = 2^8,
+	\end{equation*}
+	so we get the rank $r = 8$.
+\end{proof}
+
+\begin{ex}
+	Use Magma to determine if there is a rational point on
+	\[
+		y^{2} = -x^{4} + 25268
+	\]
+	by asking Magma to compute the rank of an elliptic curve and thinking
+	about the images of $\alpha$ and $\overline{\alpha}$ for that elliptic curve.
+\end{ex}
+\begin{proof}
+  I see one place in the Notes where we did a HyperellipticCurve command for a quartic, but I have no idea how to find a related elliptic curve that gives us something useful.
+\end{proof}
+
+\begin{ex}
+	$*$ This exercise goes through the proof that there are no rational points
+	on $2y^{2} = x^{4} - 17$, which shows that if $C : y^{2} = x^{3} + 17x$,
+	then $2 \not\in \im \overline{\alpha}$. [I got this exercise from Nigel Boston.]
+
+	\begin{enumerate}[label=(\alph*)]
+		\item Suppose that $(a,b)$ is rational point on the curve $x^{4}
+			      - 17 = 2y^{2}$. Show that $a = A/C$, $b = B/C^{2}$, where $A, B, C \in \Z$,
+		      $\gcd(A,B) = \gcd(A,C) = \gcd(B,C) = 1$.
+
+		\item Rewriting the equation as $(5A^{2} + 17C^{2})^{2} - (4B)^{2} =
+			      17(A^{2} + 5C^{2})^{2}$, show that there are $U,V \in \Z$ such that
+		      \[
+			      5A^{2} + 17C^{2} \pm 4B = 17U^{2}, 5A^{2} + 17C^{2} \mp 4B = V^{2},
+			      A^{2} + 5C^{2} = UV,
+		      \]
+		      or
+		      \[
+			      5A^{2} + 17C^{2} \pm 4B = 34U^{2}, 5A^{2} + 17C^{2} \mp 4B = 2V^{2},
+			      A^{2} + 5C^{2} = 2UV.
+		      \]
+
+		\item Hence show that (eliminating $B$) either
+		      \[
+			      10A^{2} + 34C^{2} = 17U^{2} + V^{2}, A^{2} + 5C^{2} = UV
+		      \]
+		      or
+		      \[
+			      5A^{2} + 17C^{2} = 17U^{2} + V^{2}, A^{2} + 5C^{2} = 2UV.
+		      \]
+
+		\item Show that there are no solutions to $x^{2} \equiv 10 \pmod{17}$,
+		      and no solutions to $x^{2} \equiv 5 \pmod{17}$ and use this to conclude
+		      that in any solution to the equations in (c) one must have $17 | A$ and $17 | C$. This contradicts (a).
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Here's what I've got.
+		      Write $a = \alpha/\beta$ and $b = \gamma/\delta$ so that each fraction is reduced.
+		      Then \begin{align*}
+			               & \frac{\alpha^4}{\beta^4} - 17 = 2\cdot \frac{\gamma^2}{\delta^2} \\
+			      \implies & \alpha^4\delta^4 - 17\beta^4\delta^4 = 2\gamma^2\delta^2,
+		      \end{align*}
+          so we can set $A = \alpha\delta$, $C = \beta\delta$, and $B = \gamma\delta$.
+        \item 
+	\end{enumerate}
+\end{proof}
+
+\end{document}
