@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  2 DEC 2025 13:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.8)  9 DEC 2025 06:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**646/hw11/number-theory-hw11.tex
-(./646/hw11/number-theory-hw11.tex
+**646/project-2/project-2.tex
+(./646/project-2/project-2.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -555,50 +555,174 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/mlmtt/m/n on input line 43.
 )
-\c@thm=\count322
-\c@lma=\count323
-\c@ex=\count324
+(/usr/local/texlive/2025/texmf-dist/tex/latex/minted/minted.sty
+Package: minted 2025/03/06 v3.6.0 Yet another Pygments shim for LaTeX
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count322
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fvextra/fvextra.sty
+Package: fvextra 2025/03/04 v1.12.0 fvextra - extensions and patches for fancyv
+rb
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
+\FV@CodeLineNo=\count323
+\FV@InFile=\read3
+\FV@TabBox=\box68
+\c@FancyVerbLine=\count324
+\FV@StepNumber=\count325
+\FV@OutFile=\write4
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2025/01/29 line numbers on paragraphs v5.4
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))
+\linenopenalty=\count326
+\output=\toks44
+\linenoprevgraf=\count327
+\linenumbersep=\dimen287
+\linenumberwidth=\dimen288
+\c@linenumber=\count328
+\c@pagewiselinenumber=\count329
+\c@LN@truepage=\count330
+\c@internallinenumber=\count331
+\c@internallinenumbers=\count332
+\quotelinenumbersep=\dimen289
+\bframerule=\dimen290
+\bframesep=\dimen291
+\bframebox=\box69
+\@LN@amsmath@ams@eqpen=\count333
+LaTeX Info: Redefining \\ on input line 3187.
+)
+\c@FancyVerbWriteLine=\count334
+\c@FancyVerbBufferLine=\count335
+\c@FV@TrueTabGroupLevel=\count336
+\c@FV@TrueTabCounter=\count337
+\FV@TabBox@Group=\box70
+\FV@bgcolorstructbox=\box71
+\FV@TmpLength=\skip62
+\c@FV@HighlightLinesStart=\count338
+\c@FV@HighlightLinesStop=\count339
+\FV@LoopCount=\count340
+\FV@NCharsBox=\box72
+\FV@BreakIndent=\dimen292
+\FV@BreakIndentNChars=\count341
+\FV@BreakSymbolSepLeft=\dimen293
+\FV@BreakSymbolSepLeftNChars=\count342
+\FV@BreakSymbolSepRight=\dimen294
+\FV@BreakSymbolSepRightNChars=\count343
+\FV@BreakSymbolIndentLeft=\dimen295
+\FV@BreakSymbolIndentLeftNChars=\count344
+\FV@BreakSymbolIndentRight=\dimen296
+\FV@BreakSymbolIndentRightNChars=\count345
+\c@FancyVerbLineBreakLast=\count346
+\FV@LineBox=\box73
+\FV@LineIndentBox=\box74
+\c@FV@BreakBufferDepth=\count347
+\FV@LineWidth=\dimen297
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/latex2pydata/latex2pydata.sty
+Package: latex2pydata 2025/03/26 v0.6.0 latex2pydata - write data to file in Py
+thon literal format
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgfopts/pgfopts.sty
+Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
+\pgfopts@list@add@a@toks=\toks45
+\pgfopts@list@add@b@toks=\toks46
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Restricted shell escape enabled on input line 77.
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count348
+\float@exts=\toks47
+\float@box=\box75
+\@float@everytoks=\toks48
+\@floatcapt=\box76
+)
+\c@minted@FancyVerbLineTemp=\count349
+\@float@every@listing=\toks49
+\c@listing=\count350
+)
+\c@thm=\count351
+\c@lma=\count352
+\c@ex=\count353
 LaTeX Font Info:    Trying to load font information for OT1+mlmr on input line 
-47.
+48.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmr.fd
 File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count325
+\l__color_backend_stack_int=\count354
 )
-(646/hw11/number-theory-hw11.aux)
-\openout1 = `number-theory-hw11.aux'.
+(646/project-2/project-2.aux)
+\openout1 = `project-2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count326
-\scratchdimen=\dimen287
-\scratchbox=\box68
-\nofMPsegments=\count327
-\nofMParguments=\count328
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count329
-\MPscratchDim=\dimen288
-\MPnumerator=\count330
-\makeMPintoPDFobject=\count331
-\everyMPtoPDFconversion=\toks45
+\scratchcounter=\count355
+\scratchdimen=\dimen298
+\scratchbox=\box77
+\nofMPsegments=\count356
+\nofMParguments=\count357
+\everyMPshowfont=\toks50
+\MPscratchCnt=\count358
+\MPscratchDim=\dimen299
+\MPnumerator=\count359
+\makeMPintoPDFobject=\count360
+\everyMPtoPDFconversion=\toks51
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -642,92 +766,143 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--58
-
- []
-
-
-
-[1
-
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 
-77.
-
+50.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omlmlmm.fd
 File: omlmlmm.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line
- 77.
+ 50.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omsmlmsy.fd
 File: omsmlmsy.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    Trying to load font information for OMX+mlmex on input line
- 77.
+ 50.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/omxmlmex.fd
 File: omxmlmex.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <12> on input line 77.
+(Font)              <14.4> on input line 50.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <8> on input line 77.
+(Font)              <10> on input line 50.
 LaTeX Font Info:    External font `mlmex10' loaded for size
-(Font)              <6> on input line 77.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+(Font)              <7> on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 77
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 50
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
+LaTeX Font Info:    Trying to load font information for TS1+mlmr on input line 
+59.
 
-[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ts1mlmr.fd
+File: ts1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
+)
+LaTeX Font Info:    External font `mlmex10' loaded for size
+(Font)              <12> on input line 65.
+LaTeX Font Info:    External font `mlmex10' loaded for size
+(Font)              <8> on input line 65.
+LaTeX Font Info:    External font `mlmex10' loaded for size
+(Font)              <6> on input line 65.
 
-[3]
 
-[4] (646/hw11/number-theory-hw11.aux)
+[1
+
+{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
+al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/202
+5/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2025/texmf-dist/
+fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/
+dvips/lm/lm-mathex.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/l
+m-mathsy.enc}]
+\pydata@fh@0=\write5
+\openout5 = `_36F9D941F25E2C18BCBA00E9C80ECB66.data.minted'.
+
+runsystem(latexminted config  --timestamp 20251209064441 36F9D941F25E2C18BCBA00
+E9C80ECB66)...executed safely (allowed).
+
+ (646/project-2/_36F9D941F25E2C18BCBA00E9C80ECB66.config.minted)
+runsystem(latexminted cleanconfig  --timestamp 20251209064441 36F9D941F25E2C18B
+CBA00E9C80ECB66)...executed safely (allowed).
+
+ (./646/project-2/_minted/default.style.minted)
+(./646/project-2/_minted/ED75C76ABBF46BBF988DDF83B432D754.highlight.minted
+LaTeX Font Info:    Trying to load font information for OT1+mlmtt on input line
+ 1.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/mlmodern/ot1mlmtt.fd
+File: ot1mlmtt.fd 2021/01/11 v1.0 Font defs for mlmodern
+)
+LaTeX Font Info:    Font shape `OT1/mlmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/mlmtt/b/n' tried instead on input line 2.
+
+
+[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}])
+Underfull \hbox (badness 10000) in paragraph at lines 133--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--152
+
+ []
+
+
+
+[3] (646/project-2/project-2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15615 strings out of 469608
- 320754 string characters out of 5470601
- 696664 words of memory out of 5000000
- 42160 multiletter control sequences out of 15000+600000
- 661780 words of font info for 67 fonts, out of 8000000 for 9000
+ 20515 strings out of 469608
+ 448379 string characters out of 5470601
+ 911282 words of memory out of 5000000
+ 46961 multiletter control sequences out of 15000+600000
+ 666819 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,8n,121p,492b,313s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,6n,121p,716b,560s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmbx12.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 646/hw11/number-theory-hw11.pdf (4 pages, 125629 bytes).
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi12.pfb></usr/l
+ocal/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr12.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr17.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/mlmodern/mlmri12.pfb></usr/local/texlive/2025/te
+xmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/mlmodern/mlmtk10.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/mlmodern/mlmtt12.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/mlmodern/mlmtti10.pfb>
+Output written on 646/project-2/project-2.pdf (3 pages, 170926 bytes).
 PDF statistics:
- 68 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 86 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

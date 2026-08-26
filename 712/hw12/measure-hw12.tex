@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 12}
+\author{Connor Mooneyhan}
+\date{December 5, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{5B.1}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\lambda$ denote Lebesgue measure on $[0, 1]$.
+		      Show that \begin{equation*}
+			      \int_{[0,1]}\int_{[0,1]} \frac{x^2-y^2}{(x^2+y^2)^2} \dd\lambda(y)\dd\lambda(x) = \frac{\pi}{4}
+		      \end{equation*}
+		      and \begin{equation*}
+			      \int_{[0,1]}\int_{[0,1]} \frac{x^2-y^2}{(x^2+y^2)^2} \dd\lambda(x)\dd\lambda(y) = -\frac{\pi}{4}.
+		      \end{equation*}
+		\item Explain why (a) violates neither Tonelli's Theorem nor Fubini's Theorem.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}
+	Let $f = (x^2-y^2)/(x^2+y^2)^2$.
+	\begin{enumerate}[label=(\alph*)]
+		\item We have \begin{align*}
+			      \int_{[0,1]}\int_{[0,1]} \frac{x^2-y^2}{(x^2+y^2)^2} \dd\lambda(y)\dd\lambda(x) & = \int_{[0,1]} \left[\frac{y}{x^2+y^2}\right]_0^1 \dd\lambda(x) \\
+			                                                                                      & = \int_{[0,1]} \frac{1}{x^2+1} \dd\lambda(x)                    \\
+			                                                                                      & = \arctan(1) - \arctan(0)                                       \\
+			                                                                                      & = \frac{\pi}{4}
+		      \end{align*}
+		      and \begin{align*}
+			      \int_{[0,1]}\int_{[0,1]} \frac{x^2-y^2}{(x^2+y^2)^2} \dd\lambda(x)\dd\lambda(y) & = \int_{[0,1]} \left[\frac{-x}{x^2 + y^2}\right]_0^1 \dd\lambda(y) \\
+			                                                                                      & = -\int_{[0,1]} \frac{1}{1 + y^2} \dd\lambda(y)                    \\
+			                                                                                      & = -(\arctan(1) - \arctan(0))                                       \\
+			                                                                                      & = -\frac{\pi}{4}
+		      \end{align*}
+		\item It is easily checked that $f(0.25, 0.75) = -1.28$, which shows that $f$ does not meet the nonnegativity criterion of Tonelli.
+		      On the other hand, consider a triangle with one endpoint at the origin and the other two endpoints at $(x, 0)$ and $(x, 0.5x)$.
+		      This triangle is bounded above by the line $y=0.5x$, so we can derive the following inequality: \begin{align*}
+			      \frac{x^2-y^2}{(x^2+y^2)^2} & \geq \frac{x^2-\frac{1}{4}x^2}{\left(x^2+y^2\right)^2}            \\
+			                                  & \geq \frac{x^2-\frac{1}{4}x^2}{\left(x^2+\frac{1}{4}x^2\right)^2} \\
+			                                  & = \frac{\frac{3}{4}x^2}{\frac{25}{16}x^4}                         \\
+			                                  & = \frac{12}{25x^2}.
+		      \end{align*}
+		      Thus $\lim_{x\to0^+} f = \infty$, so the integral over the whole space ($[0,1] \times [0,1]$) is also $\infty$, and thus $f$ does not meet the $\mathcal{L}^1$ condition of Fubini.
+	\end{enumerate}
+\end{proof}
+
+\begin{exercise}{5B.2}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Give an example of a doubly indexed collection $\lbrace x_{m,n} : m, n \in \mathbb{Z}^+ \rbrace$ of real numbers such that \begin{equation*}
+			      \sum_{m=1}^\infty \sum_{n=1}^\infty x_{m,n} = 0 \hspace{1em}\text{and}\hspace{1em} \sum_{n=1}^\infty\sum_{m=1}^\infty x_{m,n} = \infty.
+		      \end{equation*}
+		\item Explain why (a) violates neither Tonelli's Theorem nor Fubini's Theorem.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Consider the collection \begin{equation*}
+			      \begin{array}{c|ccccccc}
+				          & n=1 & n=2 & n=3 & n=4 & n=5 & n=6         \\
+				      \hline
+				      m=1 & 1   & 0   & -1  & 0   & 0   & 0   & \dots \\
+				      m=2 & 0   & 2   & 0   & -2  & 0   & 0   & \dots \\
+				      m=3 & 0   & 0   & 3   & 0   & -3  & 0   & \dots \\
+				      m=4 & 0   & 0   & 0   & 4   & 0   & -4  & \dots \\
+				      m=5 & 0   & 0   & 0   & 0   & 5   & 0   & \dots \\
+			      \end{array}
+		      \end{equation*}
+		      Then the equalities follow as desired since the sums of the rows (i.e. $\sum_{n=1}^\infty x_{m,n}$ for a fixed $m$) are all 0, and the sums of the columns are 1 for the first column and 2 for every other column, and thus for a fixed $n$, \begin{equation*}
+			      \sum_{m=1}^\infty x_{m,n} = 1 + \sum_{m=2}^\infty 2 = \infty.
+		      \end{equation*}
+		\item We can attempt to apply the mentioned theorems by defining $f : \mathbb{Z}^+ \times \mathbb{Z}^+ \to \mathbb{Z}^+$ by $f(m, n) = x_{m,n}$, defining $\mu$ to be counting measure on $\mathbb{Z}^+ \times \mathbb{Z}^+$, and then expressing the sums as \begin{equation*}
+			      0 = \sum_{m=1}^\infty \sum_{n=1}^\infty x_{m,n} = \int_{\mathbb{Z}^+}\int_{\mathbb{Z}^+} f(m, n) \dd\mu(n) \dd\mu(m)
+		      \end{equation*}
+		      and \begin{equation*}
+			      \infty = \sum_{n=1}^\infty \sum_{m=1}^\infty x_{m,n} = \int_{\mathbb{Z}^+}\int_{\mathbb{Z}^+} f(m, n) \dd\mu(m) \dd\mu(n).
+		      \end{equation*}
+		      Thus, switching the order of integration changes the value of the integral, and neither Tonelli's nor Fubini's Theorem holds.
+
+		      This does not contradict Tonelli since $f$ does not meet the nonnegativity requirement.
+		      It does not contradict Fubini because, noting that the product of counting measures is itself a counting measure, the integral over $\mathbb{Z}^+ \times \mathbb{Z}^+$ is $\infty$, so $f$ does not meet Fubini's criteria.
+	\end{enumerate}
+\end{proof}
+
+USES OF THEOREM 2.59 are listed in the following collaborative document: \begin{verbatim}https://docs.google.com/document/d/1VGNxxh36a41xfaOHlpcLn-g7eYjsyGJOLXUreW_Oi2c\end{verbatim}
+
+\end{document}

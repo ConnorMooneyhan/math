@@ -1,0 +1,316 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{enumitem}
+
+\usetikzlibrary{calc,arrows.meta}
+
+\setlist[enumerate]{noitemsep, topsep=0pt}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+\setcounter{secnumdepth}{1}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+% \newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dd}{\mathop{}\!d}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Calculus III Cheat Sheet}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section{3D Space}
+% \subsection{The 3D Coordinate System}
+
+\subsection{Equations of Lines}
+\begin{align*}
+	\text{Vector form     :\hspace{1em}} & \vec{r} = \vec{r_0} + t\vec{v}= \left\langle x_0, y_0, z_0 \right\rangle + t \langle a, b, c \rangle \\
+	\text{Parametric form :\hspace{1em}} & x = x_0 + ta, y = y_0 + tb, z = z_0 + tc                                                             \\
+	\text{Symmetric form  :\hspace{1em}} & \frac{x - x_0}{a} = \frac{y - y_0}{b} = \frac{z - z_0}{c}
+\end{align*}
+
+\subsection{Equations of Planes}
+Given a normal vector $\vec{n} = \langle a, b, c \rangle$ and a point on the plane $\vec{r_0}$, we have \begin{align*}
+	\text{Vector equation:\hspace{1em}} & \vec{n} \cdot \left( \vec{r} - \vec{r_0} \right) = 0 \\
+	\text{Scalar equation:\hspace{1em}} & ax + by + cz = d
+\end{align*}
+
+\subsection{Quadric Surfaces}
+A \textit{quadric surface} is the graph of an equation in this form: \begin{equation*}
+	Ax^2 + By^2 + Cz^2 + Dxy + Exz + Fyz + Gx + Hy + Iz + J = 0
+\end{equation*}
+Some common examples: \begin{align*}
+	\text{Ellipsoid:\hspace{0.5em}}                 & \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1  \\
+	\text{Cone:\hspace{0.5em}}                      & \frac{x^2}{a^2} + \frac{y^2}{b^2} = \frac{z^2}{c^2}      \\
+	\text{Cylinder:\hspace{0.5em}}                  & \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1                    \\
+	\text{Hyperboloid of one sheet:\hspace{0.5em}}  & \frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2} = 1  \\
+	\text{Hyperboloid of two sheets:\hspace{0.5em}} & -\frac{x^2}{a^2} - \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1 \\
+	\text{Elliptic Paraboloid:\hspace{0.5em}}       & \frac{x^2}{a^2} + \frac{y^2}{b^2} = \frac{z}{c}          \\
+	\text{Hyperbolic Paraboloid:\hspace{0.5em}}     & \frac{x^2}{a^2} - \frac{y^2}{b^2} = \frac{z}{c}          \\
+\end{align*}
+
+\subsection{Functions of Several Variables}
+One way to visualize multivariable functions is to take \textit{level sets} (sometimes called \textit{level curves}, \textit{level surfaces}, \textit{contour curves}, etc. when appropriate), where you set one variable constant and see what happens with the others.
+These can also be called \textit{traces} when $x$ or $y$ is what you're holding constant.
+
+\subsection{Vector-Valued Functions}
+A \textit{vector-valued function} (or \textit{vector function}) is a function which takes in one or more variables and returns a vector.
+A single-variable vector-valued function is often expressed like $\vec{r}(t) = \left\langle f(t), g(t), h(t) \right\rangle$, where $f$, $g$, and $h$ are called \textit{component functions}.
+
+\subsection{Calculus with Vector-Valued Functions}
+A \textit{smooth curve} is a curve $\vec{r}'(t)$ for which $\vec{r}'(t)$ is continuous and $\vec{r}'(t)\neq 0$ for all $t$ except possibly at the endpoints.
+
+Some useful facts (framed in $\mathbb{R}^3$, but can be generalized to $\mathbb{R}^n$): \begin{align*}
+	\lim_{t \to a} \left\langle f(t), g(t), h(t) \right\rangle & = \left\langle \lim_{t \to a} f(t), \lim_{t \to a} g(t), \lim_{t \to a} h(t) \right\rangle \\
+	\frac{d}{dt}\left\langle f(t), g(t), h(t) \right\rangle    & = \left\langle f'(t), g'(t), h'(t) \right\rangle                                           \\
+	\int \left\langle f(t), g(t), h(t) \right\rangle dt        & = \left\langle \int f(t) dt, \int g(t) dt, \int h(t) dt \right\rangle                      \\
+	\int_a^b \left\langle f(t), g(t), h(t) \right\rangle dt    & = \left\langle \int_a^b f(t) dt, \int_a^b g(t) dt, \int_a^b h(t) dt \right\rangle.
+\end{align*}
+
+\subsection{Tangent, Normal, and Binormal Vectors}
+Given a function $\vec{r} : \mathbb{R} \to \mathbb{R}^3$, the \textit{unit tangent vector} is defined by \begin{equation*}
+	\vec{T}(t) = \frac{\vec{r}'(t)}{\left|\left|\vec{r}'(t)\right|\right|}.
+\end{equation*}
+The \textit{unit normal vector} is orthogonal to the unit tangent vector and is defined by \begin{equation*}
+	\vec{N}(t) = \frac{\vec{T}'(t)}{\left|\left|\vec{T}'(t)\right|\right|}.
+\end{equation*}
+The \textit{binormal vector} is orthogonal to both the unit tangent vector and the unit normal vector and is defined by \begin{equation*}
+	\vec{B}(t) = \vec{T}(t) \times \vec{N}(t).
+\end{equation*}
+
+\subsection{Arc Length with Vector Functions}
+Arc length of a single-variable, vector-valued function $\vec{r}$: \begin{equation*}
+	L = \int_a^b \left| \left| r'(t) \right| \right|dt.
+\end{equation*}
+The \textit{arc length function} is defined as \begin{equation*}
+	s(t) = \int_0^t \left| \left| r'(u) \right| \right| du,
+\end{equation*}
+which can be useful when we want to reparametrize the function in terms of arc length by solving the resulting $s(t)$ for $t$.
+
+\subsection{Curvature}
+The \textit{curvature} of a function is defined as \begin{equation*}
+	\kappa = \left| \left| \frac{d\vec{T}}{ds} \right| \right|.
+\end{equation*}
+Here are two alternate forms that are often somewhat easier to compute: \begin{align*}
+	\kappa & = \frac{\left| \left| \vec{T}'(t) \right| \right|}{\left| \left| r'(t) \right| \right|} & \kappa = \frac{\left| \left| r'(t)\times r''(t) \right| \right|}{\left| \left| r'(t) \right| \right|^3}
+\end{align*}
+
+\subsection{Velocity and Acceleration}
+It is common to break up acceleration into its tangential and normal components ($a_T$ and $a_N$, respectively).
+Letting $\vec{v}$ be the velocity and $v$ = $||\vec{v}(t)||$, these have simple formulas: \begin{align*}
+	 & a_T = v' = \frac{r'(t) \cdot r''(t)}{||r'(t)||} & a_N = \kappa v^2 = \frac{||r'(t) \times r''(t)||}{||r'(t)||}
+\end{align*}
+
+\subsection{Cylindrical Coordinates}
+Cylindrical coordinates are in the form $(r, \theta, z)$, where $r$ and $\theta$ act just as in polar coordinates, and the $z$ acts like the usual Cartesian $z$ (refer to Figure \ref{fig:spherical-cylindrical} below).
+\subsubsection{Conversion formulas}
+Cylindrical to Cartesian: \begin{align*}
+	x & = r\cos\theta \\
+	y & = r\sin\theta \\
+	z & = z
+\end{align*}
+Cartesian to cylindrical: \begin{align*}
+	r      & = \sqrt{x^2+y^2}                    \\
+	\theta & = \tan^{-1}\left(\frac{y}{x}\right) \\
+	z      & = z
+\end{align*}
+
+\subsection{Spherical Coordinates}
+Spherical coordinates are of the form $(\rho, \theta, \varphi)$, where: \begin{itemize}
+	\item $\rho$ is the distance from the origin to the point (so $\rho \geq 0$).
+	\item $\theta$ is the same as $\theta$ from polar/cylindrical coordinates.
+	\item $\varphi$ is the angle between the positive $z$-axis and the line from the origin to the point. We restrict to $0 \leq \varphi \leq \pi$.
+\end{itemize}
+\subsubsection{Conversion formulas}
+Spherical to cylindrical: \begin{align*}
+	r      & = \rho\sin\varphi \\
+	\theta & = \theta          \\
+	z      & = \rho\cos\varphi
+\end{align*}
+Spherical to Cartesian: \begin{align*}
+	x & = \rho\sin\varphi\cos\theta \\
+	y & = \rho\sin\varphi\sin\theta \\
+	z & = \rho\cos\varphi
+\end{align*}
+
+\begin{figure}[h] \centering
+	\begin{tikzpicture}[ scale=1.2, line cap=round, line join=round, >=Stealth, every node/.style={font=\small} ] \coordinate (O) at (0,0); \coordinate (X) at (-1.55,-2.05); \coordinate (Y) at (4.35,-0.15); \coordinate (Z) at (0,4.25); \coordinate (R) at (3.05,-1.32); \coordinate (P) at (3.05,2.55); \draw[->] (O) -- ($(Z)+(0,0.15)$) node[above] {$z$}; \draw[->] (O) -- ($(Y)+(0.20,-0.01)$) node[right] {$y$}; \draw[->] (O) -- ($(X)+(-0.10,-0.14)$) node[below left] {$x$}; \draw[dashed] (O) -- (R) node[pos=.55, above right] {$r$}; \draw[dashed] (R) -- (P) node[midway, right] {$z$}; \draw (O) -- (P) node[pos=.47, above left] {$\rho$}; \fill (P) circle (1.1pt); \node[anchor=south east] at ($(P)+(1.42,0.12)$) {$(x,y,z)=(\rho,\theta,\varphi)$}; \draw[->] ($(O)+(90:0.78)$) arc[start angle=90, end angle=40, radius=0.78]; \node at ($(O)+(63:1.05)$) {$\varphi$}; \draw[->] ($(O)+(-127:0.58)$) arc[start angle=-127, end angle=-23.5, radius=0.58]; \node at ($(O)+(-76:0.88)$) {$\theta$}; \coordinate (RA) at ($(R)!0.06!(P)$); \coordinate (RB) at ($(R)!0.06!(O)$); \coordinate (RC) at ($(RA)+(RB)-(R)$); \draw (RA) -- (RC) -- (RB); \end{tikzpicture}
+	\caption{A comparison of spherical and cylindrical coordinates}
+	\label{fig:spherical-cylindrical}
+\end{figure}
+
+
+\section{Partial Derivatives}
+
+\subsection{Partial Derivatives}
+To take a derivative with respect to one variable, just take the normal derivative with respect to that variable, holding all other variables constant.
+
+For higher-order partial derivatives, note that we have $f_{xy} = f_{yx}$ at a point whenever both mixed partials are continuous on some neighborhood of that point.
+This is Clairaut's theorem.
+
+\subsection{Differentials}
+The \textit{differential} or \textit{total differential} of a two-variable function $z=f(x,y)$ is defined as \begin{equation*}
+	dz = df = f_x dx + f_y dy.
+\end{equation*}
+This extends naturally to functions of more variables.
+
+\subsection{Chain Rule}
+The chain rule for a function $z$ of $n$ variables $x_1, x_2, \dots, x_n$ which are each functions of $m$ variables $t_1, t_2, \dots, t_m$ is defined as \begin{equation*}
+	\frac{\partial z}{\partial t_i} = \frac{\partial z}{\partial x_1}\frac{\partial x_1}{\partial t_i} + \frac{\partial z}{\partial x_2}\frac{\partial x_2}{\partial t_i} + \cdots + \frac{\partial z}{\partial x_n}\frac{\partial x_n}{\partial t_i}.
+\end{equation*}
+
+\subsection{Directional Derivatives}
+We define the \textit{gradient} of a three-variable function $f$ to be \begin{equation*}
+	\nabla f = \left\langle f_x, f_y, f_z \right\rangle.
+\end{equation*}
+Now given any unit vector $\vec{u}$, we say that the \textit{directional derivative} of $f$ in the direction of $\vec{u}$ is \begin{equation*}
+	D_{\vec{u}}f = \nabla f \cdot \vec{u}.
+\end{equation*}
+A couple of theorems about gradients: \begin{enumerate}
+	\item The maximum value of $D_{\vec{u}}f(\vec{x})$ is given by $||\nabla f(\vec{x})||$ and will occur in the direction of $\nabla f(\vec{x})$.
+	\item The gradient vector $\nabla f(x_0, y_0)$ is orthogonal to the level curve $f(x, y) = k$ at the point $(x_0, y_0)$.
+\end{enumerate}
+
+\section{Applications of Partial Derivatives}
+
+\subsection{Tangent Planes}
+The equation of the tangent plane to a graph $f(x, y, z) = k$ at the point $(x_0, y_0, z_0)$ is given by \begin{equation*}
+	f_x(x_0, y_0, z_0)(x-x_0) + f_y(x_0, y_0, z_0)(y-y_0) + f_z(x_0, y_0, z_0)(z-z_0)  = 0,
+\end{equation*}
+which you can remember because it's ensuring that points on the plane, which are of the form $(x-x_0, y-y_0, z-z_0)$, are orthogonal to the gradient, so the equation becomes \begin{equation*}
+	(\nabla f)(x_0,y_0,z_0) \cdot (x-x_0, y-y_0, z-z_0) = 0.
+\end{equation*}
+
+\subsection{Relative Minimums and Maximums}
+The point $(a, b)$ is a \textit{critical point} of $f(x, y)$ provided one of the following is true: \begin{enumerate}
+	\item $\nabla f(a,b) =\vec{0}$
+	\item $f_x(a,b)$ and/or $f_y(a, b)$ doesn't exist.
+\end{enumerate}
+If $(a, b)$ is a relative extrema of $f(x, y)$ and the first order derivatives of $f$ exist at $(a, b)$, then $(a, b)$ is a critical point and $\nabla f (a, b) = \vec{0}$.
+
+Let $(a, b)$ be a critical point of $f(x, y)$ where the second order partials are continuous around $(a, b)$.
+Define \begin{equation*}
+	D = D(a, b) = f_{xx}(a, b)f_{yy}(a, b) - \left[f_{xy}(a,b)\right]^2.
+\end{equation*}
+Then \begin{enumerate}
+	\item If $D > 0$, and $f_{xx}(a,b)>0$ then there is a relative minimum at $(a, b)$
+	\item If $D > 0$, and $f_{xx}(a,b)<0$ then there is a relative maximum at $(a, b)$
+	\item If $D<0$, then the point $(a, b)$ is a saddle point
+	\item If $D = 0$, then $(a, b)$ may be any of the three types.
+\end{enumerate}
+
+\subsection{Absolute Minimums and Maximums}
+Extreme Value Theorem: if $f(x, y)$ is continuous on a closed and bounded set $D$, then it achieves an absolute maximum and an absolute minimum on $D$.
+
+Method for finding absolute extrema on a closed region $D$: \begin{enumerate}
+	\item Find all the critical points.
+	\item Find extrema along the boundary (reduces to a Calc I problem).
+	\item The largest is the absolute maximum and the smallest is the absolute maximum.
+\end{enumerate}
+
+\subsection{Lagrange Multipliers}
+This is another way to optimize, called the Method of Lagrange Multipliers: \begin{enumerate}
+	\item Solve the following system of equations: \begin{align*}
+		      \nabla f(x, y, z) & = \lambda\nabla g(x, y, z) \\
+		      g(x, y, z)        & = k.
+	      \end{align*}
+	\item Plug all solutions from the first step into $f$ and identify the minimum and maximum values, provided they exist and $\nabla g \neq \vec{0}$ at the point.
+	      (The constant $\lambda$ is the \textit{Lagrange Multiplier}.)
+	\item Look for any remaining solutions along the boundary.
+\end{enumerate}
+
+\section{Multiple Integrals}
+
+\subsection{Double Integrals}
+The definition of a double integral over a rectangular region $R$: \begin{equation*}
+	\iint\limits_R f(x, y) \dd A = \lim_{n,m\to\infty} \sum_{i=1}^n\sum_{j=1}^m f(x_i^*, y_j^*) \Delta A,
+\end{equation*}
+where $x_i^*$ and $y_j^*$ are points from somewhere within the subdivisions (can be just midpoints).
+
+\subsection{Iterated Integrals}
+Fubini's Theorem: If $f(x, y)$ is continuous on $R = [a, b] \times [c, d]$, then \begin{equation*}
+  \iint\limits_R f(x,y) \dd A = \int_a^b\int_c^d f(x,y) \dd y \dd x = \int_c^d\int_a^b f(x, y) \dd x \dd y.
+\end{equation*}
+Helpful trick: if $f(x, y) = g(x)h(y)$ and we are integrating over $R = [a,b] \times [c, d]$, then \begin{equation*}
+  \iint\limits_R f(x,y) \dd A = \left( \int_a^b g(x) \dd x \right) \left( \int_c^d h(y) dy \right).
+\end{equation*}
+Note that if we take the indefinite integral of a multivariable function with respect to one variable, the ``constant'' of integration is a function of the other variables.
+
+\subsection{Double Integrals over General Regions}
+
+\subsection{Double Integrals in Polar Coordinates}
+
+\subsection{Triple Integrals}
+
+\subsection{Triple Integrals in Cylindrical Coordinates}
+
+\subsection{Triple Integrals in Spherical Coordinates}
+
+\subsection{Change of Variables}
+
+\subsection{Surface Area}
+
+\subsection{Area and Volume Revisited}
+
+\section{Line Integrals}
+.
+
+\subsection{Vector Fields}
+
+\subsection{Line Integrals --- Part I}
+
+\subsection{Line Integrals --- Part II}
+
+\subsection{Line Integrals of Vector Fields}
+
+\subsection{Fundamental Theorem for Line Integrals}
+
+\subsection{Conservative Vector Fields}
+
+\subsection{Green's Theorem}
+
+\section{Surface Integrals}
+.
+
+\subsection{Curl and Divergence}
+
+\subsection{Parametric Surfaces}
+
+\subsection{Surface Integrals}
+
+\subsection{Surface Integrals of Vector Fields}
+
+\subsection{Stokes' Theorem}
+
+\subsection{Divergence Theorem}
+
+\end{document}

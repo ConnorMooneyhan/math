@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 12}
+\author{Connor Mooneyhan}
+\date{April 23, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $(e_j)$ be an orthonormal sequence in a Hilbert space $H$.
+	Show that if $x = \sum_{j=1}^\infty a_je_j$ and $y = \sum_{j=1}^\infty b_je_j$, then \begin{equation*}
+		\langle x, y \rangle = \sum_{j=1}^\infty a_j\overline{b_j}.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	We have \begin{align*}
+		\langle x, y \rangle & = \left\langle \sum_{i=1}^\infty a_ie_i, \sum_{j=1}^\infty b_je_j \right\rangle             \\
+		                     & = \sum_{i=1}^\infty a_i \left\langle e_i, \sum_{j=1}^\infty b_je_j \right\rangle            \\
+		                     & = \sum_{i=1}^\infty \sum_{j=1}^\infty a_i\overline{b_j} \left\langle e_i, e_j \right\rangle \\
+		                     & = \sum_{i=1}^\infty a_i\overline{b_i} \left\langle e_i, e_i \right\rangle                   \\
+		                     & = \sum_{i=1}^\infty a_i\overline{b_i}
+	\end{align*}
+	as desired, where the fourth equality comes from the orthogonality of $e_i$ with $e_j$ when $i \neq j$, and the final equality comes from the normality of each $e_i$.
+\end{proof}
+
+\begin{ex}
+	Let $(e_j)$ be an orthonormal sequence in a Hilbert space $H$, and let $U = \mathrm{span}\lbrace e_1, e_2, \dots \rbrace$.
+	Show that for any $x \in H$, the vector $y = \sum_{j=1}^\infty \langle x, e_j\rangle e_j$ satisfies $y \in \overline{U}$ and $x - y \in (\overline{U})^\perp$.
+\end{ex}
+\begin{proof}
+	Since $U$ is a subspace, we can use the fact that $U^{\perp\perp}$ is the smallest subspace containing $U$ (proved in a previous homework), and so $U^{\perp\perp} = \overline{U}$.
+	In fact, since $U^\perp$ is closed, we have $\overline{U}^\perp = U^{\perp\perp\perp} = U^\perp$.
+	We thus begin by showing that $x - y \in \overline{U}^\perp$ by showing that $x - y \in U^\perp$.
+
+	Indeed, we take the inner product of $x - y$ with a general member of $U$ to get \begin{align*}
+		\left\langle x - y, \sum_{j=1}^\infty a_je_j \right\rangle & = \left\langle x - \sum_{i=1}^\infty \langle x, e_i \rangle e_i, \sum_{j=1}^\infty a_je_j \right\rangle                                                                              \\
+		                                                           & = \left\langle x, \sum_{j=1}^\infty a_je_j \right\rangle - \left\langle \sum_{i=1}^\infty \langle x, e_i \rangle e_i, \sum_{j=1}^\infty a_je_j \right\rangle                         \\
+		                                                           & = \sum_{j=1}^\infty \overline{a_j} \left\langle x, e_j \right\rangle - \sum_{i=1}^\infty \sum_{j=1}^\infty \langle x, e_i \rangle \overline{a_j} \left\langle e_i, e_j \right\rangle \\
+		                                                           & = \sum_{j=1}^\infty \overline{a_j} \left\langle x, e_j \right\rangle - \sum_{i=1}^\infty \langle x, e_i \rangle \overline{a_i} \left\langle e_i, e_i \right\rangle                   \\
+		                                                           & = \sum_{j=1}^\infty \overline{a_j} \left\langle x, e_j \right\rangle - \sum_{i=1}^\infty \langle x, e_i \rangle \overline{a_i}                                                       \\
+		                                                           & = 0,
+	\end{align*}
+	where the fourth equality comes from the orthogonality of $e_i$ and $e_j$ when $i \neq j$, and the fifth equality comes from the normality of each $e_i$.
+	Since our choice of element from $U$ was arbitrary, $x - y \in U^\perp = \overline{U}^\perp$.
+\end{proof}
+
+\begin{ex}
+	Prove the following theorem.
+	\\
+	\textbf{Theorem 1.} Let $H$ be a Hilbert space, and $M \subset H$ be an orthonormal set.
+	Then the following statements are equivalent: \begin{enumerate}[label=(\arabic*)]
+		\item $M$ is total.
+		\item The only $x \in H$ that is orthogonal to all vectors in $M$ is 0.
+		\item $\sum_{e \in M} |\langle x, e \rangle |^2 = ||x||^2$ for all $x \in H$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	($(1) \implies (2)$) If $M$ is total, then $H = \overline{\mathrm{span}(M)} = \mathrm{span}(M)^{\perp\perp}$.
+	Also, if $y \in M^\perp$, then $y \in \mathrm{span}(M)^\perp$ since \begin{align*}
+		\left\langle y, \sum_{m \in M} a_m m \right\rangle = \sum_{m \in M} \overline{a_m}\left\langle y, m  \right\rangle = 0
+	\end{align*}
+	since $y$ is orthogonal to each $m$, noting that we are considering such linear combinations when $a_m = 0$ for all but finitely many $m$, since that set is exactly the span of $M$.
+	In other words, given some $y \in M^\perp$, every possible choice of $x \in H$ satisfies $\langle x, y \rangle = 0$ when $y$ is orthogonal to all vectors in $M$.
+	Thus $y$ is orthogonal to every vector in $H$, and the only vector which has that property is 0, so $y = 0$.
+
+	($(2) \implies (1)$) Since the set $M^\perp = \lbrace 0 \rbrace$ is closed, we have that \begin{align*}
+		H & = M^\perp \oplus M^{\perp\perp}                        \\
+		  & = M^\perp \oplus \overline{\mathrm{span}(M)}           \\
+		  & = \lbrace 0 \rbrace \oplus \overline{\mathrm{span}(M)} \\
+		  & = \overline{\mathrm{span}(M)},
+	\end{align*}
+	so $M$ is total as desired.
+
+	($(1) \implies (3)$) Assume $M$ is total.
+	If $x \in \mathrm{span}(M)$, then for some finite $F \subset M$, \begin{align*}
+		||x||^2 & = \left|\left| \sum_{e \in F} \langle x, e \rangle e \right|\right|^2 \\
+            & = \left|\left| \sum_{e \in M} \langle x, e \rangle e \right|\right|^2 \hspace{2em}\text{(since $x$ is orthogonal to every $e \in M \setminus F$)} \\
+            & = \left\langle \sum_{e \in M} \langle x, e \rangle e, \sum_{f \in M} \langle x, f \rangle f \right\rangle \\
+            & = \sum_{e \in M} \sum_{f \in M}\langle x, e \rangle \overline{\langle x, f \rangle}\left\langle  e,  f \right\rangle \\
+            & = \sum_{e \in M} \langle x, e \rangle \overline{\langle x, e \rangle}\left\langle  e,  e \right\rangle \hspace{2em}\text{(since $e \perp f$ when $e \neq f$)} \\
+            & = \sum_{e \in M} \langle x, e \rangle \overline{\langle x, e \rangle} \\
+            & = \sum_{e \in M} |\langle x, e \rangle|^2
+	\end{align*}
+  as desired.
+
+  Now if $x \in H \setminus \mathrm{span}(M) = \overline{\mathrm{span}(M)} \setminus \mathrm{span}(M)$, then
+
+  ($(3) \implies (1)$) 
+\end{proof}
+
+\end{document}

@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 4}
+\author{Connor Mooneyhan}
+\date{February 12, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Recall that a metric space $(X, d)$ is called complete if every Cauchy sequence in $X$ converges.
+	Show that if $X$ is compact then it must be complete.
+\end{ex}
+\begin{proof}
+	Let $(a_n)$ be a Cauchy sequence in $X$.
+	Since $X$ is a compact metric space, it is sequentially compact and thus $(a_n)$ has a subsequence $(b_n)$ which converges to a point $p \in X$.
+	Since $(a_n)$ is Cauchy, it converges to the same $p \in X$, and thus $X$ is complete.
+
+	% Let $\varepsilon > 0$.
+	% Then $\exists N$ such that for all $n, m > N$, $d(a_n, a_m) < \varepsilon / 2$, and $\exists M > 0$ such that for all $m > M$, $d(a_{i_m}, p) < \varepsilon / 2$.
+	% Now take $L = \max(M, N)$.
+	% Then for all $n, m > L$, we have $d(a_{i_n}, p) + d(a_{i_n}, a_m) \leq d(a_m <)$
+\end{proof}
+
+\begin{ex}
+	Consider $C([0, 1])$ with the $C^0$ metric.
+	Let \begin{equation*}
+		B = \left\lbrace f \in C([0, 1]) : d(f, 0) \leq 1 \right\rbrace
+	\end{equation*}
+	where $\mathbf{0}$ is the constant function $g \equiv 0$.
+	Note that $B$ is closed and bounded.
+	Show that it is not compact.
+\end{ex}
+\begin{proof}
+	Define \begin{equation*}
+		f_n(x) = \begin{cases}
+			2nx     & \text{if } x \in [0, 1/2n)   \\
+			2 - 2nx & \text{if } x \in [1/2n, 1/n) \\
+			0       & \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+	Then each $f_n(x) \in C([0,1])$, and the uniform limit of the sequence as $n \to \infty$ is \begin{equation*}
+		f(x) = \begin{cases}
+			1 & x = 0             \\
+			0 & \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+	Thus any subsequence must also converge to $f$, but of course $f$ is not continuous on $[0, 1]$ since it has a jump discontinuity at $x = 0$, so $B$ is not sequentially compact.
+\end{proof}
+
+\begin{ex}
+	Consider $C([0, 1])$ with the $L^1$ metric.
+	Let \begin{equation*}
+		B = \left\lbrace f \in C([0, 1]) : d(f, \mathbf{0}) \leq 1 \right\rbrace
+	\end{equation*}
+	and show that it is not compact.
+\end{ex}
+\begin{proof}
+	Define \begin{equation*}
+		f_n(x) = \begin{cases}
+			4n^2x     & \text{if } x \in [0, 1/2n)   \\
+			4n - 4n^2x & \text{if } x \in [1/2n, 1/n) \\
+			0       & \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+  Then each $f_n \in C([0,1])$, and the integral of each $f_n$ over $[0, 1]$ is 1, so each $f_n \in B$.
+  However, since these do not converge, there is no convergent subsequence, and thus $X$ is not compact.
+\end{proof}
+
+\begin{ex}
+	Let $K_1 \supset K_2 \supset K_3 \supset \cdots$ be a sequence of non-empty compact subsets of a metric space $(X, d)$.
+	Show that $\bigcap_{n=1}^\infty K_n$ is also non-empty.
+\end{ex}
+\begin{proof}
+  For each $n > 0$, let $a_n \in K_n$.
+  Then $(a_n) \subset K_1$, so $(a_n)$ has a subsequence $(a_{i_m})$ which converges to a point $p \in K_1$ by sequential compactness of $K_1$.
+  However, for each $n > 0$, $(a_m)_{m = n}^\infty \subset K_n$, so indeed all but finitely many entries of $(a_{i_m})$ also lie in $K_n$, and thus their limit (which is unique amongst the subsequential limits of $(a_{i_m})$) is in $K_n$ by compactness of $K_n$.
+  Since this is true for all $n$, we get that $p \in K_n$ for all $n$, and thus $p \in \bigcap K_n$.
+\end{proof}
+
+\end{document}

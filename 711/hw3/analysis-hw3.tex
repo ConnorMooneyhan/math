@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 3}
+\author{Connor Mooneyhan}
+\date{February 5, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Prove or find a counterexample: Let $(X, d)$ be a metric space.
+	Then for any $x \in X$ and $r > 0$, the set \begin{equation*}
+		\left\lbrace y \in X : d(x, y) \leq r \right\rbrace
+	\end{equation*}
+	is closed.
+\end{ex}
+\begin{proof}
+	Fix $x \in X$, and define $A = \left\lbrace y \in X : d(x, y) \leq r \right\rbrace$.
+	If $A$ has no limit points, then it is vacuously closed.
+	Suppose, then, that $y$ is a limit point of $A$.
+	Then given any $n \in \mathbb{Z}^+$, $B_{1/n}(y) \cap A \setminus \lbrace y \rbrace \neq \varnothing$.
+	Let $z \in B_{1/n}(y) \cap A \setminus \lbrace y \rbrace$.
+	Then by definition $d(x, z) \leq r$, so we have \begin{equation*}
+		d(x, y) \leq d(x, z) + d(y, z) < r + \frac{1}{n}.
+	\end{equation*}
+	We can then take the infimum over all $n$ to get that $d(x, y) \leq r$, and thus $y \in A$ as desired.
+\end{proof}
+
+\begin{ex}
+	Show that if $x$ is a limit point of $A \cup B$ if and only if $x$ is either a limit point of $A$ or a limit point of $B$ (or both).
+	Use this to prove that $\overline{A \cup B} = \overline{A} \cup \overline{B}$.
+\end{ex}
+\begin{proof}
+	Let $x$ be a limit point of $A \cup B$.
+	Then given any $r > 0$, $B_r(x) \setminus \lbrace x \rbrace \cap (A \cup B) \neq \varnothing$.
+	Then for any such $r$, $B_r(x)$ intersects $A$, $B$, or both.
+	If for all $r$ it intersects both, then clearly $x$ is a limit point of both $A$ and $B$.
+	If for any $r$, it only intersects one (say $A$ without loss of generality), then for any $r' < r$, $B_{r'}(x) \setminus \lbrace x \rbrace \subset B_r(x) \setminus \lbrace x \rbrace$, so since $B_{r'}(x) \setminus \lbrace x \rbrace$ intersects $A \cup B$, it must cannot intersect $B$, and thus it must intersect $A$.
+	Thus $B_{r'}(x) \setminus \lbrace x \rbrace$ intersects $A$ for all $A$, and $x$ is a limit point of $A$.
+	The other direction of the implication is immediate: if $x$ is a limit point of $A$ or $B$, then it is certainly a limit point of $A \cup B$ since any deleted ball intersecting $A$ or $B$ intersects $A \cup B$.
+
+	If $x \in \overline{A \cup B}$, then either $x \in A \cup B$, in which case $x \in \overline{A} \cup \overline{B}$, or $x$ is a limit point of $A \cup B$, in which case $x$ is a limit point of $A$ or $B$ as shown above.
+	On the other hand, if $x \in \overline{A} \cup \overline{B}$, then either $x$ in $A$ or $B$, in which case $x \in \overline{A \cup B}$, or $x$ is a limit point of $A$ or $B$, in which case $x$ is a limit point of $A \cup B$ as shown above.
+\end{proof}
+
+\begin{ex}
+	Let $A \subset X$ and recall that $\mathrm{int}(A)$ denotes the interior of $A$.
+	Show that \begin{equation*}
+		(\mathrm{int}(A))^c = \overline{(A^c)}.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	If $x \in (\mathrm{int}(A))^c$, then $\forall r > 0$, $B_r(x)$ intersects $A^c$.
+  Thus either $x \in A^c$ or $x$ is a limit point of $A^c$, so $x \in \overline{(A^c)}$.
+
+  Now if $x \in \overline{(A^c)}$, then we have two cases.
+  If $x \in A^c$, then since $\mathrm{int}(A) \subset A$, $x \in (\mathrm{int}(A))^c$.
+  If $x \notin A^c$, then $x$ is a limit point of $A^c$, so each deleted ball $B_r(x) \setminus \lbrace x \rbrace$ intersects $A^c$.
+  In particular, there does not exist an $r$ such that $B_r(x) \subset A$, so $x \in (\mathrm{int}(A))^c$.
+\end{proof}
+
+\begin{ex}
+	Show that if $d_1$ and $d_2$ are equivalent metrics on the set $X$, then any set $A$ that is dense in $X$ w.r.t. $d_1$ is also dense w.r.t. $d_2$.
+\end{ex}
+\begin{proof}
+  A set $A \subset X$ is dense in $X$ if for every $x \in X$ and every open neighborhood $U$ of $x$, $U$ intersects $A$.
+  Since $d_1$ and $d_2$ are equivalent, they induce the same open sets on $X$, so if this condition is met under one metric, it is met under the other.
+\end{proof}
+
+\begin{ex}
+	Let $(X, d_X)$ and $(Y, d_Y)$ be two metric spaces, and let $d$ be the metric on $X \times Y$ defined as in Homework 1, Question 6.
+	Show that if $A$ is dense in $X$ and $B$ is dense in $Y$, then $A \times B$ is dense in $X \times Y$ w.r.t. $d$.
+	Use this to show that $\mathbb{Q}^n$ is dense in $\mathbb{R}^n$ for any $n$ (w.r.t. the Euclidean metric).
+\end{ex}
+\begin{proof}
+  Let $(a, b), (c, d) \in X \times Y$.
+  Then for any $r > 0$, $d((a, b), (c, d)) < r \iff d_X(a, c) < r$ and $d_Y(b, d) < r$, so $B_r^{X\times Y}((a, b)) = B_r^{X}(a) \times B_r^Y(b)$.
+  Thus if $A$ is dense in $X$ and $B$ is dense in $Y$, then given $U \subset X$ and $V \subset Y$ open sets, $U$ intersects $A$ and $V$ intersects $B$, so $U \times V$ intersects $A \times B$.
+  Since every ball in $X \times Y$ can be described this way, this shows that $A \times B$ is dense in $X \times Y$.
+
+  Induction follows from associativity of cartesian products (e.g., $\mathbb{R}^3 = \mathbb{R}^2 \times \mathbb{R}$), so since $\mathbb{Q}$ is dense in $\mathbb{R}$, we indeed have that $\mathbb{Q}^n$ is dense in $\mathbb{R}^n$ for any $n$ under this ``maximum'' metric.
+  We have shown that this metric is equivalent to the Euclidean metric on $\mathbb{R}^n$, so we are done.
+\end{proof}
+
+\begin{ex}
+	Let $(X, d)$ be a metric space, and assume that $A, B$ are subsets of $X$ that are both open and dense.
+	Show that $A \cap B$ must be dense.
+	\\\\
+	Note that the conclusion could fail if $A, B$ are not open.
+	For example, $\mathbb{Q}$ and $\mathbb{Q}^c$ are both dense in $\mathbb{R}$ but $\mathbb{Q} \cap \mathbb{Q}^c = \varnothing$.
+\end{ex}
+\begin{proof}
+  Let $U \subset X$ be open and nonempty.
+  Then $U \cap A \neq \varnothing$ since $A$ is dense in $X$, and $U \cap A$ is open since $U$ and $A$ are both open.
+  We also have that $(U \cap A) \cap B \neq \varnothing$ since $B$ is dense in $A$, and $(U \cap A) \cap B$ is open since both $U \cap A$ and $B$ are open.
+  Since $(U \cap A) \cap B = U \cap (A \cap B)$ and $U$ was arbitrary, we have that $A \cap B$ is dense in $X$.
+\end{proof}
+
+\end{document}

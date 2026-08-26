@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 6}
+\author{Connor Mooneyhan}
+\date{February 26, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Show that every norm on $\mathbb{R}$ is of the form $||x|| = c \cdot |x|$ for some real number $c > 0$; here $|x|$ denotes the absolute value of $x$.
+\end{ex}
+\begin{proof}
+	Let $x, y \in \mathbb{R}$, and let $|| \cdot ||$ be a norm on $\mathbb{R}$.
+	Then \begin{align*}
+		|x| \cdot \frac{||y||}{|y|} & = \left| \frac{x}{y} \right| ||y||                  \\
+		                            & = \left| \left| \frac{x}{y} \cdot y \right| \right| \\
+		                            & = ||x||,
+	\end{align*}
+	where the second equality comes from homogeneity.
+	Rewriting the equality above, we see that for \textit{any} $x, y \in \mathbb{R}$, there is a shared common ratio \begin{equation*}
+		\frac{||x||}{|x|} = \frac{||y||}{|y|}.
+	\end{equation*}
+	Call that common ratio $c$, and note that $c > 0$ because of the positivity of $||\cdot||$ and the absolute value function.
+	Then we have $||x||/|x| = c$, or in other words, $||x|| = c\cdot|x|$ for all $x \in \mathbb{R}$ as desired.
+\end{proof}
+
+\begin{ex}
+	Let $|| \cdot ||$ be any norm on $\mathbb{R}^n$.
+	Note that $|| \cdot ||$ is, by definition, a function from $\mathbb{R}^n$ to $\mathbb{R}$.
+	Show that this function is continuous with respect to the box metric of $\mathbb{R}^n$.\\\\
+	Hint: You should first convince yourself that it suffices to show $||x_n|| \to 0$ whenever $x_n \to 0$ with respect to the Euclidean metric.
+\end{ex}
+\begin{proof}
+  Indeed, we will show that if $x_m \to 0$ w.r.t. the Euclidean metric, $||x_m||\to0$.
+  Given some such $(x_m)$, write $x_m = \sum_{i=1}^n (x_m)_i e_i$ for each $x_m$ where the $e_i$ are the standard basis vectors in $\mathbb{R}^n$.
+  Since $x_m \to 0$, each $(x_m)_i \to 0$ since $(x_m)_i \leq ||x_m||_\infty$ for all $i$.
+  Then \begin{equation*}
+    0 \leq ||x_m|| \leq \sum_{i=1}^n |(x_m)_i|\cdot||e_i|| \to 0,
+  \end{equation*}
+  so $||x_m||\to 0$.
+\end{proof}
+
+\begin{ex}
+	Let $S^n$ be the unit sphere with respect to the box metric.
+	More precisely, \begin{equation*}
+		S^n = \left\lbrace x \in \mathbb{R}^n : ||x||_\infty = 1 \right\rbrace
+	\end{equation*}
+	where $|| \cdot ||_\infty$ denotes the box norm.
+	Use the conclusion of Question 2 to deduce that $|| \cdot ||$ achieves a minimum value and maximum value on $S^n$.
+\end{ex}
+\begin{proof}
+	(I'm going with your notation even though we would usually situate $S^n$ within $\mathbb{R}^{n+1}$.)
+	Since $||\cdot||_\infty$ on $\mathbb{R}^n$ is equivalent to the standard norm on $\mathbb{R}^n$, we can use Heine-Borel to see that $S^n$ is a compact set since it is closed and it is bounded inside a standard ball of radius 5.
+	Thus restricting any norm $||\cdot||$ to the domain $S^n$ yields a continuous function whose domain is compact, which thus achieves a minimum and maximum value by the extreme value theorem.
+\end{proof}
+
+\begin{ex}
+	Use the conclusion of Question 3 to show that any norm $|| \cdot ||$ on $\mathbb{R}^n$ is equivalent to the box norm $||\cdot||_\infty$: there exists $C > 1$ such that for all $x \in \mathbb{R}^n$ we have \begin{equation*}
+		\frac{1}{C}||x||_\infty \leq ||x|| \leq C||x||_\infty.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	First write $x \in \mathbb{R}^n$ as $x = \sum_{i=1}^n x_ie_i$ where the $e_i$ are the standard basis vectors.
+	Then \begin{equation*}
+		||x|| \leq \sum_{i=1}^n ||x_i|| \cdot ||e_i|| \leq \left(\sum_{i=1}^n ||e_i||\right) \cdot ||x||_\infty.
+	\end{equation*}
+	Thus if we let $c_1 = \sum_{i=1}^n||e_i||$, then $||x|| \leq c_1||x||_\infty$.
+
+	On the other hand, let $c_2 = \min_{x \in S^n}||x||$ by (3).
+	Since each $||x||$ in that set is nonzero, $c_2 > 0$.
+	Now since $x/||x||_\infty \in S^n$ for any nonzero $x$, we have \begin{equation*}
+		\left| \left| \frac{x}{||x||_\infty} \right| \right| \geq c_2,
+	\end{equation*}
+	which implies that \begin{equation*}
+		c_2||x||_\infty \leq ||x||.
+	\end{equation*}
+	Thus if we take $C = \max ( 1/c_2, c_1 , 2)$, we get $C > 1$ by construction and \begin{equation*}
+    \frac{1}{C} ||x||_\infty \leq c_2||x||_\infty \leq ||x|| \leq c_1||x||_\infty \leq C||x||_\infty.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Read Section 1.2-3 of the book on $l^p$ spaces, and use Equation (6) on Page 13 to prove the (integral) Holder's inequality: for all $f, g \in C[0, 1]$ and all $p, q > 1$ with $\frac{1}{p} + \frac{1}{q} = 1$, it holds that \begin{equation*}
+		||fg||_1 \leq ||f||_p||g||_q.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	First, suppose that $||f||_p = ||g||_q = 1$.
+	Then \begin{equation*}
+		|f(x)g(x)| \leq \frac{|f(x)|^p}{p} + \frac{|g(x)|^q}{q}
+	\end{equation*}
+	by (6).
+	Integrating this on both sides, we get \begin{equation*}
+		||fg||_1 \leq 1 = ||f||_p ||g||_q
+	\end{equation*}
+	as desired.
+
+	Now define \begin{equation*}
+		\widetilde{f}(x) = \frac{|f(x)|}{||f||_p},\hspace{0.25em}\widetilde{g}(x) = \frac{|g(x)|}{||g||_q} \in C[0,1].
+	\end{equation*}
+	Then $||\widetilde{f}||_p = 1$ and $||\widetilde{g}||_q = 1$, so the first part shows our result.
+\end{proof}
+
+\end{document}

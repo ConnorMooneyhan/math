@@ -1,0 +1,585 @@
+Class notes - MTH 346/646 - 9/18/25
+
+This file has notes about how to use Magma to do computations
+with the stuff we've talked about so far in MTH 346/646.
+
+In Magma, every line has to end with a ;
+Every assignment is done with := . For example:
+
+> a := 4;
+> b := 2;
+> a/b;
+2
+
+Now, Magma knows that a/b = 2, but because division is involved,
+Magma is thinking of a/b as a rational number.
+
+> Factorization(a/b);
+
+>> Factorization(a/b);
+                ^
+Runtime error in 'Factorization': Bad argument types
+Argument types given: FldRatElt
+
+Since a/b is a rational number (Magma says it has type FldRatElt) it won't
+compute the prime factorization. We need to tell Magma to think of a/b as
+an integer.
+
+> Z := Integers();
+> c := Z!(a/b);
+
+The expression Z!(a/b) tells Magma to think of (a/b) as an element of Z. 
+This "coersion" of telling Magma to take an object of one type and think of it as another
+type is very common.
+
+> c;
+2
+
+Now it will factor it.
+
+> Factorization(c);
+[ <2, 1> ]
+
+Magma is good at doing complicated exact arithmetic.
+
+> Factorization(2^60-1);
+[ <3, 2>, <5, 2>, <7, 1>, <11, 1>, <13, 1>, <31, 1>, <41, 1>, <61, 1>, <151, 1>,
+<331, 1>, <1321, 1> ]
+
+Magma can tell you if a number is a square.
+
+> IsSquare(1089);
+true 33
+> IsSquare(9801);
+true 99
+> chk, sqrroot := IsSquare(5234^3 + 17);
+> chk;
+true
+> sqrroot;
+378661
+> F := GF(37);
+
+Here F is F_37 = Z/37Z is the field of size 37.
+
+> a := (F!2);
+> a^18;
+36
+
+Of course 2^18 isn't equal to 36, but 2^18 = 36 (mod 37).
+
+> R<x> := PolynomialRing(Rationals());
+> g := x^3 - 2*x + 3;
+
+Magma can factor polynomials
+
+> g := x^3 - 2*x + 1;
+> Factorization(g);
+[
+    <x - 1, 1>,
+    <x^2 + x - 1, 1>
+]
+
+Now let's work with some conic sections.
+
+> P2<x,y,z> := ProjectiveSpace(Rationals(),2);
+> f := x^2 + x*y + y^2 - 109*z^2;
+> C := Conic(P2,f);
+> BadPrimes(C);
+[]
+
+The set BadPrimes is the set of primes p we can use to show there are
+no solutions (by reducing mod p). In this case, the set is empty.
+
+> HasRationalPoint(C);
+true (5 : 7 : 1)
+
+Magma finds a rational point on our conic.
+
+> Evaluate(f,[5,7,1]);
+0
+> f := x^2 + x*y + y^2 - 107*z^2;
+> C := Conic(P2,f);
+> BadPrimes(C);
+[ 3, 107 ]
+
+This conic has bad primes,
+
+> HasRationalPoint(C);
+false
+
+so it doesn't have any rational points.
+
+> f := x^2 + x*y + y^2 - 109*z^2;
+> P1<u,v> := ProjectiveSpace(Rationals(),1);
+> C := Conic(P2,f);
+
+Magma can parametrize the rational points on a conic.
+
+> mp := Parametrization(C,Curve(P1));
+> mp;
+Mapping from: Curve over Rational Field defined by
+0 to CrvCon: C
+with equations : 
+5*u^2 + 24*u*v + 7*v^2
+7*u^2 - 10*u*v - 12*v^2
+u^2 + u*v + v^2
+and inverse
+2*x - 17*y - 218*z
+-19*x - 2*y + 109*z
+and alternative inverse equations :
+-19*x - 2*y + 109*z
+17*x + 19*y - 218*z
+> C;
+Conic over Rational Field defined by
+x^2 + x*y + y^2 - 109*z^2
+
+This mp is a map from P^1 to C. We can plug in some points
+
+> mp([2,1]);
+(75/7 : -4/7 : 1)
+> mp([3,1]);
+(124/13 : 21/13 : 1)
+
+Let's check Magma's parametrization.
+
+> X := 5*u^2 + 24*u*v + 7*v^2;
+> Y := 7*u^2 - 10*u*v - 12*v^2;
+> Z := u^2+u*v+v^2;
+> X^2 + X*Y + Y^2 - 109*Z^2;
+0
+
+Now, let's work with some elliptic curves.
+
+> E := EllipticCurve([0,0,0,-3,2]);
+
+The list of five numbers here are numbers a1, a2, a3, a4, and a6 so that
+y^2 + a1*xy + a3*y = x^3 + a2*x^2 + a4*x + a6. Sometimes this longer form
+is needed to avoid problems at the primes 2 and 3. (Every curve
+y^2 = x^3 + ax + b is singular mod 2, for example.)
+
+This command gives a runtime error. It's because y^2 = x^3 - 3x + 2
+is singular.
+
+> E := EllipticCurve([0,0,0,14,1]);
+
+This curve is y^2 = x^3 + 14x + 1.
+
+> P1 := E![0,1,1];
+> P2 := E![1,4,1];
+> P3 := E![4,11,1];
+> P1;
+(0 : 1 : 1)
+
+Let's have Magma double P1, that is, compute P1 + P1.
+
+> 2*P1;
+(49 : -344 : 1)
+
+Let's have it do some other arithmetic.
+
+> P1+P2;
+(8 : -25 : 1)
+> P1-2*P3;
+(616 : -15289 : 1)
+
+These were all integral points, because the x and y are integers. Here's
+a non-integral one.
+
+> P1-3*P3;
+(300001/93636 : -254255201/28652616 : 1)
+> E2 := EllipticCurve([0,0,0,19,16]);
+
+Let's search for points on y^2 = x^3 + 19x + 16.
+
+> Points(E2 : Bound := 10);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1) @}
+
+This searched for points where the numerators and denominators of the
+x coordinate are bounded by 10 (in absolute value).
+
+> Points(E2 : Bound := 100);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1), (9/25 : 598/125 : 1), (9/25 : -598/125 : 1), (28 : 150 : 
+1), (28 : -150 : 1), (49/36 : 1439/216 : 1), (49/36 : -1439/216 : 1), (60 : 466 
+: 1), (60 : -466 : 1), (99 : 986 : 1), (99 : -986 : 1), (-71/100 : 1467/1000 : 
+1), (-71/100 : -1467/1000 : 1) @}
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1), (9/25 : 598/125 : 1), (9/25 : -598/125 : 1), (28 : 150 : 
+1), (28 : -150 : 1), (49/36 : 1439/216 : 1), (49/36 : -1439/216 : 1), (60 : 466 
+: 1), (60 : -466 : 1), (99 : 986 : 1), (99 : -986 : 1), (-71/100 : 1467/1000 : 
+1), (-71/100 : -1467/1000 : 1), (124/81 : 5086/729 : 1), (124/81 : -5086/729 : 
+1), (129 : 1466 : 1), (129 : -1466 : 1), (169/9 : 2258/27 : 1), (169/9 : 
+-2258/27 : 1), (-159/196 : 631/2744 : 1), (-159/196 : -631/2744 : 1), (249/25 : 
+4318/125 : 1), (249/25 : -4318/125 : 1), (256/49 : 5508/343 : 1), (256/49 : 
+-5508/343 : 1), (355/81 : 9874/729 : 1), (355/81 : -9874/729 : 1), (361/64 : 
+8907/512 : 1), (361/64 : -8907/512 : 1), (595 : 14514 : 1), (595 : -14514 : 1), 
+(609/64 : 16657/512 : 1), (609/64 : -16657/512 : 1) @}
+
+> E := EllipticCurve([1,2,3,4,5]);
+> E;
+Elliptic Curve defined by y^2 + x*y + 3*y = x^3 + 2*x^2 + 4*x + 5 over Rational 
+Field
+
+Let's have Magma put this in the form y^2 = x^3 + ax + b
+
+> E2, mp, invmp := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 + 4941*x + 185166 over Rational Field
+
+The command WeierstrassModel returns three things - the new curve,
+a map from the old curve to the new curve, and a map from the new curve
+to the old curve.
+
+> Points(E2 : Bound := 100);
+{@ (0 : 1 : 0), (63 : 864 : 1), (63 : -864 : 1) @}
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (63 : 864 : 1), (63 : -864 : 1), (-495/16 : 3321/64 : 1), 
+(-495/16 : -3321/64 : 1) @}
+
+Let's name a point on the new curve,
+
+> pt := E2![-495/16,3321/64,1];
+
+and map it back to the old curve.
+
+> invmp(pt);
+(-103/64 : -233/512 : 1)
+> pt2 := E2![63,864];
+> invmp(pt2);
+(1 : 2 : 1)
+
+This is a point on the old curve.
+
+> P := E![1,2];
+> P;
+(1 : 2 : 1)
+> 2*P;
+(-103/64 : -233/512 : 1)
+> 3*P;
+(12145/27889 : -22841754/4657463 : 1)
+
+Let's map 3P to the new curve.
+
+> mp(3*P);
+(1190223/27889 : -3205753632/4657463 : 1)
+
+Now, let's use Magma to find maps between a plane cubic and an elliptic curve
+
+> R<x,y,z> := PolynomialRing(Rationals(),3);
+> f := x^3 + y^3 - 6*z^3;
+> C := Curve(ProjectiveSpace(Rationals(),2),f);
+> C;
+Curve over Rational Field defined by
+$.1^3 + $.2^3 - 6*$.3^3
+
+Something weird happened here. The dollar signs show up as place holders
+for variables in a polynomial ring. We haven't named the variables in the
+polynomial ring, so Magma doesn't know what to call them. 
+
+Let's have Magma search for points on C. This has a different command
+than for elliptic curves.
+
+> PointSearch(C,10);
+[ (-1 : 1 : 0) ]
+
+There's one point, at infinity. 
+
+> PointSearch(C,100);
+[ (17/21 : 37/21 : 1), (37/21 : 17/21 : 1), (-1 : 1 : 0) ]
+
+There are a couple more that correspond to (37/21)^3 + (17/21)^3 = 6.
+
+> PointSearch(C,1000);
+[ (17/21 : 37/21 : 1), (-1 : 1 : 0), (37/21 : 17/21 : 1) ]
+> PointSearch(C,10000);
+[ (17/21 : 37/21 : 1), (37/21 : 17/21 : 1), (-1 : 1 : 0) ]
+> PointSearch(C,100000);
+[ (-1 : 1 : 0), (37/21 : 17/21 : 1), (17/21 : 37/21 : 1) ]
+> PointSearch(C,1000000);
+[ (-1 : 1 : 0), (17/21 : 37/21 : 1), (37/21 : 17/21 : 1) ]
+
+We didn't find any new ones. How can we find more points on this curve?
+
+> pt := C![-1,1,0];
+> E, mp := EllipticCurve(C,pt);
+
+This command creates a map to an elliptic curve.
+
+> mp;
+Mapping from: CrvPln: C to CrvEll: E
+with equations : 
+1/2*$.3
+1/4*$.1
+$.1 + $.2
+
+Is this a rational map or a morphism? The "base scheme" (or base locus)
+of a rational map is the set of points in the domain where the map is undefined.
+
+> BaseScheme(mp);
+Scheme over Rational Field defined by
+$.3,
+$.1,
+$.1 + $.2,
+$.1^3 + $.2^3 - 6*$.3^3
+
+> RationalPoints(BaseScheme(mp));
+{@ @}
+
+This is the empty set. There are no rational points on the curve C where mp is not defined.
+(In fact, there are no complex points where C is undefined.) So mp is a morphism.
+
+> E;
+Elliptic Curve defined by y^2 - 1/4*y = x^3 - 1/48 over Rational Field
+
+This isn't the nicest elliptic curve
+
+> E2, mp2, invmp2 := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 243 over Rational Field
+
+That's better.
+
+Let's build one map that sends points on C to points on E2
+
+bigmap := mp*mp2;
+
+Magma composes maps from left to right. So bigmap means "do mp to a point on C, and
+then apply mp2 to the resulting point on E."
+
+
+Let's take the point (17/21 : 37/21 : 1) and map it to E2.
+
+> P := C![17/21,37/21,1];
+> bigmap(P);
+(7 : -10 : 1)
+
+> chk, bigmapinv := IsInvertible(bigmap);
+> chk;
+> bigmapinv;
+
+Is this a morphism, or just a rational map?
+
+> RationalPoints(BaseScheme(bigmapinv));
+{@ (0 : 1 : 0) @}
+
+There is a point where bigmapinv isn't defined.
+
+> Degree(BaseScheme(bigmapinv));
+6
+
+There are 6 points (counting multiplicity) where bigmapinv isn't defined.
+We will kindly ask Magma to extend this inverse to a morphism.
+
+> bigmapinv := Extend(bigmapinv);
+> bigmapinv;
+Mapping from: CrvEll: E2 to CrvPln: C
+with equations : 
+1/3*$.1^2*$.2 + 9*$.1^2*$.3
+-1/3*$.1^2*$.2 + 9*$.1^2*$.3
+$.2^2*$.3 + 243*$.3^3
+and inverse
+18*$.3
+27*$.1 - 27*$.2
+$.1 + $.2
+and alternative equations :
+1/54*$.1^3 - 1/54*$.2^2*$.3 + 1/3*$.2*$.3^2 + 9/2*$.3^3
+-1/3*$.2*$.3^2 + 9*$.3^3
+$.1*$.3^2
+
+27/2*$.1^3 + 1/3*$.2^3 - 9/2*$.2^2*$.3 - 6561/2*$.3^3
+-1/3*$.2^3 + 9*$.2^2*$.3
+$.1*$.2^2
+
+We now have 3 sets of defining equations for the inverse map.
+> Degree(BaseScheme(bigmapinv));
+The map bigmapinv is now defined everywhere on E2 and so it is a morphism.
+
+Now, on E2, we have some points:
+
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (7 : 10 : 1), (7 : -10 : 1) @}
+> bigmapinv([0,1,0]);
+(-1 : 1 : 0)
+> bigmapinv([7,10,1]);
+(37/21 : 17/21 : 1)
+> bigmapinv([7,-10,1]);
+(17/21 : 37/21 : 1)
+
+How could we find more points on x^3+y^3 = 6z^3?
+
+> Q := E2![7,10,1];
+> 2*Q;
+(16009/400 : 2021723/8000 : 1)
+
+> bigmapinv(2*Q);
+(2237723/960540 : -1805723/960540 : 1)
+
+This is another point on x^3 + y^3 = 6z^3!
+
+> a := (2237723/960540);
+> b := -1805723/960540;
+> a^3+b^3;
+6
+
+Now, let's do an example where we map a curve in the form y^2 = quartic
+to an elliptic curve.
+
+> R<x> := PolynomialRing(Rationals());
+> f := x^4 + x^3 + x^2 + x + 1;
+> C := HyperellipticCurve(f);
+> C;
+Hyperelliptic Curve defined by y^2 = x^4 + x^3 + x^2 + x + 1 over Rational Field
+
+Magma makes this homogeneous by writing
+y^2 = x^4 + x^3*z + x^2*z^2 + x*z^3 + z^4
+and saying that y has degree 2, while x and z have degree 1. This is called
+weighted projective space P(1,2,1).
+
+> Points(C : Bound := 10);
+{@ (1 : -1 : 0), (1 : 1 : 0), (-1 : -1 : 1), (-1 : 1 : 1), (0 : -1 : 1), (0 : 1 
+: 1), (3 : -11 : 1), (3 : 11 : 1), (1 : -11 : 3), (1 : 11 : 3) @}
+> Points(C : Bound := 100);
+{@ (1 : -1 : 0), (1 : 1 : 0), (-1 : -1 : 1), (-1 : 1 : 1), (0 : -1 : 1), (0 : 1 
+: 1), (3 : -11 : 1), (3 : 11 : 1), (1 : -11 : 3), (1 : 11 : 3), (-11 : -101 : 
+8), (-11 : 101 : 8), (-8 : -101 : 11), (-8 : 101 : 11) @}
+> pt := C![1,-1,0];
+> E, mp := EllipticCurve(C,pt);
+> E;
+Elliptic Curve defined by y^2 + x*y + 5/4*y = x^3 - 3/2*x^2 - 55/16*x over 
+Rational Field
+> E2, mp2 := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 4320*x - 43200 over Rational Field
+> mp(C![3,11,1]);
+(-1/4 : -3/2 : 1)
+> mp2(mp(C![3,11,1]));
+(-24 : -216 : 1)
+
+So we used the point (1 : -1 : 0) to map C to E2. The image of the point
+(3 : 11 : 1) on E2 is (-24 : -216 : 1).
+
+Magma can also find all of the integral points on an elliptic curve. (Sometimes this makes Magma really work.)
+
+> E := EllipticCurve([0,0,0,0,1025]);
+> E;
+Elliptic Curve defined by y^2 = x^3 + 1025 over Rational Field
+> IntegralPoints(E);
+[ (-10 : -5 : 1), (-5 : 30 : 1), (-4 : -31 : 1), (-1 : 32 : 1), (4 : 33 : 1), 
+(10 : 45 : 1), (20 : 95 : 1), (40 : -255 : 1), (50 : 355 : 1), (64 : -513 : 1), 
+(155 : 1930 : 1), (166 : -2139 : 1), (446 : -9419 : 1), (920 : 27905 : 1), (3631
+: -218796 : 1), (3730 : 227805 : 1) ]
+[ <(-10 : -5 : 1), 1>, <(-5 : 30 : 1), 1>, <(-4 : -31 : 1), 1>, <(-1 : 32 : 1), 
+1>, <(4 : 33 : 1), 1>, <(10 : 45 : 1), 1>, <(20 : 95 : 1), 1>, <(40 : -255 : 1),
+1>, <(50 : 355 : 1), 1>, <(64 : -513 : 1), 1>, <(155 : 1930 : 1), 1>, <(166 : 
+-2139 : 1), 1>, <(446 : -9419 : 1), 1>, <(920 : 27905 : 1), 1>, <(3631 : -218796
+: 1), 1>, <(3730 : 227805 : 1), 1> ]
+
+Magma only lists each x-coordinate once. So (-10 : 5 : 1) is also an integral
+point on E.
+
+Now, let's have Magma map a curve defined by two quadratic equations to an
+elliptic curve. For example, if n = 98, then n = 2*x^2 (with x = 7),
+n+1 = 99 = 11*y^2 (with y = 3), n+2 = 100 = z^2 (with z = 10).
+We can represent this as 11y^2 - 2x^2 = 1, z^2 - 11y^2 = 1.
+We make these equations homogeneous by setting
+11y^2 - 2x^2 = w^2 and z^2 - 11y^2 = w^2.
+
+> R<x,y,z,w> := PolynomialRing(Rationals(),4);
+> f1 := 11*y^2 - 2*x^2 - w^2;
+> f2 := z^2 - 11*y^2 - w^2;
+> C := Curve(ProjectiveSpace(Rationals(),3),[f1,f2]);
+
+Let's search for points on C.
+
+> PointSearch(C,10);
+[ (7 : 3 : -10 : 1), (-7 : -3 : -10 : 1), (7 : 3 : 10 : 1), (-7 : -3 : 10 : 1), 
+(-7 : 3 : -10 : 1), (7 : -3 : -10 : 1), (-7 : 3 : 10 : 1), (7 : -3 : 10 : 1) ]
+
+Hmmm. We already knew about those points. Are there other points we don't
+know about?
+
+> PointSearch(C,100);
+[ (7 : 3 : -10 : 1), (-7 : 3 : 10 : 1), (-7 : 3 : -10 : 1), (7 : -3 : 10 : 1), 
+(-7 : -3 : 10 : 1), (7 : -3 : -10 : 1), (7 : 3 : 10 : 1), (-7 : -3 : -10 : 1) ]
+> PointSearch(C,1000);
+[ (-7 : 3 : -10 : 1), (-7 : 3 : 10 : 1), (7 : -3 : 10 : 1), (7 : -3 : -10 : 1), 
+(7 : 3 : 10 : 1), (-7 : -3 : 10 : 1), (-7 : -3 : -10 : 1), (7 : 3 : -10 : 1) ]
+> PointSearch(C,10000);
+[ (-7 : -3 : 10 : 1), (7 : 3 : 10 : 1), (-7 : 3 : 10 : 1), (-7 : -3 : -10 : 1), 
+(7 : -3 : -10 : 1), (7 : -3 : 10 : 1), (-7 : 3 : -10 : 1), (7 : 3 : -10 : 1) ]
+> PointSearch(C,100000);
+[ (7 : 3 : -10 : 1), (7 : 3 : 10 : 1), (7 : -3 : -10 : 1), (-7 : -3 : -10 : 1), 
+(-7 : -3 : 10 : 1), (-7 : 3 : 10 : 1), (-7 : 3 : -10 : 1), (7 : -3 : 10 : 1) ]
+
+We haven't found any yet.
+
+> pt := C![7,3,10,1];
+> E, mp := EllipticCurve(C,pt);
+> E;
+Elliptic Curve defined by y^2 = x^3 - 117600/24990001*x^2 - 
+15055998720000/624500149980001*x + 590315622400000000/15606259372500374970001 
+over Rational Field
+
+Ouch. That doesn't look good.
+
+> E2, mp2 := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 19518548797440000/624500149980001*x over 
+Rational Field
+
+That's not much better either. Let's try the command "MinimalModel". This
+returns the equation with the "smallest discriminant", although it's not always
+in the form y^2 = x^3 + Ax + B.
+
+> E2, mp2 := MinimalModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 484*x over Rational Field
+
+Much better.
+
+> bigmap := mp*mp2;
+> Degree(BaseScheme(bigmap));
+> bigmap := Extend(bigmap);
+
+This last command takes a little while.
+
+> bigmap(C![7,3,10,1]);
+(0 : 1 : 0)
+
+> P := bigmap(C![7,3,-10,1]);
+> P;
+(-539/25: 2541/125 : 1)
+
+This gives us a nice point on the elliptic curve.
+
+Let's map it back!
+
+> chk, bigmapinv := IsInvertible(bigmap);
+> chk;
+true
+> Degree(BaseScheme(bigmapinv));
+8
+
+Let's extend it
+
+> bigmapinv := Extend(bigmapinv);
+
+Now let's find another point!
+
+> 2*P;
+(24019801/44100 : -117624975299/9261000 : 1)
+
+Let's map this back to the curve.
+
+> bigmapinv(2*P);
+
+(-161208607/72029999 : -72088803/72029999 : -249705970/72029999 : 1)
+
+So we found another point on C!
+
+Q: Is there anything you'd like to know how to do in Magma but don't? 

@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 8}
+\author{Connor Mooneyhan}
+\date{April 7, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $X, Y$ be normed vector spaces.
+	Show that $T: X \to Y$ is bounded if and only if it maps bounded sets of $X$ to bounded sets of $Y$.
+\end{ex}
+\begin{proof}
+	If $T$ is bounded, then let $A$ be a bounded set of $X$, and let $d$ be the diameter of $A$.
+	For each point $a, b \in A$, we have $|b - a| \leq d$, and thus $|T(b) - T(a)| \leq ||T|| \cdot |b - a| \leq ||T|| \cdot d$, so $T(A)$ is bounded with diameter at most $||T|| \cdot d$.
+\end{proof}
+
+\begin{ex}
+	Let $T$ be a bounded, surjective linear operator from a normed vector space $X$ to a normed vector space $Y$.
+	Suppose there is a positive $b$ such that \begin{equation*}
+		|T(u)|_Y \geq b|u|_X
+	\end{equation*}
+	for all $u \in X$.
+	Show that $T^{-1} : Y \to X$ exists and is bounded.
+\end{ex}
+\begin{proof}
+	To show that $T^{-1}$ exists, we first need to show that $T$ is injective.
+	Indeed, if $u, v \in X$ and $u \neq v$, then $|u - v|_X > 0$.
+	Thus \begin{equation*}
+		|T(u) - T(v)|_Y = |T(u - v)|_Y \geq b|u - v|_X > 0,
+	\end{equation*}
+	so $T(u) \neq T(v)$.
+
+	We should also show that $T^{-1}$ is a linear operator.
+	Let $v_1, v_2 \in Y$.
+	Then $v_1 = T(u_1)$ and $v_2 = T(u_2)$ for some $u_1, u_2 \in X$.
+	Then given scalars $c_1$ and $c_2$, we have \begin{align*}
+		T^{-1}(c_1v_1 + c_2v_2) & = T^{-1}(c_1T(u_1) + c_2T(u_2))   \\
+		                        & = T^{-1}(T(c_1u_1 + c_2u_2))      \\
+		                        & = c_1u_1 + c_2u_2                 \\
+		                        & = c_1T^{-1}(v_1) + c_2T^{-1}(v_2)
+	\end{align*}
+	as desired.
+
+	Finally, we show that $T^{-1}$ is bounded.
+	Let $v \in Y$.
+	Then \begin{align*}
+		|T^{-1}(v)|_X \leq \frac{1}{b} \cdot \left|T(T^{-1}(v))\right|_Y = \frac{1}{b} \cdot \left|v\right|_Y.
+	\end{align*}
+	Since this is true for all $v \in Y$, $T^{-1}$ is bounded.
+\end{proof}
+
+\begin{ex}
+	Let $C_c[1, \infty)$ be the set of all continuous functions defined on $[1, \infty)$ that are compactly supported, endowed with the $C^0$-norm.
+	Here recall that the function $f$ is compactly supported if the closure of the set $\lbrace x \in [1, \infty) : f(x) \neq 0 \rbrace$ is compact.
+	Define $T : C_c[1, \infty) \to C_c[1, \infty)$ as \begin{equation*}
+		Tf(x) = \frac{f(x)}{x}.
+	\end{equation*}
+	Show that $T$ is a bounded linear operator, and $T^{-1}$ exists but is not bounded.
+\end{ex}
+\begin{proof}
+	First, we have \begin{align*}
+		||Tf(x)||_{C^0} & = \left| \left| \frac{f(x)}{x} \right| \right|_{C^0}     \\
+		                & = \sup_{x \in [1, \infty)} \left| \frac{f(x)}{x} \right| \\
+		                & \leq \sup_{x \in [1, \infty)} \left| f(x) \right|        \\
+		                & = \left| \left| f(x) \right| \right|_{C^0}
+	\end{align*}
+	since $|f(x)/x| \leq |f(x)|$ for all $x \in [1, \infty)$.
+	Thus $||T||$ is at most 1, so $T$ is bounded.
+
+	Now define \begin{equation*}
+		T^{-1}f(x) = xf(x).
+	\end{equation*}
+	The function $T^{-1}f$ is in fact compactly supported since if $f(x) = 0$, $xf(x) = 0$, and since $x \neq 0$, $xf(x) \neq 0$ when $f(x) \neq 0$, so $T^{-1}f$ has the exact same support as $f$.
+	We have \begin{align*}
+		T^{-1}(Tf(x))             & = x \cdot \frac{f(x)}{x} = f(x) \\
+		\text{and } T(T^{-1}f(x)) & = \frac{xf(x)}{x} = f(x),
+	\end{align*}
+	so $T^{-1}$ is in fact the inverse of $T$.
+	It is also linear because \begin{align*}
+		T^{-1}(cf(x) + dg(x)) & = xcf(x) + xdg(x)                \\
+		                      & = cT^{-1}(f(x)) + dT^{-1}(g(x)).
+	\end{align*}
+
+	Now consider the set of functions \begin{equation*}
+		f_n(x) = \begin{cases}
+			nx - n^2       & n \leq x \leq n + 1    \\
+			-nx + n^2 + 2n & n+ 1 \leq x \leq n + 2 \\
+			0              & \text{elsewhere}
+		\end{cases}
+	\end{equation*}
+	where $n \in \mathbb{Z}^+$.
+	These are spikes with peak at $x = n+1$, where $f_n(n+1) = n$.
+	Then $f_n$ is compactly supported (with support $[n, n+ 2]$) and continuous, so $f_n \in C_c[1, \infty)$ for all $n$.
+	However, \begin{align*}
+		\frac{||T^{-1}f_n(x)||_{C^0}}{||f_n(x)||_{C^0}} & = \frac{\sup_{x \in [1, \infty)} \left|xf_n(x)\right|}{\sup_{x \in [1, \infty)} \left|f_n(x)\right|} \\
+		                                                & = \frac{(n+1)\cdot n}{n}                                                                             \\
+		                                                & = n+1.
+	\end{align*}
+	Since this is true for any $n$, $T^{-1}$ is unbounded.
+\end{proof}
+
+\begin{ex}
+	Define $T : C[0, 1] \to C[0, 1]$ (both have $C^0$ norm) as \begin{equation*}
+		Tf(x) = \int_0^x f(s) \dd s.
+	\end{equation*}
+	Find $\mathcal{R}(T)$ (the range of $T$) and $T^{-1} : \mathcal{R}(T) \to C[0, 1]$.
+	Is $T$ bounded?
+	How about $T^{-1}$?
+\end{ex}
+\begin{proof}
+	The inverse $T^{-1}$ is the operator \begin{equation*}
+		T^{-1}f = \frac{\dd f}{\dd x},
+	\end{equation*}
+	which we have already mentioned in class is linear.
+	This inverse only works as such, however, if $f$ is differentiable, which suggests that $\mathcal{R}(T)$ is likely to have something to do with $C^1[0, 1]$: the set of differentiable functions on $[0, 1]$.
+	We need to restrict, however, to $D = \lbrace f \in C^1[0, 1] : f(0) = 0 \rbrace$ since the constants of integration will be taken out.
+	Indeed, if $f \in D$, then $f = \int_0^x \frac{\dd f}{\dd s}(s) \dd s$ by the fundamental theorem of calculus, so $f \in \mathcal{R}(T)$ and $D \subset \mathcal{R}(T)$.
+	Also by the fundamental theorem of calculus, we get that $\int_0^x f(s) \dd s$ is differentiable for all $f \in C[0, 1]$, so $\mathcal{R}(T) \subset D$.
+	Thus $\mathcal{R}(T) = D$.
+	Note that in this proof, we have used the fundamental theorem of calculus twice, showing that $T^{-1}$ is in fact an inverse of $T$.
+
+	We now need to think about boundedness of $T$ and $T^{-1}$.
+	First, for any $x \in [0, 1]$, \begin{align*}
+		|Tf(x)| & = \left| \int_0^x f(s) \dd s \right| \\
+		        & \leq \int_0^x |f(s)| \dd s           \\
+		        & \leq \int_0^x ||f(s)||_{C^0} \dd s   \\
+		        & = x ||f||_{C^0}                      \\
+		        & \leq ||f||_{C^0}.
+	\end{align*}
+	Thus we can take the supremum of this inequality over all $x \in [0, 1]$ and get \begin{equation*}
+		||Tf||_{C^0} \leq ||f||_{C^0},
+	\end{equation*}
+	so $T$ is bounded.
+
+	On the other hand, consider $f = \sin(nx) \in D$ for $n \in \mathbb{Z}^+$.
+  Then $||f|| \leq 1$, but \begin{equation*}
+    ||T^{-1}f|| = ||n\cos(nx)|| = n
+  \end{equation*}
+  since $n\cos(nx) \leq n$ and $n\cos(n\cdot 0) = n$.
+  Then \begin{equation*}
+    \frac{||T^{-1}f||}{||f||} \geq n
+  \end{equation*}
+  for each $n$, so $T^{-1}f$ is unbounded.
+\end{proof}
+
+\end{document}

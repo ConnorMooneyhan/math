@@ -1,0 +1,279 @@
+Magma demo 2 - September 30, 2025
+
+Example 1: Let's find an elliptic curve in the form y^2 = x^3 + ax^2 + bx + c
+that goes through the points
+(3,6)
+(4,4)
+(6,6)
+
+Each of these points (x_i,y_i) give a condition on the coefficients.
+
+We need a*x_i^2 + b*x_i + c = y_i^2 - x_i^3
+
+> x1 := 3;
+> x2 := 4;
+> x3 := 6;
+> y1 := 6;
+> y2 := 4;
+> y3 := 6;
+
+We want to make a matrix where the coefficients of a go in the first column,
+the coefficients of b in the second column, the coefficients of c in the third column,
+and the values of y_i^2 - x_i^3 in the last column.
+
+> M := Matrix(Rationals(),[[x1^2,x1,1,y1^2-x1^3],[x2^2,x2,1,y2^2-x2^3],[x3^2,x\
+3,1,y3^2-x3^3]]);
+> M;
+[   9    3    1    9]
+[  16    4    1  -48]
+[  36    6    1 -180]
+
+We ask Magma to row reduce M:
+
+> EchelonForm(M);
+[  1   0   0  -3]
+[  0   1   0 -36]
+[  0   0   1 144]
+
+There is a unique solution where a = -3, b = -36 and c = 144. This means
+we get the elliptic curve y^2 = x^3 - 3x^2 - 36x + 144.
+
+> E := EllipticCurve([0,-3,0,-36,144]);
+> E;
+Elliptic Curve defined by y^2 = x^3 - 3*x^2 - 36*x + 144 over Rational Field
+
+We check that those three points are on the curve.
+
+> E![3,6];
+(3 : 6 : 1)
+> E![4,4];
+(4 : 4 : 1)
+> E![6,6];
+(6 : 6 : 1)
+
+What is the rank of E?
+
+> G, phi := MordellWeilGroup(E);
+
+Here G is an abelian group and phi is the isomorphism from G to E(Q).
+
+> G;
+Abelian Group isomorphic to Z + Z
+Defined on 2 generators (free)
+
+The group is isomorphic to Z x Z.
+
+* Note: Sometimes the computations to compute the rank of E are quite difficult even for Magma. The command
+
+> SetClassGroupBounds("GRH");
+
+tells Magma to assume the generalized Riemann hypothesis. This can make computing the
+rank of an elliptic curve much faster (although the answer is conditional on this hypothesis).
+
+> phi(G.1);
+(6 : 6 : 1)
+> phi(G.2);
+(3 : -6 : 1)
+> P := phi(G.1);
+> Q := phi(G.2);
+
+We call P = (6,6) and Q = (3,-6) the generators.
+
+> P+Q;
+(10 : -22 : 1)
+> P-Q;
+(-6 : -6 : 1)
+
+The point (4,4) is on the curve. There must be a way to get (4,4) from P and Q using
+the group law.
+
+We will ask Magma if the points P, Q, and (4,4) on E are linearly independent.
+
+> IsLinearlyIndependent([P,Q,E![4,4]]);
+false (-2  1 -1)
+
+They are not, and we have to have (-2)*P + 1*Q + (-1)*(4,4) = 0.
+This means that -2*P + Q should be (4,4).
+
+> -2*P+Q;
+(4 : 4 : 1)
+
+Example 2: Let's make an elliptic curve with positive rank that has a point of order 7 on it.
+How do we find an elliptic curve with a point of order 7?
+
+It turns out that if P is a point on an elliptic curve with order >= 4, then by translating
+and rotating the equations you can move P to the point (0,0) and put E into the form
+
+y^2 + axy + by = x^3 + bx^2
+
+for some constants a and b. 
+
+> F<a,b> := FunctionField(Rationals(),2);
+> E := EllipticCurve([a,b,b,0,0]);
+> E;
+Elliptic Curve defined by y^2 + a*x*y + b*y = x^3 + b*x^2 over Multivariate rational function field of rank 2 over Rational Field
+> P := E![0,0];
+
+What conditions on P will mean it has order 7? We need x(4*P) is equal to x(-3*P).
+
+> 4*P;
+((-a*b + b^2 + b)/(a^2 - 2*a + 1) : (-a^2*b^2 + 3*a*b^2 - b^3 - 2*b^2)/(a^3 - 3*a^2 + 3*a - 1) : 1)
+> -3*P;
+(-a + 1 : a^2 - 2*a + 1 : 1)
+
+So we want (-a*b + b^2 + b)/(a-1)^2 = -(a-1).
+This means -a*b + b^2 + b + (a-1)^3 = 0.
+If we homogenize this we get -a*b*c + b^2*c + b*c^2 + (a-c)^3 = 0.
+
+> R<a,b,c> := PolynomialRing(Rationals(),3);
+> f := -a*b*c + b^2*c + b*c^2 + (a-c)^3;
+> C := Curve(ProjectiveSpace(Rationals(),2),f);
+> Genus(C);
+0
+
+This is a genus zero curve and we will search for points on this curve.
+
+> pts := PointSearch(C,100);
+> #pts;
+28
+
+OK we found 28 points. Let's run through all these points, and compute the ranks of the elliptic curves.
+
+> for i in [1..#pts] do
+for> chk, E := IsEllipticCurve([pts[i][1],pts[i][2],pts[i][2],0,0]);
+
+The command above tests to see if the curve with the parameters we have given is singular or not. If it is not, then chk is true.
+
+for> if chk then
+for|if> printf "For i = %o, the rank of E is %o.\n",i,Rank(E);
+for|if> end if;
+for> end for;
+For i = 1, the rank of E is 0.
+For i = 2, the rank of E is 0.
+For i = 3, the rank of E is 0.
+For i = 4, the rank of E is 0.
+For i = 5, the rank of E is 0.
+For i = 6, the rank of E is 0.
+For i = 7, the rank of E is 0.
+For i = 8, the rank of E is 0.
+For i = 9, the rank of E is 0.
+For i = 10, the rank of E is 0.
+For i = 11, the rank of E is 0.
+For i = 12, the rank of E is 0.
+For i = 13, the rank of E is 0.
+For i = 14, the rank of E is 0.
+For i = 15, the rank of E is 0.
+For i = 16, the rank of E is 0.
+For i = 17, the rank of E is 0.
+For i = 18, the rank of E is 1.
+For i = 19, the rank of E is 1.
+For i = 21, the rank of E is 0.
+For i = 22, the rank of E is 0.
+For i = 23, the rank of E is 0.
+For i = 24, the rank of E is 0.
+For i = 25, the rank of E is 0.
+For i = 26, the rank of E is 0.
+For i = 27, the rank of E is 0.
+For i = 28, the rank of E is 0.
+
+Notice that there is no i=20 line. For that point on C, the corresponding y^2 + axy + by = x^3 + bx^2 is singular.
+
+> pts[18];
+(0 : 1 : 0)
+
+That's not great. This corresponds to b = infinity.
+
+> pts[19];
+(-5/16 : 63/64 : 1)
+
+This works. We have a = -5/16 and b = 63/64. Let's make that elliptic curve.
+
+> E := EllipticCurve([-5/16,63/64,63/64,0,0]);
+> E2 := MinimalModel(E);
+> E2;
+Elliptic Curve defined by y^2 + x*y = x^3 - 32311*x + 6205097 over Rational Field
+> G, phi := MordellWeilGroup(E2);
+> G;
+Abelian Group isomorphic to Z/7 + Z
+Defined on 2 generators
+Relations:
+7*G.1 = 0
+> phi(G.1);
+(422 : 8021 : 1)
+> phi(G.2);
+(1094 : 35237 : 1)
+
+So the rank of E is 1. Every point has the form k*(422,8021) + l*(1094,35237) for
+some k in {0,1,2,3,4,5,6} and l an integer.
+
+Example 3: The group of points on y^2 = x^3 - 16*x + 16 mod 3 and mod 5.
+
+> E := EllipticCurve([0,0,0,-16,16]);
+
+This defines an elliptic curve over Q. How do we get Magma to reduce it mod 3 or mod 5?
+
+> E5 := ChangeRing(E,GF(5));
+
+Here GF(5) means "the field with 5 elements." 
+
+> E5;
+Elliptic Curve defined by y^2 = x^3 + 4*x + 1 over GF(5)
+
+Magma reduced the curve mod 5. What are the points on this curve?
+
+> Points(E5);
+{@ (0 : 1 : 0), (0 : 1 : 1), (0 : 4 : 1), (1 : 1 : 1), (1 : 4 : 1), (3 : 0 : 1), (4 : 1 : 1), (4 : 4 : 1) @}
+
+That's the list of all the points mod 5. What is the group structure?
+
+> G, mp := AbelianGroup(E5);
+> G;
+Abelian Group isomorphic to Z/8
+Defined on 1 generator
+Relations:
+8*G.1 = 0
+
+So E(F_5) is isomorphic to Z/8Z
+
+> mp(G.1);
+(0 : 4 : 1)
+
+The point (0,4) is a generator.
+
+> 2*mp(G.1);
+(4 : 4 : 1)
+> 3*mp(G.1);
+(1 : 1 : 1)
+> 4*mp(G.1);
+(3 : 0 : 1)
+> 5*mp(G.1);
+(1 : 4 : 1)
+> 6*mp(G.1);
+(4 : 1 : 1)
+> 7*mp(G.1);
+(0 : 1 : 1)
+> 8*mp(G.1);
+(0 : 1 : 0)
+
+We see that (0,4) has order 8.
+
+Now we look at the curve y^2 = x^3 - 16x + 16 mod 3.
+
+> E3 := ChangeRing(E,GF(3));
+> E3;
+Elliptic Curve defined by y^2 = x^3 + 2*x + 1 over GF(3)
+
+> Points(E3);
+{@ (0 : 1 : 0), (0 : 1 : 1), (0 : 2 : 1), (1 : 1 : 1), (1 : 2 : 1), (2 : 1 : 1), (2 : 2 : 1) @}
+
+There are 7 points on the curve.
+
+> AbelianGroup(E3);
+Abelian Group isomorphic to Z/7
+Defined on 1 generator
+Relations:
+7*$.1 = 0
+
+The group of points is isomorphic to Z/7Z.
+
+Any questions?

@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 9}
+\author{Connor Mooneyhan}
+\date{April 10, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Show that a linear functional $T$ on a vector space $X$ is uniquely determined by its values on a Hamel basis for $X$.
+	In other words, prove \begin{itemize}
+		\item Given a Hamel basis $S$, any function $f : S \to \mathbb{R}$ defines a linear functional $T: X \to \mathbb{R}$ with the property that $T(v) = f(v)$ for all $v \in S$.
+		\item If $T$ and $T'$ are two linear functionals on $X$ that are equal on $S$, then $T = T'$.
+	\end{itemize}
+\end{ex}
+\begin{proof}
+	Given a Hamel basis $S$ for $X$ and a function $f : S \to \mathbb{R}$, we define $T : X \to \mathbb{R}$ as follows.
+	Given $x \in X$, we can write $x = c_1s_1 + \cdots + c_ns_n$ where each $s_i \in S$.
+	Then \begin{equation*}
+		Tx \coloneq c_1f(s_1) + \cdots + c_nf(s_n).
+	\end{equation*}
+	This is linear by construction, and it also guarantees by definition that $T(s) = f(s)$ for each $s \in S$.
+
+	Now if $T$ and $T'$ are two linear functionals on $X$ which agree on $S$, then for any $x \in X$, write $x = c_1s_1 + \cdots + c_ns_n$ where each $s_i \in S$, and see that \begin{align*}
+		T(x) & = T(c_1s_1) + \cdots + T(c_ns_n) \hspace{2em}\text{(by additivity)}  \\
+		     & = c_1T(s_1) + \cdots + c_nT(s_n) \hspace{2em}\text{(by homogeneity)} \\
+		     & = c_1T'(s_1) + \cdots + c_nT'(s_n)                                   \\
+		     & = T'(c_1s_1) + \cdots + T'(c_ns_n)                                   \\
+		     & = T'(c_1s_1 + \cdots + c_ns_n)                                       \\
+		     & = T'(x).
+	\end{align*}
+	Thus $T = T'$.
+\end{proof}
+
+\begin{ex}
+	Show that any infinite-dimensional normed vector space $X$ must have at least one unbounded linear functional.
+	Hint: use the fact that $X$ has a Hamel basis.
+\end{ex}
+\begin{proof}
+	Given a Hamel basis $S$ for $X$, choose an injective function $g : \mathbb{Z}^+ \to S$ and let $S_c = \text{range}(g)$.
+	We can define the function $f : S \to \mathbb{R}$ by \begin{equation*}
+		f(s) = \begin{cases}
+			g^{-1}(s)\cdot||s|| & s \in S_c         \\
+			0                   & \text{otherwise}.
+		\end{cases}
+	\end{equation*}
+	Then $f$ determines a linear functional $T$ on $X$ by the previous exercise, and $f$ is unbounded since when $s$ varies across $S_c$, \begin{align*}
+		\frac{|Ts|}{||s||} & = \frac{|g^{-1}(s)\cdot(||s||) |}{||s||} \\
+		                   & = \frac{||s|| \cdot |g^{-1}(s)|}{||s||}  \\
+		                   & = |g^{-1}(s)|,
+	\end{align*}
+	and $g^{-1}(s)$ will vary across $\mathbb{Z}^+$.
+\end{proof}
+
+\end{document}

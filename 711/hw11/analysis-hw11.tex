@@ -1,0 +1,145 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 11}
+\author{Connor Mooneyhan}
+\date{April 16, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $X = \ell^2$ and $Y = \lbrace x \in \ell^2 : x_{2n} = 0 \text{ for all } n \in \mathbb{N} \rbrace$.
+	Show that $Y$ is closed and find $Y^\perp$.
+\end{ex}
+\begin{proof}
+	For each $i \in \mathbb{N}$, let $\pi_i : \ell^2 \to \mathbb{R}$ be the coordinate map sending each element to its $i^{\text{th}}$ coordinate.
+	This is continuous, so $\pi_i^{-1}(\lbrace 0 \rbrace) = \ker\pi_i$ is closed.
+	Thus $Y = \bigcap_{i=1}^\infty \ker\pi_{2i}$ is closed since it is an intersection of closed sets.
+
+	Now suppose we have $x = (x_n) \in Y^\perp$.
+	Then in particular, \begin{align*}
+		0 & = \langle x, (x_1, 0, x_3, 0, x_5 \dots) \rangle \\
+		  & = \sum_{i=1}^\infty x_{2i-1}^2.
+	\end{align*}
+	If any one of those terms is positive (note that none can be negative since they are all squares of real numbers), the LHS would be positive, so we must have that $x_{2i-1} = 0$ for all $i \in \mathbb{N}$.
+	This is the form that elements of $Y^\perp$ must take, and indeed any element of that form is orthogonal with all of $Y$ by the argument above, so we conclude that \begin{equation*}
+		Y^\perp = \lbrace x \in \ell^2 : x_{2n-1} = 0 \text{ for all } n \in \mathbb{N} \rbrace.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	In general, given a non-empty set (not necessarily a subspace or convex) $M \subset X$ where $X$ is an inner product space, one can always define \begin{equation*}
+		M^\perp = \lbrace x \in X  : \langle x, w \rangle = 0 \text{ for all } w \in M \rbrace.
+	\end{equation*}
+	Let $X = \mathbb{R}^2$ with the usual inner product, and find $M^\perp$ where: \begin{itemize}
+		\item $M = \lbrace x \rbrace$  where  $x \neq 0$
+		\item $M = \lbrace x, y \rbrace$  where  $x, y$  are linearly independent.
+	\end{itemize}
+\end{ex}
+\begin{proof}
+	First, let $M = \lbrace x \rbrace = \lbrace (x_1, x_2) \rbrace$.
+	Then $y = (-x_2, x_1)$ is orthogonal to $x$ since \begin{equation*}
+		\langle (x_1, x_2), (-x_2, x_1) \rangle = -x_1x_2 + x_2x_1 = 0.
+	\end{equation*}
+	Thus $y \in M^\perp$, and a similar argument shows that $\mathrm{span}(\lbrace y \rbrace) \subset M^\perp$.
+	I claim that $\lbrace x, y \rbrace$ is a basis for $\mathbb{R}^2$.
+	Since the list is of the right length, we just need to check linear independence: \begin{align*}
+		(0, 0)   & = ax + by                                       \\
+		         & = (ax_1, ax_2) + (-bx_2, bx_1)                  \\
+		         & = (ax_1 - bx_2, ax_2 + bx_1)                    \\
+		\implies & ax_1 = bx_2 \text{ and } ax_2 = -bx_1           \\
+		\implies & ax_1x_2 = bx_2^2 \text{ and } ax_2x_1 = -bx_1^2 \\
+		\implies & bx_2^2 = -bx_1^2                                \\
+		\implies & x_2^2 = -x_1^2                                  \\
+		\implies & x_1 = x_2 = 0,
+	\end{align*}
+	where the final implication comes from the fact that the second-to-last line is of the form $A = -B$ where both $A$ and $B$ are nonnegative.
+	Critically, this all rests on the third-to-last line, where $b$ was assumed to be nonzero.
+	Therefore since we know that $x$ is nonzero, we conclude that $b = 0$.
+	But then $0 = ax + by$ becomes $0 = ax$, so again since $x$ is nonzero, $a = 0$, and we have shown the linear independence of $x$ and $y$.
+
+	Now let $z \in M^\perp \setminus \mathrm{span}(\lbrace y \rbrace)$.
+	Then express $z$ (uniquely!) as $z = ax + by$, where $a$ is nonzero by choice of $z$.
+	Then since $z \in M^\perp$, \begin{align*}
+		0 & = \langle z, x \rangle                \\
+		  & = (ax_1 - bx_2)x_1 + (ax_2 + bx_1)x_2 \\
+		  & = ax_1^2 - bx_2x_1 + ax_2^2 + bx_1x_2 \\
+		  & = ax_1^2  + ax_2^2                    \\
+		  & = a(x_1^2 + x_2^2)                    \\
+	\end{align*}
+	which implies that $a = 0$ since $x \neq 0$ implies that the expression in parentheses is nonzero.
+	This makes $z$ in the span of $y$, contradicting our choice of $z$ to be both in $M^\perp$ and outside of $\mathrm{span}(\lbrace y \rbrace)$, so we conclude that $M^\perp = \mathrm{span}(\lbrace y \rbrace)$.
+
+	Now for the second scenario, where $M = \lbrace x, y \rbrace$ and $x$ and $y$ are linearly independent.
+	Since $x$ and $y$ are linearly independent and $\mathbb{R}^2$ is a 2-dimensional space, they form a basis.
+	Then given any $z \in \mathbb{R}^2$ such that $z \in M^\perp$, \begin{align*}
+		\langle z, ax + by \rangle = a \langle z, x \rangle + b \langle z, y \rangle = 0
+	\end{align*}
+	for any $a, b \in \mathbb{R}$.
+	Since $x$ and $y$ form a basis of $\mathbb{R}^2$, this means that $z$ is orthogonal to all of $\mathbb{R}^2$.
+	The only such vector is zero, so $z = 0 = M^\perp$.
+\end{proof}
+
+\begin{ex}
+	Show that $M^\perp$ is always a closed subspace of $X$.
+\end{ex}
+\begin{proof}
+	Consider the map $\pi_m : X \to \mathbb{R}$ for each $m \in M$ defined by $x \mapsto \langle x, m \rangle$.
+	Note that $\pi_m(x) \leq ||x||\cdot||m||$ by Cauchy-Schwarz so $\pi_m(x)/||x|| \leq ||m||$ for each $x$, and thus $\pi_m$ is bounded and therefore continuous.
+	Then $\pi_m^{-1}(\lbrace 0 \rbrace) = \ker \pi_m$ is closed.
+	Noticing that $M^\perp = \bigcap_{m \in M} \ker\pi_m$, we see that $M^\perp$ is closed since it is an intersection of closed sets.
+\end{proof}
+
+\begin{ex}
+	Let $X$ be a Hilbert space.
+	Show that for any non-empty subset $M$, $M^{\perp\perp}$ is the smallest closed subspace that contains $M$.
+	More precisely, if $M \subset Y$ and $Y$ is a closed subspace of $X$ then $M^{\perp\perp} \subset Y$.
+\end{ex}
+\begin{proof}
+	The previous problem shows that $M^{\perp\perp}$ is closed, so we just need to show that it is the smallest closed set containing $M$.
+	Note for completeness that $M^{\perp\perp}$ does in fact contain $M$ since any element of $M$ is orthogonal to any element of $M^\perp$ by definition.
+	Now given $Y$ a closed subset of $X$ containing $M$, we have \begin{align*}
+		M \subset Y & \implies Y^\perp \subset M^\perp \\
+                & \implies M^{\perp\perp} \subset Y^{\perp\perp} = Y
+	\end{align*}
+  as desired, where the reversal of inclusions comes from the fact that if $x$ is orthogonal to everything in $Y$, then it is in particular orthogonal to everything in $M$.
+  Also, the equality on the second line comes from the fact that $Y$ is a closed subspace of a Hilbert space (by a theorem we talked about in class).
+\end{proof}
+
+\end{document}

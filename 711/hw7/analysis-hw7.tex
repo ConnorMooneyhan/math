@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 7}
+\author{Connor Mooneyhan}
+\date{March 16, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	A semi-norm on a vector space $X$ is a map $g : X \to \mathbb{R}$ that is always non-negative, homogeneous, and satisfies the triangle inequality.
+	Show that if $p$ is a semi-norm then $p(0) = 0$ and $|p(u) - p(v)| \leq p(u-v)$.
+	Hence if $p(u) = 0$ implies $u = 0$ (assuming that's what was meant and the problem statement was initially typed incorrectly as $p = 0$) then $p$ is a norm.
+\end{ex}
+\begin{proof}
+	First, if $p$ is a semi-norm, then \begin{equation*}
+		p(0) = p(0 \cdot 0) = 0 \cdot p(0) = 0.
+	\end{equation*}
+	Also, for any $u, v \in X$, \begin{align*}
+		         & p(u) = p((u - v) + v) \leq p(u - v) + p(v) \\
+		\implies & p(u) - p(v) \leq p(u - v).
+	\end{align*}
+	Swapping the roles of $u$ and $v$, we get \begin{align*}
+		         & p(v) - p(u) \leq p(u - v) = p(-1 \cdot (v - u)) = p(v - u) \\
+		\implies & p(u) - p(v) \geq -p(v-u) = -p(u - v),
+	\end{align*}
+	where the second line comes from multiplying the first by $-1$.
+	Combining the final inequalities, we get \begin{equation*}
+		|p(u) - p(v)| \leq p(u - v)
+	\end{equation*}
+	as desired.
+
+	Finally, if $p(u) = 0$ implies $u = 0$, then since $p$ already satisfies positivity, homogeneity, and the triangle inequality, the only condition left for it to be a norm was definiteness, and $p(u) = 0 \implies u = 0$ is exactly that property.
+	Thus $p$ is a norm.
+\end{proof}
+
+\begin{ex}
+	Show that if $p$ is a semi-norm, then the set \begin{equation*}
+		N \coloneq \left\lbrace u : p(u) = 0 \right\rbrace
+	\end{equation*}
+	is a subspace of $X$, and one can define a norm on the quotient space $X/N$ by $||[u]|| = p(u)$.
+\end{ex}
+\begin{proof}
+	To show that $N$ is a subspace, we just need to show that it is closed under the operations.
+	If $u, v \in N$, then \begin{equation*}
+		0 \leq p(u + v) \leq p(u) + p(v) = 0 \implies p(u+v) = 0,
+	\end{equation*}
+	where the first inequality comes from nonnegativity and the second comes from the triangle inequality.
+	Thus $u + v \in N$.
+	Now if $c \in \mathbb{R}$ (wlog) and $u \in N$, then \begin{equation*}
+		p(c\cdot u) = |c|\cdot p(u) = |c|\cdot 0 = 0,
+	\end{equation*}
+	so $c\cdot u \in N$.
+
+	First we show that $||\cdot||$ is well defined on $X/N$.
+	If $[u] = [v]$, then $u - v \in N$, so $p(u - v) = 0$.
+	Using the fact that \begin{equation*}
+		p(u) = p(u - v + v) \leq p(u - v) + p(v) \implies p(u) - p(v) \leq p(u - v),
+	\end{equation*}
+	we have $p(u) - p(v) \leq p(u - v) = 0$, so $p(u) = p(v)$.
+	Thus $||\cdot||$ is well defined.
+
+	Now we show that $||\cdot||$ is a norm on $X/N$.
+	Nonnegativity comes from the fact that $||[u]|| = p(u) \geq 0$ for all $[u] \in X/N$.
+	Similarly, homogeneity follows by \begin{equation*}
+		||[cu]|| = p(cu) = |c| p(u) = |c|\cdot ||[u]||.
+	\end{equation*}
+	The triangle inequality as well is immediate: \begin{align*}
+		||[u + v]|| & = p(u + v)           \\
+		            & \leq p(u) + p(v)     \\
+		            & = ||[u]|| + ||[v]||.
+	\end{align*}
+	So we finally get to definiteness, where we must first show that $0 \in N$.
+	Indeed, by homogeneity, \begin{equation*}
+		p(0) = p(0 \cdot 0) = 0 \cdot p(0) = 0.
+	\end{equation*}
+	Now if $[u] \in X/N$ such that $||[u]|| = 0$, then $p(u) = 0$, so $u \in N$, and thus $[u] = [0]$.
+	This gives us definiteness, so $|| \cdot ||$ is a norm on $X/N$.
+\end{proof}
+
+\begin{ex}
+	Construct a sequence of functions $(f_n)$ in $C[0, 1]$ such that $(f_n) \in [0] \in L^p[0, 1]$ (here $[0]$ is the additive identity of $L^p[0,1]$) for every $p \geq 1$, but $(f_n(x))$ diverges for every $x \in [0, 1]$.
+\end{ex}
+\begin{proof}
+	We will take the suggested ``trapezoidal'' route by describing each $f_n$ in the ``$k$'' subset $S_k$ of $(f_n)$, namely the trapezoids that cover $[0, 1/2^k], [1/2^k, 2/2^k], \dots, [(2^k-1)/2^k, 1]$.
+	For the first $f_n$ in $S_k$, we have the formula \begin{equation*}
+		f_n(x) = \begin{cases}
+			1         & x \in \left[0, \frac{1}{2^k} \right]                        \\
+			-2^kx + 2 & x \in \left[\frac{1}{2^k} \leq x \leq \frac{2}{2^k} \right] \\
+			0         & x \in \left[\frac{2}{2^k}, 1 \right].
+		\end{cases}
+	\end{equation*}
+	For the final $f_n$ in $S^k$, we have the formula \begin{equation*}
+		f_n(x) = \begin{cases}
+			0              & x \in \left[0, \frac{2^k-2}{2^k} \right]                      \\
+			2^kx + 2 - 2^k & x \in \left[ \frac{2^k - 2}{2^k}, \frac{2^k - 1}{2^k} \right] \\
+			1              & x \in \left[\frac{2^k-1}{2^k}, 1 \right].
+		\end{cases}
+	\end{equation*}
+	Finally, for the ``middle'' $f_n$'s in $S^k$, for some integer $m$ where $1 \leq m \leq 2^k-2$ we have the formula \begin{equation*}
+		f_n(x) = \begin{cases}
+			0 & x \in \left[ 0, \frac{m-1}{2^k} \right]                  \\
+			2^kx+1-m & x \in \left[ \frac{m-1}{2^k}, \frac{m }{2^k} \right]                                  \\
+			1 & x \in \left[ \frac{m }{2^k}, \frac{m + 1}{2^k} \right] \\
+			-2^kx+m+2 & x \in \left[ \frac{m+1}{2^k}, \frac{m+2}{2^k} \right]                                  \\
+			0 & x \in \left[ \frac{m+2}{2^k}, 1 \right].
+		\end{cases}
+	\end{equation*}
+  Indeed, this converges pointwise for no $x$ since the sequence $(f_n(x))$ for a fixed $x$ is an unending chain of zeroes, ones, and some intermediary numbers for the ``edges'' of the trapezoids.
+  The important part is that the zeroes and ones keep occuring in the sequence, so it cannot converge.
+  However, the integral of these functions continues to get smaller and smaller, and in fact limits to 0, since the support of each $f_n^p$ is at most $3/2^k$ and the height of $f_n^p$, so \begin{equation*}
+    \left( \int_0^1 f_n^p \right)^{1/p} \leq \frac{3}{2^k}.
+  \end{equation*}
+  Thus, $(f_n) \in L^p[0,1]$ but does not converge pointwise for any $x \in [0, 1]$.
+\end{proof}
+
+\end{document}

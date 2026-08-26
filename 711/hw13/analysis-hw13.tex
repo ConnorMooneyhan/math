@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 13}
+\author{Connor Mooneyhan}
+\date{April 29, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  Let $H$ be a Hilbert space and define $T: H \to H'$ as $z \mapsto \langle \cdot, z \rangle$.
+  Show that: \begin{enumerate}[label=(\arabic*)]
+    \item $T$ is isometric, bijective and conjugate linear: $T(ax + by) = \overline{a}T(x) + \overline{b}T(y)$.
+    \item $H'$ is a Hilbert space with inner product $\langle T(x), T(y) \rangle = \overline{\langle x, y \rangle} = \langle y, x \rangle$.
+      Therefore, if $H$ is a real Hilbert space then it is isomorphic to $H'$.
+    \item Any complex Hilbert space $H$ is isomorphic to $(H')'$.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  Use Zorn's lemma to show that for any subspace $Y$ of a vector space $X$, any Hamel basis of $Y$ can be extended to a Hamel basis of $X$.
+\end{ex}
+
+\begin{ex}
+  Let $X = \mathbb{R}^2$ be equipped with the box norm.
+  Let $u = \langle 1, 0 \rangle$ and $T$ be the linear functional on $\mathrm{span}(u)$ satisfying $T(u) = 1$. \begin{enumerate}[label=(\arabic*)]
+    \item Show that for any $M > 0$ there exists $v \in \mathbb{R}$, linearly independent with $u$, such that the extension of $T$ determined by $T(v) = 0$ satisfies $||T|| \geq M$.
+    \item Find a value of $c$ such that the extension of $T$ determined by $T(-1, 1) = c$ satisfies $||T|| = 1$.
+      Is the choice of $c$ unique?
+  \end{enumerate}
+\end{ex}
+
+\end{document}

@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{graphicx}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Assignment}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{MTH 732 Topology - Homework 3}
+\author{Connor Mooneyhan}
+\date{February 5, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Show that $\pi_1(\mathbb{RP}^2) = \mathbb{Z}_2$.
+	Describe the generator of this group.
+\end{ex}
+\begin{proof}
+	Recall that $\mathbb{RP}^2$ can be constructed as $S^2$ with antipodal points identified.
+	Let $p: S^2 \to \mathbb{RP}^2$ be the projection which sends $x \mapsto \lbrace x, -x \rbrace$.
+	Then for any point $x$, a neighborhood $U$ of $\lbrace x, -x \rbrace$ in $\mathbb{RP}^2$ lifts to exactly two open sets in $S^2$, namely a neighborhood of $x$ and a neighborhood of $-x$.
+	Furthermore, the set $U$ can be chosen to be small enough so that its lifts are disjoint, and each one is naturally homeomorphic to $U$.
+	Since $S^2$ is simply connected, this makes it a universal cover of $\mathbb{RP}^2$.
+	As such, since each fiber over $p$ consists of exactly two points, we can conclude that $\pi_1(\mathbb{RP}^2) \cong \mathbb{Z}_2$ since $\mathbb{Z}_2$ is the only two-element group up to isomorphism.
+
+	Now let $\alpha : [0, 1] \to S^2$ be a path from $x$ to $-x$ for some $x \in S^2$.
+	Then $p \circ \alpha \in \pi_1(\mathbb{RP}^2)$, and in particular $p \circ \alpha$ is nontrivial since if it were null-homotopic, the corresponding path homotopy would lift to a path homotopy in $S^2$ that ends in a constant path, which is impossible since endpoints need to remain constant in a path-homotopy, and the endpoints $x$ and $-x$ are distinct.
+\end{proof}
+
+\begin{ex}
+	Show that any map $f : \mathbb{R}\mathbb{P}^2 \to \mathbb{T}^2$ is homotopically trivial.
+\end{ex}
+\begin{proof}
+	Given $f : \mathbb{RP}^2 \to \mathbb{T}^2$, we have the induced group homomorphism $f_* : \mathbb{Z}_2 \to \mathbb{Z}^2$.
+	Any such map must be trivial since it must send any generator of $\mathbb{Z}_2$, which has order 2, to an element in $\mathbb{Z}^2$ whose order divides two.
+	Since there are no elements of order 2 in $\mathbb{Z}^2$, this must be an element of order 1, namely the identity.
+
+	Let $p : \mathbb{R}^2 \to \mathbb{T}^2$ be the universal covering map.
+	Then since the trivial group is a subgroup of every group, in particular $\im f* \subset \im p_*$, so we have a lift $\widetilde{f} : \mathbb{RP}^2 \to \mathbb{R}^2$.
+	Since $\mathbb{R^2}$ is contractible, we have a homotopy $H : \mathbb{RP}^2 \times [0, 1] \to \mathbb{R}^2$ from $\widetilde{f}$ to a constant map.
+	Then the composition $p \circ H$ is itself a homotopy from $f$ to the constant map, as desired.
+\end{proof}
+
+\begin{ex}
+	If $f : S^1 \to S^1$ satisfies $|f(z) - z| < 1$ for all $z \in S^1$, show that $f$ is surjective.
+\end{ex}
+\begin{proof}
+	If $f$ is not surjective, then there is a point $x \in S^2$ such that $x \notin \im f$.
+	If this is the only missing point, then $\im f$ is homeomorphic to an open interval.
+	We know that $\im f$ has one connected component since $S^1$ has one component, so we must indeed have $\im f$ being homeomorphic to an open interval, say $(0, 1)$.
+	Since this interval is contractible, $f$ is null-homotopic.
+
+	This would seem to imply that the degree of $f$ is 0.
+	However, the condition $|f(z) - z| < 1$ implies that the degree of $f$ is 1, since if it were $n \in \mathbb{Z} \setminus \lbrace 1 \rbrace$, we would have some point being sent to its antipodal point, which would be a distance of greater than 1.
+	This is a contradiction.
+\end{proof}
+
+\begin{ex}
+	Show that the system of equations \begin{equation*}
+		\begin{cases}
+			\cos(x^2y) - 4x(1+y^2) = 0 \\
+			\sin(e^{x+2y})|x-y| - 5y = 0
+		\end{cases}
+	\end{equation*}
+	has a solution.
+\end{ex}
+\begin{proof}
+	We can rewrite this system of equations as \begin{equation*}
+		\begin{cases}
+			\frac{\cos(x^2y)}{4(1+y^2)} = x \\
+			\frac{\sin(e^{x+2y})|x-y|}{5} = y
+		\end{cases}.
+	\end{equation*}
+	Now this reduces to finding a fixed point of $f : \mathbb{R}^2 \to \mathbb{R^2}$ defined by \begin{equation*}
+		f(x, y) = \left(\frac{\cos(x^2y)}{4(1+y^2)}, \frac{\sin(e^{x+2y})|x-y|}{5} \right).
+	\end{equation*}
+  Since $\im f \subset D^2$, $f|_{D_2} : D_2 \to D_2$ (where $D^2$ has radius 1) has the same fixed points (if any), we conclude by the Brouwer fixed point theorem that there is one.
+\end{proof}
+
+\begin{ex}
+	Consider the group $G$ with presentation \begin{equation*}
+		G = \left\langle x, y : xyx = yxy \right\rangle.
+	\end{equation*}
+	Show that $G$ is not Abelian by finding a suitable homomorphism from $G$ into $S_3$, the symmetric group on three symbols.
+\end{ex}
+\begin{proof}
+	Define $f : G \to S_3$ by $f(x) = (1\;2)$ and $f(y) = (1\;3)$.
+	Then indeed, \begin{align*}
+		f(xyx) & = f(x)f(y)f(x)       \\
+		       & = (1\;2)(1\;3)(1\;2) \\
+		       & = (2\;3)             \\
+		       & = (1\;3)(1\;2)(1\;3) \\
+		       & = f(y)f(x)f(y)       \\
+		       & = f(yxy),
+	\end{align*}
+	so this satisfies the relation and is thus a homomorphism.
+	For $G$ to be Abelian, we would in particular have $xy = yx$ and thus $f(x)f(y) = f(y)f(x)$.
+	Since $(1\;2)(1\;3) = (1\;3\;2)$ and $(1\;3)(1\;2) = (1\;2\;3)$, this is not the case, so $G$ is not abelian.
+\end{proof}
+
+\end{document}

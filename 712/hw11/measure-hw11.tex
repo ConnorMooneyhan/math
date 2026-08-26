@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\geometry{letterpaper, portrait, margin=1in}
+\pgfplotsset{compat=1.18}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework Assignment 11 (Rewrite)}
+\author{Connor Mooneyhan}
+\date{December 5, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{7A.17}
+	Suppose $\mu$ is a measure, $1 \leq p \leq \infty$, and $f \in \mathcal{L}^p(\mu)$.
+	Prove that for every $\varepsilon > 0$, there exists a simple function $g \in \mathcal{L}^p(\mu)$ such that $||f-g||_p < \varepsilon$.
+\end{exercise}
+\begin{proof}
+	First consider $p < \infty$.
+	Let $\varepsilon > 0$, and let $(g_n)$ be a sequence of simple functions such that $|g_n| \leq |f|$ and $g_n \to f$ pointwise.
+	Then $|f - g_n|^p \leq 2^p|f|^p$ and $|f-g_n|^p$ converges to 0 pointwise.
+	Then $2^p|f|^p$ dominates $|f - g_n|^p$ in the sense of Lebesgue's Dominated Convergence Theorem, and we see that it is in $\mathcal{L}^1(\mu)$ because \begin{equation*}
+		\int |2^p|f|^p| \dd\mu = 2^p \int |f|^p \dd \mu = 2^p ||f||_p^p < \infty,
+	\end{equation*} so \begin{equation*}
+		\lim_{n \to \infty} \int_X |f-g_n|^p \dd\mu = \int_X \lim_{n \to \infty} |f - g_n|^p = \int_X 0\dd\mu = 0.
+	\end{equation*}
+	We can then choose an $N$ such that $\int_X |f - g_n|^p \dd\mu < \varepsilon^p$ for all $n \geq N$, so $||f-g_N||_p < \varepsilon$ as desired.
+
+	When $p = \infty$, we note that $(g_n)$ converges uniformly to $f$ on the set $\lbrace x : |f(x)| \leq ||f||_\infty \rbrace$, which has measure zero.
+	This allows us to choose an $N$ such that $|f - g_n| < \varepsilon$ for all $n \geq N$.
+	Thus $||f - g_N||_\infty < \varepsilon$.
+\end{proof}
+
+\begin{exercise}{7A.18}
+	Suppose $1 \leq p < \infty$ and $f \in \mathcal{L}^p(\mathbb{R})$.
+	Prove that for every $\varepsilon > 0$, there exists a step function $g \in \mathcal{L}^p(\mathbb{R})$ such that $||f-g||_p < \varepsilon$.
+\end{exercise}
+\begin{proof}
+	Fix $\varepsilon > 0$.
+	Using the previous problem, let $g$ be a simple function \begin{equation*}
+		g = \sum_{i=1}^n a_k\chi_{A_k}
+	\end{equation*}
+	such that $||f-g||_p < \varepsilon/2$.
+	Then we can find an $E_k$ for each $k$ such that $E_k$ is a finite union of disjoint open intervals and $|E_k \setminus A_k| + |A_k \setminus E_k| < (\frac{\varepsilon}{2|a_k|n})^{p}$, and so that the $E_k$ are all disjoint.
+	This means \begin{equation*}
+		||\chi_{A_k} - \chi_{E_k}||_p = ||\chi_{A_k} - \chi_{E_k}||_1^{1/p} < \frac{\varepsilon}{2|a_k|n}.
+	\end{equation*}
+	Now we can determine \begin{align*}
+		\left| \left| f - \sum_{k=1}^n a_k \chi_{E_k} \right| \right|_p & \leq \left| \left| f - \sum_{k = 1}^n a_k \chi_{A_k} \right| \right|_p + \left| \left| \sum_{k=1}^n a_k\chi_{A_k} - \sum_{k=1}^n a_k\chi_{E_k} \right| \right|_p \\
+		                                                                & < \frac{\varepsilon}{2} + \sum_{k=1}^n |a_k| \left| \left| \chi_{A_k} - \chi_{E_k} \right| \right|_p                                                             \\
+		                                                                & < \varepsilon
+	\end{align*}
+\end{proof}
+
+\begin{exercise}{7A.19}
+	Suppose $1 \leq p < \infty$ and $f \in \mathcal{L}^p(\mathbb{R})$.
+	Prove that for every $\varepsilon > 0$, there exists a continuous function $g: \mathbb{R} \to \mathbb{F}$ such that $||f-g||_p < \varepsilon$ and the set $\lbrace x \in \mathbb{R} : g(x) \neq 0 \rbrace$ is bounded.
+\end{exercise}
+\begin{proof}
+	For every $a_1, \dots, a_n, b_1, \dots, b_n, c_1, \dots, c_n \in \mathbb{R}$ and $g_1, \dots g_n \in \mathcal{L}^1(\mathbb{R})$, we have \begin{align*}
+		\left| \left| f-\sum_{k=1}^n a_kg_k \right| \right|_p & \leq \left| \left| f-\sum_{k=1}^n a_k \chi_{[b_k,c_k]} \right| \right|_p + \left| \left| \sum_{k=1}^n a_k (\chi_{[b_k,c_k]} - g_k)\right| \right|_p  \\
+		                                                      & \leq \left| \left| f-\sum_{k=1}^n a_k \chi_{[b_k,c_k]} \right| \right|_p + \sum_{k=1}^n  |a_k|\left| \left| \chi_{[b_k,c_k]} - g_k\right| \right|_p.
+	\end{align*}
+	By the previous problem, we can choose $a_1, \dots, a_n, b_1, \dots, b_n, c_1, \dots, c_n \in \mathbb{R}$ so that the term $\left| \left| f-\sum_{k=1}^n a_k \chi_{[b_k,c_k]} \right| \right|_p$ is as small as we want.
+	Furthermore, we have previously shown that we can choose $g_1, \dots, g_n$ such that $\left| \left| \chi_{[b_k,c_k]} - g_k\right| \right|_1$ is arbitrarily small, and since $0 \leq \chi_{[b_k, c_k]} - g_k \leq 1$ for each $k$ in that construction, we see that \begin{equation*}
+		\left|\left|\chi_{[b_k, c_k]} - g_k\right|\right|_1 \geq \left|\left|\chi_{[b_k, c_k]} - g_k\right|\right|_p^p,
+	\end{equation*}
+	and thus we can choose $\sum_{k=1}^n  |a_k|\left| \left| \chi_{[b_k,c_k]} - g_k\right| \right|_p$ as small as we want.
+	We can then finish off the inequalities above as
+	\begin{equation*}
+		\left| \left| f-\sum_{k=1}^n a_kg_k \right| \right|_p < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+	\end{equation*}
+  Define $g = \sum_{k=1}^n a_kg_k$, and we are done.
+\end{proof}
+
+\begin{exercise}{5A.1}
+	Suppose $(X, S)$ and $(Y, T)$ are measurable spaces.
+	Prove that if $A$ is a nonempty subset of $X$ and $B$ is a nonempty subset of $Y$ such that $A \times B \in S \otimes T$, then $A \in S$ and $B \in T$.
+\end{exercise}
+\begin{proof}
+	We have seen that for any $a \in A$ and $b \in B$, $[A \times B]_a = B$ and $[A \times B]^b = A$ (5.5), and furthermore these cross sections are continuous (5.6), so since $A \times B \in S \otimes T$, we have $A \in S$ and $B \in T$.
+\end{proof}
+
+\begin{exercise}{5A.4}
+	Suppose $(X, S)$ and $(Y, T)$ are measurable spaces.
+	Prove that if $f : X \to \mathbb{R}$ is $S$-measurable and $g: Y \to \mathbb{R}$ is $T$-measurable and $h : X \times Y \to \mathbb{R}$ is defined by $h(x, y) = f(x)g(y)$, then $h$ is $(S \otimes T)$-measurable.
+\end{exercise}
+\begin{proof}
+	Define $\overline{f} : X \times Y \to \mathbb{R}$ by $\overline{f}(x, y) = f(x)$ and $\overline{g} : X \times Y \to \mathbb{R}$ by $\overline{g}(x, y) = g(y)$.
+	Then given measurable $A \in \mathbb{R}$, \begin{align*}
+		\left(\overline{f}\right)^{-1}(A) & = \left\lbrace (x, y) : f(x) \in A \right\rbrace \\
+		                                  & = f^{-1}(A) \times Y.
+	\end{align*}
+	Since $f$ is measurable, $f^{-1}(A)$ is measurable, and thus $f^{-1}(A) \times Y \in S \otimes T$ since it is a measurable rectangle.
+	By the same reasoning, $\left(\overline{g}\right)^{-1}(A) = X \times g^{-1}(A) \in S \otimes T$.
+
+	Since $h(x, y) = f(x)g(y) = \overline{f}(x, y)\overline{g}(x, y)$, $h$ is now simply a product of $(S \otimes T)$-measurable functions, and so it is itself $(S \otimes T)$-measurable.
+\end{proof}
+
+\begin{exercise}{5A.8}
+	Suppose $\mu$ is a measure on a measurable space $(X, S)$.
+	Prove that the following are equivalent.
+	\begin{enumerate}[label=(\alph*)]
+		\item The measure $\mu$ is $\sigma$-finite.
+		\item There exists an increasing sequence $X_1 \subset X_2 \subset \cdots$ of sets in $S$ such that $X = \cup_{k=1}^\infty X_k$ and $\mu(X_k) < \infty$ for every $k \in \mathbb{Z}^+$.
+		\item There exists a disjoint sequence $X_1, X_2, X_3, \dots$ of sets in $S$ such that $X = \cup_{k=1}^\infty X_k$ and $\mu(X_k) < \infty$ for every $k \in \mathbb{Z}^+$.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}
+	(a $\implies$ b)
+	Let $X = \bigcup_1^\infty A_i$ where each $A_i \in S$ and $\mu(A_i) < \infty$.
+	Then define $X_k = \bigcup_1^k A_i$.
+	For all $k$, we have $X_k \subset X_{k+1}$, $\mu(X_k) \leq \sum_1^k \mu(A_i) < \infty$, and $\bigcup_1^\infty X_k = \bigcup_1^\infty A_i = X$, as desired.
+
+	(b $\implies$ c)
+	Let $A_1 \subset A_2 \subset \cdots$ be a sequence of sets in $S$ such that $X = \bigcup_1^\infty X_i$.
+	Set $A_0 = \varnothing$ (which changes none of the properties mentioned above), and define $X_k = A_{k} \setminus A_{k-1}$ for all $k \geq 1$.
+	Then we have $\bigcup_1^\infty X_k = X$, and for all $k$, $\mu(X_k) < \mu(A_k) < \infty$.
+	Also, the sequence is disjoint as desired.
+
+	(c $\implies$ a)
+	Let $X_1, X_2, \dots$ be as specified in (c).
+	Then $X_1, X_2, \dots$ is itself a countable collection of sets of finite measure whose union is $X$, so $\mu$ is $\sigma$-finite.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\wt}{\ensuremath{\operatorname{wt}}}
+\newcommand{\LT}{\ensuremath{\text{\sc lt}}}
+\newcommand{\Mat}{\ensuremath{\textsf{Mat}}}
+\newcommand{\solution}{\noindent\textbf{Solution:~~}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\imag}{\operatorname{im}}
+\newcommand{\Orb}{\operatorname{Orb}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 8}
+\author{Connor Mooneyhan}
+\date{December 1, 2025}
+
+\begin{document}
+
+\maketitle
+
+Disclaimer: AI was used for some question clarification and for some LaTeX help.
+
+\begin{ex}
+	Let $k$ be a field.
+	Prove that the only two-sided ideals of the ring $R = M_n(k)$ of $n \times n$ matrices over $k$ are $R$ and $\lbrace 0 \rbrace$.
+\end{ex}
+\begin{proof}
+	Note that $\lbrace 0 \rbrace$ and $R$ are ideals of any ring $R$, so we need only prove that any nontrivial ideal is equal to $R$.
+
+	Define $E_{i,j}$ to be the matrix whose $(i, j)$ entry is 1 where all other entries are 0.
+	Note that right-multiplying a matrix by $E_{i,i}$ ``chooses'' the $i^\text{th}$ row of the matrix in the sense that it yields a matrix whose $i_\text{th}$ row is the same as the original matrix but with zeroes everywhere else.
+	Similarly, left-multiplication by $E_{j,j}$ chooses the $j^\text{th}$ column.
+	We also adopt the notation $a \cdot 1_R$ for any $a \in k$ to mean the diagonal matrix with $a$ in each nonzero entry.
+
+	Now let $I$ be an ideal of $R$ and let $A \in I$ be nonzero, choose $i$ and $j$ so that $A_{i,j}$ is nonzero.
+	Then \begin{equation*}
+		E_{j,j}AE_{i,i}\left((A_{i,j})^{-1} \cdot 1_R\right) = E_{i,j},
+	\end{equation*}
+	so $E_{i,j} \in I$.
+
+	It is a basic fact from linear algebra that given any $k, \ell$ between 1 and $n$, we can conjugate by a permutation matrix $P$ to achieve \begin{equation*}
+		PE_{i,j}P^{-1} = E_{k, \ell},
+	\end{equation*}
+	so $E_{k, \ell} \in I$.
+	This allows us to see that since \begin{equation*}
+		1_R = \sum_{1 \leq k \leq n} E_{k, k},
+	\end{equation*} $1_R$ is in $I$, and thus $I = R$.
+\end{proof}
+
+\begin{ex}
+	Let $S$ be a subset of a ring $R$.
+	Define the left annihilator of $S$ by \begin{equation*}
+		\mathrm{leftAnn}_R(S) = \lbrace r \in R \,|\, rs = 0 \text{ for all } s \in S \rbrace.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $\mathrm{leftAnn}_R(S)$ is a left ideal.
+		\item Show that if $S$ is a left ideal of $R$, then $\mathrm{leftAnn}_R(S)$ is a two-sided ideal.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $r \in \mathrm{leftAnn}_R(S)$, and let $a \in R$.
+		      Then $(ar)s = a(rs) = a(0) = 0$, so $ar \in \mathrm{leftAnn}_R(S)$ as desired.
+		\item Again, let $r \in \mathrm{leftAnn}_R(S)$, and let $a \in R$.
+		      Then $(ra)s = r(as) = 0$ since $S$ being a left ideal guarantees that $as \in S$.
+		      Thus $\mathrm{leftAnn}_R(S)$ is also a right ideal, so it is a two-sided ideal.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $G$ be a finite group, and $R$ a ring.
+	Suppose that $\mathcal{K} = \lbrace k_1, \dots, k_n \rbrace$ is a conjugacy class of $G$.
+	Prove that $K = k_1 + k_2 + \cdots + k_n$ is in the center of the group ring $RG$.
+\end{ex}
+\begin{proof}
+	Given any $g \in G$, define $\varphi : G \to G$ by $a \mapsto gag^{-1}$.
+	If $1 \leq i \leq n$, then $\varphi(k_i) = k_j$ for some $j$, and in fact $\varphi(\mathcal{K})  = \mathcal{K}$ since $\mathcal{K}$ is a conjugacy class.
+	Thus \begin{align*}
+		gKg^{-1} & = g\left( \sum_{i=1}^n k_i \right)g^{-1} \\
+		         & = \sum_{i=1}^n gk_ig^{-1}                \\
+		         & = \sum_{j=1}^n k_j                       \\
+		         & = K.
+	\end{align*}
+	Thus $gK = Kg$.
+
+	Now given any element $\sum_{i=1}^m r_ig_i$ of $RG$, we have \begin{align*}
+		K\left(\sum_{i=1}^m r_ig_i\right) & = \sum_{i=1}^m r_i(Kg_i)             \\
+		                                  & = \sum_{i=1}^m r_i(g_iK)             \\
+		                                  & = \left(\sum_{i=1}^m r_ig_i\right)K.
+	\end{align*}
+	Thus $K$ commutes with every element of $RG$, so it is in the center.
+\end{proof}
+
+\begin{ex}
+	Let $R$ be a commutative ring, and let $I$ and $J$ be ideals of $R$.
+	We say $I$ and $J$ are \textit{comaximal} if $I + J = R$.
+	Prove that if $I$ and $J$ are comaximal, then the rings $R/(I\cap J)$ and $R/I \times R/J$ are isomorphic via the (well-defined!) map given by $r + (I \cap J) \mapsto (r + I, r + J)$.
+\end{ex}
+\begin{proof}
+	Let $\varphi : R/(I\cap J) \to R/I \times R/J$ be the map in question.
+	We first need to show that it is a ring homomorphism.
+	We have \begin{align*}
+		\varphi \left( (a + I \cap J) + (b + I \cap J) \right) & = \varphi ((a + b) + I \cap J)                   \\
+		                                                       & = ((a + b) + I, (a + b) + J)                     \\
+		                                                       & = ((a + I) + (b + I), (a + J) + (b + J))         \\
+		                                                       & = (a + I, a + J) + (b + I, b + J)                \\
+		                                                       & = \varphi(a + I \cap J) + \varphi(b + I \cap J),
+	\end{align*}
+	and similarly, \begin{align*}
+		\varphi \left( (a + I \cap J)(b + I \cap J) \right) & = \varphi(ab + I\cap J)                       \\
+		                                                    & = (ab + I, ab + J)                            \\
+		                                                    & = ((a + I)(b + I), (a + J)(b + J))            \\
+		                                                    & = (a + I, a + J)(b + I, b + J)                \\
+		                                                    & = \varphi(a + I \cap J)\varphi(b + I \cap J).
+	\end{align*}
+	Also, $\varphi(1 + I \cap J) = (1 + I, 1 + J)$.
+	Thus $\varphi$ is a ring homomorphism.
+
+	Now assume that for some $a, b \in R$, $\varphi(a + I \cap J) = \varphi(b + I \cap J)$.
+	Then \begin{align*}
+		         & (a + I, a + J) = (b + I, b + J)          \\
+		\implies & (a - b + I, a - b + J) = (I, J)          \\
+		\implies & a - b + I = I \text{ and } a - b + J = J \\
+		\implies & a - b \in I \text{ and } a - b \in J     \\
+		\implies & a - b \in I \cap J                       \\
+		\implies & a - b + I \cap J = I \cap J              \\
+		\implies & a + I\cap J = b + I \cap J,
+	\end{align*}
+	so $\varphi$ is injective.
+	If $c, d \in R$, then there exist $i_1, i_2 \in I$ and $j_1, j_2 \in J$ such that $c = i_1 + j_1$ and $d = i_2 + j_2$.
+	Then \begin{align*}
+		(c + I, d + J) & = (i_1 + j_1 + I, i_2 + j_2 + J) \\
+		               & = (j_1 + i_1 + I, i_2 + j_2 + J) \\
+		               & = (j_1 + I, i_2 + J).
+	\end{align*}
+	We now see that \begin{align*}
+		\varphi(i_2 + j_1 + I \cap J) & = (i_2 + j_1 + I, i_2 + j_1 + J) \\
+		                              & = (j_1 + i_2 + I, i_2 + j_1 + J) \\
+		                              & = (j_1 + I, i_2 + J)             \\
+		                              & = (c + I, d + J).
+	\end{align*}
+	Since $c$ and $d$ were arbitrary, we have surjectivity of $\varphi$, and thus $\varphi$ is a ring isomorphism.
+\end{proof}
+
+\begin{ex}
+	Let $R$ be a commutative ring, and let $S$ be a multiplicatively closed set of nonzero elements that contains 1.
+	That is, if $s, s' \in S$, then $ss' \in S$.
+	Let $A$ be the set of `fractions': \begin{equation*}
+		A = \left\lbrace \frac{r}{s} \,|\, r \in R \text{ and } s \in S \right\rbrace.
+	\end{equation*}
+	Declare two fractions to be equivalent if \begin{equation*}
+		\frac{r}{s} \sim \frac{r'}{s'} \iff t(rs' - r's) = 0 \text{ for some $t \in S$}.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that equivalence of fractions forms an equivalence relation. How can we simplify the equivalence relation if $R$ is a domain?
+		\item The set of fractions with denominators in $S$ modulo equivalence is denoted $S^{-1}R$.
+		      Show that $S^{-1}R$ is a commutative ring with identity under the operations \begin{equation*}
+			      \frac{r}{s} + \frac{r'}{s'} = \frac{rs' + r's}{ss'} \hspace{3em} \frac{r}{s}\frac{r'}{s'} = \frac{rr'}{ss'}.
+		      \end{equation*}
+		      Note that this includes showing that the multiplication and addition operations are well-defined.
+		\item Show that the function $\psi : R \to S^{-1}R$ defined by $\psi(r) = \frac{r}{1}$ is a ring homomorphism.
+		\item Compute the kernel of $\psi$ (see Problem 1 on this homework).
+		\item Suppose that $\varphi : R \to T$ is a ring homomorphism such that $\varphi(s)$ is a unit for all $s \in S$.
+		      Show that there is a unique ring homomorphism $\varphi' : S^{-1}R \to T$ so that $\varphi = \varphi'\psi$.
+		\item State the previous result in terms of a universal property of the homomorphism $\psi : R \to S^{-1}R$ in the category of rings.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $a, b, c \in R$ and $x, y, z \in S$.
+		      Then $ax - ax = 0$, so $a/x \sim a/x$.
+		      Also, if $t(ay - bx) = 0$, then $-t(bx - ay) = 0$, so $a/x \sim b/y \implies b/y \sim a/x$.
+          Finally, if $t_1(ay - bx) = t_2(bz - cy) = 0$, then we just need to prove transitivity.
+
+		      Note that the equivalence condition implies that $rs'-r's$ is a zero divisor, but if $R$ is a domain, this means $rs'-r's=0$, so we can simplify the condition to just $rs'=r's$.
+		\item
+		\item If $a, b \in R$, then $\psi(1) = 1/1$, which is the identity in $S^{-1}R$, \begin{align*}
+			      \psi(a) + \psi(b) & = \frac{a}{1} + \frac{b}{1}              \\
+			                              & = \frac{a\cdot 1 + b \cdot 1}{1 \cdot 1} \\
+			                              & = \frac{a + b}{1}                        \\
+			                              & = \psi(a + b),
+		      \end{align*}
+		      and
+		      \begin{align*}
+			      \psi(a)\psi(b) & = \frac{a}{1}\frac{b}{1} \\
+			                           & = \frac{ab}{1}           \\
+			                           & = \psi(ab),
+		      \end{align*}
+		      so $\psi$ is a ring homomorphism.
+		\item We are looking for $r \in R$ such that $\psi(r) = r/1 \sim 0/1$, i.e. $0 = t(r\cdot 1 - 0 \cdot 1) = tr = rt$ for some $t \in S$.
+		      It seems like the prompt is trying to get me to say that $\ker \psi = \mathrm{leftAnn}_R(S)$ in the language of Problem 2, but elements of $\mathrm{leftAnn}_R(S)$ need to annihilate \textit{every} element of $S$, so this is not necessarily true.
+		      What I can say using that language is \begin{equation*}
+            \ker \psi = \bigcup_{s \in S}\mathrm{leftAnn}_R(\lbrace s \rbrace).
+		      \end{equation*}
+		\item
+		\item
+	\end{enumerate}
+\end{proof}
+
+\end{document}

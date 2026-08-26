@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 2}
+\author{Connor Mooneyhan}
+\date{January 29, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $(X, d)$ be a metric space.
+	Let $r > 0$, $x \in X$ and define the set \begin{equation*}
+		B = \left\lbrace y \in X : d(x, y) \leq r \right\rbrace.
+	\end{equation*}
+	Is it always true that $\mathrm{int}(B) = B_r(x)$?
+	If so, prove it.
+	If not, give a counterexample.
+\end{ex}
+\begin{proof}
+	No.
+	Consider $\mathbb{R}$ under the discrete metric $d$ where $x = 0$ and $r = 1$.
+	Then $B = \mathbb{R}$ and $B_r(x) = \lbrace 0 \rbrace$.
+	Since every subset of $\mathbb{R}$ is open under $d$, $B$ itself is open.
+	Thus $B_r(x)$ is not the largest open set contained in $B$ and $B_r(x) \subsetneq \mathrm{int}(B) = B$.
+\end{proof}
+
+\begin{ex}
+	Let $C[0, 2\pi]$ be the set of all continuous functions on the interval $[0, 2\pi]$.
+	Let $d$ be a metric on $C[0, 2\pi]$ defined as \begin{equation*}
+		d(f, g) = \sup_{t \in [0, 2\pi]} |f(t) - g(t)|.
+	\end{equation*}
+	Let $f(t) = \sin t$ and $g(t) = \cos t$.
+	Clearly $f, g \in C[0, 2\pi]$.
+	Find the infimum of $r > 0$ such that $f \in B_r(g)$.
+\end{ex}
+\begin{proof}
+	We begin by finding $d(f,g)$.
+	We can do calculus on $f(t) - g(t)$ to get \begin{equation*}
+		f'(t) - g'(t) = \cos t + \sin t
+	\end{equation*}
+	and then solve to get $f'(t) - g'(t) = 0$ when $t = \pi/4$ or $t = 3\pi/4$.
+	In either case, $|f(t) - g(t)| = \sqrt 2$, so we get that $d(f, g) = \sqrt 2$.
+	Thus, if $r > \sqrt 2$, $f \in B_r(g)$, whereas if $r \leq \sqrt 2$, $f \notin B_r(g)$, so $r = \sqrt 2$ is the desired result.
+\end{proof}
+
+\begin{ex}
+	On $\mathbb{R}^2$, let $a, b$ be two positive real numbers, and define a metric \begin{equation*}
+		d^{a,b}(\x_1, \x_2) = \sqrt{a^2(x_1-x_2)^2 + b^2(y_1-y_2)^2},
+	\end{equation*}
+	where $\x_1 = (x_1, y_1)$ and $\x_2 = (x_2, y_2)$.
+	Show that for all $a, b, a', b' > 0$, $d^{a, b}$ and $d^{a',b'}$ are equivalent.
+\end{ex}
+\begin{proof}
+	Let \begin{equation*}
+		c = \max \left\lbrace \frac{a}{a'}, \frac{a'}{a}, \frac{b}{b'}, \frac{b'}{b} \right\rbrace.
+	\end{equation*}
+	We will prove the squared version of the inequalities, but first note that since $c \geq \frac{a'}{a}$ and $c \geq \frac{b'}{b}$, $a \geq \frac{a'}{c}$ and $b \geq \frac{b'}{c}$.
+	Thus \begin{align*}
+		\frac{1}{c^2} d^{a',b'}(\x_1, \x_2)^2 & = \frac{1}{c^2}(a')^2(x_1-x_2)^2 + \frac{1}{c^2}(b')^2(y_1-y_2)^2 \\
+		                                        & = \frac{(a')^2}{c^2}(x_1-x_2)^2 + \frac{(b')^2}{c^2}(y_1-y_2)^2   \\
+		                                        & \leq a^2(x_1-x_2)^2 + b^2(y_1-y_2)^2                              \\
+		                                        & = d^{a, b}(\x_1, \x_2)^2.
+	\end{align*}
+	By similar logic, $ca' \geq a$ and $cb' \geq b$, so \begin{align*}
+		d^{a,b}(\x_1, \x_2)^2 & = a^2(x_1-x_2)^2 + b^2(y_1-y_2)^2 \\
+                            & \leq c^2(a')^2(x_1-x_2)^2 + c^2(b')^2(y_1-y_2)^2 \\
+                            & = c^2d^{a',b'}(\x_1,\x_2)^2.
+	\end{align*}
+  Now taking square roots (since all the distances are positive), we get the desired inequality showing that $d^{a,b}$ and $d^{a',b'}$ are equivalent.
+\end{proof}
+
+\begin{ex}
+	Show that on any metric space, any set $A$ is open if and only if it is a union of open balls.
+\end{ex}
+\begin{proof}
+	First, if $A$ is open, then each point $x \in A$ is an interior point, and thus there exists an open ball $B_x$ centered at $x$ which is contained in $A$.
+	Then $\bigcup_{x \in A} B_x \subset A$ since each $B_x \subset A$, and $A \subset \bigcup_{x \in A} B_x$ since for each $x \in A$, $x \in B_x \subset \bigcup_{x \in A} B_x$.
+
+	Now if $A$ is a union of open balls, then given any $x \in A$, $x \in B_r(y)$ for some $r > 0$ and $y \in A$.
+	By a lemma from class, there exists an $r' > 0$ such that $B_{r'}(x) \subset B_r(y) \subset A$, and thus $A$ is open.
+\end{proof}
+
+\begin{ex}
+	On any metric space $(X, d)$ and for any set $A \subset X$, define \begin{equation*}
+		\delta A = \left\lbrace x \in X : x \text{ is a boundary point of } A \right\rbrace.
+	\end{equation*}
+	Show that $\delta A = X \setminus (\mathrm{int}(A) \cup \mathrm{int}(A^c))$ where $A^c$ denotes the complement of $A$.
+\end{ex}
+\begin{proof}
+	The proof is an exercise in restatement.
+	In particular, the set in the last line of the exercise statement can be rewritten as \begin{align*}
+		X \setminus (\mathrm{int}(A) \cup \mathrm{int}(A^c)) & = \lbrace x \in X : \nexists r > 0 \text{ such that either } B_r(x) \subset A \text{ or } B_r(x) \subset A^c \rbrace                \\
+		                                                     & = \left\lbrace x \in X : \forall r > 0, B_r(x) \cap A \neq \varnothing \text{ and } B_r(x) \cap A^c \neq \varnothing \right\rbrace. \\
+		                                                     & = \left\lbrace x \in X : x \text{ is a boundary point of } A \right\rbrace.
+	\end{align*}
+	Thus we have $\delta A = X \setminus (\mathrm{int}(A) \cup \mathrm{int}(A^c))$.
+\end{proof}
+
+\end{document}

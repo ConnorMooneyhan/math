@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Title}
+\author{Connor Mooneyhan}
+\date{Month Day, Year}
+
+\begin{document}
+\begin{verbatim}
+R<x, y, z, w> := PolynomialRing;
+
+C := Curve(ProjectiveSpace(Rationals(), 3), [f1, f2]); 
+
+Genus(C);
+
+pt := C![0, -1, 1, 0];
+
+IsSingular(pt);
+
+// yields E along with phi, a map from C to E
+E, phi := EllipticCurve(C, pt);
+
+chk, phi2 := IsInvertible(phi);
+
+G, mp := MordellWeilGroup(E);
+
+// get coordinates of first generator in G
+mp(G.1)
+
+// single variable ring for finding roots
+R<x> := PolynomialRing(Rationals());
+
+Roots(f);
+
+for d in Divisors(176) do;
+  ...
+end for;
+
+N^2 = dM^4 + aM^2e^2 + (b/d)e^4
+
+IsSquarefree(d);
+
+[ ... ] cat [ ... ];
+
+f := _x^4 - _;
+C := HyperellipticCurve(f);
+
+IsLocallySolvable(GenusOneModel(C));
+
+// factor polynomial f
+Factorization(f);
+
+Points(C : Bound := 10000);
+
+PointSearch(C, 100);
+
+Rank(C);
+
+RootNumber(C);
+
+L := LSeries(C : Precision := 5);
+Evaluate(L, 1 : Derivative := 1)
+\end{verbatim}
+\end{document}

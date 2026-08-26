@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{graphicx}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Assignment}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{MTH 732 Topology - Homework 9}
+\author{Connor Mooneyhan}
+\date{April 2, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	For a CW complex $X$, show that $(X^n, X^{n-1})$ is a good pair.
+\end{ex}
+\begin{proof}
+	First, we show that $X^{n-1}$ is closed.
+	If $X^n = X^{n-1}$, then $X^{n-1}$ is trivially closed in $X^n$.
+	Otherwise, let $x \in X^n \setminus X^{n-1}$.
+	Then $x$ must be in some $n$-cell $e^m$, which itself is a neighborhood of $x$ that does not intersect $X^{n-1}$.
+	Thus $X^{n-1}$ is closed since its complement is open.
+
+	Now we find a neighborhood which deformation retracts to $X^{n-1}$.
+	If $X^n = X^{n-1}$, then $X^n$ is open and trivially deformation retracts to $X^{n-1}$, so we are done.
+	Otherwise, consider $S = X^n \cap X^{n-1}$.
+	Each point $s \in S$ is in the image of a boundary map of some $D^n_s$ (if there are multiple possibilities for $D^n_s$, pick one) with attaching map $g_s$.
+	We can also define $U_s$, a neighborhood of $g_s^{-1}(s)$ in $D^n_s$ by taking the subset of $D^n_s$ where the radius is greater than 0.9.
+	Let $p : X^{n-1} \bigsqcup D^n_\alpha \to X^{n}$ be the standard projection onto the quotient.
+	Then we can define \begin{equation*}
+		U = X_{n-1} \bigcup_{s \in S} p(U_s).
+	\end{equation*}
+	$U$ is open since $U \cap X^{n-1} = X^{n-1}$ which is open in $X^{n-1}$, and $U \cap e^n_\alpha$ is open for each $\alpha$ in the indexing set for $n$-cells by construction.
+	Also by construction, $U$ deformation retracts onto $X^{n-1}$, so we conclude that $(X^n, X^{n-1})$ is a good pair.
+\end{proof}
+
+\begin{ex}
+	Describe a CW complex structure on the torus $T^2$ having exactly one 0-cell, two 1-cells, and one 2-cell.
+	Describe all attaching maps as well.
+\end{ex}
+\begin{proof}
+	The fundamental polygon (a square) works great for this.
+	We don't even need to subdivide it this time.
+	We just have a 0-cell corresponding to the ``four corners,'' two 1-cells corresponding to the two pairs of opposite-identified sides, and the 2-cell filling it all in in the middle.
+\end{proof}
+
+\begin{ex}
+	Let $v, e, f$ be positive integers.
+	If $v - e + f = 2$, show that it is possible to construct a CW complex $X$ having exactly $v, e, f$ many cells in dimensions 0, 1, and 2, respectively, such that $X$ is homeomorphic to the 2-sphere. \textit{Hint: it might be easier to split this problem into three cases, according to whether $e \geq v - 1$, $e = v$, or $e < v$.}
+\end{ex}
+\begin{proof}
+	Note that many of our constructions may be constructed as being ``on the sphere'', but this is just to give a sense of structure and should not affect the argument if constructed properly.
+
+	If $e = v$, then $f = 2$.
+	Since $v$ cannot be 0, consider first when $e = v = 1$.
+	Then we have one vertex with a loop on it, and we can attach two copies of $D^2$ to that loop, thinking of them as being on ``both sides of it''.
+	This is clearly a 2-sphere.
+
+	Now if $v \geq 2$ (but still $e = v$), we first put vertices $N$ and $S$ at antipodal points, which will act as our north and south poles.
+	We can then attach two edges, each going from $N$ to $S$, and then choose one of the edges to subdivide by adding $v-2$ vertices to it.
+	Each time we do this, $e$ goes up by one as well, so the equality is maintained.
+	Finally, we can attach our two copies of $D^2$ to the ``two'' original edges even though one has now been subdivided, since that will not affect the attaching maps.
+
+	Now in the case where $e > v$ we follow the same construction as the previous paragraph until we have exhaused all the vertices we have available.
+	We even attach two faces in the same way.
+  Observe that we have $e - v$ more 1-cells to allocate and $f - 2$ more 2-cells (noting that since $v - e < 0$, the equation forces $f \geq 3$)\dots
+  I'm not sure how to finish this case.
+
+  Finally, consider where $e < v$.
+  Then $v - e > 0$, so $f$ must be 1 since it is positive, which makes $v - e = 1$, and thus $v = e + 1$.
+  In this case, we put two antipodal vertices ``on the sphere,'' and one edge connecting them.
+  We subdivide this edge with new vertices (and thus new edges) as before, $v - 2$ times.
+  We have now exhausted all the vertices and edges, so we attach our single face to the ``big edge'' from $N$ to $S$, wrapping it around so that, for instance, $[0, \pi]$ gets mapped from $N$ to $S$, and then $[\pi, 2\pi]$ gets mapped from $S$ to $N$ along the same ``big edge.''
+  This is a 2-sphere, so we are done.
+\end{proof}
+
+\end{document}

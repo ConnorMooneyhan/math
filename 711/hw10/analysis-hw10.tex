@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 10}
+\author{Connor Mooneyhan}
+\date{April 9, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $c_0 = \left\lbrace (x_1, x_2, \dots) \in \ell^\infty : \lim_{n \to \infty} x_n = 0 \right\rbrace$.
+	Show that $(c_0)'$ is isomorphic to $\ell^1$.
+\end{ex}
+\begin{proof}
+	Given any $a = (a_n) \in \ell^1$, we have a linear functional $f_a$ which maps $x = (x_n) \in c_0$ by \begin{align*}
+		f_a(x)  = \sum_{i = 1}^\infty a_ix_i ,
+	\end{align*}
+	which is bounded since $\left| \sum_{i=1}^\infty a_ix_i \right| \leq ||x||_{\infty}\sum_{i=1}^\infty a_i = ||x||_\infty||a||_1$.
+	Now define $e_i$ to be the sequence with 1 in the $i^{\text{th}}$ position and 0 elsewhere.
+	Then given a bounded linear functional $f \in (c_0)'$, we can define a sequence $a = (f(e_n))_{n \in \mathbb{Z}}$.
+	Then given any $x = (x_1, x_2, \dots) \in c_0$, \begin{align*}
+		f_a(x) & = \sum_{i=1}^\infty a_ix_i               \\
+		       & = \sum_{i=1}^\infty f(e_i)x_i            \\
+		       & = \sum_{i=1}^\infty f(x_ie_i)            \\
+		       & = f\left(\sum_{i=1}^\infty x_ie_i\right) \\
+           & = f(x),
+	\end{align*}
+  so $f$ is indeed realized by this mapping of elements of $\ell^1$ to functionals on $c_0$.
+\end{proof}
+
+\begin{ex}
+	In an inner product space, we say that $x, y$ are orthogonal (sometimes we write $x \perp y$) if $\langle x, y \rangle = 0$.
+	Show that if $x, y$ are non-zero and orthogonal then they must be linearly independent.
+	Extend this result to an arbitrary finite number of pairwise orthogonal vectors and prove it.
+\end{ex}
+\begin{proof}
+	I will just prove the general result since it includes the two-vector result.
+	Suppose we have nonzero vectors $x_1, \dots, x_n$ which are all pairwise orthogonal.
+	Then we want to show that \begin{equation}\label{1}
+		c_1x_1 + \cdots + c_nx_n = 0
+	\end{equation}
+	implies $c_1 = \cdots = c_n = 0$.
+	Indeed, assume we have \eqref{1} for some scalars $c_1, \dots, c_n$.
+	Then for each $i \in \lbrace 1, \dots, n \rbrace$, \begin{align*}
+		0 & = \left\langle c_1x_1 + \cdots + c_nx_n, x_i \right\rangle           \\
+		  & = c_1\langle x_1, x_i \rangle + \cdots + c_n\langle x_n, x_i \rangle \\
+		  & = c_i\langle x_i, x_i \rangle
+	\end{align*}
+	since $\langle x_j, x_i \rangle = 0$ whenever $i \neq j$ by hypothesis.
+	Since $x_i$ is nonzero, $\langle x_i, x_i \rangle > 0$, so the final equality implies $c_i = 0$.
+	Our choice of $i$ was arbitrary, so we are done.
+\end{proof}
+
+\begin{ex}
+	Show that if $x_n$ converges to $x$ and $y_n$ converges to $y$ with respect to the induced norm then $\langle x_n, y_n \rangle$ converges to $\langle x, y \rangle$.
+\end{ex}
+\begin{proof}
+	First, observe that \begin{align*}
+		|\left\langle x_n, y_n \right\rangle - \left\langle x, y \right\rangle| & = |\left\langle x_n, y_n \right\rangle - \left\langle x, y_n \right\rangle + \left\langle x, y_n \right\rangle - \left\langle x, y \right\rangle| \\
+		                                                                        & = \left\langle x_n - x, y_n \right\rangle + \left\langle x, y_n - y \right\rangle                                                                 \\
+		                                                                        & \leq ||x_n-x||\cdot||y_n|| + ||x||\cdot||y_n-y||.
+	\end{align*}
+	We will study the final equation to get our result.
+	The second term goes to zero because $||x||$ is constant with respect to $n$, and $||y_n - y||$ goes to zero as $n \to \infty$ since $y_n \to y$.
+	The first term has $||x_n - x|| \to 0$ for the same reason, and of course $y_n \to y$, so that first term will also tend to 0 as $n \to \infty$.
+	Thus we get that the entire RHS of that inequality goes to 0 as $n \to \infty$, and thus $|\langle x_n, y_n \rangle - \langle x, y \rangle|$ does as well since it is bounded above by 0.
+\end{proof}
+
+\begin{ex}
+	Let $T : X \to X$ be a bounded linear operator on a complex inner product space $X$.
+	If $\langle T(x), x \rangle = 0$ for all $x \in X$, show that $T = 0$.
+	Also, give an example where this is false in real inner product spaces.
+\end{ex}
+\begin{proof}
+	Let $a \in C$ and $u, v \in X$.
+	Then \begin{align*}
+		0 & = \left\langle T(u + av), u + av \right\rangle                                                                                                                       \\
+		  & = \left\langle T(u) + aT(v), u + av \right\rangle                                                                                                                    \\
+		  & = \left\langle T(u), u \right\rangle + \bar{a}\left\langle T(u), v \right\rangle + a \left\langle T(v), u \right\rangle + a\bar{a}\left\langle T(v), v \right\rangle \\
+		  & = \bar{a}\left\langle T(u), v \right\rangle + a \left\langle T(v), u \right\rangle.
+	\end{align*}
+	Now since $a$ is arbitrary, we can look at a couple values of $a$ in particular.
+	Let $A = \langle T(u), v \rangle$ and $B = \langle T(v), u \rangle$ for notational ease.
+	Then when $a = 1$ we have \begin{equation*}
+		A + B = 0
+	\end{equation*}
+	and when $a = i$ we have \begin{equation*}
+		-iA + iB = 0 \implies -A + B = 0.
+	\end{equation*}
+	Adding the two equations together, we get that $2B = 0$, so $B = 0$, and then plugging that into the first equation we get $A = 0$.
+	Therefore $\langle T(u), v \rangle = 0$ for all $u, v \in X$.
+	If we choose $v = T(u)$, this yields $\langle T(u), T(u) \rangle = 0$, which is true only when $T(u) = 0$.
+	This is true for all $u$, so $T = 0$.
+
+	For the real counterexample, choose $T : \mathbb{R}^2 \to \mathbb{R}^2$ defined by $T(x, y) = (-y, x)$.
+	Then indeed for any $(x, y) \in \mathbb{R}^2$, we have \begin{align*}
+		\langle T(x, y), (x, y) \rangle & = \langle (-y, x), (x, y) \rangle \\
+		                                & = -xy + xy                        \\
+		                                & = 0.
+	\end{align*}
+	Thus $T$ satisfies the criterion, but it is clearly not the zero map (e.g. $(1, 0) \mapsto (0, 1)$).
+\end{proof}
+
+\end{document}

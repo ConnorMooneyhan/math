@@ -1,0 +1,200 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\wt}{\ensuremath{\operatorname{wt}}}
+\newcommand{\LT}{\ensuremath{\text{\sc lt}}}
+\newcommand{\Mat}{\ensuremath{\textsf{Mat}}}
+\newcommand{\solution}{\noindent\textbf{Solution:~~}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\imag}{\operatorname{im}}
+\newcommand{\Orb}{\operatorname{Orb}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathfrak{p}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 9}
+\author{Connor Mooneyhan}
+\date{December 7, 2025}
+
+\begin{document}
+
+\maketitle
+
+Disclaimer: AI was used for some question clarification and for some LaTeX help, as well as for giving a hint on the forward direction of problem 2.
+
+\begin{ex}
+	Let $R$ be a commutative ring, $a \in R$, and $f_1, \dots, f_r \in R[x]$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove the equality of ideals in $R[x]$: $\langle f_1, \dots, f_r, x-a\rangle = \langle f_1(a), \dots, f_r(a), x - a \rangle$.
+		\item Prove the useful substitution trick: $\frac{R[x]}{\langle f_1, \dots, f_r, x-a\rangle} \cong \frac{R}{\langle f_1(a), \dots, f_r(a)\rangle}$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $I = \langle f_1, \dots, f_r, x-a \rangle$ and $J = \langle f_1(a), \dots, f_r(a), x-a \rangle$.
+		      It will suffice to show that each generator of $I$ is in $J$ and vice versa.
+		      Since $x-a$ is a generator of both $I$ and $J$, we can focus on the other generators.
+
+		      First, we show that $f_i  \in J$ for $1 \leq i \leq r$.
+		      If $f_i$ is a constant polynomial, then $f_i = f_i(a)$, so inclusion is obvious.
+		      Taking $f_i$ to be nonconstant then, we use the division algorithm to obtain $q_i, r_i \in R[x]$ such that $f_i = q_i(x-a) + r_i$.
+		      If $r_i = 0$, then $f_i = q_i(x-a) \in J$.
+		      If $r_i \neq 0$, then $\deg r_i < \deg (x-a)$, so $r_i$ is constant.
+		      Taking this together with the fact that $f_i(a) = r_i(a) = r_i$, we conclude that $f_i \in J$ since it is the sum of elements of $J$, namely $q_i(x-a)$ and $r_i = f_i(a)$.
+
+		      Now we want to show that $f_i(a) \in I$ when $1 \leq i \leq r$.
+		      Using the same notation and facts established above, we can write $f_i = q_i(x-a) + f_i(a)$, so transforming the equation to become $f_i - q_i(x-a) = f_i(a)$ tells us that $f_i(a)$ is a sum of elements in $I$ and is thus in $I$.
+		\item Define $S = \frac{R}{\langle f_1, \dots, f_r, x-a\rangle}$, and let $\varphi : R[x] \to S$ be defined by $f \mapsto f(a)S$.
+		      The image of $\varphi$ is $R/\langle f_1, \dots, f_r \rangle$ since given any $b \in R$, the constant polynomial $b \in R[x]$ maps to $b\langle f_1, \dots, f_r \rangle$.
+		      The kernel of $\varphi$ is $\langle f_1, \dots, f_r, x-a \rangle$ by construction, so we get the desired isomorphism from the First Isomorphism Theorem.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	A commutative ring $R$ is said to be \textit{local} if there is a unique maximal ideal of $R$.
+	Show that a ring $R$ is local if and only if the set of elements of $R$ that are not invertible is an ideal of $R$.
+\end{ex}
+\begin{proof}
+	Let $U$ be the set of elements of $R$ that are not invertible.
+	It is useful to show that every proper ideal of $R$ is a subset of $U$.
+	Indeed, if a proper ideal $I$ has an invertible element $x$, then $x^{-1}x = 1 \in I$, so $I = R$.
+	Thus every element of a proper ideal is noninvertible.
+	Also useful to know is that $U$ always satisfies absorption, since if $a$ is noninvertible, $b \in R$, and $ab$ has an inverse $c$, then $1 = (ab)c = a(bc)$, so $bc$ would be an inverse of $a$, contradicting noninvertibility.
+	$U$ also always contains $0$ unless $R$ is the trivial ring (in which case $U = R$ so $U$ is an ideal), and it is closed under taking additive inverses.
+	Thus the only way $U$ can fail to be an ideal is to not by closed under addition.
+
+  ($\implies$) If $R$ is local, then given $x, y \in U$, if $x+y$ is invertible, then $R = (x+y) = (x) + (y)$.
+  Since $(x)$ and $(y)$ are both proper because $x$ and $y$ are noninvertible, each is contained in the unique maximal ideal of $R$, but $x+y$ is not.
+  This is a contradiction, so we must have that $U$ is closed under addition and is thus an ideal.
+
+	($\impliedby$) If $U$ is an ideal, then given an ideal $I$ of $R$, either $I = R$ or $I \subset U$, so $U$ is maximal.
+	Indeed, if $I$ is a maximal ideal, then the fact that $I \subset U$ implies $I = U$, so $U$ is the unique maximal ideal of $R$.
+\end{proof}
+
+\begin{ex}
+	Let $\varphi: R \to S$ be a homomorphism of commutative rings, and suppose $\p$ is a prime ideal of $S$.
+	Prove that $\varphi^{-1}(\p)$ is a prime ideal of $R$.
+\end{ex}
+\begin{proof}
+	First we show that $\varphi^{-1}(\p)$ is an ideal of $R$.
+	Let $a \in R$ and $b \in \varphi^{-1}(\p)$.
+	Then $\varphi(ab) = \varphi(a)\varphi(b)$, and since $\varphi(b) \in \p$, $\varphi(ab) \in \p$ by absorption, and thus $ab \in \varphi^{-1}(\p)$.
+
+	Now given any $a, b \in R$ such that $ab \in \varphi^{-1}(\p)$, $\varphi(ab) = \varphi(a)\varphi(b) \in \p$, and thus either $\varphi(a) \in \p$ or $\varphi(b) \in \p$.
+	WLOG, assume $\varphi(a) \in \p$.
+	Then $a \in \varphi^{-1}(\p)$, so applying the same argument to the ``$b$'' case, we see that $\varphi^{-1}(\p)$ is prime.
+\end{proof}
+
+\begin{ex}
+	For a commutative ring $R$, let $S^{-1}R$ be the ring of fractions as defined on the previous homework set.
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\p$ be a prime ideal of $R$, and let $S = R \setminus \p$, that is, the complement of $\p$ in $R$.
+		      Prove that $S$ is a multiplicatively closed subset of $R$.
+		\item Let $S$ be as in the previous part.
+		      Show that $S^{-1}R$ is a local ring, with maximal ideal $\lbrace p/s : p \in \p, s \in S \rbrace$.
+		      This ring is denoted $R_\p$ in the literature, and is called ``$R$ localized at $\p$''.
+		\item Realize the ring $\mathbb{Z}_{(2)}$ as a subset of $\mathbb{Q}$, and show that it is a subring under the usual operations.
+		      Identify the maximal ideal of $\mathbb{Z}_{(2)}$ as a subset of $\mathbb{Q}$ as well.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $a, b \in S$.
+		      If $ab \not\in S$, then $ab \in \p$, so either $a$ or $b$ is in $\p$ since $\p$ is prime.
+		      This contradicts $a$ and $b$ both being in $S$, so $ab \in S$.
+		\item Let $I = \lbrace p/s : p \in \p, s \in S \rbrace$.
+		      We first show that $I$ is an ideal.
+          It is closed under addition since if $p_1, p_2 \in \p$ and $s_1, s_2 \in S$, \begin{equation*}
+			      \frac{p_1}{s_1} + \frac{p_2}{s_2} = \frac{p_1s_2 + p_2s_1}{s_1s_2} \in I
+		      \end{equation*}
+          because $p_1s_2, p_2s_1 \in \p$ since $\p$ is an ideal.
+          Also, if $r/s \in S^{-1}R$, then for $p_1 \in \p$ and $s_1 \in S$, \begin{equation*}
+            \frac{r}{s}\frac{p_1}{s_1} = \frac{rp_1}{ss_1} \in I
+          \end{equation*}
+          since $rp_1 \in \p$.
+          Thus $I$ is an ideal.
+          
+          Now if $J$ is any ideal containing $I$ where $I \neq J$, then we can choose an element $r/s \in J$ such that $r/s \not\in I$, and thus $r \not\in \p$, so $r \in S$.
+          Then $r/s$ is invertible because \begin{equation*}
+            \frac{r}{s}\frac{s}{r} = \frac{rs}{sr} = \frac{rs}{rs} \sim \frac{1}{1}
+          \end{equation*}
+          since $1\cdot(rs - rs) = 0$.
+          Thus $J = S^{-1}R$ as desired, and $I$ is maximal.
+        \item $\mathbb{Z}_{(2)}$ is the set of rationals whose reduced form has an odd denominator.
+          Given two elements $r_1/s_1, r_2/s_2 \in \mathbb{Z}_{(2)}$, the denominator of both their sum and their product is $s_1s_2$, which is odd since both $s_1$ and $s_2$ are odd, and thus $\mathbb{Z}_{(2)}$ is closed under addition and multiplication.
+          Also, the identities $0/1$ and $1/1$ are both in $\mathbb{Z}_{(2)}$, so indeed it is a subring.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $k$ be an algebraically closed field, and let $I$ be an ideal of $k[x]$.
+	Prove that $I$ is maximal if and only if $I = \langle x - c \rangle$ for some $c \in k$.
+\end{ex}
+\begin{proof}
+	Since $k$ is a field, we know that $I = \langle f \rangle$ where $f$ is the unique monic polynomial of least degree in $I$.
+	Since any $g \in k[x]$ has a root $c_g$, we have $g = (x-c_g)q_g$ for some $q_g \in k[x]$, and we could repeat this process (starting now with $q_g$) until we have expressed $g$ as a product of monic degree 1 polynomials.
+
+	Since $I$ is maximal and $k$ is a field, $f$ is irreducible.
+	The only irreducible elements of $k[x]$ are of degree 1, so $f$ must have degree 1.
+	Since it is also monic, $f$ is of the form $x - c$ for some $c \in k$ as desired.
+\end{proof}
+
+\begin{ex}
+	Explicitly construct a field of order 8, 27, and 16.
+	Be careful with the one of order 16!
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}
+		\item The field \begin{equation*}
+			      \frac{\mathbb{F}_2}{\langle x^3 + x + 1 \rangle}
+		      \end{equation*}
+		      has order $8 = 2^3$ since $x^3 + x + 1$ is irreducible over $\mathbb{F}_2$ and has degree 3.
+		\item The field \begin{equation*}
+			      \frac{\mathbb{F}_3}{\langle x^3 + x^2 + x + 2 \rangle}
+		      \end{equation*}
+		      has order $27 = 3^3$ since $x^3 + x^2 + x + 2$ is irreducible over $\mathbb{F}_3$ and has degree 3.
+		\item The field \begin{equation*}
+			      \frac{\mathbb{F}_2}{\langle x^4 + x + 1 \rangle}
+		      \end{equation*}
+		      has order $16 = 2^4$ since $x^4 + x + 1$ is irreducible over $\mathbb{F}_2$ and has degree 4.
+	\end{enumerate}
+\end{proof}
+
+\end{document}

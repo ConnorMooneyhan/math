@@ -1,0 +1,257 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{graphicx}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Assignment}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{MTH 732 Topology - Homework 8}
+\author{Connor Mooneyhan}
+\date{March 26, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Fix $n \geq 1$ and recall that $H_n(S^n) \simeq \mathbb{Z}$.
+	Any continuous map $f : S^n \to S^n$ induces a map in $n$th homology $f_* : \mathbb{Z} \to \mathbb{Z}$ which is completely determined by $f_*(1)$.
+	The integer $f_*(1)$ is called the degree of $f$, denoted $\deg f$.
+	\begin{enumerate}[label=\textbf{(\alph*)}]
+		\item Show that if $f$ is a homeomorphism, then $\deg f = \pm 1$.
+		      In particular, the degree of the identity map is 1.
+		\item Show that if $f$ is not surjective, then $\deg f = 0$.
+		\item The converse of \textbf{(b)} does not hold: a surjective map can have degree zero.
+		      Describe an example for $n = 1$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=\textbf{(\alph*)}]
+		\item First consider when $f$ is the identity on $S^n$.
+		      Then $f_*$ is the identity on $\mathbb{Z}$, and so $f_*(1) = 1$ and the degree of $f$ is 1.
+
+		      Now if $f$ is a homeomorphism, then let $a = \deg f$ and $b = \deg f^{-1}$.
+		      At the level of $f$, if we take a generator $[x] \in H_n(S^n)$, then we must have $f^{-1}(f([x])) = [x]$.
+		      Thus $(f^{-1})_*(f_*(1)) = 1$.
+          We can view $f_*$ as multiplication by the integer $a$, and we can view $(f^{-1})_*$ as multiplication by the integer $b$.
+          Thus $(f^{-1})_*(f_*(1)) = ba = 1$, so $b$ and $a$ must be invertible.
+          The only invertible elements in $\mathbb{Z}$ are 1 and -1, so these are our only options for $\deg f$ when $f$ is a homomorphism.
+		\item If $f$ is not surjective, then there is at least one point $x \in S^2$ which is not in the image of $f$.
+      Thus we can factor through $S^2 \setminus \lbrace x \rbrace$, which in homology corresponds to not being sent to a generator, and so $\deg f = 0$.
+    \item The idea here is that you want to send $S^1$ to a loop that goes around the circle once (or $n$ times) and then back around the circle in the other direction once (or $n$ times, respectively).
+      This is surjective, but map is null-homotopic.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $F = \left\lbrace x_1, \dots, x_m \right\rbrace, m \geq 1$, be a finite set of points on the sphere $S^2$.
+	Compute the relative homology groups $H_n(S^2, F)$ for all $n$.
+\end{ex}
+\begin{proof}
+	We will heavily use the long exact sequence for the homology of a pair, along with the already-established fact (via simplicial homology) that $H_n(F) \cong \mathbb{Z}^m$ when $n = 0$ and $H_n(F) = 0$ otherwise.
+	First, for $n \geq 2$, we use \begin{equation*}
+		H_n(F) \to H_n(S^2) \to H_n(S^2, F) \to H_{n-1}(F)
+	\end{equation*}
+	which becomes
+	\begin{equation*}
+		0      \to H_n(S^2) \to H_n(S^2, F) \to 0,
+	\end{equation*}
+	showing that $H_n(S^2) \cong H_n(S^2, F)$.
+	Thus \begin{equation*}
+		H_n(S^2, F) = \begin{cases}
+			\mathbb{Z} & n = 2  \\
+			0          & n > 2.
+		\end{cases}
+	\end{equation*}
+	When $n = 1$, the same sequence with $H_{n-1}(S^2)$ added to the right end becomes \begin{equation*}
+		0 \to 0 \to H_1(S^2, F) \to \mathbb{Z}^m \to 0.
+	\end{equation*}
+	Thus $H_1(S^2, F) \cong \mathbb{Z}^m$.
+
+	Finally, when $n = 0$, take \begin{equation*}
+		\begin{tikzcd}[column sep=2em]
+			H_0(F) \arrow[r, "i_*"] & H_0(S^2) \arrow[r, "\pi_*"] & H_0(S^2, F) \arrow[r] & 0,
+		\end{tikzcd}
+	\end{equation*}
+	and consider the behavior of $i_*$.
+	It takes any generator $[x] \in H_0(F)$ to the single generator of $H_0(S^2)$, since the path-connectedness of $S^2$ causes all the points of $F$ to be identified in the quotient when viewed in $S^2$.
+	Thus $i_*$ is surjective.
+	Because the sequence is exact, this means $\ker\pi_* = H_0(S^2)$, so $\pi_*$ is the zero map.
+	From exactness on the final arrow, we also have that $\pi_*$ is surjective, so we conclude that $H_0(S^2, F) = 0$.
+
+	We now have our final result: \begin{equation*}
+		H_n(S^2, F) = \begin{cases}
+			\mathbb{Z}^m & n = 1             \\
+			\mathbb{Z}   & n = 2             \\
+			0            & \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Draw a small circle $C$ on the surface of a torus $T^2$ in such a way that $C$ separates $T^2$ into two connected components (so $C$ bounds a disk).
+	Compute the relative homology groups $H_n(T^2, C)$ for all $n$.
+\end{ex}
+\begin{proof}
+	We will use the long exact sequence \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			H_n(C) \arrow[r, ""] & H_n(T^2) \arrow[r, ""] & H_n(T^2, C) \arrow[r, ""] & H_{n-1}(C) \arrow[r, ""] & H_{n-1}(T^2).
+		\end{tikzcd}
+	\end{equation*}
+	When $n \geq 3$, this becomes \begin{equation*}
+		0 \to 0 \to H_n(T^2, C) \to 0 \to 0,
+	\end{equation*}
+	so $H_n(T^2, C) = 0$.
+	% For the other cases, the key is that the map $i_*: H_1(C) \to H_1(T^2)$ sends $C$ to $[0]$ since we are told that $C$ bounds a disc.
+	% Thus $i_*$ is the zero map, and we get $\im i_* = \ker \pi_* = 0$, so $\pi_*$ is injective.
+
+	For $n = 2$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			0 \arrow[r, ""] & \mathbb{Z} \arrow[r, "\pi_*"] & H_2(T^2, C) \arrow[r, "f"] & \mathbb{Z} \arrow[r, "i_*"] & \mathbb{Z}^2.
+		\end{tikzcd}
+	\end{equation*}
+	Exactness gives us that $\pi_*$ is injective, so we also know that $\im \pi_*$ is a copy of $\mathbb{Z}$.
+	Also, $i_*$ sends the generator $[C]$ to zero since $C$ bounds a disk, so $i_*$ is the zero map and we get that $f$ is surjective.
+	This together with the fact that $\ker f = \im \pi_* = \mathbb{Z}$ tells us that $H_2(T^2, C) = \mathbb{Z}^2$.
+
+	For $n = 1$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			\mathbb{Z} \arrow[r, "i_*"] & \mathbb{Z}^2 \arrow[r, "\pi_*"] & H_1(T^2, C) \arrow[r, "f"] & \mathbb{Z} \arrow[r, "j_*"] & \mathbb{Z}.
+		\end{tikzcd}
+	\end{equation*}
+	As above, we know that $i_*$ is the zero map, so this tells us that $\pi_*$ is injective.
+	That also forces $\im\pi_*$ to be a copy of $\mathbb{Z}^2$, which means $\ker f = \mathbb{Z}^2$.
+	Since $j_*$ is the induced map of inclusion for 0 homology, the generator gets sent to a generator, and thus $j_*$ is an isomorphism.
+	This means that $\im f = \ker j_* = 0$.
+	Thus $\mathbb{Z}^2 = \ker f = H_1(T^2, C)$.
+
+	Finally, for $n = 0$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			\mathbb{Z} \arrow[r, "i_*"] & \mathbb{Z} \arrow[r, "\pi_*"] & H_0(T^2, C) \arrow[r, "f"] & 0 \arrow[r, ""] & 0.
+		\end{tikzcd}
+	\end{equation*}
+	Since $i_*$ is an isomorphism sending any generator to another generator, we have that $\ker\pi_* = \im i_* = \mathbb{Z}$, and thus $\pi_*$ is the zero map.
+	Also, $f$ must be the zero map, so $H_0(T^2, C) = \ker f = \im \pi_*$.
+	Putting those two facts together, we get $H_0(T^2, C) = 0$.
+
+	Thus \begin{equation*}
+		H_n(T^2, C) = \begin{cases}
+			\mathbb{Z}^2 & n = 1, 2         \\
+			0            & \text{otherwise}
+		\end{cases}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Redo the previous assignment, but this time take the circle $C$ to be a non-trivial loop in $T^2$ (one of the two generators of $\pi_1(T^2)$).
+	Your answer should be different.
+	Generally speaking, this means that $H_n(X, A)$ can be different than $H_n(X, B)$ even if $A$ and $B$ are homeomorphic.
+\end{ex}
+\begin{proof}
+	The only arguments this change affects are the arguments for $n = 1$ and $n = 2$, since those are where we encounter $i_* : H_1(C) \to H_1(T^2)$.
+	Let $a$ and $b$ be the standard loops which serve as the generators of $H_1(T^2)$.
+	Instead of being the zero map, since $C$ does not bound a disk in $T^2$, it gets sent to one of these generators, say $a$ without loss of generality.
+	Thus $i_* : \mathbb{Z} \to \mathbb{Z}^2$ is injective.
+	We now proceed with the modified versions of $n=1$ and $n=2$ from above.
+
+	For $n = 2$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			0 \arrow[r, ""] & \mathbb{Z} \arrow[r, "\pi_*"] & H_2(T^2, C) \arrow[r, "f"] & \mathbb{Z} \arrow[r, "i_*"] & \mathbb{Z}^2.
+		\end{tikzcd}
+	\end{equation*}
+	Exactness gives us that $\pi_*$ is injective, so we also know that $\im \pi_*$ is a copy of $\mathbb{Z}$, and thus $\ker f = \mathbb{Z}$.
+	Since $i_*$ is injective, we have $\im f = \ker i_* = 0$, and thus $\ker f = H_2(T^2, C)$.
+	Putting these two sentences together, we get $H_2(T^2, C) = \mathbb{Z}$.
+
+	For $n = 1$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			\mathbb{Z} \arrow[r, "i_*"] & \mathbb{Z}^2 \arrow[r, "\pi_*"] & H_1(T^2, C) \arrow[r, "f"] & \mathbb{Z} \arrow[r, "j_*"] & \mathbb{Z}.
+		\end{tikzcd}
+	\end{equation*}
+	Since $i_*$ is injective, we have $\ker\pi_* = \im i_* = \mathbb{Z}$.
+	Thus $\ker f = \im\pi_* = \mathbb{Z}$.
+	We know that $j_*$ is an isomorphism since it sends a generator of zero homology to a generator of zero homology, so $\im f = \ker j_* = 0$.
+	This leaves us to conclude that $H_1(T^2, C) = \mathbb{Z}$.
+
+	Thus \begin{equation*}
+		H_n(T^2, C) = \begin{cases}
+			\mathbb{Z} & n = 1, 2         \\
+			0          & \text{otherwise}
+		\end{cases}
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Show that the spaces $X = S^1 \times S^1$ and $Y = S^1 \vee S^1 \vee S^2$ have the same homology groups in all dimensions, but are \textit{not} homotopy equivalent.
+\end{ex}
+\begin{proof}
+	Note that $X = T^2$.
+	We know that these are not homotopy equivalent because $\pi_1(X) = \left\langle a, b : aba^{-1}b^{-1} = 1 \right\rangle$ and $\pi_1(Y) = \left\langle a, b \right\rangle$.
+	The first is abelian and the second is not, so the fact that $X$ and $Y$ have different fundamental groups means that they are not homotopy equivalent.
+
+	We already know the homology of $X$, so we focus on $Y$.
+	We will make use of the Mayer-Vietoris sequence \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			H_n(A \cap B) \arrow[r, ""] & H_n(A) \oplus H_n(B) \arrow[r, ""] & H_n(Y) \arrow[r, ""] & H_{n-1}(A \cap B)
+		\end{tikzcd}
+	\end{equation*} where $A$ is a slightly larger neighborhood of $S^1 \vee S^1$ within $Y$ in the usual way, and $B$ is a slightly larger neighborhood of $S^2$, so that $A \cap B$ is null-homotopic, since we already know the homology of $S^1 \vee S^1$ from class.
+	When $n \geq 2$, this becomes \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			0 \arrow[r, ""] & H_n(A) \oplus H_n(B) \arrow[r, ""] & H_n(Y) \arrow[r, ""] & 0,
+		\end{tikzcd}
+	\end{equation*}
+	so $H_n(Y)$ splits into $H_n(A) \oplus H_n(B)$.
+
+	When $n = 1$, we have \begin{equation*}
+		\begin{tikzcd}[column sep=small]
+			0 \arrow[r, ""] & H_1(A) \oplus H_1(B) \arrow[r, "f"] & H_1(Y) \arrow[r, "g"] & \mathbb{Z} \arrow[r, "h"] & \mathbb{Z}^2,
+		\end{tikzcd}
+	\end{equation*}
+	where we have added an entry on the right for $H_0(A) \oplus H_0(B) = \mathbb{Z} \oplus \mathbb{Z} = \mathbb{Z}^2$.
+	Exactness gives us that $f$ is injective, which also tells us that $\ker g = \im f = H_1(A) \oplus H_1(B)$.
+	We also know that $h(1) = (1, -1)$, so $h$ is injective, and we get $\im g = \ker h = 0$.
+	Thus $H_1(Y) = \ker g = H_1(A) \oplus H_1(B)$ and homology once again splits.
+
+	When $n = 0$, we can bypass all of this since $Y$ is path-connected, and thus $H_0(Y) = \mathbb{Z}$.
+	We can use this together with our knowledge of the homology of $A$ and $B$ write \begin{equation*}
+		H_n(Y) = \begin{cases}
+			0 \oplus 0 = 0                       & n \geq 3 \\
+			0 \oplus \mathbb{Z} = \mathbb{Z}     & n = 2    \\
+			\mathbb{Z}^2 \oplus 0 = \mathbb{Z}^2 & n = 1    \\
+			\mathbb{Z}                           & n = 0    \\
+		\end{cases}
+	\end{equation*}
+  This does indeed agree with the homology of $X = T^2$, and we have already shown that $X$ and $Y$ are not homotopy equivalent.
+\end{proof}
+
+\end{document}

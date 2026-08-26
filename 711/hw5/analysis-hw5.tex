@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\x}{\mathbf{x}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Homework 5}
+\author{Connor Mooneyhan}
+\date{February 19, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $(X, d_X)$ be a metric space, and denote by $C_b(X)$ the set of all bounded continuous functions $f : X \to \mathbb{R}$ where $\mathbb{R}$ is equipped with the Euclidean metric.
+	Define a metric on $C_b(X)$ as \begin{equation*}
+		d(f, g) = \sup_{x \in X} |f(x) - g(x)|.
+	\end{equation*}
+	(you do not need to show that this is a metric.)
+	Show that $C_b(X)$ is complete.
+	Use this to deduce that $C(X)$, the set of all continuous functions on $X$ with the same metric, is complete as long as $X$ is compact.
+	\\
+	Hint: If $(f_n)$ is Cauchy w.r.t. the metric defined above, then for each $x \in X$, $(f_n(x))$ is a Cauchy sequence in $\mathbb{R}$.
+	This shows that $(f_n(x))$ converges to a limit, which we can denote by $f(x)$.
+	Then prove that $f: X \to \mathbb{R}$ is bounded and continuous.
+\end{ex}
+\begin{proof}
+	As noted above, if $(f_n)$ is Cauchy under the sup metric, $(f_n(x))$ is Cauchy for all $x \in X$.
+	Since $(f_n(x))$ is a Cauchy sequence in $\mathbb{R}$, it has a unique limit in $\mathbb{R}$.
+	Denote this limit as $f(x)$ for each $x$.
+	The key is to notice that $(f_n(x))$ converges uniformly.
+	Indeed, given any $y \in X$ and $\varepsilon > 0$, there exists an $N \in \mathbb{N}$ such that \begin{equation*}
+		\delta > \sup_{x \in X} |f(x) - f_n(x)| \geq |f(y) - f_n(y)|.
+	\end{equation*}
+	Since the choice of $y$ was arbitrary, we get $f_n \to f$ uniformly.
+	Now since the uniform limit of bounded functions is bounded and the uniform limit of continuous functions is continuous, we have $f \in C_b(X)$.
+
+	Finally, the extreme value theorem tells us that if $X$ is compact, any $f \in C(X)$ is bounded and is thus in $C_b(X)$, so any Cauchy sequence in $C(X)$ is a Cauchy sequence in $C_b(X)$, and thus converges to a limit in $C_b(X) \subset C(X)$.
+\end{proof}
+
+\begin{ex}
+	Find a counterexample for each of the following: \begin{enumerate}[label=(\alph*)]
+		\item The conclusion of Question 1 fails if $C_b(X)$ is replaced by $C(X)$ without assuming that $X$ is compact.
+		\item The conclusion of Question 1 fails if $\mathbb{R}$ in the definition of $C_b(X)$ is replaced by $\mathbb{Q}$ (or by any subset of $\mathbb{R}$ that is not closed).
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item The sup metric isn't even a metric on $C(X)$ if $X$ is not compact, since for instance the ``distance'' between the constant function $\mathbf{0}$ and the function $y = x$ on $C(\mathbb{R})$ would be $\infty$, which is not an allowed value for a metric.
+		\item Take $X = \mathbb{R}$, and let $(f_n)$ be a sequence of rational constant functions whose values converge to $\pi$.
+		      Then each $f_n \in C(\mathbb{R})$ and $(f_n)$ is Cauchy, but it does not converge to a limit in $C(\mathbb{R})$ (under this definition).
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	On $C_b(\mathbb{R})$, define \begin{equation*}
+		T(f)(x) = \frac{1}{2}f(x+1).
+	\end{equation*}
+	Show that $T$ is a contraction, and find its unique fixed point.
+\end{ex}
+\begin{proof}
+	Let us compare two functions $f, g \in C_b(\mathbb{R})$.
+	We have \begin{align*}
+		d(T(f), T(g)) & = \sup_{x \in X} |T(f)(x) - T(g)(x)|                                      \\
+		              & = \sup_{x \in X} \left| \frac{1}{2}f(x + 1) - \frac{1}{2}g(x + 1) \right| \\
+		              & = \sup_{x \in X} \frac{1}{2}\left| f(x + 1) - g(x + 1) \right|            \\
+		              & = \frac{1}{2}\sup_{x \in X} \left| (f - g)(x + 1) \right|                 \\
+		              & = \frac{1}{2}\sup_{x \in X} \left| (f - g)(x) \right|                     \\
+		              & = \frac{1}{2}\sup_{x \in X} \left| f(x) - g(x) \right|                    \\
+		              & = \frac{1}{2}d(f, g).
+	\end{align*}
+	We haven't needed to introduce an inequality (though we could) since we only have the ``equals'' part of the condition for a contraction, but we do indeed have a contraction with constant $1/2$.
+	Since $f = \mathbf{0}$ is clearly \textit{a} fixed point, it must be the \textit{unique} fixed point.
+\end{proof}
+
+\begin{ex}
+	Show that the integral equation \begin{equation*}
+		f(x) = \int_0^x \frac{1}{2}f(t) dt + g(x).
+	\end{equation*}
+	has a unique solution on $C([0, 1])$.
+\end{ex}
+\begin{proof}
+	Define a function $T: C([0, 1]) \to C([0, 1])$ by \begin{equation*}
+		T(f)(x) = \int_0^x \frac{1}{2}f(t) dt + g(x).
+	\end{equation*}
+	This is well defined since every continuous function is Riemann integrable.
+	The codomain is correct as written since the integral of a continuous function is continuous, and the sum of continuous functions is continuous.
+	Given $f, h \in C([0,1])$, we have \begin{align*}
+		d(T(f), T(h)) & = \sup_{x \in [0, 1]} \left| \left(\int_0^x \frac{1}{2}f(t)dt + g(x)\right) - \left( \int_0^x \frac{1}{2}h(t)dt + g(x) \right) \right| \\
+		              & = \sup_{x \in [0, 1]} \left| \frac{1}{2}\int_0^x f(t) - h(t)dt \right|                                                                 \\
+		              & = \frac{1}{2}\sup_{x \in [0, 1]} \left| \int_0^x f(t) - h(t)dt \right|                                                                 \\
+		              & \leq \frac{1}{2}\sup_{x \in [0, 1]} \int_0^x \left| f(t) - h(t) \right|dt                                                                 \\
+                  & \leq \frac{1}{2}\sup_{x \in [0, 1]} \int_0^x d(f, h) dt                                                                 \\
+                  & = \frac{1}{2}\sup_{x \in [0, 1]} xd(f, h) \\
+                  & = \frac{1}{2} d(f, h).
+	\end{align*}
+  Thus $T$ is a contraction with constant $1/2$, so it must have a unique fixed point, which is a solution to our integral equation.
+\end{proof}
+
+\end{document}

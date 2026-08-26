@@ -1,0 +1,180 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Project 1: Bremner and MacLeod}
+\author{Connor Mooneyhan}
+\date{December 9, 2025}
+
+\begin{document}
+
+\maketitle
+
+Prompt: Near the beginning of the class, I pointed out that the equation \begin{equation*}
+	\frac{a}{b+c}+ \frac{b}{a+c} + \frac{c}{a+b} = 4
+\end{equation*} has positive integer solutions, but the smallest solution is very large (with a, b, c having 81, 79, and 80 digits, respectively).
+Another surprising result is that it is not possible to find a positive integer solution to \begin{equation*}
+	\frac{a}{b+c}+ \frac{b}{a+c} + \frac{c}{a+b} = N
+\end{equation*} if N is odd and positive.
+The goal of this project is to prove this and learn any new mathematics needed along the way.
+(This result was first proven by Andrew Bremner and Allan MacLeod in the paper ``An unusual cubic representation problem.'')
+Their proof relies on properites of quadratic residues, the Jacobi symbol, and the law of quadratic reciprocity.
+Learn about these tools, and then give your own accounting of Bremner and MacLeod’s proof.
+(You should have the background you need, other than learning about quadratic residues, at the end of Week 11.)
+
+\section{Introduction}
+One of the most powerful uses for elliptic curves is in their ability to help us solve equations that often require rational or integer solutions.
+This is often done by taking the original equations and mapping them to an appropriate elliptic curve, then studying the rational points on that curve via the Mordell-Weil group, and finally mapping those points back to the original equation.
+The following equation is one such example, and it is what we will be studying in this project: \begin{equation}\label{1}
+	\frac{a}{b+c}+ \frac{b}{a+c} + \frac{c}{a+b} = N.
+\end{equation}
+
+\section{Background}
+An integer $q$ is a \textit{quadratic residue mod $p$} if there exists a positive integer $x < p$ such that $x^2 \equiv q \bmod p$.
+This allows us to define the Legendre symbol $(n/p)$, where $n$ is an integer and $p$ is a prime, to be 0 if $p$ divides $n$, 1 if $n$ is a quadratic residue mod $p$, and $-1$ otherwise.
+The Jacobi symbol is just a generalization of this, and thus we use the same notation.
+We define the Jacobi symbol $(n/m)$ for positive odd $m$ to be \begin{equation*}
+	\left( \frac{n}{m } \right) = \left( \frac{n}{p_1} \right)^{a_1}\left( \frac{n}{p_2} \right)^{a_2}\cdots\left( \frac{n}{p_k} \right)^{a_k}
+\end{equation*}
+where $m=p_1^{a_1}p_2^{a_2}\cdots p_k^{a_k}$ is the prime factorization of $m$.
+We can now formulate the law of quadratic reciprocity in terms of the Jacobi symbol: \begin{equation*}
+	\left( \frac{m }{n} \right)\left( \frac{n}{m } \right) = (-1)^{\frac{(m-1)(n-1)}{4}}
+\end{equation*}
+for $m$ and $n$ relatively prime odd integers with $n \geq 3$.
+
+\section{Bremner and MacLeod's Proof}
+The first major step in the proof is to homogenize \eqref{1}, which includes cancelling out denominators.
+This yields a curve for which a cubic model is found of the form \begin{equation*}
+	E_N : y^2 = x^3 + (4N^2 + 12N - 3) x^2 + 32(N+3)x.
+\end{equation*}
+This model comes with maps that will allow translation between points on the curve and solutions to the original equation, and thus the curve $E_N$ will be the primary object of study.
+We will focus on positive $N$ for this project.
+
+The first thing we can say about $E_N$ is that if $N > 1$, the discriminant is positive, so it has two components: an unbounded component with $x \geq 0$ and an egg with $x < 0$.
+In fact, it is shown that for there to be positive solutions in $a$, $b$, and $c$, the inequality \begin{equation*}
+	\frac{1}{2}(3-12N-4N^2-(2N+5)\sqrt{4N^2+4N-15}) < x < -2(N+3)(N+\sqrt{N^2-4})
+\end{equation*}
+must be satisfied.
+This in particular means that all rational points on $E_N$ corresponding to positive solutions of \eqref{1} lie on the egg.
+This fact gives rise to what is for our purposes the key theorem: when $N$ is odd, there are no rational points on $E_N$ with $x < 0$.
+
+To prove this, we assume $N$ to be odd and let $M = (N+3)/2$.
+Substituting this into $E_N$, we get \begin{equation*}
+	E_M : y^2 = x(x^2 + (16M^2 - 24M-3)x + 64M).
+\end{equation*}
+A point on this curve is found to have the form $x=dr^2/s^2$ where $d, r, s \in \mathbb{Z}$, $d$ is squarefree, $r$ and $s$ share no common factors, and $d$ divides $64M$.
+This gives us the quartic \begin{equation}\label{2}
+	dr^4 + (16M^2 - 24M - 3)r^2s^2 + \frac{64M}{d}s^4.
+\end{equation}
+The rest of the proof then reduces to showing that \eqref{2} has no solutions $r, s$ where $d < 0$.
+This is treated in two cases: when $d$ is odd and when $d$ is even.
+
+\section{The First Case}
+We first consider when $d < 0$ is odd.
+Let $u > 0$ be odd as well and $M = um$.
+Then \eqref{2} becomes \begin{equation*}
+	-ur^4 + (16M^2 - 24M - 3)r^2s^2 - 64ms^4.
+\end{equation*}
+Here we calculate a Jacobi symbol: \begin{align*}
+	\left( \frac{-u}{4M-1} \right) & = \left( \frac{-1}{4M-1} \right) \left( \frac{u}{4M-1} \right) \\
+	                               & = -\left( \frac{4M-1}{u} \right) (-1)^{(u-1)/2}                \\
+	                               & = -\left( \frac{-1}{u} \right)(-1)^{(u-1)/2}                   \\
+	                               & = -1.
+\end{align*}
+We use this to deduce a contradiction.
+Indeed, if $\left( \frac{-u}{p} \right) = 1$ for every prime $p$ dividing $4M - 1$, then we would have $\left( \frac{-u}{4M-1} \right) = 1$ because it would be a product $\left( \frac{-u}{p_1} \right)\cdots \left( \frac{-u}{p_n} \right)$ where each $p_i$ is a prime dividing $4M-1$.
+This contradicts the above calculation.
+Thus there must exist a prime $p$ dividing $4M-1$ for which $\left( \frac{-u}{p} \right) = -1$.
+Then we have \begin{align*}
+	-2ur^2 + (16M^2 - 24M - 3)s^2 & \equiv 0 \bmod p      \\
+	-2ur^2 - 8s^2                 & \equiv 0 \bmod p      \\
+	4s^2                          & \equiv -ur^2 \bmod p.
+\end{align*}
+Then we must have $r \equiv s \equiv 0 \bmod p$, which is a contradiction.
+
+\section{The Second Case}
+Now, if $d < 0$ is even, then we can let $d = -2u$ where $u > 0$ is odd and again let $M = um$.
+Then \eqref{2} becomes \begin{equation*}
+	-2ur^4 + (16M^2 - 24M - 3)r^2s^2 - 32ms^4.
+\end{equation*}
+This now breaks down into a couple of subcases, namely when $M$ is even and when $M$ is odd.
+
+If $M$ is even, then \begin{align*}
+	\left( \frac{-2u}{4M-1} \right) & = \left( \frac{-2}{4M-1} \right)\left( \frac{4M-1}{u} \right)(-1)^{(u-1)/2} \\
+	                                & = -\left( \frac{-1}{u} \right)(-1)^{(u-1)/2} = -1.
+\end{align*}
+Similar to before, we can deduce that there exists a prime $p$ dividing $4M - 1$ where $\left( \frac{-2u}{p} \right) = -1$.
+Then we get a similar implication chain to before, where \begin{align*}
+	-4ur^2 + (16M^2 - 24M - 3)s^2 & \equiv 0 \bmod p       \\
+	-4ur^2 - 8s^2                 & \equiv 0 \bmod p       \\
+	4s^2                          & \equiv -2ur^2 \bmod p.
+\end{align*}
+Again, this leads to the contradiction $r \equiv s \equiv 0 \bmod p$.
+
+Now if $M$ is odd, then $m$ is also odd.
+We reduce \eqref{2} to the following expression (which has been assigned to a variable $X$): \begin{equation*}
+	-2ur^4 + (16M^2 - 24M - 3)r^2s^2 - 32ms^4 = X.
+\end{equation*}
+This would imply that $s$ is odd.
+As for $r$, it cannot be odd modulo 4, so it is even.
+Then we have $-3(r/2)^2 \equiv X \bmod 8$, implying that $r/2$ is even, and then \begin{align*}
+	-3(r/4)^2 - 2m & \equiv X \bmod 4 \\
+	-3(r/4)^2 - 2  & \equiv X \bmod 4,
+\end{align*}
+which is impossible.
+
+\section{Conclusion}
+We have now shown that for odd $N$, any rational points on the elliptic curve $E_N$ corresponding to positive rational solutions to \eqref{1} must be on the egg, but in fact there are no points on the egg, so there are no such solutions.
+
+\section{Bibliography}
+https://mathworld.wolfram.com/QuadraticResidue.html
+\\
+Used for learning about quadratic residues.
+\\\\
+https://mathworld.wolfram.com/JacobiSymbol.html
+\\
+Used for learning about the Jacobi symbol and the law of quadratic reciprocity.
+\\\\
+https://mathworld.wolfram.com/LegendreSymbol.html
+\\
+Used for learning about the Legendre symbol.
+
+\end{document}

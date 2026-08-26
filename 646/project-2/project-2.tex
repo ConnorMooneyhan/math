@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{minted}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Project 2: Edwards curves}
+\author{Connor Mooneyhan}
+\date{December 9, 2025}
+
+\begin{document}
+
+\maketitle
+
+Prompt: Research Edwards curves and twisted Edwards curves and doing arithmetic on them over finite fields.
+This is an alternative to a Weierstrass equation.
+What advantages do these curves have in terms of speed of computation and in terms of use in the elliptic curve Diffie-Hellman key exchange mechanism? Learn about side-channel attacks on cryptosystems and how arithmetic with Edwards curves can reduce the potential of such attacks.
+Write your own code that will implement arithmetic on Edwards curves using Magma (or Sage or Python or whatever coding platform you prefer).
+I recommend the paper “Faster Addition and Doubling on elliptic curves” by Daniel Bernstein and Tanja Lange.
+You should have the background you need for this by the end of Week 12.
+
+\section{Introduction}
+While the Weierstrass form of a curve is widely used, there are many other forms into which elliptic curves can be transformed through bi-rational equivalence.
+Some of these may have advantages in terms of how easy it is to define and compute with their group law, as well as their consistency and regularity.
+Edwards curves were discovered in 2007 by Harold Edwards, and they offer many of these advantages, as I have outlined below.
+
+\section{Edwards Form}
+Edwards showed that, similar to other forms like Weierstrass form, any elliptic curve over a finite field with more than two elements can be transformed into an equation of the form \begin{equation*}
+	x^2 + y^2 = 1 + dx^2y^2
+\end{equation*}
+where $d$ is a point in the base field which is neither 0 nor 1.
+The addition law is very simple, compared to the usual addition law for elliptic curves: \begin{equation*}
+	(x_1, y_1) + (x_2, y_2) = \left( \frac{x_1y_2 + y_1x_2}{1+dx_1x_2y_1y_2}, \frac{y_1y_2-x_1x_2}{1-dx_1x_2y_1y_2} \right).
+\end{equation*}
+The identity is $(0, 1)$.
+
+One can generalize Edwards curves to what are called twisted Edwards curves.
+Let $k$ be the base field with order $> 2$, and let $a, d \in k$.
+Then the twisted Edwards curve with coefficients $a$ and $d$ is the curve \begin{equation*}
+	E_{E,a,d} : ax^2 + y^2 = 1+dx^2y^2.
+\end{equation*}
+Thus an Edwards curve is just a twisted Edwards curve with $a=1$.
+
+\section{Advantages}
+Given the explicit group law written in terms of just the coordinates of the addends and the constant $c$, it is certainly easy to write code that will perform addition on any given Edwards curve.
+Not only that, but these curves are also much faster to compute.
+In fact, as of the Bernstein and Lange paper from 2007, addition on Edwards curves was in contention for the fastest known method for performing certain calculations.
+
+One use of it is in the curve known as Curve25519, which is bi-rationally equivalent to the Edwards curve \begin{equation*}
+	x^2 + y^2 = 1 + \frac{121665}{121666}x^2y^2.
+\end{equation*}
+This is an officially approved elliptic curve for use with Diffie-Hellman key exchanges, and it is known for its speed in certain applications.
+
+Another application is in protecting against side-channel attacks.
+These are attacks that take advantage of side-effects of computation such as the time it takes to do computations, the noise a machine gives off, the heat it produces, etc.
+Edwards curve computations are resistant to many of the most prevalent side-channel attacks due to their uniformity and regularity.
+
+\section{Implementation}
+We conclude with an implementation of a few different algorithms created by Bernstein and Lange, written in JavaScript.
+The choices for $c$ and $d$ are of course arbitrary.
+\begin{minted}{javascript}
+const c = 1;
+const d = 2;
+
+// add two points
+function add([X1, Y1, Z1], [X2, Y2, Z2]) {
+  A = Z1 * Z2;
+  B = A ** 2;
+  C = X1 * X2;
+  D = Y1 * Y2;
+  E = d * C * D;
+  F = B - E;
+  G = B + E;
+
+  const X3 = A * F * ((X1 + Y1) * (X2 + Y2) - C - D);
+  const Y3 = A * G * (D - C);
+  const Z3 = c * F * G;
+
+  return [X3, Y3, Z3];
+}
+
+// double a point
+function double(P) {
+  return add(P, P);
+}
+
+// return a y-value for a given x-value if one exists
+function compress(x) {
+  const y = Math.sqrt((c ** 2 - x ** 2) / (1 - c ** 2 * d * x ** 2));
+
+  return [x, y];
+}
+\end{minted}
+
+\section{Bibliography}
+\textit{Faster addition and doubling on elliptic curves} by David Bernstein and Tanja Lange
+\\
+Used for learning about the Edwards form of an elliptic curve and its benefits.
+\\\\
+\textit{Twisted Edwards Curves} by David Bernstein et. al.
+\\
+Used for learning about twisted Edwards curves.
+\\\\
+\textit{Edwards curves} by Youssef El Housni
+\\
+Used for understanding the application to Diffie-Hellman.
+\\\\
+https://www.wired.com/story/what-is-side-channel-attack/
+\\
+Used for learning about side-channel attacks.
+\\\\
+https://www.sciencedirect.com/science/article/abs/pii/S0141933118300516
+\\
+Used for learning about the benefits of Edwards curves in protecting against side-channel attacks.
+
+\end{document}

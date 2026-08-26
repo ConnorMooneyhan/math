@@ -1,0 +1,517 @@
+> IsSquare(9272025);
+true 3045
+> IsSquare(27092025);
+true 5205
+> a := 4;
+> b := 2;
+> a/b;
+2
+> Factorization(a/b);
+
+>> Factorization(a/b);
+                ^
+Runtime error in 'Factorization': Bad argument types
+Argument types given: FldRatElt
+
+> Z := Integers();
+> c := Z!(a/b);
+> Factorization(c);
+[ <2, 1> ]
+> Factorization(2^60-1);
+[ <3, 2>, <5, 2>, <7, 1>, <11, 1>, <13, 1>, <31, 1>, <41, 1>, <61, 1>, <151, 1>,
+<331, 1>, <1321, 1> ]
+> lst := Factorization(2^60-1);
+> #lst;
+11
+> lst[9];
+<151, 1>
+> IsSquare(1089);
+true 33
+> IsSquare(289/16);
+true 17/4
+> chk, sqrroot := IsSquare(5234^3+17);
+> chk;
+true
+> sqrroot;
+378661
+> Z := Integers()
+> c := Z!(a/b);
+
+>> c := Z!(a/b);
+   ^
+User error: bad syntax
+> F := GF(37);
+> a := F!2;
+> a^18;
+36
+> b := F!3;
+> IsSquare(b);
+true 22
+> 22^2;
+484
+> 484 mod 37;
+3
+> R<x> := PolynomialRing(Rationals());
+> g := x^3 - 2*x + 1;
+> Factorization(g);
+[
+    <x - 1, 1>,
+    <x^2 + x - 1, 1>
+]
+> Factorization(x^30-1);
+[
+    <x - 1, 1>,
+    <x + 1, 1>,
+    <x^2 - x + 1, 1>,
+    <x^2 + x + 1, 1>,
+    <x^4 - x^3 + x^2 - x + 1, 1>,
+    <x^4 + x^3 + x^2 + x + 1, 1>,
+    <x^8 - x^7 + x^5 - x^4 + x^3 - x + 1, 1>,
+    <x^8 + x^7 - x^5 - x^4 - x^3 + x + 1, 1>
+]
+> R;
+Univariate Polynomial Ring in x over Rational Field
+> y;
+
+>> y;
+   ^
+User error: Identifier 'y' has not been declared or assigned
+> P2<x,y,z> := ProjectiveSpace(Rationals(),2);
+> f := x^2 + x*y + y^2 - 109*z^2;
+> C := Conic(P2,f);
+> BadPrimes(C);
+[]
+> HasRationalPoint(C);
+true (5 : 7 : 1)
+> C;
+Conic over Rational Field defined by
+x^2 + x*y + y^2 - 109*z^2
+> Genus(C);
+0
+> Evaluate(f,[5,7,1]);
+0
+> f := x^2 + x*y + y^2 - 107*z^2;
+> C := Conic(P2,f);
+> BadPrimes(C);
+[ 3, 107 ]
+> HasRationalPoint(C);
+false
+> f := x^2 + x*y + y^2 - 109*z^2;
+> C := Conic(P2,f);
+> P1<u,v> := ProjectiveSpace(Rationals(),1);
+> mp := Parametrization(C,Curve(P1));
+> mp;
+Mapping from: Curve over Rational Field defined by
+0 to CrvCon: C
+with equations : 
+5*u^2 + 24*u*v + 7*v^2
+7*u^2 - 10*u*v - 12*v^2
+u^2 + u*v + v^2
+and inverse
+2*x - 17*y - 218*z
+-19*x - 2*y + 109*z
+and alternative inverse equations :
+-19*x - 2*y + 109*z
+17*x + 19*y - 218*z
+> mp([2,1]);
+(75/7 : -4/7 : 1)
+> mp([3,1]);
+(124/13 : 21/13 : 1)
+> mp([0,1]);
+(7 : -12 : 1)
+> mp([1,0]);
+(5 : 7 : 1)
+> X := 5*u^2 + 24*u*v + 7*v^2;
+> Y := 7*u^2 - 10*u*v - 12*v^2;
+> Z := u^2 + u*v + v^2;
+> X^2 + X*Y + Y^2 - 109*Z^2;
+0
+> E := EllipticCurve([0,0,0,-3,2]);
+
+>> E := EllipticCurve([0,0,0,-3,2]);
+                     ^
+Runtime error in 'EllipticCurve': Curve is singular
+
+> E := EllipticCurve([0,0,0,14,1]);
+> E;
+Elliptic Curve defined by y^2 = x^3 + 14*x + 1 over Rational Field
+> P1 := E![0,1,1];
+> P1;
+(0 : 1 : 1)
+> P2 := E![1,4,1];
+> P2;
+(1 : 4 : 1)
+> P3 := E![4,11,1];
+> 2*P2;
+(161/64 : -3697/512 : 1)
+> 2*P1;
+(49 : -344 : 1)
+> P1+P2;
+(8 : -25 : 1)
+> P1-2*P3;
+(616 : -15289 : 1)
+> P1-3*P3;
+(300001/93636 : -254255201/28652616 : 1)
+> E := EllipticCurve([14,1]);
+> E;
+Elliptic Curve defined by y^2 = x^3 + 14*x + 1 over Rational Field
+> E2 := EllipticCurve([19,16]);
+> E2;
+Elliptic Curve defined by y^2 = x^3 + 19*x + 16 over Rational Field
+> Points(E2 : Bound := 10);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1) @}
+> Points(E2);
+
+>> Points(E2);
+         ^
+Runtime error: Bound must be given and positive
+
+> Points(E2 : Bound := 100);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1), (9/25 : 598/125 : 1), (9/25 : -598/125 : 1), (28 : 150 : 
+1), (28 : -150 : 1), (49/36 : 1439/216 : 1), (49/36 : -1439/216 : 1), (60 : 466 
+: 1), (60 : -466 : 1), (99 : 986 : 1), (99 : -986 : 1), (-71/100 : 1467/1000 : 
+1), (-71/100 : -1467/1000 : 1) @}
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (0 : 4 : 1), (0 : -4 : 1), (1 : 6 : 1), (1 : -6 : 1), (3 : 10 : 
+1), (3 : -10 : 1), (9/4 : 67/8 : 1), (9/4 : -67/8 : 1), (-5/9 : 62/27 : 1), 
+(-5/9 : -62/27 : 1), (9/25 : 598/125 : 1), (9/25 : -598/125 : 1), (28 : 150 : 
+1), (28 : -150 : 1), (49/36 : 1439/216 : 1), (49/36 : -1439/216 : 1), (60 : 466 
+: 1), (60 : -466 : 1), (99 : 986 : 1), (99 : -986 : 1), (-71/100 : 1467/1000 : 
+1), (-71/100 : -1467/1000 : 1), (124/81 : 5086/729 : 1), (124/81 : -5086/729 : 
+1), (129 : 1466 : 1), (129 : -1466 : 1), (169/9 : 2258/27 : 1), (169/9 : 
+-2258/27 : 1), (-159/196 : 631/2744 : 1), (-159/196 : -631/2744 : 1), (249/25 : 
+4318/125 : 1), (249/25 : -4318/125 : 1), (256/49 : 5508/343 : 1), (256/49 : 
+-5508/343 : 1), (355/81 : 9874/729 : 1), (355/81 : -9874/729 : 1), (361/64 : 
+8907/512 : 1), (361/64 : -8907/512 : 1), (595 : 14514 : 1), (595 : -14514 : 1), 
+(609/64 : 16657/512 : 1), (609/64 : -16657/512 : 1) @}
+> pts := Points(E2 : Bound := 1000);
+> IsIntegral(pts[5]);
+true
+> { p : p in pts | IsIntegral(p) };
+{ (129 : 1466 : 1), (60 : -466 : 1), (3 : 10 : 1), (99 : 986 : 1), (0 : -4 : 1),
+(595 : -14514 : 1), (595 : 14514 : 1), (99 : -986 : 1), (28 : 150 : 1), (3 : -10
+: 1), (1 : 6 : 1), (1 : -6 : 1), (28 : -150 : 1), (60 : 466 : 1), (0 : 4 : 1), 
+(129 : -1466 : 1) }
+> SingularPoints(E2);
+{@ @}
+> HasSingularPointsOverExtension(E2);
+false
+> E := EllipticCurve([1,2,3,4,5]);
+> E;
+Elliptic Curve defined by y^2 + x*y + 3*y = x^3 + 2*x^2 + 4*x + 5 over Rational 
+Field
+> E2, mp, invmp := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 + 4941*x + 185166 over Rational Field
+> mp;
+Elliptic curve isomorphism from: CrvEll: E to CrvEll: E2
+Taking (x : y : 1) to (36*x + 27 : 216*y + 108*x + 324 : 1)
+> invmp;
+Elliptic curve isomorphism from: CrvEll: E2 to CrvEll: E
+Taking (x : y : 1) to (1/36*x - 3/4 : 1/216*y - 1/72*x - 9/8 : 1)
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (63 : 864 : 1), (63 : -864 : 1), (-495/16 : 3321/64 : 1), 
+(-495/16 : -3321/64 : 1) @}
+> pt := E2![-495/16,3321/64,1];
+> invmp(pt);
+(-103/64 : -233/512 : 1)
+> mp(pt);
+
+>> mp(pt);
+     ^
+Runtime error in map application: Element is not in the domain of the map
+
+> pt2 := E2![63,864];
+> invmp(pt2);
+(1 : 2 : 1)
+> P := E![1,2];
+> 2*P;
+(-103/64 : -233/512 : 1)
+> 3*P;
+(12145/27889 : -22841754/4657463 : 1)
+> 4*P;
+(613397473/3873024 : -15916147036519/7622111232 : 1)
+> 5*P;
+(23076847620433/13321383123409 : 145557943125812160766/48621010228824968423 : 1)
+> 6*P;
+(-37694110509837982375/24572294814774121024 : 
+-3342147148550431377283027055/121805970363788548678642207232 : 1)
+> R<x,y,z> := PolynomialRing(Rationals(),3);
+> f := x^3 + y^3 - 6*z^3;
+> C := Curve(ProjectiveSpace(Rationals(),2),f);
+> C;
+Curve over Rational Field defined by
+$.1^3 + $.2^3 - 6*$.3^3
+> PointSearch(C,10);
+[ (-1 : 1 : 0) ]
+> PointSearch(C,100);
+[ (17/21 : 37/21 : 1), (37/21 : 17/21 : 1), (-1 : 1 : 0) ]
+> PointSearch(C,10000);
+[ (17/21 : 37/21 : 1), (37/21 : 17/21 : 1), (-1 : 1 : 0) ]
+> PointSearch(C,1000000);
+[ (-1 : 1 : 0), (17/21 : 37/21 : 1), (37/21 : 17/21 : 1) ]
+> pt := C[-1,1,0];
+
+>> pt := C[-1,1,0];
+          ^
+Runtime error in '[]': Bad argument types
+
+> pt := C![-1,1,0];
+> E, mp := EllipticCurve(C,pt);
+> E;
+Elliptic Curve defined by y^2 - 1/4*y = x^3 - 1/48 over Rational Field
+> mp;
+Mapping from: CrvPln: C to CrvEll: E
+with equations : 
+1/2*$.3
+1/4*$.1
+$.1 + $.2
+> BaseScheme(mp);
+Scheme over Rational Field defined by
+$.3,
+$.1,
+$.1 + $.2,
+$.1^3 + $.2^3 - 6*$.3^3
+> RationalPoints(BaseScheme(mp));
+{@ @}
+> Degree(Scheme(mp));
+
+>> Degree(Scheme(mp));
+                ^
+Runtime error in 'Scheme': Bad argument types
+Argument types given: MapSch[CrvPln[FldRat], CrvEll[FldRat]]
+
+> Degree(BaseScheme(mp));
+0
+> E;
+Elliptic Curve defined by y^2 - 1/4*y = x^3 - 1/48 over Rational Field
+> E2, mp2 := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 243 over Rational Field
+> bigmap := mp*mp2;
+> bigmap;
+Mapping from: CrvPln: C to CrvEll: E2
+Composition of Mapping from: CrvPln: C to CrvEll: E
+with equations : 
+1/2*$.3
+1/4*$.1
+$.1 + $.2 and
+Elliptic curve isomorphism from: CrvEll: E to CrvEll: E2
+Taking (x : y : 1) to (36*x : 216*y - 27 : 1)
+> P := C![17/21,37/21,1];
+> bigmap(P);
+(7 : -10 : 1)
+> chk, bigmapinv := IsInvertible(bigmap);
+> chk;
+true
+> bigmapinv;
+Mapping from: CrvEll: E2 to CrvPln: C
+with equations : 
+1/3*$.1^2*$.2 + 9*$.1^2*$.3
+-1/3*$.1^2*$.2 + 9*$.1^2*$.3
+$.2^2*$.3 + 243*$.3^3
+and inverse
+18*$.3
+27*$.1 - 27*$.2
+$.1 + $.2
+> Degree(BaseScheme(bigmapinv));
+6
+> RationalPoints(BaseScheme(bigmapinv));
+{@ (0 : 1 : 0) @}
+> bigmapinv := Extend(bigmapinv);
+> bigmapinv;
+Mapping from: CrvEll: E2 to CrvPln: C
+with equations : 
+1/3*$.1^2*$.2 + 9*$.1^2*$.3
+-1/3*$.1^2*$.2 + 9*$.1^2*$.3
+$.2^2*$.3 + 243*$.3^3
+and inverse
+18*$.3
+27*$.1 - 27*$.2
+$.1 + $.2
+and alternative equations :
+1/54*$.1^3 - 1/54*$.2^2*$.3 + 1/3*$.2*$.3^2 + 9/2*$.3^3
+-1/3*$.2*$.3^2 + 9*$.3^3
+$.1*$.3^2
+
+27/2*$.1^3 + 1/3*$.2^3 - 9/2*$.2^2*$.3 - 6561/2*$.3^3
+-1/3*$.2^3 + 9*$.2^2*$.3
+$.1*$.2^2
+> Degree(BaseScheme(bigmapinv));
+0
+> Points(E2 : Bound := 1000);
+{@ (0 : 1 : 0), (7 : 10 : 1), (7 : -10 : 1) @}
+> bigmapinv(E2![0,1,0]);
+(-1 : 1 : 0)
+> bigmapinv(E2![7,10,1]);
+(37/21 : 17/21 : 1)
+> bigmapinv(E2![7,-10,1]);
+(17/21 : 37/21 : 1)
+> Q := E2![7,10,1];
+> 2*Q;
+(16009/400 : -2021723/8000 : 1)
+> bigmapinv(2*Q);
+(-1805723/960540 : 2237723/960540 : 1)
+> a := (-1805723/960540);
+> b := (2237723/960540);
+> a^3+b^3;
+6
+> bigmapinv(2*Q)[1];
+-1805723/960540
+> bigmapinv(2*Q)[2];
+2237723/960540
+> E;
+Elliptic Curve defined by y^2 - 1/4*y = x^3 - 1/48 over Rational Field
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 243 over Rational Field
+> mp2;
+Elliptic curve isomorphism from: CrvEll: E to CrvEll: E2
+Taking (x : y : 1) to (36*x : 216*y - 27 : 1)
+> IsIsomorphic(E,E2);
+true
+> chk, isom := IsIsomorphic(E,E2);
+> chk;
+true
+> isom;
+Elliptic curve isomorphism from: CrvEll: E to CrvEll: E2
+Taking (x : y : 1) to (36*x : 216*y - 27 : 1)
+> R<x> := PolynomialRing(Rationals());
+> f := x^4 + x^3 + x^2 + x + 1;
+> C := HyperellipticCurve(f);
+> C;
+Hyperelliptic Curve defined by y^2 = x^4 + x^3 + x^2 + x + 1 over Rational Field
+> Points(C : Bound := 10);
+{@ (1 : -1 : 0), (1 : 1 : 0), (-1 : -1 : 1), (-1 : 1 : 1), (0 : -1 : 1), (0 : 1 
+: 1), (3 : -11 : 1), (3 : 11 : 1), (1 : -11 : 3), (1 : 11 : 3) @}
+> Points(C : Bound := 100);
+{@ (1 : -1 : 0), (1 : 1 : 0), (-1 : -1 : 1), (-1 : 1 : 1), (0 : -1 : 1), (0 : 1 
+: 1), (3 : -11 : 1), (3 : 11 : 1), (1 : -11 : 3), (1 : 11 : 3), (-11 : -101 : 
+8), (-11 : 101 : 8), (-8 : -101 : 11), (-8 : 101 : 11) @}
+> pt := C![1,-1,0];
+> E, mp := EllipticCurve(C,pt);
+> E;
+Elliptic Curve defined by y^2 + x*y + 5/4*y = x^3 - 3/2*x^2 - 55/16*x over 
+Rational Field
+> E2, mp2 := WeierstrassModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 4320*x - 43200 over Rational Field
+> mp(C![3,11,1]);
+(-1/4 : -3/2 : 1)
+> mp2(mp(C![3,11,1]));
+(-24 : -216 : 1)
+> pt1 := C![1,11,3];
+> pt2 := C![1/3,11/3^2,1];
+> pt1 eq pt2;
+true
+> E := EllipticCurve([0,0,0,0,1025]);
+> IntegralPoints(E);
+[ (-10 : -5 : 1), (-5 : 30 : 1), (-4 : -31 : 1), (-1 : 32 : 1), (4 : -33 : 1), 
+(10 : 45 : 1), (20 : -95 : 1), (40 : -255 : 1), (50 : 355 : 1), (64 : -513 : 1),
+(155 : -1930 : 1), (166 : 2139 : 1), (446 : -9419 : 1), (920 : 27905 : 1), (3631
+: -218796 : 1), (3730 : 227805 : 1) ]
+[ <(-10 : -5 : 1), 1>, <(-5 : 30 : 1), 1>, <(-4 : -31 : 1), 1>, <(-1 : 32 : 1), 
+1>, <(4 : -33 : 1), 1>, <(10 : 45 : 1), 1>, <(20 : -95 : 1), 1>, <(40 : -255 : 
+1), 1>, <(50 : 355 : 1), 1>, <(64 : -513 : 1), 1>, <(155 : -1930 : 1), 1>, <(166
+: 2139 : 1), 1>, <(446 : -9419 : 1), 1>, <(920 : 27905 : 1), 1>, <(3631 : 
+-218796 : 1), 1>, <(3730 : 227805 : 1), 1> ]
+> 3730^3 + 1025;
+51895118025
+> IsSquare(3730^3 + 1025);
+true 227805
+> R<x,y,z,w> := PolynomialRing(Rationals(),4);
+> f1 := 11*y^2 - 2*x^2 - w^2;
+> f2 := z^2 - 11*y^2 - w^2;
+> C := Curve(ProjectiveSpace(Rationals(),3),[f1,f2]);
+> C;
+Curve over Rational Field defined by
+-2*$.1^2 + 11*$.2^2 - $.4^2,
+-11*$.2^2 + $.3^2 - $.4^2
+> PointSearch(C,10);
+[ (7 : 3 : 10 : 1), (-7 : -3 : 10 : 1), (7 : -3 : -10 : 1), (-7 : -3 : -10 : 1),
+(-7 : 3 : 10 : 1), (7 : -3 : 10 : 1), (-7 : 3 : -10 : 1), (7 : 3 : -10 : 1) ]
+> PointSearch(C,100000);
+[ (-7 : 3 : 10 : 1), (-7 : -3 : -10 : 1), (-7 : -3 : 10 : 1), (7 : -3 : 10 : 1),
+(7 : -3 : -10 : 1), (7 : 3 : 10 : 1), (-7 : 3 : -10 : 1), (7 : 3 : -10 : 1) ]
+> pt := C![7,3,10,1];
+> E, mp := EllipticCurve(C,pt);
+> E;
+Elliptic Curve defined by y^2 = x^3 - 117600/24990001*x^2 - 
+15055998720000/624500149980001*x + 590315622400000000/15606259372500374970001 
+over Rational Field
+> E2, mp2 := MinimalModel(E);
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 484*x over Rational Field
+> bigmap := mp*mp2;
+> Degree(BaseScheme(bigmap));
+5
+> bigmap := Extend(bigmap);
+> bigmap;
+Mapping from: Crv: C to CrvEll: E2
+with equations : 
+499900/891*$.1^2 + 4999/189*$.1*$.2 - 49990/63*$.1*$.3 - 24995/1323*$.2*$.3 + 
+    249950/891*$.3^2 + 4999/6237*$.1*$.4 + 4999/1323*$.2*$.4 + 
+    24995/43659*$.3*$.4 - 4999/441*$.4^2
+99980/189*$.1^2 - 99980/81*$.1*$.2 + 9998/1323*$.1*$.3 + 499900/567*$.2*$.3 - 
+    49990/189*$.3^2 - 4999000/1323*$.1*$.4 - 99980/567*$.2*$.4 + 
+    69986/27*$.3*$.4 + 99980/189*$.4^2
+244951/9801*$.1^2 - 4999/42*$.1*$.2 + 24995/68607*$.1*$.3 + 24995/294*$.2*$.3 - 
+    6248750/480249*$.3^2 + 484903/137214*$.1*$.4 - 4999/294*$.2*$.4 + 
+    2524495/960498*$.3*$.4 - 4999/960498*$.4^2
+and alternative equations :
+1628/343*$.1^2 + 121/686*$.2^2 - 1639/686*$.3^2 + 1100/49*$.1*$.4 + 
+    363/343*$.2*$.4 - 110/7*$.3*$.4 + 1089/686*$.4^2
+-7260/343*$.1*$.4 - 2420/49*$.2*$.4 - 726/49*$.3*$.4 - 7260/49*$.4^2
+$.1*$.4 - 3267/686*$.2*$.4 + 250/343*$.3*$.4 - 1/686*$.4^2
+
+234794450/343*$.1*$.2^2 + 23717815/49*$.2^2*$.3 - 21344950/343*$.1*$.3^2 - 
+    2156165/49*$.3^3 + 10164*$.1*$.2*$.4 - 242*$.2^2*$.4 + 3080*$.1*$.3*$.4 + 
+    7260*$.2*$.3*$.4 + 2200*$.3^2*$.4 + 321794/343*$.1*$.4^2 - 145200*$.2*$.4^2 
+    + 2145385/49*$.3*$.4^2 + 2178*$.4^3
+-953480*$.1*$.2*$.4 - 287496*$.1*$.3*$.4 - 674212*$.2*$.3*$.4 - 203280*$.3^2*$.4
+    + 43560*$.1*$.4^2 + 67760*$.2*$.4^2 + 10164*$.3*$.4^2 + 406560*$.4^3
+$.3^2*$.4 + 6534*$.2*$.4^2 - 2000*$.3*$.4^2 + 298*$.4^3
+> bigmap(C![7,3,10,1]);
+(0 : 1 : 0)
+> bigmap(C![7,3,-10,1]);
+(-539/25 : 2541/125 : 1)
+> P := bigmap(C![7,3,-10,1]);
+> chk, bigmapinv := IsInvertible(bigmap);
+> chk;
+true
+> Degree(BaseScheme(bigmapinv));
+8
+> bigmapinv := Extend(bigmapinv);
+> P;
+(-539/25 : 2541/125 : 1)
+> E;
+Elliptic Curve defined by y^2 = x^3 - 117600/24990001*x^2 - 
+15055998720000/624500149980001*x + 590315622400000000/15606259372500374970001 
+over Rational Field
+> E2;
+Elliptic Curve defined by y^2 = x^3 - 484*x over Rational Field
+> 2*P;
+(24019801/44100 : -117624975299/9261000 : 1)
+> bigmapinv(2*P);
+(-161208607/72029999 : -72088803/72029999 : -249705970/72029999 : 1)
+> a := bigmapinv(2*P)[1];
+> b := bigmapinv(2*P)[2];
+> c := bigmapinv(2*P)[3];
+> 11*b^2 - 2*a^2;
+1
+> c^2 - 2*b^2;
+51959480417695282/5188320755940001
+> c^2 - 11*b^2;
+1
+> n := a^2;
+> n;
+25988214970880449/5188320755940001
+> n := 2*a^2;
+> n;
+51976429941760898/5188320755940001
+> quit;
+
+Total time: 20.589 seconds, Total memory usage: 85.16MB

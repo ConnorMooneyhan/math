@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{xcolor}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Miderm Exam 2 (Take Home)}
+\author{Connor Mooneyhan}
+\date{November 21, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise}{2}
+	Let $G$ be a finite group, and let $p$ be a prime integer dividing the order of $G$.
+	Let $P$ be a Sylow $p$-subgroup of $G$, and let $H$ be any subgroup containing $N_G(P)$.
+	Prove that $[G : H] \equiv 1 \bmod p$.
+\end{exercise}
+\begin{proof}
+	Write $|G| = mp^n$ where $\gcd(m, p) = 1$.
+	By Sylow's Third Theorem, we know that $[G : N_G(P)] = n_p \equiv 1 \bmod p$.
+	Also, $[G : N_G(P)]$ divides $m$, and $[G : H]$ divides $[G : N_G(P)]$, so $[G : H]$ divides $m$.
+\end{proof}
+
+\begin{exercise}{5}
+	Find a presentation of a nonabelian group of order $441 = 3^2 \cdot 7^2$ with trivial center whose Sylow 7-subgroup is normal and not cyclic.
+\end{exercise}
+\begin{proof}
+	The group $G = (\mathbb{Z}/7 \mathbb{Z} \times \mathbb{Z}/7 \mathbb{Z}) \rtimes_\varphi \mathbb{Z}/9 \mathbb{Z}$ where \begin{equation*}
+    \phi: \mathbb{Z}/9 \mathbb{Z} \to \mathrm{Aut}(\mathbb{Z}/7 \mathbb{Z} \times \mathbb{Z}/7 \mathbb{Z})
+  \end{equation*} satisfies these properties since the Sylow 7-subgroup is $\mathbb{Z}/ 7 \mathbb{Z} \times \mathbb{Z}/7 \mathbb{Z}$, which is not cyclic, and it is normal by construction of the semidirect product, so we just need to show that the center is trivial.
+\end{proof}
+
+\begin{exercise}{6}
+	Prove that every group of order $210 = 2 \cdot 3 \cdot 5 \cdot 7$ is not simple.
+\end{exercise}
+\begin{proof}
+	We know that $n_7$ must be a divisor of $2 \cdot 3 \cdot 5$, so it must be 1, 2, 3, 5, 6, 10, 15, or 30.
+	Also, it must be congruent to 1 mod 7, so the only possibilities left are 1 and 15.
+	If $n_7 = 15$, then that accounts for $1 + 15 \cdot 6 = 61$ elements.
+
+	Now for $n_3$, it could either be 1, 2, 5, 7, 10, 14, 35, or 70, but it must be congruent to 1 mod 3, so that leaves us with 1, 7, 10, or 70.
+	Now for $n_5$, it could either be 1, 2, 3, 6, 7, 14, 21, or 42, but it must be congruent to 1 mod 5, so that leaves us with either 1, 6, or 21.
+
+  Every normalizer of a Sylow 7-subgroup necessarily contains that Sylow 7-subgroup, and all the Sylow 7-subgroups intersect trivially, but it's not clear to me what we can say about the intersection of the normalizers.
+\end{proof}
+
+\begin{exercise}{7}
+	Prove that a finite group $G$ is nilpotent if and only if every pair of elements with relatively prime order commute.
+\end{exercise}
+\begin{proof}
+	We use the equivalent condition for nilpotence that if $|G| = p_1^{n_1} \cdots  p_s^{n_s}$where each $p_i$ is a prime, and $P_i \in \mathrm{Syl}_{p_i}(G)$ for each $i$, then $G \cong P_1 \times P_2 \times \cdots \times P_s$.
+  If $x \in G$, then for every prime $p_i$ dividing $x$, there is a non-identity entry in the $i^{\text{th}}$ slot representing the group $P_i$, and likewise the entry is the identity for $P_j$ when $p_j$ does not divide $x$.
+  If $y$ is relatively prime to $x$, then they share no primes in common, so given this framing, we see that they will commute.
+\end{proof}
+
+\end{document}
