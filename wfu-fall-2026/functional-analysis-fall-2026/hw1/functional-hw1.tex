@@ -46,10 +46,31 @@
 \begin{ex}
 	For $p \in [1, \infty)$, give an example of a sequence which is in $\ell^q$ for all $q > p$, but not in $\ell^p$.
 \end{ex}
+\begin{proof}
+	Consider the sequence $(x_n)$ defined by \begin{equation*}
+		x_n = \left( \frac{1}{n} \right)^{\frac{1}{p}}.
+	\end{equation*}
+	Then $||(x_n)||_p^p = \sum_1^\infty 1/n$, which is the harmonic series, so $(x_n) \notin \ell^p$, but for any $q > p$ we have $(1/n)^{q/p} < 1/n$ when $n \neq 1$.
+	Thus $||(x_n)||_q^q$ converges and $(x_n) \in \ell^q$.
+\end{proof}
 
 \begin{ex}
 	If a subspace $S$ of a normed space $V$ contains a nonempty open set, then $S = V$.
 \end{ex}
+\begin{proof}
+	Let $U$ be a nonempty open subset of $S$, let $p \in U$, and let $\delta > 0$ such that $B_\delta(p) \subset U$.
+	Now consider an arbitrary $x \in V$ and $\alpha > 0$.
+	The idea is to ``nudge p in the direction of $x$'' while remaining in $B_\delta(p)$ by finding $\alpha$ such that $\alpha(x-p) + p$ is close enough to $p$.
+	Indeed, \begin{equation*}
+		||[\alpha(x-p) + p] - p|| = ||\alpha(x-p)|| = \alpha||x-p||,
+	\end{equation*}
+  so by choosing $\alpha < \delta/||x-p||$, we get $\alpha(x-p) + p \in B_\delta(p) \subset S$.
+  We can now use the closure of $S$ under addition and scalar multiplication to get that \begin{equation*}
+    [\alpha(x-p) + p] + [\alpha p - p] = \alpha x \in S,
+  \end{equation*}
+  and thus multiplying by $1/\alpha$ we get $x \in S$.
+  Since $x$ was arbitrary, we have shown that $V \subset S$, and thus $V = S$.
+\end{proof}
 
 \begin{ex}
 	Show that in any normed space $V$, the operations \begin{equation*}
