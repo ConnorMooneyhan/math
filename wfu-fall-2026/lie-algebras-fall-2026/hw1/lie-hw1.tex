@@ -5,6 +5,7 @@
 \usepackage{tikz-cd}
 \usepackage{geometry}
 \usepackage{mlmodern}
+\usepackage{graphicx}
 
 \geometry{letterpaper, portrait, margin=1in}
 
@@ -12,6 +13,11 @@
 
 \renewcommand{\thesection}{\S\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\newcommand{\gl}{\mathfrak{gl}}
+\renewcommand{\sl}{\mathfrak{sl}}
 
 \newtheorem{thm}{Theorem}
 \newenvironment{theorem}[1]{
@@ -26,20 +32,88 @@
 		}{\end{lma}}
 
 \theoremstyle{definition}
-\newtheorem{ex}{Exercise}
+\newtheorem{ex}{}
 \newenvironment{exercise}[1]{
 	\renewcommand{\theex}{#1}
 	\begin{ex}
 		}{\end{ex}}
 
-\title{Title}
+\title{Lie Theory: Chapter 1 Homework}
 \author{Connor Mooneyhan}
-\date{Month Day, Year}
+\date{}
 
 \begin{document}
 
 \maketitle
 
-\section{Section}
+\begin{ex}
+	Let $\mathbb{R}^3_\vee$ be the Lie algebra defined in Section 1.2.
+	Prove that if $x \cdot y$ denotes the dot product of vectors $x, y \in \mathbb{R}^3$, then \begin{equation*}
+		x \wedge (y \wedge z) = (x \cdot z) y - (z \cdot y) z \hspace{1em}\forall x, y \in \mathbb{R}^3.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+	Check that \begin{equation*}
+		[e_{ij}, e_{kl}] = \delta_{jk}e_{il}-\delta_{il}e_{kj},
+	\end{equation*}
+	where $\delta$ is the Kronecker delta, defined by $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ otherwise.
+\end{ex}
+
+\begin{ex}
+	Prove that the set $e_{ij}$ for $i \neq j$ together with the set $e_{ii} - e_{i+1,i+1}$ for $1 \leq i < n$ forms a basis for $\sl(n, F)$.
+\end{ex}
+
+\begin{ex}
+	Prove that an ideal of a Lie algebra is always a subalgebra.
+\end{ex}
+
+\begin{ex}
+	Consider the adjoint homomorphism map defined (on page 4) for all $x, y \in L$ by \begin{equation*}
+		(\ad x)(y) \coloneq [x, y].
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that $\ad$ is linear.
+		\item Prove that $\ad$ is a homomorphism.
+		\item Prove that the kernel of $\ad$ is the center of $L$.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Prove that $\mathrm{Der}(A)$ is a vector subspace of $\gl(A)$.
+\end{ex}
+
+\begin{ex}
+	Let $L_1$ and $L_2$ be two abelian Lie algebras.
+	Show that $L_1$ and $L_2$ are isomorphic if and only if they have the same dimension.
+\end{ex}
+
+\begin{ex}
+	Find the structure constants of $\sl(2, F)$ with respect to the basis given by the matrices \begin{equation*}
+    e = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \hspace{0.25em} f = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{0.25em} h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+	Prove that $\sl(2, \mathbb{C})$ has no non-trivial ideals.
+\end{ex}
+
+\begin{ex}
+	Let $S$ be an $n \times n$ matrix with entries in a field $F$.
+	Define \begin{equation*}
+		\gl_S(n, F) = \left\lbrace x \in \gl(n, F) : x^T S = -S x \right\rbrace.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $\gl_S(n, F)$ is a Lie subalgebra of $\gl(n, F)$.
+    \item Find $\gl_S(2, \mathbb{R})$ if $S = \begin{pmatrix}0 & 1\\0&0\end{pmatrix}$.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Let $A$ be an algebra and let $\delta : A \to A $ be a derivation.
+	Prove that $\delta$ satisfies the Leibniz Rule \begin{equation*}
+		\delta^n(xy) = \sum_{r=0}^n \begin{pmatrix}n\\r\end{pmatrix} \delta^r(x) \delta^{n-r}(y) \hspace{1em} \forall x, y \in A.
+	\end{equation*}
+\end{ex}
 
 \end{document}

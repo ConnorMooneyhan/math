@@ -5,6 +5,7 @@
 \usepackage{tikz-cd}
 \usepackage{geometry}
 \usepackage{mlmodern}
+\usepackage{graphicx}
 
 \geometry{letterpaper, portrait, margin=1in}
 
@@ -12,6 +13,8 @@
 
 \renewcommand{\thesection}{\S\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
 
 \newtheorem{thm}{Theorem}
 \newenvironment{theorem}[1]{
@@ -26,20 +29,70 @@
 		}{\end{lma}}
 
 \theoremstyle{definition}
-\newtheorem{ex}{Exercise}
+\newtheorem{ex}{Problem}
 \newenvironment{exercise}[1]{
 	\renewcommand{\theex}{#1}
 	\begin{ex}
 		}{\end{ex}}
 
-\title{Title}
+\title{Functional Analysis --- Homework 1}
 \author{Connor Mooneyhan}
-\date{Month Day, Year}
+\date{}
 
 \begin{document}
 
 \maketitle
 
-\section{Section}
+\begin{ex}
+	For $p \in [1, \infty)$, give an example of a sequence which is in $\ell^q$ for all $q > p$, but not in $\ell^p$.
+\end{ex}
+
+\begin{ex}
+	If a subspace $S$ of a normed space $V$ contains a nonempty open set, then $S = V$.
+\end{ex}
+
+\begin{ex}
+	Show that in any normed space $V$, the operations \begin{equation*}
+		+ : V \times V \to V \hspace{2em} \cdot : \mathbb{R} \times V \to V
+	\end{equation*}
+	of addition and scalar multiplication are continuous.
+\end{ex}
+
+\begin{ex}
+	Let $V$ be a normed space.
+	Show that a linear map $f : V \to \mathbb{R}$ is continuous if and only if $\ker(f)$ is closed.
+\end{ex}
+
+\begin{ex}
+	Let $\rho : V \to [0, +\infty)$ be a seminorm.
+	Prove that if there exists a positive number $\delta > 0$ such that the preimage $\rho^{-1}[0, \delta]$ contains an open ball, then $\rho$ is continuous.
+\end{ex}
+
+\begin{ex}
+	Let $V$ be a normed space.
+	Show that $V$ is Banach if and only if every absolutely convergent series is convergent.
+\end{ex}
+
+\begin{ex}
+	In this problem, you will show that for any number $p > 1$, the function \begin{equation*}
+		||x||_p = ||(x_1, \dots, x_n)||_p = (|x_1|^p + \cdots + |x_n|^p)^{1/p}
+	\end{equation*}
+	is a norm on $\mathbb{R}^n$.
+	The extension to $\ell^p$ follows easily from that.
+	It will be helpful to define a number $q$, called the conjugate exponent to $p$, by the equation: $\frac{1}{p} + \frac{1}{q} = 1$.
+	\begin{enumerate}[label=(\alph*)]
+		\item (Young's inequality) Use the fact that $\ln(x)$ is a concave function to prove that if $a, b$ are positive numbers, then \begin{equation*}
+			      ab \leq \frac{a^p}{p} + \frac{b^q}{q}.
+		      \end{equation*}
+		\item (Hölder's inequality) Given any $x, y \in \mathbb{R}^n$, use Young's inequality to prove that \begin{equation*}
+			      |\langle x, y \rangle| \leq ||x||_p||y||_q
+		      \end{equation*}
+		      where $\langle x, y \rangle$ denotes the standard dot product in $\mathbb{R}^n$.
+		\item (Minkowski's inequality) Given any $x, y \in \mathbb{R}^n$, use Hölder's inequality to prove \begin{equation*}
+			      ||x+y||_p \leq ||x||_p + ||y||_p,
+		      \end{equation*}
+		      which is the triangle inequality for $||\cdot||_p$.
+	\end{enumerate}
+\end{ex}
 
 \end{document}
