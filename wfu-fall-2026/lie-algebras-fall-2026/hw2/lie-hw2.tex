@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{graphicx}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\newcommand{\gl}{\mathfrak{gl}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 2 Homework}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  Let $I$ and $J$ be ideals of a Lie algebra $L$.
+  Prove that $I \cap J$ is a subspace of $L$.
+\end{ex}
+
+\begin{ex}
+  Prove the Isomorphism Theorem (part a).
+\end{ex}
+
+\begin{ex}
+  Prove the statements on page 14 (just above example 2.4): \begin{enumerate}[label=(\alph*)]
+    \item Prove that $J$ (as defined on page 14) is an ideal of $L$.
+    \item Prove that $J$ contains $I$.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  Suppose $L_1$ and $L_2$ are Lie algebras.
+  Let $L \coloneq \lbrace (x_1, x_2) : x_i \in L_i \rbrace$ be the direct sum of their underlying vector spaces. \begin{enumerate}[label=(\alph*)]
+    \item Show that if we define \begin{equation*}
+        [(x_1, x_2), (y_1, y_2)] \coloneq ([x_1, y_1], [x_2, y_2])
+    \end{equation*}
+    then $L$ becomes a Lie algebra, the \textit{direct sum} of $L_1$ and $L_2$.
+      We denote this by $L = L_1 \oplus L_2$.
+    \item Show that if $L = L_1 \oplus L_2$ then $Z(L) = Z(L_1) \oplus Z(L_2)$ and $L' = L'_1 \oplus L'_2$.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  For each pair of the following Lie algebras over $\mathbb{R}$, decide whether or not they are isomorphic: \begin{enumerate}[label=(\alph*)]
+    \item the Lie algebra $\mathbb{R}^3_\wedge$ with Lie bracket given by the vector product;
+    \item the upper triangular $2 \times 2$ matrices over $\mathbb{R}$;
+    \item the strictly upper triangular $3 \times 3$ matrices over $\mathbb{R}$;
+    \item $L = \lbrace x \in \gl(3, \mathbb{R}) : x^t = -x \rbrace$.
+  \end{enumerate}
+\end{ex}
+
+\end{document}

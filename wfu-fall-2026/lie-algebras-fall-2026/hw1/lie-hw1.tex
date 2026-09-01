@@ -18,6 +18,7 @@
 \DeclareMathOperator{\ad}{ad}
 \newcommand{\gl}{\mathfrak{gl}}
 \renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
 
 \newtheorem{thm}{Theorem}
 \newenvironment{theorem}[1]{
@@ -49,9 +50,33 @@
 \begin{ex}
 	Let $\mathbb{R}^3_\vee$ be the Lie algebra defined in Section 1.2.
 	Prove that if $x \cdot y$ denotes the dot product of vectors $x, y \in \mathbb{R}^3$, then \begin{equation*}
-		x \wedge (y \wedge z) = (x \cdot z) y - (z \cdot y) z \hspace{1em}\forall x, y \in \mathbb{R}^3.
+		x \wedge (y \wedge z) = (x \cdot z) y - (x \cdot y) z \hspace{1em}\forall x, y \in \mathbb{R}^3.
 	\end{equation*}
 \end{ex}
+\begin{proof}
+	Observe that
+	\begin{align*}
+		x \wedge (y \wedge z) =  ( & x_1, x_2, x_3) \wedge (y_2z_3 - y_3z_2, y_3z_1 - y_1z_3, y_1z_2 - y_2z_1) \\
+		=                        ( & x_2y_1z_2 - x_2y_2z_1 - x_3y_3z_1 + x_3y_1z_3,                            \\
+		                           & x_3y_2z_3 - x_3y_3z_2 - x_1y_1z_2 + x_1y_2z_1,                            \\
+		                           & x_1y_3z_1 - x_1y_1z_3 - x_2y_2z_3 + x_2y_3z_2)                            \\
+		=                        ( & x_2y_1z_2 - x_2y_2z_1 - x_3y_3z_1 + x_3y_1z_3,                            \\
+		                           & x_3y_2z_3 - x_3y_3z_2 - x_1y_1z_2 + x_1y_2z_1,                            \\
+		                           & x_1y_3z_1 - x_1y_1z_3 - x_2y_2z_3 + x_2y_3z_2)                            \\
+	\end{align*}
+	and \begin{align*}
+		= (                        & x \cdot z)y - (x \cdot y)z                                                                               \\
+		= (                        & x_1z_1 + x_2z_2 + x_3z_3)(y_1, y_2, y_3) - (x_1y_1 + x_2y_2 + x_3y_3)(z_1, z_2, z_3)                     \\
+		= (                        & x_1z_1y_1 + x_2z_2y_1 + x_3z_3y_1, x_1z_1y_2 + x_2z_2y_2 + x_3z_3y_2, x_1z_1y_3 + x_2z_2y_3 + x_3z_3y_3) \\
+		- (                        & x_1y_1z_1 + x_2y_2z_1 + x_3y_3z_1, x_1y_1z_2 + x_2y_2z_2 + x_3y_3z_2, x_1y_1z_3 + x_2y_2z_3 + x_3y_3z_3) \\
+		=                        ( & x_2y_1z_2 - x_2y_2z_1 - x_3y_3z_1 + x_3y_1z_3,                                                           \\
+		                           & x_3y_2z_3 - x_3y_3z_2 - x_1y_1z_2 + x_1y_2z_1,                                                           \\
+		                           & x_1y_3z_1 - x_1y_1z_3 - x_2y_2z_3 + x_2y_3z_2),
+	\end{align*}
+	where the the last line comes after commuting elements in the terms with same index across all three variables (i.e. $x_1z_1y_1$ becomes $x_1y_1z_1$) since $\mathbb{R}$ is commutative and then cancelling them out.
+
+	We can see that both expressions reduce to the same final expression, so they are equal.
+\end{proof}
 
 \begin{ex}
 	Check that \begin{equation*}
@@ -59,6 +84,15 @@
 	\end{equation*}
 	where $\delta$ is the Kronecker delta, defined by $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ otherwise.
 \end{ex}
+\begin{proof}
+	Recall that $[e_{ij}, e_{kl}] = e_{ij}e_{kl} - e_{kl}e_{ij}$.
+	The first term will have zeroes in all but the $i\th$ row and zeroes in all but the $l\th$ column since the only nonzero row in $e_{ij}$ is the $i\th$ one and the only nonzero column in $e_{kl}$ is the $l\th$ one.
+	Thus the only possibly-nonzero entry is the one in the $i\th$ row and $l\th$ column.
+	This will be 1 if and only if $j = k$ (and 0 otherwise) since we will then have the 1 from $e_{ij}$ multiplied by the 1 in $e_{kl}$ and zeroes everywhere else when doing the matrix multiplication. Thus we obtain the first term $\delta_{jk}e_{il}$ of our desired result.
+
+	The only other term to deal with is the second one, for which we use the same argumentation on $-e_{kl}e_{ij}$ to conclude that we subtract a 1 from the entry at the $j\th$ column of the $k\th$ row if and only if $i = l$, and a zero otherwise.
+	This gives us our second term of $-\delta_{il}e_{kj}$, and we are done.
+\end{proof}
 
 \begin{ex}
 	Prove that the set $e_{ij}$ for $i \neq j$ together with the set $e_{ii} - e_{i+1,i+1}$ for $1 \leq i < n$ forms a basis for $\sl(n, F)$.
@@ -67,6 +101,11 @@
 \begin{ex}
 	Prove that an ideal of a Lie algebra is always a subalgebra.
 \end{ex}
+\begin{proof}
+	Let $I$ be an ideal of a Lie algebra $L$.
+	Then $I$ is a linear subspace of $L$ by virtue of being an ideal, so we just need to show that $[x, y] \in I$ whenever $x, y \in I$.
+	This is quite trivial, since $I$ being an ideal guarantees that for any $x \in L$ and $y \in I$, $[x, y] \in I$, and surely $x \in L$ if $x \in I \subset L$, so there is nothing more to show.
+\end{proof}
 
 \begin{ex}
 	Consider the adjoint homomorphism map defined (on page 4) for all $x, y \in L$ by \begin{equation*}
@@ -78,19 +117,81 @@
 		\item Prove that the kernel of $\ad$ is the center of $L$.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item For $a, b \in F$ and $x, y, z \in L$, \begin{align*}
+			      (\ad (ax + bz)(y)) & = [ax + bz, y]                                                          \\
+			                         & = a[x, y] + b[z, y] \hspace{1em} \text{(by bilinearity of the bracket)} \\
+			                         & = a(\ad x)(y) + b(\ad z)(y).
+		      \end{align*}
+		\item We have already shown that $\ad$ is linear, so we just need to show that $\ad[x, y] = [\ad x, \ad y]$.
+		      Indeed, for any $x, y, z \in L$ \begin{align*}
+			      (\ad[x, y])(z) & = [[x, y], z]                                             \\
+			                     & = - [z, [x, y]]                                           \\
+			                     & = [x, [y, z]] + [y, [z, x]]                               \\
+			                     & = [x, [y, z]] -  [y, [x, z]]                              \\
+			                     & = (\ad x) ([y, z]) - (\ad y) ([x, z])                     \\
+			                     & = (\ad x) ((\ad y)(z)) - (\ad y) ((\ad x)(z))             \\
+			                     & = ((\ad x) \circ (\ad y))(z) - ((\ad y) \circ (\ad x))(z) \\
+			                     & = [\ad x, \ad y](z).
+		      \end{align*}
+		\item The center of $L$ is defined as the set of elements $x$ of $L$ that satisfy $[x, y] = 0$ for any $y \in L$.
+		      If $x \in L$ is in the kernel of $\ad$, then $\ad x$ is the zero map, so by definition $0 = (\ad x)(y) = [x, y]$ for all $y \in L$.
+		      Thus elements of the kernel of $\ad$ are in the center, and just as easily we see that if $x$ is in the center of $L$, $[x, y] = 0$ for all $y \in L$, so $\ad x$ is the zero map.
+		      By mutual inclusion then, the kernel of $\ad$ is the center of $L$.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
 	Prove that $\mathrm{Der}(A)$ is a vector subspace of $\gl(A)$.
 \end{ex}
+\begin{proof}
+	By definition, derivations are linear, so $\mathrm{Der}(A) \subset \gl(A)$.
+	We need to show, then, that given an algebra $A$ over a field $F$ along with derivations $D, E \in \mathrm{Der}(A)$ and $c \in F$, $D + E \in \mathrm{Der}(A)$ and $cD \in \mathrm{Der}(A)$.
+	Indeed, for any $a, b \in A$, we have \begin{align*}
+		(D + E)(ab) & = D(ab) + E(ab)                   \\
+		            & = aD(b) + D(a)b + aE(b) + E(a)b   \\
+		            & = aD(b) + aE(b) + D(a)b + E(a)b   \\
+		            & = a(D(b) + E(b)) + (D(a) + E(a))b \\
+		            & = a(D + E)(b) + (D + E)(a)b
+	\end{align*}
+	and \begin{align*}
+		(cD)(ab) & = c(D(ab))                                                                           \\
+		         & = c(aD(b) + D(a)b)                                                                   \\
+		         & = c(aD(b)) + c(D(a)b)                                                                \\
+		         & = a(cD(b)) + (cD(a))b \hspace{1em} \text{(by bilinearity of algebra multiplication)} \\
+		         & = a(cD)(b) + (cD)(a)b,
+	\end{align*}
+	so both satisfy the Leibniz rule and are thus derivations as desired.
+\end{proof}
 
 \begin{ex}
 	Let $L_1$ and $L_2$ be two abelian Lie algebras.
 	Show that $L_1$ and $L_2$ are isomorphic if and only if they have the same dimension.
 \end{ex}
+\begin{proof}
+	Suppose $L_1$ and $L_2$ both have dimension $n$, and let $\lbrace x_1, \dots, x_n \rbrace$ and $\lbrace y_1, \dots, y_n \rbrace$ be bases of $L_1$ and $L_2$ respectively.
+	Then we can define a function $\varphi : L_1 \to L_2$ by letting $\varphi(x_i) = y_i$ for each $i$, and \begin{align*}
+		\varphi(a_1x_1 + \cdots + a_nx_n) & \coloneq a_1\varphi(x_1) + \cdots + a_n\varphi(x_n) \\
+		                                  & = a_1y_1 + \cdots + a_ny_n.
+	\end{align*}
+	This is well-defined since every element of $L_1$ can be expressed uniquely as a linear combination of $\lbrace x_1, \dots, x_n \rbrace$.
+	It is also linear by construction, it is injective since linear combinations of $\lbrace y_1, \dots, y_n \rbrace$ are unique, and it is surjective because \textit{every} element of $L_2$ can be expressed as such a linear combination.
+	That leaves us to confirm that $\varphi([x, y]) = [\varphi(x), \varphi(y)]$.
+	Indeed, given $x, y \in L_1$, \begin{align*}
+		    & [\varphi(a_1x_1 + \cdots + a_nx_n), \varphi(b_1x_1 + \cdots + b_nx_n)]                                                                     \\
+		=\  & [a_1y_1 + \cdots + a_ny_n, b_1y_1 + \cdots + b_ny_n]                                                                                       \\
+		=\  & a_1[y_1, b_1y_1 + \cdots + b_ny_n] + \cdots + a_n[y_n, b_1y_1 + \cdots + b_ny_n]                                                           \\
+		=\  & (a_1b_1[y_1, y_1] + a_1b_2[y_1, y_2] + \cdots + a_1b_n[y_1, y_n]) + \cdots + (a_nb_1[y_n, y_1] + a_nb_2[y_n, y_2] + \cdots + a_nb_n[y_n, y_n]) \\
+		=\  & \cdots                                                                                                                                     \\
+		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
+		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
+	\end{align*}
+\end{proof}
 
 \begin{ex}
 	Find the structure constants of $\sl(2, F)$ with respect to the basis given by the matrices \begin{equation*}
-    e = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \hspace{0.25em} f = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{0.25em} h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.
+		e = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \hspace{0.25em} f = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{0.25em} h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.
 	\end{equation*}
 \end{ex}
 
@@ -105,7 +206,7 @@
 	\end{equation*}
 	\begin{enumerate}[label=(\alph*)]
 		\item Show that $\gl_S(n, F)$ is a Lie subalgebra of $\gl(n, F)$.
-    \item Find $\gl_S(2, \mathbb{R})$ if $S = \begin{pmatrix}0 & 1\\0&0\end{pmatrix}$.
+		\item Find $\gl_S(2, \mathbb{R})$ if $S = \begin{pmatrix}0 & 1\\0&0\end{pmatrix}$.
 	\end{enumerate}
 \end{ex}
 

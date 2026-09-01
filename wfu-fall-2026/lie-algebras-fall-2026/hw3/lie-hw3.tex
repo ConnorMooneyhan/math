@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{graphicx}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\newcommand{\gl}{\mathfrak{gl}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 3 Homework}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+  Let $L$ be a non-abelian 3-dimensional Lie algebra with basis $\lbrace f, g, z \rbrace$ and $[f, g] \coloneq z$.
+  Assume $z \in Z(L)$ and $L'$ is one-dimensional.
+  Prove that $L'=Z(L)$.
+\end{ex}
+
+\begin{ex}
+  Check that the upper triangular matrices $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfy the following properties.
+  \begin{enumerate}[label=(\alph*)]
+    \item $[e_{12}, e_{23}] = e_{13}$.
+    \item $e_{13}$ is in the center of the Lie algebra of upper triangular matrices.
+  \end{enumerate}
+  This shows that the set $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfies the construction described in Section 3.2.1 with $z = e_{13}$ and $f$ and $g$ equal to $e_{12}$ and $e_{23}$.
+\end{ex}
+
+\begin{ex}
+  Let $V$ be a vector space and let $\varphi$ be an endomorphism of $V$.
+  Let $L$ have underlying vector space $V \oplus \mathrm{Span}\lbrace x \rbrace$.
+  Show that if we define the Lie bracket on $L$ by $[y, z] = 0$ and $[x, y] = \varphi(y)$ for $y, z \in V$, then $L$ is a Lie algebra and $\mathrm{dim}(L') = \mathrm{rank}(\varphi)$.
+\end{ex}
+
+\begin{ex}
+  Suppose $L$ is a vector space with basis $\lbrace x, y \rbrace$ and that a bilinear operation on $L$ is defined such that $[u, u] = 0$ for all $u \in L$.
+  Show that the Jacobi identity holds and hence $L$ is a Lie algebra.
+\end{ex}
+
+\begin{ex}
+  Suppose that $I$ is an ideal of a Lie algebra $L$ and that there is a subalgebra $S$ of $L$ such that $L = S \oplus I$.
+  Show that the map $\theta : S \to \gl(I)$ defined by $\theta(s)(x) = [s, x]$ is a Lie algebra homomorphism from $S$ into $\mathrm{Der}(I)$.
+
+  We say that $L$ is a \textit{semidirect product} of $I$ by $S$.
+\end{ex}
+
+\begin{ex}
+  Show conversely that given Lie algebras $S$ and $I$ and a Lie algebra homomorphism $\theta : S \to \mathrm{Der}(I)$, the vector space $S \oplus I$ may be made into a Lie algebra by defining \begin{equation*}
+    [(s_1, x_1), (s_2, x_2)] = ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)
+  \end{equation*}
+  for $s_1, s_2 \in S$, and $x_1, x_2 \in I$, and that this Lie algebra is a semidirect product of $I$ by $S$.
+  (The direct sum construction introduced in Exercise 2.6 is the special case where $\theta(s) = 0$ for all $s \in S$.)
+\end{ex}
+
+\end{document}
