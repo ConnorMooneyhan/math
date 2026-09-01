@@ -4,8 +4,10 @@
 \usepackage{enumitem}
 \usepackage{tikz-cd}
 \usepackage{geometry}
-\usepackage{mlmodern}
 \usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
 
 \geometry{letterpaper, portrait, margin=1in}
 
@@ -91,12 +93,17 @@
   If $\ker(f)$ is closed, let $(x_n)$ be a sequence converging to $x$ in $V$.
   
   \dots Thus $(f(x_n)) \to f(x)$, so $f$ is continuous as desired.
+    \textcolor{red}{UNFINISHED}
+
 \end{proof}
 
 \begin{ex}
 	Let $\rho : V \to [0, +\infty)$ be a seminorm.
 	Prove that if there exists a positive number $\delta > 0$ such that the preimage $\rho^{-1}[0, \delta]$ contains an open ball, then $\rho$ is continuous.
 \end{ex}
+\begin{proof}
+  \textcolor{red}{UNFINISHED}
+\end{proof}
 
 \begin{ex}
 	Let $V$ be a normed space.

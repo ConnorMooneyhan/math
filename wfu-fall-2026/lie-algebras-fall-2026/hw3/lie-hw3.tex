@@ -4,8 +4,10 @@
 \usepackage{enumitem}
 \usepackage{tikz-cd}
 \usepackage{geometry}
-\usepackage{mlmodern}
 \usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
 
 \geometry{letterpaper, portrait, margin=1in}
 

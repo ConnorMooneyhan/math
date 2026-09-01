@@ -4,8 +4,10 @@
 \usepackage{enumitem}
 \usepackage{tikz-cd}
 \usepackage{geometry}
-\usepackage{mlmodern}
 \usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
 
 \geometry{letterpaper, portrait, margin=1in}
 
@@ -97,6 +99,20 @@
 \begin{ex}
 	Prove that the set $e_{ij}$ for $i \neq j$ together with the set $e_{ii} - e_{i+1,i+1}$ for $1 \leq i < n$ forms a basis for $\sl(n, F)$.
 \end{ex}
+\begin{proof}
+    Given a matrix $A \in \sl(n, F)$, we want to show that we can write $A$ uniquely as a linear combination of the proposed basis elements.
+    The $e_{ii} - e_{i+1,i+1}$ elements have zeroes everywhere outside the diagonal, and the nonzero elements of $e_{ij}$ and $e_{kl}$ do not coincide whenever $i \neq j$ and $k \neq l$.
+    Thus, when $i \neq j$, $A_{ij}$ is the only coefficient of $e_{ij}$ that works in the linear combination, so these ``non-diagonal'' basis elements have uniquely determined coefficients.
+    
+    Turning our focus to the ``diagonal'' basis elements of the form $e_{ii} - e_{i+1,i+1}$, we see that when $i = 1$, there is only one possible coefficient: $A_{1, 1}$.
+    This in turn determines the value of $(e_{1,1} - e_{2, 2})_{2, 2}$ to be $-A_{1,1}$, so since the only other proposed basis element which has a nonzero $(2, 2)$ entry is $e_{2,2} - e_{3, 3}$, its coefficient must be $A_{2, 2} + A_{1, 1}$.
+    Continuing in this manner through $i = n - 1$, we see that the coefficient of $e_{i,i} - e_{i+1,i+1}$ must be $\sum_{j=1}^{i} A_{j,j}$.
+    
+    The last thing to do is to check that this linear combination gives us the correct $A$.
+    As noted during the above investigation, the values are correct by construction for the non-diagonal entries of $A$ and also for the diagonal entries from $A_{1, 1}$ through $A_{n-1,n-1}$.
+    For $A_{n,n}$, we need the fact that $\mathrm{tr}(A) = 0$, which tells us that $A_{n,n} = -\sum_{i=1}^{n-1} A_{i,i}$.
+    The $(n,n)$ entry of our linear combination will by construction be $-\sum_{i=1}^{n-1} A_{i,i} = A_{n,n}$, so $A$ is indeed a unique linear combination of the proposed basis elements, and thus they do form a basis.
+\end{proof}
 
 \begin{ex}
 	Prove that an ideal of a Lie algebra is always a subalgebra.
@@ -187,6 +203,7 @@
 		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
 		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
 	\end{align*}
+	\textcolor{red}{UNFINISHED}
 \end{proof}
 
 \begin{ex}
@@ -194,10 +211,16 @@
 		e = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \hspace{0.25em} f = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{0.25em} h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.
 	\end{equation*}
 \end{ex}
+\begin{proof}
+    
+\end{proof}
 
 \begin{ex}
 	Prove that $\sl(2, \mathbb{C})$ has no non-trivial ideals.
 \end{ex}
+\begin{proof}
+    
+\end{proof}
 
 \begin{ex}
 	Let $S$ be an $n \times n$ matrix with entries in a field $F$.
@@ -209,6 +232,11 @@
 		\item Find $\gl_S(2, \mathbb{R})$ if $S = \begin{pmatrix}0 & 1\\0&0\end{pmatrix}$.
 	\end{enumerate}
 \end{ex}
+\begin{proof}
+    \begin{enumerate}[label=(\alph*)]
+        \item 
+    \end{enumerate}
+\end{proof}
 
 \begin{ex}
 	Let $A$ be an algebra and let $\delta : A \to A $ be a derivation.
