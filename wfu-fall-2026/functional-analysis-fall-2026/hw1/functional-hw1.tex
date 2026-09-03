@@ -66,12 +66,12 @@
 	Indeed, \begin{equation*}
 		||[\alpha(x-p) + p] - p|| = ||\alpha(x-p)|| = \alpha||x-p||,
 	\end{equation*}
-  so by choosing $\alpha < \delta/||x-p||$, we get $\alpha(x-p) + p \in B_\delta(p) \subset S$.
-  We can now use the closure of $S$ under addition and scalar multiplication to get that \begin{equation*}
-    [\alpha(x-p) + p] + [\alpha p - p] = \alpha x \in S,
-  \end{equation*}
-  and thus multiplying by $1/\alpha$ we get $x \in S$.
-  Since $x$ was arbitrary, we have shown that $V \subset S$, and thus $V = S$.
+	so by choosing $\alpha < \delta/||x-p||$, we get $\alpha(x-p) + p \in B_\delta(p) \subset S$.
+	We can now use the closure of $S$ under addition and scalar multiplication to get that \begin{equation*}
+		[\alpha(x-p) + p] + [\alpha p - p] = \alpha x \in S,
+	\end{equation*}
+	and thus multiplying by $1/\alpha$ we get $x \in S$.
+	Since $x$ was arbitrary, we have shown that $V \subset S$, and thus $V = S$.
 \end{proof}
 
 \begin{ex}
@@ -81,7 +81,16 @@
 	of addition and scalar multiplication are continuous.
 \end{ex}
 \begin{proof}
-  \textcolor{red}{UNFINISHED}
+	First we do scalar multiplication.
+	Let $(x_n) \to x$ in $V$ and $(c_n) \to c$ in $\mathbb{R}$.
+	Then if
+
+	Now let $(x_n) \to x$ and $(y_n) \to y$ in $V$.
+	Then given $\varepsilon > 0$, there exists $N \in \mathbb{N}$ (take such an integer for $(x_n)$ and one for $(y_n)$ and then $N$ is the max of these two) such that when $n > N$, \begin{align*}
+		\frac{\varepsilon}{2} & > ||x - x_n|| \geq ||x|| - ||x_n||  \\
+		\frac{\varepsilon}{2} & > ||y - y_n|| \geq ||y|| - ||y_n||.
+	\end{align*}
+	\textcolor{red}{UNFINISHED}
 \end{proof}
 
 \begin{ex}
@@ -89,11 +98,11 @@
 	Show that a linear map $f : V \to \mathbb{R}$ is continuous if and only if $\ker(f)$ is closed.
 \end{ex}
 \begin{proof}
-  If $f$ is continuous, then since $\ker(f)$ is the preimage of the closed set $\lbrace 0 \rbrace$, $\ker(f)$ is closed.
-  If $\ker(f)$ is closed, let $(x_n)$ be a sequence converging to $x$ in $V$.
-  
-  \dots Thus $(f(x_n)) \to f(x)$, so $f$ is continuous as desired.
-    \textcolor{red}{UNFINISHED}
+	If $f$ is continuous, then since $\ker(f)$ is the preimage of the closed set $\lbrace 0 \rbrace$, $\ker(f)$ is closed.
+	If $\ker(f)$ is closed, let $(x_n)$ be a sequence converging to $x$ in $V$.
+
+	\dots Thus $(f(x_n)) \to f(x)$, so $f$ is continuous as desired.
+	\textcolor{red}{UNFINISHED}
 
 \end{proof}
 
@@ -102,13 +111,29 @@
 	Prove that if there exists a positive number $\delta > 0$ such that the preimage $\rho^{-1}[0, \delta]$ contains an open ball, then $\rho$ is continuous.
 \end{ex}
 \begin{proof}
-  \textcolor{red}{UNFINISHED}
+	\textcolor{red}{UNFINISHED}
 \end{proof}
 
 \begin{ex}
 	Let $V$ be a normed space.
 	Show that $V$ is Banach if and only if every absolutely convergent series is convergent.
 \end{ex}
+\begin{proof}
+	First, assume $V$ is Banach and $\sum ||x_i|| < \infty$.
+	Then $(||x_i||)$ is Cauchy in $\mathbb{R}$, so given $\varepsilon > 0$, we can choose $N > 0$ such that when $m > n > N$, \begin{equation*}
+		\sum_1^m||x_i|| - \sum_1^n||x_i|| = \sum_{n+1}^m||x_i|| < \varepsilon.
+	\end{equation*}
+	Then we also have that \begin{equation*}
+		\left|\left|\sum_1^m x_i - \sum_1^n x_i\right|\right| = \left|\left|\sum_{n+1}^m x_i\right|\right| \leq \sum_{n+1}^m ||x_i|| < \varepsilon,
+	\end{equation*}
+	so the partial sums of $\sum_1^\infty x_i$ are also Cauchy and thus converge since $V$ is Banach.
+
+	Now if every absolutely convergent series is convergent, then let $(x_i)$ be a Cauchy sequence in $V$.
+	Define $y_1 \coloneq x_1$, and then recursively define $y_n \coloneq x_n - \sum_{i=1}^{n-1}y_i$ for all $n > 1$, so that $x_n = \sum_1^n y_i$ for all $n$.
+	We then just need to show that $\sum y_i$ is absolutely convergent, and we will have shown that $x_n$ converges and thus $V$ is Banach.
+
+	\textcolor{red}{UNFINISHED}
+\end{proof}
 
 \begin{ex}
 	In this problem, you will show that for any number $p > 1$, the function \begin{equation*}
@@ -131,5 +156,14 @@
 		      which is the triangle inequality for $||\cdot||_p$.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Since $\ln(x)$ is concave and the tangent line at $x_0$ is \begin{align*}
+			      y & = \frac{1}{x_0}(x-x_0) + \ln(x_0)   \\
+			        & = \frac{x}{x_0} - 1 + \ln(x_0)\dots
+		      \end{align*}
+		\item
+	\end{enumerate}
+\end{proof}
 
 \end{document}
