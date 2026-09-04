@@ -81,22 +81,30 @@
 	of addition and scalar multiplication are continuous.
 \end{ex}
 \begin{proof}
-    NOTE: I haven't been able to complete either part.
-    
-	First we do scalar multiplication. 
+	NOTE: I haven't been able to complete either part.
+
+	First we do scalar multiplication.
 	Let $(x_n) \to x$ in $V$ and $(c_n) \to c$ in $\mathbb{R}$.
-	Then given $\varepsilon > 0$, we can find $N \in \mathbb{N}$ such that when $n > N$, $||x - x_n|| < \sqrt{\varepsilon}$ and $|c - c_n| < \sqrt{\varepsilon}$. 
-    Then \begin{align*}
-       \varepsilon & > ||(c-c_n)(x-x_n)|| \\
-       & = ||cx - c_nx - cx_n + c_nx_n||.
-    \end{align*}
-    We could imagine trying to throw away the $c_nx$ and $cx_n$ terms to get an inequality, but the more important difficulty is that we need constraints on $||cx - c_nx_n||$ to prove convergence of $(c_nx_n)$, and we only have $||cx+c_nx_n||$.
+	Then given $\varepsilon > 0$, we can find $N \in \mathbb{N}$ such that when $n > N$, $||x - x_n|| < \sqrt{\varepsilon}$ and $|c - c_n| < \sqrt{\varepsilon}$.
+	Then \begin{align*}
+		\varepsilon & > ||(c-c_n)(x-x_n)||             \\
+		            & = ||cx - c_nx - cx_n + c_nx_n||.
+	\end{align*}
+	We could imagine trying to throw away the $c_nx$ and $cx_n$ terms to get an inequality, but the more important difficulty is that we need constraints on $||cx - c_nx_n||$ to prove convergence of $(c_nx_n)$, and we only have $||cx+c_nx_n||$.
 
 	For addition, let $(x_n) \to x$ and $(y_n) \to y$ in $V$.
 	Then given $\varepsilon > 0$, there exists $N \in \mathbb{N}$ (take such an integer for $(x_n)$ and one for $(y_n)$ and then $N$ is the max of these two) such that when $n > N$, \begin{align*}
 		\frac{\varepsilon}{2} & > ||x - x_n|| \geq ||x|| - ||x_n||  \\
 		\frac{\varepsilon}{2} & > ||y - y_n|| \geq ||y|| - ||y_n||.
 	\end{align*}
+	We can then add these together to get \begin{align*}
+		\varepsilon & \geq ||x|| + ||y|| - (||x_n|| + ||y_n||) \\
+		            & \geq ||x + y|| - (||x_n|| + ||y_n||),
+	\end{align*}
+	but the issue here is that we can't pull the same triangle inequality trick (nor any other trick I can think of) to finish it off and get a \begin{equation*}
+		\geq ||x + y|| - ||x_n + y_n||
+	\end{equation*}
+	line, so I'm a bit stuck.
 \end{proof}
 
 \begin{ex}
@@ -106,9 +114,9 @@
 \begin{proof}
 	If $f$ is continuous, then since $\ker(f)$ is the preimage of the closed set $\lbrace 0 \rbrace$, $\ker(f)$ is closed.
 	Now if $\ker(f)$ is closed, let $(x_n)$ be a sequence converging to $x$ in $V$.
-    We want to show that $(f(x_n)) \to f(x)$, but I haven't been able to make any progress towards that.
-    The only thing that seems a bit promising is ``translating'' the sequence so that it becomes $(x_n - x) \to 0$.
-    This gets me a zero to potentially work with\dots but I haven't figured out how to make use of it.
+	We want to show that $(f(x_n)) \to f(x)$, but I haven't been able to make any progress towards that.
+	The only thing that seems a bit promising is ``translating'' the sequence so that it becomes $(x_n - x) \to 0$.
+	This gets me a zero to potentially work with\dots but I haven't figured out how to make use of it.
 \end{proof}
 
 \begin{ex}
@@ -116,7 +124,9 @@
 	Prove that if there exists a positive number $\delta > 0$ such that the preimage $\rho^{-1}[0, \delta]$ contains an open ball, then $\rho$ is continuous.
 \end{ex}
 \begin{proof}
-	I genuinely don't even have an idea for this one.
+	I'm super stuck on this one.
+	Interested to see the solution and think through it, but even after talking with you I'm having trouble really formulating the argument.
+  There's something about scaling it and trapping a sequence within the open ball after maybe translation\dots but I haven't been able to make any real headway.
 \end{proof}
 
 \begin{ex}
@@ -137,7 +147,7 @@
 	Define $y_1 \coloneq x_1$, and then recursively define $y_n \coloneq x_n - \sum_{i=1}^{n-1}y_i$ for all $n > 1$, so that $x_n = \sum_1^n y_i$ for all $n$.
 	We then just need to show that $\sum y_i$ is absolutely convergent, and we will have shown that $x_n$ converges and thus $V$ is Banach\dots
 
-    But I've been unable to figure out how to do that.
+	But I've been unable to figure out how to do that.
 \end{proof}
 
 \begin{ex}
@@ -168,29 +178,29 @@
 			        & = \frac{x}{x_0} - 1 + \ln(x_0)\dots
 		      \end{align*}
 		      We can rewrite the statement as \begin{align*}
-    		    ab & \leq \frac{a^p}{p} + \frac{b^p}{p} \\
-    		    & = \frac{a^p}{p} + \frac{b^{\frac{p}{p-1}}}{\frac{p}{p-1}} \\
-    		    & = \frac{a^p + (p-1)b^{\frac{p}{p-1}}}{p}\dots
-    		  \end{align*}
-    		  not sure where any of that gets me.
+			      ab & \leq \frac{a^p}{p} + \frac{b^p}{p}                        \\
+			         & = \frac{a^p}{p} + \frac{b^{\frac{p}{p-1}}}{\frac{p}{p-1}} \\
+			         & = \frac{a^p + (p-1)b^{\frac{p}{p-1}}}{p}\dots
+		      \end{align*}
+		      not sure where any of that gets me.
 		\item We have \begin{align*}
-    		|\langle x, y \rangle| & = \left|\sum_1^n x_iy_i\right| \\
-    		& \leq \sum_1^n |x_i||y_i| \\
-    		& \leq \sum_1^n \frac{|x_i|^p}{p}+ \frac{|y_i|^q}{q} \\
-            & = \sum_1^n \frac{|x_i|^p}{p} + \sum_1^n \frac{|y_i|^q}{q} \\
-            & = \frac{1}{p} \sum_1^n |x_i|^p + \frac{1}{q} \sum_1^n |y_i|^q \\
-            & = \frac{||x||_p^p}{p}  + \frac{||y||_q^q}{q} ,
-    		\end{align*}
-            which feels like we're close to a solution, but in fact Young's Inequality tells us that \begin{equation*}
-                ||x||_p||y||_q \leq \frac{||x||_p^p}{p} + \frac{||y||_q^q}{q},
-            \end{equation*}
-            so our first attempt is not tight enough, and I'm not sure where to go from there.
-        \item I really have no idea how to start with this one.
-        The only idea I was able to come up with was that if we could somehow end up with a $||x||_p^{1/p}||y||_q^{1/q}$, we would get \begin{equation*}
-            ||x||_p^{1/p}||y||_q^{1/q} \leq \frac{||x||_p}{p} + \frac{||y||_q}{q},
-        \end{equation*}
-        and you could play around with some scalars there, but I'm not sure what gets you from using both $p$ and $q$ to just using $p$.
-        I'm also not sure how you would get to that very contrived scenario anyways.
+			      |\langle x, y \rangle| & = \left|\sum_1^n x_iy_i\right|                                \\
+			                             & \leq \sum_1^n |x_i||y_i|                                      \\
+			                             & \leq \sum_1^n \frac{|x_i|^p}{p}+ \frac{|y_i|^q}{q}            \\
+			                             & = \sum_1^n \frac{|x_i|^p}{p} + \sum_1^n \frac{|y_i|^q}{q}     \\
+			                             & = \frac{1}{p} \sum_1^n |x_i|^p + \frac{1}{q} \sum_1^n |y_i|^q \\
+			                             & = \frac{||x||_p^p}{p}  + \frac{||y||_q^q}{q} ,
+		      \end{align*}
+		      which feels like we're close to a solution, but in fact Young's Inequality tells us that \begin{equation*}
+			      ||x||_p||y||_q \leq \frac{||x||_p^p}{p} + \frac{||y||_q^q}{q},
+		      \end{equation*}
+		      so our first attempt is not tight enough, and I'm not sure where to go from there.
+		\item I really have no idea how to start with this one.
+		      The only idea I was able to come up with was that if we could somehow end up with a $||x||_p^{1/p}||y||_q^{1/q}$, we would get \begin{equation*}
+			      ||x||_p^{1/p}||y||_q^{1/q} \leq \frac{||x||_p}{p} + \frac{||y||_q}{q},
+		      \end{equation*}
+		      and you could play around with some scalars there, but I'm not sure what gets you from using both $p$ and $q$ to just using $p$.
+		      I'm also not sure how you would get to that very contrived scenario anyways.
 	\end{enumerate}
 \end{proof}
 
