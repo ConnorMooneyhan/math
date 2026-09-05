@@ -100,18 +100,18 @@
 	Prove that the set $e_{ij}$ for $i \neq j$ together with the set $e_{ii} - e_{i+1,i+1}$ for $1 \leq i < n$ forms a basis for $\sl(n, F)$.
 \end{ex}
 \begin{proof}
-    Given a matrix $A \in \sl(n, F)$, we want to show that we can write $A$ uniquely as a linear combination of the proposed basis elements.
-    The $e_{ii} - e_{i+1,i+1}$ elements have zeroes everywhere outside the diagonal, and the nonzero elements of $e_{ij}$ and $e_{kl}$ do not coincide whenever $i \neq j$ and $k \neq l$.
-    Thus, when $i \neq j$, $A_{ij}$ is the only coefficient of $e_{ij}$ that works in the linear combination, so these ``non-diagonal'' basis elements have uniquely determined coefficients.
-    
-    Turning our focus to the ``diagonal'' basis elements of the form $e_{ii} - e_{i+1,i+1}$, we see that when $i = 1$, there is only one possible coefficient: $A_{1, 1}$.
-    This in turn determines the value of $(e_{1,1} - e_{2, 2})_{2, 2}$ to be $-A_{1,1}$, so since the only other proposed basis element which has a nonzero $(2, 2)$ entry is $e_{2,2} - e_{3, 3}$, its coefficient must be $A_{2, 2} + A_{1, 1}$.
-    Continuing in this manner through $i = n - 1$, we see that the coefficient of $e_{i,i} - e_{i+1,i+1}$ must be $\sum_{j=1}^{i} A_{j,j}$.
-    
-    The last thing to do is to check that this linear combination gives us the correct $A$.
-    As noted during the above investigation, the values are correct by construction for the non-diagonal entries of $A$ and also for the diagonal entries from $A_{1, 1}$ through $A_{n-1,n-1}$.
-    For $A_{n,n}$, we need the fact that $\mathrm{tr}(A) = 0$, which tells us that $A_{n,n} = -\sum_{i=1}^{n-1} A_{i,i}$.
-    The $(n,n)$ entry of our linear combination will by construction be $-\sum_{i=1}^{n-1} A_{i,i} = A_{n,n}$, so $A$ is indeed a unique linear combination of the proposed basis elements, and thus they do form a basis.
+	Given a matrix $A \in \sl(n, F)$, we want to show that we can write $A$ uniquely as a linear combination of the proposed basis elements.
+	The $e_{ii} - e_{i+1,i+1}$ elements have zeroes everywhere outside the diagonal, and the nonzero elements of $e_{ij}$ and $e_{kl}$ do not coincide whenever $i \neq j$ and $k \neq l$.
+	Thus, when $i \neq j$, $A_{ij}$ is the only coefficient of $e_{ij}$ that works in the linear combination, so these ``non-diagonal'' basis elements have uniquely determined coefficients.
+
+	Turning our focus to the ``diagonal'' basis elements of the form $e_{ii} - e_{i+1,i+1}$, we see that when $i = 1$, there is only one possible coefficient: $A_{1, 1}$.
+	This in turn determines the value of $(e_{1,1} - e_{2, 2})_{2, 2}$ to be $-A_{1,1}$, so since the only other proposed basis element which has a nonzero $(2, 2)$ entry is $e_{2,2} - e_{3, 3}$, its coefficient must be $A_{2, 2} + A_{1, 1}$.
+	Continuing in this manner through $i = n - 1$, we see that the coefficient of $e_{i,i} - e_{i+1,i+1}$ must be $\sum_{j=1}^{i} A_{j,j}$.
+
+	The last thing to do is to check that this linear combination gives us the correct $A$.
+	As noted during the above investigation, the values are correct by construction for the non-diagonal entries of $A$ and also for the diagonal entries from $A_{1, 1}$ through $A_{n-1,n-1}$.
+	For $A_{n,n}$, we need the fact that $\mathrm{tr}(A) = 0$, which tells us that $A_{n,n} = -\sum_{i=1}^{n-1} A_{i,i}$.
+	The $(n,n)$ entry of our linear combination will by construction be $-\sum_{i=1}^{n-1} A_{i,i} = A_{n,n}$, so $A$ is indeed a unique linear combination of the proposed basis elements, and thus they do form a basis.
 \end{proof}
 
 \begin{ex}
@@ -186,7 +186,8 @@
 	Show that $L_1$ and $L_2$ are isomorphic if and only if they have the same dimension.
 \end{ex}
 \begin{proof}
-	Suppose $L_1$ and $L_2$ both have dimension $n$, and let $\lbrace x_1, \dots, x_n \rbrace$ and $\lbrace y_1, \dots, y_n \rbrace$ be bases of $L_1$ and $L_2$ respectively.
+	First, if $L_1$ and $L_2$ are isomorphic Lie algebras, then there is a bijective linear map between them, so they are isomorphic as vector spaces, which forces them to have the same dimension.
+	Now suppose $L_1$ and $L_2$ both have dimension $n$, and let $\lbrace x_1, \dots, x_n \rbrace$ and $\lbrace y_1, \dots, y_n \rbrace$ be bases of $L_1$ and $L_2$ respectively.
 	Then we can define a function $\varphi : L_1 \to L_2$ by letting $\varphi(x_i) = y_i$ for each $i$, and \begin{align*}
 		\varphi(a_1x_1 + \cdots + a_nx_n) & \coloneq a_1\varphi(x_1) + \cdots + a_n\varphi(x_n) \\
 		                                  & = a_1y_1 + \cdots + a_ny_n.
@@ -194,14 +195,20 @@
 	This is well-defined since every element of $L_1$ can be expressed uniquely as a linear combination of $\lbrace x_1, \dots, x_n \rbrace$.
 	It is also linear by construction, it is injective since linear combinations of $\lbrace y_1, \dots, y_n \rbrace$ are unique, and it is surjective because \textit{every} element of $L_2$ can be expressed as such a linear combination.
 	That leaves us to confirm that $\varphi([x, y]) = [\varphi(x), \varphi(y)]$.
+
+	We first see that for any $1 \leq i \leq j \leq n$, and denoting the structure constants for $L_1$ with respect to the chosen basis by $a_{ij}^k$, \begin{align*}
+		\varphi([x_i, x_j]) & = \varphi \left( \sum_{k=1}^n a_{ij}^kx_i \right) \\
+		                    & = \sum_{k=1}^n a_{ij}^k\varphi(x_i)               \\
+		                    & = \sum_{k=1}^n a_{ij}^ky_i                        \\
+	\end{align*}
 	Indeed, given $x, y \in L_1$, \begin{align*}
-		    & [\varphi(a_1x_1 + \cdots + a_nx_n), \varphi(b_1x_1 + \cdots + b_nx_n)]                                                                     \\
-		=\  & [a_1y_1 + \cdots + a_ny_n, b_1y_1 + \cdots + b_ny_n]                                                                                       \\
-		=\  & a_1[y_1, b_1y_1 + \cdots + b_ny_n] + \cdots + a_n[y_n, b_1y_1 + \cdots + b_ny_n]                                                           \\
+		    & [\varphi(a_1x_1 + \cdots + a_nx_n), \varphi(b_1x_1 + \cdots + b_nx_n)]                                                                         \\
+		=\  & [a_1y_1 + \cdots + a_ny_n, b_1y_1 + \cdots + b_ny_n]                                                                                           \\
+		=\  & a_1[y_1, b_1y_1 + \cdots + b_ny_n] + \cdots + a_n[y_n, b_1y_1 + \cdots + b_ny_n]                                                               \\
 		=\  & (a_1b_1[y_1, y_1] + a_1b_2[y_1, y_2] + \cdots + a_1b_n[y_1, y_n]) + \cdots + (a_nb_1[y_n, y_1] + a_nb_2[y_n, y_2] + \cdots + a_nb_n[y_n, y_n]) \\
-		=\  & \cdots                                                                                                                                     \\
-		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
-		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                              \\
+		=\  & \cdots                                                                                                                                         \\
+		=\  & (a_1b_1[x_1, x_1] + a_1b_2[x_1, x_2] + \cdots + a_1b_n[x_1, x_n]) + \cdots + (a_nb_1[x_n, x_1] + a_nb_2[x_n, x_2] + \cdots + a_nb_n[x_n, x_n]) \\
+		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                                  \\
 	\end{align*}
 	\textcolor{red}{UNFINISHED}
 \end{proof}
@@ -212,14 +219,38 @@
 	\end{equation*}
 \end{ex}
 \begin{proof}
-    
+	We have \begin{align*}
+		[e, f] & = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\
+		       & = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}                                                                                         \\
+		       & = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}                                                                                                                                       \\
+		       & = h,
+	\end{align*}
+	\begin{align*}
+		[e, h] & = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} - \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\
+		       & = \begin{pmatrix} 0 & -1 \\ 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}                                                                                          \\
+		       & = \begin{pmatrix} 0 & -2 \\ 0 & 0 \end{pmatrix}                                                                                                                                         \\
+		       & = -2e,
+	\end{align*}
+	and \begin{align*}
+		[f, h] & = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}\begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix} - \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \\
+		       & = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 0 \\ -1 & 0 \end{pmatrix}                                                                                          \\
+		       & = \begin{pmatrix} 0 & 0 \\ 2 & 0 \end{pmatrix}                                                                                                                                          \\
+		       & = 2f.
+	\end{align*}
+	Adopting the $e, f, h$ notation in place of the usual indexed notation, we have the structure constants \begin{equation*}
+		\begin{array}{ccc}
+			a_{ef}^e = 0  & a_{ef}^f = 0 & a_{ef}^h = 1 \\
+			a_{eh}^e = -2 & a_{eh}^f = 0 & a_{eh}^h = 0 \\
+			a_{fh}^e = 0  & a_{fh}^f = 2 & a_{fh}^h = 0
+		\end{array}
+	\end{equation*}
 \end{proof}
 
 \begin{ex}
 	Prove that $\sl(2, \mathbb{C})$ has no non-trivial ideals.
 \end{ex}
 \begin{proof}
-    
+
 \end{proof}
 
 \begin{ex}
@@ -233,9 +264,37 @@
 	\end{enumerate}
 \end{ex}
 \begin{proof}
-    \begin{enumerate}[label=(\alph*)]
-        \item 
-    \end{enumerate}
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $x, y \in \gl_S(n, F)$ and $a, b \in F$.
+		      First we show that $\gl_S(n, F)$ is a linear subspace, making use of the linearity of the transpose itself: \begin{align*}
+			      (ax+by)^TS & = (ax^T + by^T)S \\
+			                 & = ax^TS + by^TS  \\
+			                 & = -aSx - bSy     \\
+			                 & = -Sax - Sby     \\
+			                 & = -S(ax+by).
+		      \end{align*}
+		      Now we show closure under the bracket: \begin{align*}
+			      [x,y]^TS & = (xy-yx)^TS         \\
+			               & = ((xy)^T - (yx)^T)S \\
+			               & = (y^Tx^T - x^Ty^T)S \\
+			               & = y^Tx^TS - x^Ty^TS  \\
+			               & = -y^TSx + x^TSy     \\
+			               & = Syx - Sxy          \\
+			               & = S(yx - xy)         \\
+			               & = S[y, x]            \\
+			               & = -S[x, y].
+		      \end{align*}
+		\item For an arbitrary $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \gl(2, \mathbb{R})$, we have \begin{equation*}
+			      A^TS = \begin{pmatrix}a & b \\ c & d\end{pmatrix}^T \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} = \begin{pmatrix}a & c \\ b & d\end{pmatrix} \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} = \begin{pmatrix}0 & a \\ 0 & b\end{pmatrix}
+		      \end{equation*}
+		      and \begin{equation*}
+			      -SA = \begin{pmatrix}0 & -1 \\ 0 & 0\end{pmatrix}\begin{pmatrix}a & b \\ c & d\end{pmatrix} = \begin{pmatrix}-c & -d \\ 0 & 0\end{pmatrix}.
+		      \end{equation*}
+		      This tells us that if we have $A^TS = -SA$, setting corresponding entries equal to each other gives $c = 0$, $b = 0$, and $a = -d$.
+		      Thus $A = \begin{pmatrix}a & 0 \\ 0 & -a\end{pmatrix}$ and we have \begin{equation*}
+			      \gl_S(2, \mathbb{R}) = \left\lbrace \begin{pmatrix}a & 0 \\ 0 & -a \end{pmatrix} : a \in \mathbb{R} \right\rbrace.
+		      \end{equation*}
+	\end{enumerate}
 \end{proof}
 
 \begin{ex}
@@ -244,5 +303,25 @@
 		\delta^n(xy) = \sum_{r=0}^n \begin{pmatrix}n\\r\end{pmatrix} \delta^r(x) \delta^{n-r}(y) \hspace{1em} \forall x, y \in A.
 	\end{equation*}
 \end{ex}
+\begin{proof}
+	For $n = 1$, the Leibniz Rule simplifies to \begin{equation*}
+		\delta(xy) = x\delta^1(y) + \delta(x)y,
+	\end{equation*}
+	which is already the defining property of a derivation.
+
+	Now assume we have proven the theorem through $n - 1$.
+	Then \begin{align*}
+		\delta^n(xy) & = \delta(\delta^{n-1}(xy))                                                                                                                                                 \\
+		             & = \delta\left( \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r - 1}(y) \right)                                                                 \\
+		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta(\delta^r(x)\delta^{n-r - 1}(y))                                                                              \\
+		             & = \sum_{r=0}^{n-1}\left(\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y)\right)    \\
+		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y) \\
+		             & = \dots                                                                                                                                                                    \\
+		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\frac{n}{n-r} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                 \\
+		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                                \\
+		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \begin{pmatrix} n \\ n \end{pmatrix}\delta^n(x)\delta^{n-n}(y)              \\
+		             & = \sum_{r=0}^{n}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)                                                                                              \\
+	\end{align*}
+\end{proof}
 
 \end{document}
