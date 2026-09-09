@@ -250,7 +250,20 @@
 	Prove that $\sl(2, \mathbb{C})$ has no non-trivial ideals.
 \end{ex}
 \begin{proof}
-
+    Let $I$ be a non-zero ideal.
+    We want to show that the basis elements $e=\begin{pmatrix}0&1\\0&0\end{pmatrix}$, $f=\begin{pmatrix}0&0\\1&0\end{pmatrix}$, and $h=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$ are in $I$.
+    If they are, then the closure of $I$ under linear combinations implies that their span (namely, $L$) is a subset of $I$, so $I = L$.
+    
+    Let $x = \begin{pmatrix}a & b \\ c & -a \end{pmatrix} \in I$.
+    We first observe that \textcolor{red}{FILL IN CALCULATIONS} \begin{align*}
+         & [x, e] = 2ae - ch \in I \tag{E1} \\
+         & [x, f] = -2af + bh \in I \tag{E2} \\
+         & [x, h] = -2be + 2cf \in I. \tag{E3}
+    \end{align*}
+    We now take strategic linear combinations (so that we stay within $I$).
+    First, we take $$E4 = bE1 + aE3 = 2abe - bch - 2abe + 2acf = 2acf - bch.$$
+    Then $$E5 = E4 + cE2 = 2acf - bch - 2acf + bch = $$
+    \textcolor{red}{UNFINISHED}
 \end{proof}
 
 \begin{ex}
@@ -316,7 +329,7 @@
 		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta(\delta^r(x)\delta^{n-r - 1}(y))                                                                              \\
 		             & = \sum_{r=0}^{n-1}\left(\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y)\right)    \\
 		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y) \\
-		             & = \dots                                                                                                                                                                    \\
+		             & = \dots \textcolor{red}{UNFINISHED}                                                                                                                                                                    \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\frac{n}{n-r} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                 \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                                \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \begin{pmatrix} n \\ n \end{pmatrix}\delta^n(x)\delta^{n-n}(y)              \\
