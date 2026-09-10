@@ -53,11 +53,21 @@
 	Show that there is no unit vector $x \in c_0$ with $d(x, S) = 1$.
 	Hint: start with an arbitrary unit vector $x \in c_0$, and try to construct a vector $y \in S$ such that the distance $||x-y||_\infty$ is less than 1.
 \end{ex}
+\begin{proof}
+  The best idea I've had for this is to take $x = (x_1, x_2, x_3, \dots) \in c_0$ and derive the sequence $x' = (x_1/2, -x_2/4, x_3/8, \dots)$ from it.
+  I'm not sure how to show that the resulting sum $\sum_{j=1}^\infty (-1)^{j+1}x_j/2^{2j}$ converges to 0, though, if indeed it does (I'm leaning towards thinking it doesn't, based on pairing up terms in the partial sums).
+  The partial sums don't seem to play nicely enough to work with directly, and I don't recall any ``tests'' or formulas from Calc 2 that would help.
+\end{proof}
 
 \begin{ex}
 	Let $V$ be a normed space, and $x \neq y$ elements of $V$.
 	Show that there exists a bounded linear functional $f \in V^*$ such that $f(x) \neq f(y)$.
 \end{ex}
+\begin{proof}
+    Define a linear functional $f$ on $\mathrm{span}(x, y)$ by $x \mapsto 1$ and $y \mapsto 2$.
+    Since $\mathrm{span}(x, y)$ is finite-dimensional and every linear map from a finite-dimensional space is continuous, we have that $f$ is continuous and thus bounded.
+    By Hahn-Banach, we can extend this to a bounded linear functional $\widetilde{f}$ on $V$, and we are done.
+\end{proof}
 
 \begin{ex}
 	Let $V$ be a normed space, $V^*$ its dual and $V^{**}$ its bidual. Consider the map \begin{equation*}
@@ -111,6 +121,20 @@
 	be its unit sphere.
 	Prove that $V$ is separable if and only if $S_1(V)$ is separable.
 \end{ex}
+\begin{proof}
+    If $V$ is separable with countable dense subset $D$, let $D_1 = D \cap S_1(V)$ and let $x \in S_1(V)$.
+    Then given $\varepsilon > 0$, $B_\varepsilon(x) \cap D \neq \varnothing$, so we can choose  $y \in B_\varepsilon(x) \cap D$ such that $y \geq 1$ (if not, we can run a similar argument for $y \leq 1$), and we have \begin{align*}
+        1 \leq ||y|| & \leq ||y - x|| + ||x|| \\
+        & = ||y - x|| + 1 \\
+        & < \varepsilon + 1,
+    \end{align*}
+    so we can find elements of $D$ arbitrarily close to the unit sphere that are within $\varepsilon$ of $x$, but not necessarily \textit{on} the unit sphere.
+    I tried taking $y/||y||$ and seeing if it was closer to $x$ than $y$ was.
+    I thought it might be, but my efforts to prove it yielded nothing useful.
+
+    For the other direction, if $S_1(V)$ has a countable dense subset $D$, then for any $x \in V$, we have $(x_n)\to x/||x||$ where $x_n \in D$ for every $n$.
+    I hoped to use these sorts of sequences to show that something like, say, $\lbrace qd : q \in \mathbb{Q}, d \in D \rbrace$ was a countable dense subset of $V$, but had no luck in trying to make that argument work.
+\end{proof}
 
 \begin{ex}
 	(Uniform Boundedness Principle).
@@ -124,5 +148,11 @@
 		\sup_{\alpha \in J} ||T_\alpha||_{op} < \infty.
 	\end{equation*}
 \end{ex}
+\begin{proof}
+  Really not sure what to do here.
+  For the Baire Category Theorem, I need a collection of closed sets with no interior, so my only real idea for that was taking preimages of certain closed sets, but I haven't been able to figure out what closed sets I would use (singletons don't seem to obviously give me empty interior).
+  I also tried to work it backwards, thinking ``how could the conclusion that my closed sets don't union to the whole space help me?''
+  The only thing that seems remotely plausible to me is to somehow have my closed sets be in $\mathbb{R}$ and construct some sort of correspondence so that the size of their union is $\sup_{\alpha \in J} ||T_\alpha||_{op}$, and then show that their union is finite\dots but I have no idea how to move forward with it, and I definitely don't feel like that's actually the way to do it.
+\end{proof}
 
 \end{document}
