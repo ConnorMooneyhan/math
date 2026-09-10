@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 2}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Recall that $c_0$ is the space of sequences converging to zero, equipped with the supremum norm: $||x||_\infty = \sup_j |x_j|$.
+	Consider the subspace: \begin{equation*}
+		S = \left\lbrace (x_1,x_2,x_3,\dots) : \sum_{j=1}^\infty \frac{x_j}{2^j} = 0 \right\rbrace.
+	\end{equation*}
+	Show that there is no unit vector $x \in c_0$ with $d(x, S) = 1$.
+	Hint: start with an arbitrary unit vector $x \in c_0$, and try to construct a vector $y \in S$ such that the distance $||x-y||_\infty$ is less than 1.
+\end{ex}
+
+\begin{ex}
+	Let $V$ be a normed space, and $x \neq y$ elements of $V$.
+	Show that there exists a bounded linear functional $f \in V^*$ such that $f(x) \neq f(y)$.
+\end{ex}
+
+\begin{ex}
+	Let $V$ be a normed space, $V^*$ its dual and $V^{**}$ its bidual. Consider the map \begin{equation*}
+		j : V \to V^{**}
+	\end{equation*}
+	given by $j(v)(f) = f(v)$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $j$ is well-defined, i.e. $j(v)$ is a bounded linear functional on $V^*$.
+		\item Show that $j$ is linear.
+		\item Show that $j$ is an isometry onto its image.
+	\end{enumerate}
+	This problem shows that $V$ embeds isometrically into a subspace of $V^{**}$ under $j$.
+	In general, $j$ need not be surjective.
+	When it is, we say that $V$ is reflexive.
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item For linearity of $j(v)$, \begin{align*}
+			      j(v)(af + bg) & = (af + bg)(v)         \\
+			                    & = af(v) + bg(v)        \\
+			                    & = aj(v)(f) + bj(v)(g).
+		      \end{align*}
+		      Now assume that $||f||_{op} = 1$.
+		      Then \begin{align*}
+			      ||j(v)(f)|| & = ||f(v)||           \\
+			                  & \leq ||f||_{op}||v|| \\
+			                  & = ||v||,
+		      \end{align*}
+		      so since $||v||$ is constant as we vary $f$, $j(v)$ is bounded.
+		\item We have \begin{align*}
+			      j(av + bx)(f) & = f(av + bw)          \\
+			                    & = af(v) + bf(w)       \\
+			                    & = aj(v)(f) + bj(w)(f) \\
+			                    & = (aj(v) + bj(w))(f),
+		      \end{align*}
+		      where the second equality comes from the linearity of $f$.
+        \item We already saw in the proof of part (a) that $||j(v)(f)|| \leq ||v||$ whenever $||f||_{op} = 1$.
+          Thus $||j(v)||_{op} \leq ||v||$, so if we can find an $f$ with $||f||_{op} = 1$ such that $||j(v)(f)|| = ||v||$, we're done since we will have demonstrated that the supremum of $||v||$ is achieved.
+          We can define a bounded linear map $f : \mathbb{R}v \to F$ by choosing to map $v \mapsto ||v||$, and then by Hahn-Banach we can extend this to a bounded linear map $\widetilde{f} : V \to F$ so that $\widetilde{f} \in V^*$.
+          Now we just check that indeed \begin{equation*}
+            ||j(v)(\widetilde{f})|| = ||f(v)|| = ||v||
+          \end{equation*}
+          as desired, and we are done.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $V$ be a normed space and \begin{equation*}
+		S_1(V) = \left\lbrace v \in V : ||v|| = 1 \right\rbrace
+	\end{equation*}
+	be its unit sphere.
+	Prove that $V$ is separable if and only if $S_1(V)$ is separable.
+\end{ex}
+
+\begin{ex}
+	(Uniform Boundedness Principle).
+	Let $X$ be a Banach space, $Y$ a normed space, and $\lbrace T_\alpha \rbrace_{\alpha \in J}$ an arbitrary family of bounded linear operators \begin{equation*}
+		T_\alpha : X \to Y
+	\end{equation*}
+	satisfying the \textbf{pointwise bound}: \begin{center}
+		For each $x \in X$, \hspace{0.5em} $\sup_{\alpha \in J}||T_\alpha(x)||_Y < \infty$.
+	\end{center}
+	Use the Baire Category Theorem to show that this implies the \textbf{uniform bound}: \begin{equation*}
+		\sup_{\alpha \in J} ||T_\alpha||_{op} < \infty.
+	\end{equation*}
+\end{ex}
+
+\end{document}
