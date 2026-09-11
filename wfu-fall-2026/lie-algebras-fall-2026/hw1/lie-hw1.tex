@@ -187,30 +187,16 @@
 \end{ex}
 \begin{proof}
 	First, if $L_1$ and $L_2$ are isomorphic Lie algebras, then there is a bijective linear map between them, so they are isomorphic as vector spaces, which forces them to have the same dimension.
-	Now suppose $L_1$ and $L_2$ both have dimension $n$, and let $\lbrace x_1, \dots, x_n \rbrace$ and $\lbrace y_1, \dots, y_n \rbrace$ be bases of $L_1$ and $L_2$ respectively.
-	Then we can define a function $\varphi : L_1 \to L_2$ by letting $\varphi(x_i) = y_i$ for each $i$, and \begin{align*}
-		\varphi(a_1x_1 + \cdots + a_nx_n) & \coloneq a_1\varphi(x_1) + \cdots + a_n\varphi(x_n) \\
-		                                  & = a_1y_1 + \cdots + a_ny_n.
-	\end{align*}
-	This is well-defined since every element of $L_1$ can be expressed uniquely as a linear combination of $\lbrace x_1, \dots, x_n \rbrace$.
-	It is also linear by construction, it is injective since linear combinations of $\lbrace y_1, \dots, y_n \rbrace$ are unique, and it is surjective because \textit{every} element of $L_2$ can be expressed as such a linear combination.
-	That leaves us to confirm that $\varphi([x, y]) = [\varphi(x), \varphi(y)]$.
 
-	We first see that for any $1 \leq i \leq j \leq n$, and denoting the structure constants for $L_1$ with respect to the chosen basis by $a_{ij}^k$, \begin{align*}
-		\varphi([x_i, x_j]) & = \varphi \left( \sum_{k=1}^n a_{ij}^kx_i \right) \\
-		                    & = \sum_{k=1}^n a_{ij}^k\varphi(x_i)               \\
-		                    & = \sum_{k=1}^n a_{ij}^ky_i                        \\
+	Now suppose $L_1$ and $L_2$ both have dimension $n$.
+	Then there exists an isomorphism of vector spaces $f : L_1 \to L_2$.
+	It is bijective and linear by definition, so we just need to check that the bracket is preserved.
+	Indeed, for any $x, y \in L_1$, \begin{align*}
+		[f(x), f(y)] & = 0         & \text{(since $L_2$ is abelian)}                       \\
+		             & = f(0)      & \text{(since $f$ is a homomorphism of vector spaces)} \\
+		             & = f([x, y]) & \text{(since $L_1$ is abelian)}                       \\
 	\end{align*}
-	Indeed, given $x, y \in L_1$, \begin{align*}
-		    & [\varphi(a_1x_1 + \cdots + a_nx_n), \varphi(b_1x_1 + \cdots + b_nx_n)]                                                                         \\
-		=\  & [a_1y_1 + \cdots + a_ny_n, b_1y_1 + \cdots + b_ny_n]                                                                                           \\
-		=\  & a_1[y_1, b_1y_1 + \cdots + b_ny_n] + \cdots + a_n[y_n, b_1y_1 + \cdots + b_ny_n]                                                               \\
-		=\  & (a_1b_1[y_1, y_1] + a_1b_2[y_1, y_2] + \cdots + a_1b_n[y_1, y_n]) + \cdots + (a_nb_1[y_n, y_1] + a_nb_2[y_n, y_2] + \cdots + a_nb_n[y_n, y_n]) \\
-		=\  & \cdots                                                                                                                                         \\
-		=\  & (a_1b_1[x_1, x_1] + a_1b_2[x_1, x_2] + \cdots + a_1b_n[x_1, x_n]) + \cdots + (a_nb_1[x_n, x_1] + a_nb_2[x_n, x_2] + \cdots + a_nb_n[x_n, x_n]) \\
-		=\  & \varphi([a_1x_1 + \cdots + a_nx_n, b_1x_1 + \cdots + b_nx_n])                                                                                  \\
-	\end{align*}
-	\textcolor{red}{UNFINISHED}
+	as desired.
 \end{proof}
 
 \begin{ex}
@@ -250,20 +236,30 @@
 	Prove that $\sl(2, \mathbb{C})$ has no non-trivial ideals.
 \end{ex}
 \begin{proof}
-    Let $I$ be a non-zero ideal.
-    We want to show that the basis elements $e=\begin{pmatrix}0&1\\0&0\end{pmatrix}$, $f=\begin{pmatrix}0&0\\1&0\end{pmatrix}$, and $h=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$ are in $I$.
-    If they are, then the closure of $I$ under linear combinations implies that their span (namely, $L$) is a subset of $I$, so $I = L$.
-    
-    Let $x = \begin{pmatrix}a & b \\ c & -a \end{pmatrix} \in I$.
-    We first observe that \textcolor{red}{FILL IN CALCULATIONS} \begin{align*}
-         & [x, e] = 2ae - ch \in I \tag{E1} \\
-         & [x, f] = -2af + bh \in I \tag{E2} \\
-         & [x, h] = -2be + 2cf \in I. \tag{E3}
-    \end{align*}
-    We now take strategic linear combinations (so that we stay within $I$).
-    First, we take $$E4 = bE1 + aE3 = 2abe - bch - 2abe + 2acf = 2acf - bch.$$
-    Then $$E5 = E4 + cE2 = 2acf - bch - 2acf + bch = $$
-    \textcolor{red}{UNFINISHED}
+	Let $I$ be a non-zero ideal.
+	We want to show that the basis elements $e=\begin{pmatrix}0&1\\0&0\end{pmatrix}$, $f=\begin{pmatrix}0&0\\1&0\end{pmatrix}$, and $h=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$ are in $I$.
+	If they are, then the closure of $I$ under linear combinations implies that their span (namely, $L$) is a subset of $I$, so $I = L$.
+  We will make use of the results from problem 8 that $[e, f] = h$ and $[f, h] = 2f$.
+
+	Let $x = \begin{pmatrix}a & b \\ c & -a \end{pmatrix} \in I$.
+	We first calculate \begin{align*}
+		[e, x] & = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\begin{pmatrix}a & b \\ c & -a\end{pmatrix} - \begin{pmatrix}a & b \\ c & -a\end{pmatrix}\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\
+		       & = \begin{pmatrix} c & -a \\ 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & a \\ 0 & c \end{pmatrix}                                                                                      \\
+		       & = \begin{pmatrix} c & -2a \\ 0 & -c \end{pmatrix}                                                                                                                                   \\
+		       & = ch - 2ae \in I \text{ by absorption}.
+	\end{align*}
+	Since $ch - 2ae \in I$, we can bracket $e$ with it to get \begin{align*}
+		[e, ch - 2ae] & = [e, ch] - [e, 2ae]                                                                                                                                                                             \\
+		              & = c[e, h] - 2a[e, e]                                                                                                                                                                             \\
+		              & = c[e, h]                                                                                                                                                                                        \\
+		              & = c \left( \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}\begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix} - \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}\begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} \right) \\
+		              & = c \left( \begin{pmatrix}0 & -1 \\ 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} \right)                                                                                      \\
+		              & = c \begin{pmatrix}0 & -2 \\ 0 & 0\end{pmatrix}                                                                                                                                                  \\
+		              & = -2ce \in I,
+	\end{align*}
+  so $e \in I$.
+  Now we can use absorption again to get $[e, f] = h \in I$. 
+  One more application of absorption gives $[f, h] = 2f \in I \implies f \in I$, so we are done.
 \end{proof}
 
 \begin{ex}
@@ -329,7 +325,7 @@
 		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta(\delta^r(x)\delta^{n-r - 1}(y))                                                                              \\
 		             & = \sum_{r=0}^{n-1}\left(\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y)\right)    \\
 		             & = \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y) + \sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\delta^{r+1}(x)\delta^{n-r - 1}(y) \\
-		             & = \dots \textcolor{red}{UNFINISHED}                                                                                                                                                                    \\
+		             & = \textcolor{red}{\text{\dots I'm not at all sure how to bridge this gap! I've tried lots of things.}}                                                                     \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n-1 \\ r\end{pmatrix}\frac{n}{n-r} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                 \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \delta^n(x)y                                                                \\
 		             & = \left(\sum_{r=0}^{n-1}\begin{pmatrix}n \\ r\end{pmatrix} \delta^r(x)\delta^{n-r}(y)\right) + \begin{pmatrix} n \\ n \end{pmatrix}\delta^n(x)\delta^{n-n}(y)              \\
