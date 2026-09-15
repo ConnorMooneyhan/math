@@ -50,40 +50,334 @@
 \maketitle
 
 \begin{ex}
-  Let $I$ and $J$ be ideals of a Lie algebra $L$.
-  Prove that $I \cap J$ is a subspace of $L$.
+	Let $I$ and $J$ be ideals of a Lie algebra $L$.
+	Prove that $I \cap J$ is a subspace of $L$.
 \end{ex}
+\begin{proof}
+	Given $a, b \in F$ and $x, y \in I \cap J$, we want to show that $ax + by \in I\cap J$.
+	Indeed, $ax+by \in I$ since $I$ is a subspace by virtue of being an ideal, and $ax + by \in J$ for the same reason, so $ax + by \in I \cap J$.
+\end{proof}
 
 \begin{ex}
-  Prove the Isomorphism Theorem (part a).
+	Prove the Isomorphism Theorem (part a).
 \end{ex}
+\begin{proof}
+	Given Lie algebras $L_1$ and $L_2$ together with a homomorphism $f : L_1 \to L_2$, define $g : L_1/\ker f \to L_2$ by $g(x + \ker f) = f(x)$.
+	We first show that this is well-defined.
+
+	If $x + \ker f = y + \ker f$, we have $y - x \in \ker f$, so \begin{align*}
+		g(x + \ker f) & = f(x)            \\
+		              & = f(x) + 0        \\
+		              & = f(x) + f(y - x) \\
+		              & = f(x + y - x)    \\
+		              & = f(y)            \\
+		              & = g(y + \ker f),
+	\end{align*}
+	so $g$ is well-defined.
+
+	We now show that it is a linear map by taking, for any $x, y \in L_1$, \begin{align*}
+		g(a(x + \ker f) + b(y + \ker f)) & = g((ax + \ker f) + (by + \ker f)) \\
+		                                 & = g((ax + by) + \ker f)            \\
+		                                 & = f(ax + by)                       \\
+		                                 & = af(x) + bf(y)                    \\
+		                                 & = ag(x + \ker f) + bg(y + \ker f).
+	\end{align*}
+	It is furthermore a Lie algebra homomorphism because \begin{align*}
+		g([x + \ker f, y + \ker f]) & = g([x, y] + \ker f)              \\
+		                            & = f([x, y])                       \\
+		                            & = [f(x), f(y)]                    \\
+		                            & = [g(x + \ker f), g(y + \ker f)].
+	\end{align*}
+
+	Finally, we show bijectivity onto its image.
+	It is surjective onto $\im g = \im f$ by definition.
+	For injectivity, let $x, y \in L_1$ such that $g(x + \ker f) = g(y + \ker f)$.
+	Then \begin{align*}
+		0 & = g(x + \ker f) - g(y + \ker  f) \\
+		  & = f(x) - f(y)                    \\
+		  & = f(x - y),
+	\end{align*}
+	so $x - y \in \ker f$, from which it follows that $x + \ker f = y + \ker f$.
+	Thus $f$ is a bijective Lie algebra homomorphism $L_1\ker f \to \im f$, i.e. an isomorphism.
+\end{proof}
 
 \begin{ex}
-  Prove the statements on page 14 (just above example 2.4): \begin{enumerate}[label=(\alph*)]
-    \item Prove that $J$ (as defined on page 14) is an ideal of $L$.
-    \item Prove that $J$ contains $I$.
-  \end{enumerate}
+	Prove the statements on page 14 (just above example 2.4): \begin{enumerate}[label=(\alph*)]
+		\item Prove that $J$ (as defined on page 14) is an ideal of $L$.
+		\item Prove that $J$ contains $I$.
+	\end{enumerate}
 \end{ex}
+\begin{proof}
+	Let $K$ be an ideal of $L/I$ and define $J \coloneq \lbrace z \in L : z + I \in K \rbrace$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Given $a, b \in F$ and $x, y \in J$, \begin{align*}
+			      (ax + by) + I & = (ax + I) + (by + I)  \\
+			                    & = a(x + I) + b(y + I),
+		      \end{align*}
+		      so since $x + I$ and $y + I$ are in $K$, this is a linear combination of elements of $K$, which is itself in $K$ as desired.
+		      Thus $J$ is a linear subspace.
+
+		      Now if $x \in J$ and $y \in L$, we have \begin{align*}
+			      [x, y] + I & = [x + I, y + I],
+		      \end{align*}
+		      so since $x + I \in K$ and $K$ is an ideal, we get $[x, y] + I \in K$ and thus $[x, y] \in J$.
+		\item Given $x \in I$, $x + I = I$, so since $I$ is the identity in $L/I$ and every ideal contains the identity, $x + I \in K$ and thus $x \in J$.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
-  Suppose $L_1$ and $L_2$ are Lie algebras.
-  Let $L \coloneq \lbrace (x_1, x_2) : x_i \in L_i \rbrace$ be the direct sum of their underlying vector spaces. \begin{enumerate}[label=(\alph*)]
-    \item Show that if we define \begin{equation*}
-        [(x_1, x_2), (y_1, y_2)] \coloneq ([x_1, y_1], [x_2, y_2])
-    \end{equation*}
-    then $L$ becomes a Lie algebra, the \textit{direct sum} of $L_1$ and $L_2$.
-      We denote this by $L = L_1 \oplus L_2$.
-    \item Show that if $L = L_1 \oplus L_2$ then $Z(L) = Z(L_1) \oplus Z(L_2)$ and $L' = L'_1 \oplus L'_2$.
-  \end{enumerate}
+	Suppose $L_1$ and $L_2$ are Lie algebras.
+	Let $L \coloneq \lbrace (x_1, x_2) : x_i \in L_i \rbrace$ be the direct sum of their underlying vector spaces. \begin{enumerate}[label=(\alph*)]
+		\item Show that if we define \begin{equation*}
+			      [(x_1, x_2), (y_1, y_2)] \coloneq ([x_1, y_1], [x_2, y_2])
+		      \end{equation*}
+		      then $L$ becomes a Lie algebra, the \textit{direct sum} of $L_1$ and $L_2$.
+		      We denote this by $L = L_1 \oplus L_2$.
+		\item Show that if $L = L_1 \oplus L_2$ then $Z(L) = Z(L_1) \oplus Z(L_2)$ and $L' = L'_1 \oplus L'_2$.
+	\end{enumerate}
 \end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item Since we already know that $L$ is a vector space, we will show that the bracket as defined is a valid Lie bracket.
+		      Given $(x_1, x_2) \in L$, we have \begin{align*}
+			      [(x_1, x_2), (x_1, x_2)] & = ([x_1, x_1], [x_2, x_2]) \\
+			                               & = (0, 0)
+		      \end{align*}
+		      as desired.
+		      For $(y_1, y_2)$ and $(z_1, z_2)$ also in $L$, we have \begin{align*}
+			          & [(x_1, x_2), [(y_1, y_2), (z_1, z_2)]] + [(y_1, y_2), [(z_1, z_2), (x_1, x_2)]] + [(z_1, z_2), [(x_1, x_2), (y_1, y_2)]] \\
+			      =\  & [(x_1, x_2), ([y_1, z_1], [y_2, z_2])] + [(y_1, y_2), ([z_1, x_1], [z_2, x_2])] + [(z_1, z_2), ([x_1, y_1], [x_2, y_2])] \\
+			      =\  & ([x_1, [y_1, z_1]], [x_2, [y_2, z_2]]) + ([y_1, [z_1, x_1]], [y_2, [z_2, x_2]]) + ([z_1, [x_1, y_1]], [z_2, [x_2, y_2]]) \\
+			      =\  & ([x_1, [y_1, z_1]] + [y_1, [z_1, x_1]] + [z_1, [x_1, y_1]], [x_2, [y_2, z_2]] + [y_2, [z_2, x_2]] + [z_2, [x_2, y_2]])   \\
+			      =\  & (0, 0)
+		      \end{align*}
+		      as desired.
+		\item If $(x_1, x_2) \in Z(L)$, then given any $(y_1, y_2) \in L$, \begin{equation*}
+			      (0, 0) = [(x_1, x_2), (y_1, y_2)] = ([x_1, y_1], [x_2, y_2]),
+		      \end{equation*}
+		      so $[x_1, y_1] = [x_2, y_2] = 0$, and since $y_1$ and $y_2$ were arbitrary, this means $(x_1, x_2) \in Z(L_1) \oplus Z(L_2)$.
+		      Also, if $(x_1, x_2) \in Z(L_1) \oplus Z(L_2)$, then for any $(y_1, y_2) \in L$, \begin{equation*}
+			      [(x_1, x_2), (y_1, y_2)] = ([x_1, y_1], [x_2, y_2]) = (0, 0),
+		      \end{equation*}
+		      so $(x_1, x_2) \in Z(L)$.
+		      Thus by mutual inclusion, $Z(L) = Z(L_1) \oplus Z(L_2)$.
+
+		      Now if $x \in L'$, then $x = \sum_{i < j} a_{ij}[x^i, x^j]$ for some $\lbrace x^1, x^2, \dots, x^n \rbrace \subset L$ where the superscripts are to be interpreted just as indexing notation, not exponents, and where each $a_{ij} \in F$.
+		      We have, \begin{align*}
+			      x & = \sum_{i < j} a_{ij}[x^i, x^j]                                                                         \\
+			        & = \sum_{i < j} a_{ij}[(x^i_1, x^i_2), (x^j_1, x^j_2)]                                                   \\
+			        & = \sum_{i < j} a_{ij}([x^i_1, x^j_1], [x^i_2, x^j_2])                                                   \\
+			        & = \sum_{i < j} (a_{ij}[x^i_1, x^j_1], a_{ij}[x^i_2, x^j_2])                                             \\
+			        & = \left(\sum_{i < j}a_{ij}[x^i_1, x^j_1],\sum_{i < j} a_{ij}[x^i_2, x^j_2]\right) \in L_1' \oplus L_2'.
+		      \end{align*}
+		      Running that argument backwards, starting with an element of $L_1' \oplus L_2'$, shows the reverse containment, so we have $L' = L_1' \oplus L_2'$.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
-  For each pair of the following Lie algebras over $\mathbb{R}$, decide whether or not they are isomorphic: \begin{enumerate}[label=(\alph*)]
-    \item the Lie algebra $\mathbb{R}^3_\wedge$ with Lie bracket given by the vector product;
-    \item the upper triangular $2 \times 2$ matrices over $\mathbb{R}$;
-    \item the strictly upper triangular $3 \times 3$ matrices over $\mathbb{R}$;
-    \item $L = \lbrace x \in \gl(3, \mathbb{R}) : x^t = -x \rbrace$.
-  \end{enumerate}
+	For each pair of the following Lie algebras over $\mathbb{R}$, decide whether or not they are isomorphic: \begin{enumerate}[label=(\alph*)]
+		\item the Lie algebra $\mathbb{R}^3_\wedge$ with Lie bracket given by the vector product;
+		\item the upper triangular $2 \times 2$ matrices over $\mathbb{R}$;
+		\item the strictly upper triangular $3 \times 3$ matrices over $\mathbb{R}$;
+		\item $L = \lbrace x \in \gl(3, \mathbb{R}) : x^t = -x \rbrace$.
+	\end{enumerate}
 \end{ex}
+\begin{proof}
+	We note a few things up front.
+	All four candidates have dimension 3.
+	We now look at the dimension of the derived algebra for each. \begin{equation*}
+		\begin{array}{r|l}
+			L                        & \mathrm{dim}(L')                                                                                                                      \\\hline
+			\mathbb{R}^3_\wedge      & \text{3; every vector in $\mathbb{R}^3$ can be expressed as the}                                                                      \\
+			                         & \text{product of two others.}                                                                                                          \\
+			b(2, \mathbb{R})         & \text{1; the bracket of two upper triangular matrices is \textit{strictly} upper triangular,}                                         \\
+			                         & \text{as we have seen, leaving us with nonzero entries in the top-right entry only.}                                                   \\
+			n(3, \mathbb{R})         & \text{1; similar to the above case, where the bracket leaves us with nonzero entries}                                                 \\
+			                         & \text    {in the top-right entry only.}                                                                                                \\
+			\lbrace x^t = -x \rbrace & \text{3; the matrices here look like $\begin{pmatrix} 0 & a & b \\ -a & 0 & c \\ -b & -c & 0\end{pmatrix}$, so there are three basis} \\
+        & \text{elements, each taking $a = 1$, $b = 1$, and $c = 1$ respectively, with zeroes}                                                   \\
+                               & \text{everywhere else.}
+		\end{array}
+	\end{equation*}
+  So the only candidates for isomorphism are (a) with (d) and (b) with (c).
+  We also have that (c) is associative, whereas (b) is nonassociative, so (c) is not isomorphic to (b).
+
+	\textcolor{red}{UNFINISHED}
+\end{proof}
+
+\begin{ex}
+	Let $A$ and $B$ be $n \times n$ matrices with complex entries.
+	\begin{enumerate}[label=(\alph*)]
+		\item Is it true that $tr(AB) = tr(A)tr(B)$?
+		      If true, prove it.
+		      If false, provide a counterexample.
+		\item Is it true that $tr(AB) = tr(BA)$?
+		      If true, prove it.
+		      If false, provide a counterexample.
+		\item Use your answers to (a) and/or (b) to show that if $x \in \gl_S(n, \mathbb{C})$ for some $n \times n$ invertible matrix $S$, then $tr(x) = 0$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item No.
+		      Consider \begin{equation*}
+			      tr \left( \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}\begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix} \right) = tr \left( \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix} \right) = 2
+		      \end{equation*}
+		      and \begin{equation*}
+			      tr \left( \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}\right) tr\left(\begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix} \right) = 2 \cdot 2 = 4.
+		      \end{equation*}
+		\item Yes. \begin{align*}
+			      tr(AB) & = \sum_{i=1}^n (AB)_{ii}                 \\
+			             & = \sum_{i=1}^n \sum_{j=1}^n A_{ij}B_{ji} \\
+			             & = \sum_{i=1}^n \sum_{j=1}^n A_{ji}B_{ij} \\
+			             & = \sum_{i=1}^n \sum_{j=1}^n B_{ij}A_{ji} \\
+			             & = \sum_{i=1}^n (BA)_{ii}                 \\
+			             & = tr(BA),
+		      \end{align*}
+		      where the third equality comes not from term-by-term equality as ordered, but from realizing that since we are summing over all $i$ and $j$ between 1 and $n$ inclusive, each term from the sum is represented once in both versions, so we can use commutativity to reorder the sum conveniently to fit our needs.
+		\item If $x \in \gl_S(n, \mathbb{C})$, then $x^TS = -Sx$.
+		      We will also use the fact that $tr(y) = tr(y^T)$ for any matrix $y$ since the diagonal doesn't change when you take the transpose.
+		      We have \begin{align*}
+			      tr(x) & = tr(S^{-1}Sx)      \\
+			            & = -tr(S^{-1}(x^TS)) \\
+			            & = -tr(x^TSS^{-1})   \\
+			            & = -tr(x^T)          \\
+			            & = -tr(x),
+		      \end{align*}
+		      so $tr(x) = 0$.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $I$ be an ideal of a Lie algebra $L$.
+	Let $B$ be the centralizer of $I$ in $L$; that is \begin{equation*}
+		B = C_L(I) = \left\lbrace x \in L : [x, a] = 0 \text{ for all } a \in I \right\rbrace.
+	\end{equation*}
+	Show that $B$ is an ideal of $L$.
+\end{ex}
+\begin{proof}
+	First, we show closure under linear combinations.
+	If $a, b \in F$, $x, y \in B$, and $z \in I$, \begin{align*}
+		[ax + by, z] & = a[x, z] + b[y, z] \\
+		             & = 0 + 0             \\
+		             & = 0,
+	\end{align*}
+	so $ax + by \in B$.
+
+	Now if $x \in B$ and $y \in L$, then given any $z \in I$ \begin{align*}
+		[[x, y], z] & = -[z, [x, y]]               \\
+		            & = [x, [y, z]] + [y, [z, x]].
+	\end{align*}
+	Note that $[y, z] \in I$ since $z \in I$, so $[x, [y, z]] = 0$, and $[z, x] = 0$ since $x \in B$ so $[y, [z, x]] = [y, 0] = 0$, so we indeed have $[[x,y],z] = 0$, meaning $[x,y] \in B$.
+	Thus $B$ is an ideal.
+\end{proof}
+
+\begin{ex}
+	Prove the Isomorphism Theorem (part b).
+\end{ex}
+\begin{proof}
+	Define $f : I + J \to \frac{I}{I \cap J}$ by $i + j \mapsto i + I \cap J$.
+	This is well defined because if $i_1 + j_1 = i_2 + j_2$ then $i_2 - i_1 = j_1 - j_2 \in I \cap J$, so \begin{align*}
+		f(i_1 + j_1) & = i_1 + I \cap J               \\
+		             & = i_1 + (i_2 - i_1 + I \cap J) \\
+		             & = (i_1 + i_2 - i_1) + I \cap J \\
+		             & = i_2 + I \cap J               \\
+		             & = f(i_2 + j_2).
+	\end{align*}
+	It is linear because \begin{align*}
+		f(a(i_1 + j_1) + b(i_2 + j_2)) & = f(ai_1 + bi_2 + aj_1 + bj_2)          \\
+		                               & = ai_1 + bi_2 + I \cap J                \\
+		                               & = (ai_1 + I \cap J) + (bi_2 + I \cap J) \\
+		                               & = a(i_1 + I \cap J) + b(i_2 + I \cap J) \\
+		                               & = af(i_1 + j_1) + bf(i_2 + j_2),
+	\end{align*}
+	and \begin{align*}
+		f([i_1 + j_1, i_2 + j_2]) & = f([i_1, i_2] + [i_1, j_2] + [j_1, i_2] + [j_1, j_2]) \\
+		                          & = [i_1, i_2] + I \cap J                                \\
+		                          & = [i_1 + I \cap J, i_2 + I \cap J]                     \\
+		                          & = [f(i_1 + j_1), f(i_2 + j_2)],
+	\end{align*}
+	where the second equality results from the fact that the final three terms of the argument of the RHS of the first equality are in $J$ by virtue of $J$ being an ideal.
+	Thus $f$ is a Lie algebra homomorphism.
+
+	We will now show that $\ker f = J$.
+	Indeed, if $i \in I$ is not in $J$, then $i$ is not in $I \cap J$, so $f(i + j) \neq I \cap J$, i.e. it is nonzero, for any choice of $j \in J$.
+	If $i \in I$ \textit{is} in $J$, then $i \in I \cap J$, so $f(i + j) = i + I \cap J = I \cap J$, which is zero in $\frac{I}{I \cap J}$.
+	Clearly if $i + j$ is of the form $0 + j$, then $f(0 + j) = 0 + I \cap J = I \cap J$.
+	Thus $\ker f = J$.
+
+	We also see immediately that $f$ is surjective, since given $i + I \cap J \in \frac{I}{I \cap J}$, we have $f(i) = i + I \cap J$.
+	Thus the first isomorphism theorem gives us that \begin{equation*}
+		\frac{I + J}{J} = \frac{I + J}{\ker f} \cong \im f = \frac{I}{I \cap J}.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Prove the Isomorphism Theorem (part c).
+\end{ex}
+\begin{proof}
+	Let $I$ and $J$ be ideals of a Lie algebra $L$ such that $I \subset J$.
+
+	We first show that $J / I$ is an ideal of $L / I$.
+	Indeed, given $j + I \in J / I$ and $\ell + I \in L / I$, we have \begin{align*}
+		[j + I, \ell + I] & = [j, \ell] + I \in J / I
+	\end{align*}
+	since $[j, \ell] \in J$ because $J$ is an ideal.
+
+	Now we define $f : L/I \to L/J$ by $\ell + I \mapsto \ell + J$, and we want to show that this is surjective homomorphism and that its kernel is $J/I$.
+	First we show that $f$ is well-defined: if $\ell_1 + I = \ell_2 + I$ then $\ell_2 - \ell_1 \in I \subset J$, so \begin{align*}
+		f(\ell_1 + I) & = \ell_1 + J                     \\
+		              & = \ell_1 + (\ell_2 - \ell_1 + J) \\
+		              & = (\ell_1 + \ell_2 - \ell_1) + J \\
+		              & = \ell_2 + J                     \\
+		              & = f(\ell_2 + I).
+	\end{align*}
+	Now we show that it is linear: \begin{align*}
+		f(a(\ell_1 + I) + b(\ell_2 + I)) & = f((a\ell_1 + b\ell_2) + I)       \\
+		                                 & = (a\ell_1 + b\ell_2) + J          \\
+		                                 & = (a\ell_1 + J) + (b\ell_2 + J)    \\
+		                                 & = a(\ell_1 + J) + b(\ell_2 + J)    \\
+		                                 & = af(\ell_1 + I) + bf(\ell_2 + I).
+	\end{align*}
+	Then we show that it preserves brackets: \begin{align*}
+		f([\ell_1 + I, \ell_2 + I]) & = f([\ell_1, \ell_2] + I)         \\
+		                            & = [\ell_1, \ell_2] + J            \\
+		                            & = [\ell_1 + J, \ell_2 + J]        \\
+		                            & = [f(\ell_1 + I), f(\ell_2 + I)].
+	\end{align*}
+	So $f$ is a Lie algebra homomorphism.
+
+	Now, given any $\ell + J \in L/J$, $f(\ell + I) = \ell + J$, so we have surjectivity.
+	Finally, if $f(\ell + I) = \ell + J = J$, then we must have $\ell \in J$, so $\ker f \subset J/I$.
+	On the other hand, if $j \in J$, then $f(j + I) = j + J = J$, so we have $\ker f = J/I$ as desired.
+
+	Thus the first isomorphism theorem gives us that \begin{equation*}
+		\frac{L/I}{J/I} = \frac{L/I}{\ker f} \cong \im f = \frac{L}{J}.
+	\end{equation*}
+\end{proof}
+
+\begin{ex}
+	Let $F$ be a field.
+	Show that the derived algebra of $\gl(n, F)$ is $\sl(n, F)$.
+\end{ex}
+\begin{proof}
+	Let $A, B \in \gl(n, F)$.
+	Since $tr(AB) = tr(BA)$ and trace is linear, \begin{align*}
+		tr([A, B]) & = tr(AB - BA)     \\
+		           & = tr(AB) - tr(BA) \\
+		           & = tr(AB) - tr(AB) \\
+		           & = 0.
+	\end{align*}
+	Thus $[A, B] \in \sl(n, F)$ for all $A, B \in \gl(n, F)$, so their span is contained in the subspace $\sl(n, F)$, i.e. $\gl(n, F)' \subset \sl(n, F)$.
+
+	To show the other direction, we show that the standard basis elements of $\sl(n, F)$ are contained in $\gl(n, F)'$.
+	We know that for $a,b,c,d$ between 1 and $n$, $e_{ab}e_{cd} = \delta_{bc}e_{ad}$ since all entries are zero except perhaps entry $ad$, which is nonzero if and only if $b = c$.
+	Given this, we can express the basis elements of $\sl(n, F)$ as \begin{equation*}
+		e_{ij} = e_{ii}e_{ij} = e_{ii}e_{ij} - e_{ij}e_{ii} = [e_{ii},e_{ij}] \in \gl(n, F)'
+	\end{equation*} when $i \neq j$ and \begin{equation*}
+		e_{ii} - e_{i+1,i+1} = e_{i, i + 1}e_{i+1, i} - e_{i+1,i}e_{i,i+1} = [e_{i,i+1}, e_{i+1,i}] \in \gl(n, F)'.
+	\end{equation*}
+	Thus $\sl(n, F) = \gl(n, F)'$ by mutual containment.
+\end{proof}
 
 \end{document}

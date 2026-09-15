@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 3}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $X, Y$ be normed spaces and $\mathcal{B}(X, Y)$ the vector space of all bounded linear operators $T : X \to Y$.
+	Show that the operator norm \begin{equation*}
+		||T||_{op} \coloneq \sup_{||x|| \leq 1} ||T(x)||
+	\end{equation*}
+	is a norm in $\mathcal{B}(X, Y)$.
+	Show that if $Y$ is Banach, then $\mathcal{B}(X, Y)$ is Banach.
+\end{ex}
+
+\begin{ex}
+	Let $X, Y$ be normed spaces with $X$ infinite-dimensional and $Y \neq \lbrace 0 \rbrace$.
+	Using the axiom of choice (or equivalent statement), show that there exists a linear operator $T : X \to Y$ which is unbounded.
+\end{ex}
+
+\begin{ex}
+	Let $C^\infty[0, 1]$ be the vector space of all infinitely differentiable functions from $[0, 1]$ to $\mathbb{R}$.
+	Consider the derivative as a linear operator \begin{equation*}
+		\mathcal{D} : C^\infty[0, 1] \to C^\infty [0, 1].
+	\end{equation*}
+	Show that it is impossible to equip $C^\infty[0, 1]$ with a norm $||\cdot||$ such that $\mathcal{D}$ is bounded.
+\end{ex}
+
+\begin{ex}
+	Recall that $c_{00}$ is dense in $\ell^1$.
+	Consider both spaces equipped with the $\ell^1$ norm.
+	Show that the identity map \begin{align*}
+		\iota : c_{00} & \to c_{00} \\
+		x              & \mapsto x
+	\end{align*}
+  cannot be extended to a map $\widetilde{\iota} : \ell^1 \to c_{00}$.
+\end{ex}
+
+\begin{ex}
+  Let $X$ be a Banach space and $T : X \to \ell^\infty$ a linear operator.
+  Writing \begin{equation*}
+    T(x) = (f_1(x), f_2(x), f_3(x), \dots) \in \ell^\infty,
+  \end{equation*}
+  we get a sequence of linear functionals $f_n : X \to \mathbb{R}$.
+  Show that $T$ is bounded if and only if each $f_n$ is a bounded linear functional on $X$.
+\end{ex}
+
+\end{document}
