@@ -53,11 +53,51 @@
 	is a norm in $\mathcal{B}(X, Y)$.
 	Show that if $Y$ is Banach, then $\mathcal{B}(X, Y)$ is Banach.
 \end{ex}
+\begin{proof}
+	We have \begin{align*}
+		||cT||_{op} & = \sup_{||x|| \leq 1} ||cT(x)||        \\
+		            & = \sup_{||x|| \leq 1} |c|\cdot||T(x)|| \\
+		            & = |c| \sup_{||x|| \leq 1} ||T(x)||     \\
+		            & = |c| \cdot ||T||_{op}
+	\end{align*}
+	and \begin{align*}
+		||T + S||_{op} & = \sup_{||x|| \leq 1} ||T(x) + S(x)||                            \\
+		               & \leq \sup_{||x|| \leq 1} ||T(x)|| + ||S(x)||                     \\
+		               & \leq \sup_{||x|| \leq 1} ||T(x)|| + \sup_{||x|| \leq 1} ||S(x)|| \\
+		               & = ||T||_{op} + ||S||_{op}.
+	\end{align*}
+
+	Now assume $Y$ is Banach and let $(f_n) \subset \mathcal{B}(X, Y)$ be Cauchy.
+	We want to show that $(f_n)$ has a pointwise limit $f$.
+	First, we have $(f_n(0)) \to 0$ since $f_n(0) = 0$ for all $n$, so we are justified in setting $f(0) = 0$.
+
+	Now given $\varepsilon > 0$, we can choose $M \in \mathbb{Z}^+$ such that when $m, n > M$, \begin{align*}
+		\frac{\varepsilon}{||x||} & > ||f_m - f_n||_{op}                              \\
+		                          & = \sup_{x \neq 0} \frac{||f_m(x)-f_n(x)||}{||x||} \\
+		                          & \geq \frac{||f_m(x)-f_n(x)||}{||x||}              \\
+		\implies \varepsilon      & > ||f_m(x) - f_n(x)||,
+	\end{align*}
+	where the third and fourth lines apply for any \textit{particular} nonzero $x$, so we have that $(f_n(x))$ is Cauchy and thus converges, so we can set $f(x) = \lim_{n \to \infty} f_n(x)$.
+
+	We have thus demonstrated that $(f_n)$ converges to a pointwise limit, so since $(f_n)$ was an arbitrary Cauchy sequence, we have that $\mathcal{B}(X, Y)$ is Banach.
+\end{proof}
 
 \begin{ex}
 	Let $X, Y$ be normed spaces with $X$ infinite-dimensional and $Y \neq \lbrace 0 \rbrace$.
 	Using the axiom of choice (or equivalent statement), show that there exists a linear operator $T : X \to Y$ which is unbounded.
 \end{ex}
+\begin{proof}
+	Let $B$ be a normalized Hamel basis for $X$ (requires AoC) and choose a countable subset $C = \lbrace x_1, x_2, x_3, \dots \rbrace \subset B$.
+	Also let $y \in Y$ such that $||y|| = 1$.
+	Then there is a linear map $T : X \to Y$ determined by \begin{align*}
+		T(x_n) & = ny \hspace{1em} \forall x_n \in C              \\
+		T(x)   & = 0 \hspace{1.61em} \forall x \in B \setminus C,
+	\end{align*}
+	for which we note that for $x_n \in C$, \begin{equation*}
+		||T||_{op} \geq ||T(x_n)|| = ||ny|| = |n| \cdot ||y|| = n.
+	\end{equation*}
+	Since this is true for every $n$, $T$ is unbounded.
+\end{proof}
 
 \begin{ex}
 	Let $C^\infty[0, 1]$ be the vector space of all infinitely differentiable functions from $[0, 1]$ to $\mathbb{R}$.
@@ -66,6 +106,17 @@
 	\end{equation*}
 	Show that it is impossible to equip $C^\infty[0, 1]$ with a norm $||\cdot||$ such that $\mathcal{D}$ is bounded.
 \end{ex}
+\begin{proof}
+	Given $N \in \mathbb{Z}^+$, let $f(x) = e^{Nx}$.
+	Then \begin{align*}
+		\sup_{g \neq 0} \frac{||\mathcal{D}(g)||}{||g||} & \geq \frac{||\mathcal{D}(f)||}{||f||}     \\
+		                                                 & = \frac{||Ne^{Nx}||}{||e^{Nx}||}          \\
+		                                                 & = \frac{|N| \cdot ||e^{Nx}||}{||e^{Nx}||} \\
+		                                                 & = |N|                                     \\
+		                                                 & = N.
+	\end{align*}
+	Since this is the case for any $N$, $\mathcal{D}$ is unbounded.
+\end{proof}
 
 \begin{ex}
 	Recall that $c_{00}$ is dense in $\ell^1$.
@@ -74,16 +125,46 @@
 		\iota : c_{00} & \to c_{00} \\
 		x              & \mapsto x
 	\end{align*}
-  cannot be extended to a map $\widetilde{\iota} : \ell^1 \to c_{00}$.
+	cannot be extended to a continuous map $\widetilde{\iota} : \ell^1 \to c_{00}$.
 \end{ex}
+\begin{proof}
+	Assume that we could extend $\iota$ to a continuous map $\widetilde{\iota}: \ell^1 \to c_{00}$.
+	Then given $x \in \ell^1 \setminus c_{00}$, we have $x = \lim_{n\to\infty} (x_i)_n$, where each sequence $(x_i)_n \in c_{00}$, so \begin{align*}
+		\widetilde{\iota}(x) & = \widetilde{\iota}\left( \lim_{n\to\infty} (x_i)_n \right) \\
+		                     & = \lim_{n\to\infty} \widetilde{\iota}\left( (x_i)_n \right) \\
+		                     & = \lim_{n\to\infty} \iota\left( (x_i)_n \right)             \\
+		                     & = \lim_{n\to\infty} (x_i)_n                                 \\
+		                     & = x \notin c_{00},
+	\end{align*}
+	where the second equality follows from continuity/sequential continuity.
+	Since $x$ was chosen to not be in $c_{00}$, $\widetilde{\iota}$ is not actually a map into $c_{00}$, so no such map exists.
+
+	\textit{Generalization:} This argument appears to demonstrate that we cannot extend the identity map $\iota : X \to X$ to a sequentially continuous map $\widetilde{\iota} : Y \to X$ for \textit{any} choice of $X$ and $Y$ where $X$ is dense in $Y$.
+\end{proof}
 
 \begin{ex}
-  Let $X$ be a Banach space and $T : X \to \ell^\infty$ a linear operator.
-  Writing \begin{equation*}
-    T(x) = (f_1(x), f_2(x), f_3(x), \dots) \in \ell^\infty,
-  \end{equation*}
-  we get a sequence of linear functionals $f_n : X \to \mathbb{R}$.
-  Show that $T$ is bounded if and only if each $f_n$ is a bounded linear functional on $X$.
+	Let $X$ be a Banach space and $T : X \to \ell^\infty$ a linear operator.
+	Writing \begin{equation*}
+		T(x) = (f_1(x), f_2(x), f_3(x), \dots) \in \ell^\infty,
+	\end{equation*}
+	we get a sequence of linear functionals $f_n : X \to \mathbb{R}$.
+	Show that $T$ is bounded if and only if each $f_n$ is a bounded linear functional on $X$.
 \end{ex}
+\begin{proof}
+	If $T$ is bounded, then for any $x \in X$, we have $||T(x)|| = \sup_{n \in \mathbb{Z}^+} |f_n(x)|$, so $|f_n(x)| \leq ||T(x)||$ for any particular $n$.
+	This tells us that for any $n$, \begin{align*}
+		\sup_{x \neq 0} \frac{|f_n(x)|}{||x||} \leq \sup_{x \neq 0} \frac{||T(x)||}{||x||} < \infty,
+	\end{align*}
+	where the first inequality follows from term-by-term comparison, and the second inequality is the fact that $T$ is bounded.
+	Thus $f_n$ is bounded for all $n$.
+
+	Now assume that $f_n$ is bounded for all $n$.
+	Then \begin{align*}
+		\sup_{||x||=1}||T(x)|| & = \sup_{||x||=1}\left(\sup_{n \in \mathbb{Z}^+}|f_n(x)| \right)             \\
+		                       & \leq \sup_{||x||=1}\left(\sup_{n \in \mathbb{Z}^+}||f_n||_{op}||x|| \right) \\
+		                       & = \sup_{n \in \mathbb{Z}^+}||f_n||_{op}.
+	\end{align*}
+	\textcolor{red}{UNFINISHED}
+\end{proof}
 
 \end{document}
