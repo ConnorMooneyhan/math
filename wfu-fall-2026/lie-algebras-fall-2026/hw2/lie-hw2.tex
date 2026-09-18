@@ -199,10 +199,22 @@
                                & \text{everywhere else.}
 		\end{array}
 	\end{equation*}
-  So the only candidates for isomorphism are (a) with (d) and (b) with (c).
-  We also have that (c) is associative, whereas (b) is nonassociative, so (c) is not isomorphic to (b).
+  Thus (a) and (d) are isomorphic to each other since all 3-dimensional Lie algebras $L$ with $L = L'$ are isomorphic.
+  
+  A general element of $b(2, \mathbb{R})$ is a strictly upper triangular $2 \times 2$ matrix $A \begin{pmatrix} 0 & a \\ 0 & 0\end{pmatrix}$, which has determinant 0, so when we bracket it with a general element $B = \begin{pmatrix} x & y \\ 0 & z \end{pmatrix} \in b(2, \mathbb{R}$, we get \begin{align*}
+      [A, B] & = \begin{pmatrix} 0 & a \\ 0 & 0 \end{pmatrix} \begin{pmatrix} x & y \\ 0 & z \end{pmatrix} - \begin{pmatrix} x & y \\ 0 & z \end{pmatrix} \begin{pmatrix} 0 & a \\ 0 & 0 \end{pmatrix} \\
+      & = \begin{pmatrix} 0 & az \\ 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & ax \\ 0 & 0 \end{pmatrix} \\
+      & = \begin{pmatrix} 0 & a(z - x) \\ 0 & 0 \end{pmatrix},
+  \end{align*}
+  which can be nonzero (say, if $a = 1, z = 2, x = 1$), so $b(2, \mathbb{R})' \not\subset Z(b(2, \mathbb{R}))$.
 
-	\textcolor{red}{UNFINISHED}
+  Meanwhile, a general element $A = \begin{pmatrix} 0 & 0 & a \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$ of $n(3, \mathbb{R})'$ bracketed with a general element $B = \begin{pmatrix} 0 & x & y \\ 0 & 0 & z \\ 0 & 0 & 0 \end{pmatrix}$ of $n(3, \mathbb{R})$ yields \begin{align*}
+      [A, B] & = \begin{pmatrix} 0 & 0 & a \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} 0 & x & y \\ 0 & 0 & z \\ 0 & 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & x & y \\ 0 & 0 & z \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} 0 & 0 & a \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \\
+      & = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \\
+      & = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix},
+  \end{align*}
+  so $n(3, \mathbb{R})' \subset Z(n(3, \mathbb{R}))$.
+  Thus (b) and (c) are not isomorphic.
 \end{proof}
 
 \begin{ex}
