@@ -50,44 +50,214 @@
 \maketitle
 
 \begin{ex}
-  Let $L$ be a non-abelian 3-dimensional Lie algebra with basis $\lbrace f, g, z \rbrace$ and $[f, g] \coloneq z$.
-  Assume $z \in Z(L)$ and $L'$ is one-dimensional.
-  Prove that $L'=Z(L)$.
+	Let $L$ be a non-abelian 3-dimensional Lie algebra with basis $\lbrace f, g, z \rbrace$ and $[f, g] \coloneq z$.
+	Assume $z \in Z(L)$ and $L'$ is one-dimensional.
+	Prove that $L'=Z(L)$.
 \end{ex}
+\begin{proof}
+	First, we realize that a general element of $L'$ is \begin{align*}
+		a[f, g] + b[f, z] + c[g, z] & = az
+	\end{align*}
+	because $[f, g] = z$ and $[f, z] = [g, z] = 0$ since $z$ is in the center.
+	Since we are given that $L'$ is one-dimensional, it must be spanned by $z$.
+	Thus when we bracket a general element of $L'$ with a general element of $L$: \begin{align*}
+		[ \alpha z, a f + b g + c z ] & = \alpha [ z, a f + b g + c z ] = 0
+	\end{align*}
+	since $z \in Z(L)$.
+	Thus $L' \subset Z(L)$.
+
+	Now we examine a general element of the center, $af + bg + cz$, bracketed with a general element of $L$: \begin{align*}
+		0 & = [af + bg + cz, \alpha f + \beta g + \gamma z]                                               \\
+		  & = a\beta[f, g] + a\gamma[f, z] + b\alpha[g, f] + b\gamma[g, z] + c\alpha[z, f] + c\beta[z, g] \\
+		  & = a\beta z - b\alpha z                                                                        \\
+		  & = (a\beta - b\alpha)z.
+	\end{align*}
+	Since $z \neq 0$, we have $a\beta = b\alpha$ \textit{for every choice of $\alpha$ and $\beta$}.
+	In particular, if $\alpha = 0$ and $\beta = 1$, we get that $a = 0$, and if $\alpha = 1$ but $\beta = 0$, we have $0 = b$.
+	Thus $af + bg + cz = cz$, where $c$ is truly free to vary over $F$, so $Z(L)$ is one-dimensional.
+	We already showed that $L' \subset Z(L)$, so since they have the same dimension, $L' = Z(L)$.
+\end{proof}
 
 \begin{ex}
-  Check that the upper triangular matrices $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfy the following properties.
-  \begin{enumerate}[label=(\alph*)]
-    \item $[e_{12}, e_{23}] = e_{13}$.
-    \item $e_{13}$ is in the center of the Lie algebra of upper triangular matrices.
-  \end{enumerate}
-  This shows that the set $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfies the construction described in Section 3.2.1 with $z = e_{13}$ and $f$ and $g$ equal to $e_{12}$ and $e_{23}$.
+	Check that the strictly upper triangular matrices $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfy the following properties.
+	\begin{enumerate}[label=(\alph*)]
+		\item $[e_{12}, e_{23}] = e_{13}$.
+		\item $e_{13}$ is in the center of the Lie algebra of strictly upper triangular matrices.
+	\end{enumerate}
+	This shows that the set $\lbrace e_{12}, e_{23}, e_{13} \rbrace$ satisfies the construction described in Section 3.2.1 with $z = e_{13}$ and $f$ and $g$ equal to $e_{12}$ and $e_{23}$.
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item \begin{align*}
+			      [e_{12}, e_{23}] & = \begin{pmatrix}0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} \\
+			                       & = \begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}                                                                                                                               \\
+			                       & = \begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}                                                                                                                                                                                                 \\
+			                       & = e_{13}.
+		      \end{align*}
+		\item We bracket $e_{13}$ with a general element of $b(3, F)$: \begin{align*}
+			      \left[ \begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}, \begin{pmatrix}0 & a & b \\ 0 & 0 & c \\ 0 & 0 & 0\end{pmatrix} \right] & = \begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}0 & a & b \\ 0 & 0 & c \\ 0 & 0 & 0\end{pmatrix} - \begin{pmatrix}0 & a & b \\ 0 & 0 & c \\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} \\
+			                                                                                                                                                      & = \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}                                                                                                                              \\
+			                                                                                                                                                      & = \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}
+		      \end{align*}
+		      so $e_{13} \in Z(n(3, F))$ as desired.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
-  Let $V$ be a vector space and let $\varphi$ be an endomorphism of $V$.
-  Let $L$ have underlying vector space $V \oplus \mathrm{Span}\lbrace x \rbrace$.
-  Show that if we define the Lie bracket on $L$ by $[y, z] = 0$ and $[x, y] = \varphi(y)$ for $y, z \in V$, then $L$ is a Lie algebra and $\mathrm{dim}(L') = \mathrm{rank}(\varphi)$.
+	Let $V$ be a vector space and let $\varphi$ be an endomorphism of $V$.
+	Let $L$ have underlying vector space $V \oplus \mathrm{Span}\lbrace x \rbrace$.
+	Show that if we define the Lie bracket on $L$ by $[y, z] = 0$ and $[x, y] = \varphi(y)$ for $y, z \in V$, then $L$ is a Lie algebra and $\mathrm{dim}(L') = \mathrm{rank}(\varphi)$.
 \end{ex}
+\begin{proof}
+	Given any $y, z \in V$ and $a, b \in F$, we represent a general bracket in $L$ as follows: \begin{align*}
+		[(y, ax), (z, bx)] & = [(y, 0) + (0, ax), (z, 0) + (0, bx)]                                          \\
+		                   & = [(y, 0), (z, 0)] + [(y, 0), (0, bx)] + [(0, ax), (z, 0)] + [(0, ax), (0, bx)] \\
+		                   & = 0 + [(y, 0), b(0, x)] + [a(0, x), (z, 0)] + [a(0, x), b(0, x)]                \\
+		                   & = b[(y, 0), (0, x)] + a[(0, x), (z, 0)] + ab[(0, x), (0, x)]                    \\
+		                   & = -b\varphi(y) + a\varphi(z)                                                    \\
+		                   & = a\varphi(z) - b\varphi(y)                                                     \\
+		                   & = (a\varphi(z) - b\varphi(y), 0)                                                \\
+		                   & = (\varphi(az - by), 0),
+	\end{align*}
+	where we will frequently use the abuse-of-notation third-to-last line for brevity.
+	Now we can easily check the conditions for a bracket (bilinearity is already assumed).
+	First, \begin{align*}
+		[(y, ax), (y, ax)] = a\varphi(y) - a\varphi(y) = 0
+	\end{align*}
+	as desired, and \begin{align*}
+		    & [(w, ax), [(y, bx), (z, cx)]] + [(y, bx), [(z, cx), (w, ax)]] + [(z, cx), [(w, ax), (y, bx)]]                                     \\
+		=\  & [(w, ax), b\varphi(z) - c\varphi(y)] + [(y, bx), c\varphi(w) - a\varphi(z)] + [(z, cx), a\varphi(y) - b\varphi(w)]                \\
+		=\  & [(w, ax), (b\varphi(z) - c\varphi(y), 0)] + [(y, bx), (c\varphi(w) - a\varphi(z), 0)] + [(z, cx), (a\varphi(y) - b\varphi(w), 0)] \\
+		=\  & a\varphi(b\varphi(z) - c\varphi(y)) + b\varphi(c\varphi(w) - a\varphi(z)) + c\varphi(a\varphi(y) - b\varphi(w))                   \\
+		=\  & ab\varphi^2(z) - ac\varphi^2(y) + bc\varphi^2(w) - ab\varphi^2(z) + ac\varphi^2(y) - bc\varphi^2(w)                               \\
+		=\  & 0,
+	\end{align*}
+	where the final equality comes from canceling like terms.
+	Thus $L$ is a Lie algebra.
+
+	Returning to our general formulation of the bracket in $L$ where \begin{equation*}
+		[(y, ax), (z, bx)] = (\varphi(az - by), 0),
+	\end{equation*}
+	we see that if $z \in V$, then $[(0, x), (z, 0)] = (\varphi(z), 0)$, so $\im\varphi \times \lbrace 0 \rbrace \subset L'$, and we have $\dim(\im\varphi \times \lbrace 0 \rbrace) = \dim\im\varphi = \mathrm{rank}(\varphi) \leq \dim(L')$.
+	On the other hand, we have shown that the brackets of $L$ have the form $(\varphi(v), 0)$ for some $v \in V$, so any element of $L'$ is a linear combination of such elements, namely something like this: \begin{equation*}
+		(\varphi(v_1 + \cdots + v_n), 0).
+	\end{equation*}
+	Thus $L' \subset \im\varphi \times \lbrace 0 \rbrace$, \begin{equation*}
+		\dim(L') \leq \dim(\im\varphi \times \lbrace 0 \rbrace) = \dim \im\varphi = \mathrm{rank}\varphi
+	\end{equation*}
+
+	Putting the two inequalities together, we get that $\dim(L') = \mathrm{rank}(\varphi)$ as desired.
+\end{proof}
 
 \begin{ex}
-  Suppose $L$ is a vector space with basis $\lbrace x, y \rbrace$ and that a bilinear operation on $L$ is defined such that $[u, u] = 0$ for all $u \in L$.
-  Show that the Jacobi identity holds and hence $L$ is a Lie algebra.
+	Suppose $L$ is a vector space with basis $\lbrace x, y \rbrace$ and that a bilinear operation on $L$ is defined such that $[u, u] = 0$ for all $u \in L$.
+	Show that the Jacobi identity holds and hence $L$ is a Lie algebra.
 \end{ex}
+\begin{proof}
+	Since $[u, u] = 0$ for all $u \in L$, we have the familiar fact that $[u, v] = -[v, u]$.
+	We also still have the core fact about structure constants, namely that the proposed bracket depends entirely on $[x, y]$.
+	Let $\alpha, \beta$ be the constants satisfying $[x, y] = \alpha x + \beta y$.
+	Thus we can go ahead and compute that $[x, [x, y]] = [x, \alpha x + \beta y] = \beta[x, y]$, and similarly $[y, [x, y]] = [y, \alpha x + \beta y] = -\alpha[x, y]$.
+	We have \begin{align*}
+		    & [a_1x + b_1y, [a_2x + b_2y, a_3x + b_3y]]                                    \\
+		    & + [a_2x + b_2y, [a_3x + b_3y, a_1x + b_1y]]                                  \\
+		    & + [a_3x + b_3y, [a_1x + b_1y, a_2x + b_2y]]                                  \\
+		=\  & [a_1x + b_1y, (a_2b_3-a_3b_2)[x, y]]                                         \\
+		    & + [a_2x + b_2y, (a_3b_1-a_1b_3)[x, y]]                                       \\
+		    & + [a_3x + b_3y, (a_1b_2-a_2b_1)[x, y]]                                       \\
+		=\  & [a_1x, (a_2b_3-a_3b_2)[x, y]] + [b_1y, (a_2b_3-a_3b_2)[x, y]]                \\
+		    & + [a_2x, (a_3b_1-a_1b_3)[x, y]] + [b_2y, (a_3b_1-a_1b_3)[x, y]]              \\
+		    & + [a_3x, (a_1b_2-a_2b_1)[x, y]] + [b_3y, (a_1b_2-a_2b_1)[x, y]]              \\
+		=\  & a_1(a_2b_3-a_3b_2)[x, [x, y]] + b_1(a_2b_3-a_3b_2)[y, [x, y]]                \\
+		    & + a_2(a_3b_1-a_1b_3)[x, [x, y]] + b_2(a_3b_1-a_1b_3)[y, [x, y]]              \\
+		    & + a_3(a_1b_2-a_2b_1)[x, [x, y]] + b_3(a_1b_2-a_2b_1)[y, [x, y]]              \\
+		=\  & \alpha a_1(a_2b_3-a_3b_2)[x, y] - \beta b_1(a_2b_3-a_3b_2)[x,y]              \\
+		    & + \alpha a_2(a_3b_1-a_1b_3)[x, y] - \beta b_2(a_3b_1-a_1b_3)[x,y]            \\
+		    & + \alpha a_3(a_1b_2-a_2b_1)[x, y] - \beta b_3(a_1b_2-a_2b_1)[x,y]            \\
+		=\  & (\alpha a_1a_2b_3 -\alpha a_1a_3b_2 - \beta b_1a_2b_3+ \beta b_1a_3b_2       \\
+		    & + \alpha a_2a_3b_1-\alpha a_2a_1b_3 - \beta b_2a_3b_1+ \beta b_2a_1b_3       \\
+		    & + \alpha a_3a_1b_2-\alpha a_3a_2b_1 - \beta b_3a_1b_2+ \beta b_3a_2b_1)[x,y] \\
+		=\  & 0[x, y]                                                                      \\
+		=\  & 0,
+	\end{align*}
+	where second-to-last equality comes from canceling out like terms.
+	Thus the Jacobi identity is satisfied.
+\end{proof}
 
 \begin{ex}
-  Suppose that $I$ is an ideal of a Lie algebra $L$ and that there is a subalgebra $S$ of $L$ such that $L = S \oplus I$.
-  Show that the map $\theta : S \to \gl(I)$ defined by $\theta(s)(x) = [s, x]$ is a Lie algebra homomorphism from $S$ into $\mathrm{Der}(I)$.
+	Suppose that $I$ is an ideal of a Lie algebra $L$ and that there is a subalgebra $S$ of $L$ such that $L = S \oplus I$.
+	Show that the map $\theta : S \to \gl(I)$ defined by $\theta(s)(x) = [s, x]$ is a Lie algebra homomorphism from $S$ into $\mathrm{Der}(I)$.
 
-  We say that $L$ is a \textit{semidirect product} of $I$ by $S$.
+	We say that $L$ is a \textit{semidirect product} of $I$ by $S$.
 \end{ex}
+\begin{proof}
+	First we show that $\theta(s)$ is a derivation on $I$ for all $s \in S$ by first noting that indeed $[s, x] \in I$ whenever $x \in I$ since $I$ is an ideal, then showing that it is linear by \begin{align*}
+		\theta(s)(ax + by) & = [s, ax + by]                  \\
+		                   & = a[s, x] + b[s, y]             \\
+		                   & = a\theta(s)(x) + b\theta(s)(y)
+	\end{align*}
+	as desired, then showing that it satisfies the Leibniz rule: \begin{align*}
+		\theta(s)([x, y]) & = [s, [x, y]]                            \\
+		                  & = [x, [s, y]] + [[s, x], y]              \\
+		                  & = [x, \theta(s)(y)] + [\theta(s)(x), y].
+	\end{align*}
+	Now we show that $\theta$ is linear: \begin{align*}
+		\theta(as_1 + bs_2)(x) & = [as_1 + bs_2, x]                   \\
+		                       & = a[s_1, x] + b[s_2, x]              \\
+		                       & = a\theta(s_1)(x) + b\theta(s_2)(x),
+	\end{align*}
+	and finally we show that $\theta$ preserves the bracket: \begin{align*}
+		\theta([s_1, s_2])(x) & = [[s_1, s_2], x]                                                     \\
+		                      & = -[x, [s_1, s_2]]                                                    \\
+		                      & = [s_1, [s_2, x]] + [s_2, [x, s_1]]                                   \\
+		                      & = [s_1, [s_2, x]] - [s_2, [s_1, x]]                                   \\
+		                      & = \theta(s_1)([s_2, x]) - \theta(s_2)([s_1, x])                       \\
+		                      & = \theta(s_1)(\theta(s_2)(x)) - \theta(s_2)(\theta(s_1)(x))           \\
+		                      & = (\theta(s_1)\circ\theta(s_2))(x) - (\theta(s_2)\circ\theta(s_1))(x) \\
+		                      & = (\theta(s_1)\circ\theta(s_2) - \theta(s_2)\circ\theta(s_1))(x)      \\
+		                      & = [\theta(s_1), \theta(s_2)](x).
+	\end{align*}
+	Thus $\theta$ is a Lie algebra homomorphism $S \to \mathrm{Der}(I)$ as desired.
+\end{proof}
 
 \begin{ex}
-  Show conversely that given Lie algebras $S$ and $I$ and a Lie algebra homomorphism $\theta : S \to \mathrm{Der}(I)$, the vector space $S \oplus I$ may be made into a Lie algebra by defining \begin{equation*}
-    [(s_1, x_1), (s_2, x_2)] = ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)
-  \end{equation*}
-  for $s_1, s_2 \in S$, and $x_1, x_2 \in I$, and that this Lie algebra is a semidirect product of $I$ by $S$.
-  (The direct sum construction introduced in Exercise 2.6 is the special case where $\theta(s) = 0$ for all $s \in S$.)
+	Show conversely that given Lie algebras $S$ and $I$ and a Lie algebra homomorphism $\theta : S \to \mathrm{Der}(I)$, the vector space $S \oplus I$ may be made into a Lie algebra by defining \begin{equation*}
+		[(s_1, x_1), (s_2, x_2)] = ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)
+	\end{equation*}
+	for $s_1, s_2 \in S$, and $x_1, x_2 \in I$, and that this Lie algebra is a semidirect product of $I$ by $S$.
+	(The direct sum construction introduced in Exercise 2.6 is the special case where $\theta(s) = 0$ for all $s \in S$.)
 \end{ex}
+\begin{proof}
+	First we check that the proposed bracket is bilinear: \begin{align*}
+		    & [a(s_1, x_1) + b(s_2, x_2), (s_3, x_3)]                                                                                         \\
+		=\  & [(as_1 + bs_2, ax_1 + bx_2), (s_3, x_3)]                                                                                        \\
+		=\  & ([as_1 + bs_2, s_3], [ax_1 + bx_2, x_3] + \theta(as_1 + bs_2)x_3 - b\theta(s_3)x_2)                                             \\
+		=\  & (a[s_1, s_3] + b[s_2, s_3], a[x_1, x_3] + b[x_2, x_3] + a\theta(s_1)x_3 + b\theta(s_2)x_3 - b\theta(s_3)x_2)                    \\
+		=\  & (a[s_1, s_3], a[x_1, x_3] + a\theta(s_1)x_3 - a\theta(s_3)x_1) + (b[s_2, s_3], b[x_2, x_3] + b\theta(s_2)x_3 - b\theta(s_3)x_2) \\
+		=\  & a([s_1, s_3], [x_1, x_3] + \theta(s_1)x_3 - \theta(s_3)x_1) + b([s_2, s_3], [x_2, x_3] + \theta(s_2)x_3 - \theta(s_3)x_2)       \\
+		=\  & a[(s_1, x_1), (s_3, x_3)] + b[(s_2, x_2), (s_3, x_3)].
+	\end{align*}
+	The proof follows similarly for the second slot.
+
+	Now we check the two bracket conditions.
+	First, \begin{align*}
+		[(s, x), (s, x)] & = ([s, s], [x, x] + \theta(s)x - \theta(s)x) \\
+		                 & = ([s, s], [x, x])                           \\
+		                 & = (0, 0),
+	\end{align*}
+	then \begin{align*}
+		    & [(s_1, x_1), [(s_2, x_2), (s_3, x_3)]]                                     \\
+		    & + [(s_2, x_2), [(s_3, x_3), (s_1, x_1)]]                                   \\
+		    & + [(s_3, x_3), [(s_1, x_1), (s_2, x_2)]]                                   \\
+		=\  & [(s_1, x_1), ([s_2, s_3], [x_2, x_3] + \theta(s_2)x_3 - \theta(s_3)x_2)]   \\
+		    & + [(s_2, x_2), ([s_3, s_1], [x_3, x_1] + \theta(s_3)x_1 - \theta(s_1)x_3)] \\
+		    & + [(s_3, x_3), ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)] \\
+		=\  & ([s_1, [s_2, s_3]], [x_1, [x_2, x_3] + \theta(s_2)x_3 - \theta(s_3)x_2])   \\
+		    & + [(s_2, x_2), ([s_3, s_1], [x_3, x_1] + \theta(s_3)x_1 - \theta(s_1)x_3)] \\
+		    & + [(s_3, x_3), ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)] \\
+		=\  & \dots                                                                      \\
+		=\  & 0
+	\end{align*}
+\end{proof}
 
 \end{document}

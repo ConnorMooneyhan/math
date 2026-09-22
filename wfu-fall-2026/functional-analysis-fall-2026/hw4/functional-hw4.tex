@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 4}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Fix $1 \leq p \leq \infty$ and let $S_L: \ell^p \to \ell^p$ be the left-shift operator: \begin{equation*}
+		S_L(x_1, x_2, x_3, \dots) = S(x_2, x_3, x_4, \dots).
+	\end{equation*}
+	Show that $S_L$ is bounded and compute its operator norm.
+	Does the equation $S_L(x) = x$ have any solutions other than $x = 0$?
+\end{ex}
+
+\begin{ex}
+	Show that the closed unit ball of $c_0$, which is the set \begin{equation*}
+		B_1[0] = \lbrace x \in c_0 : ||x||_\infty \leq 1 \rbrace,
+	\end{equation*}
+	is a closed convex set with no extreme points.
+\end{ex}
+
+\begin{ex}
+	Recall that $C^0[0, 1]$ is the space of continuous functions $f : [0, 1] \to \mathbb{R}$ equipped with the sup norm \begin{equation*}
+		||f||_\infty = \sup_{x \in [0, 1]}|f(x)|.
+	\end{equation*}
+	Find the extreme points of the closed unit ball $B_1[0]$ of this space.
+	Conclude that $B_1[0]$ is \textbf{not} the closure of the convex hull of its extreme points (it does not satisfy the conclusion of Krein-Milman's theorem).
+\end{ex}
+
+\begin{ex}
+	Let $X$ be a vector space equipped with two norms, call them $|| \cdot ||_1$ and $||\cdot||_2$, such that $X$ is Banach with respect to either of these two norms.
+	Show that if these norms are \textit{comparable}, i.e. if there exists a constant $C > 0$ such that \begin{equation*}
+		||x||_1 \leq C||x||_2, \hspace{1em} \forall x \in X,
+	\end{equation*}
+	then they are \textit{equivalent}, i.e. there also exists another constant $C' > 0$ such that \begin{equation*}
+		||x||_2 \leq C'||x||_1, \hspace{1em} \forall x \in X.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+  Let $X$ be a Banach space and $Y, Z \subset X$ be closed subspaces such that \begin{enumerate}[label=(\arabic*)]
+    \item $Y \cap Z = \lbrace 0 \rbrace$.
+    \item $Y + Z = X$ (every $x \in X$ can be written as $x = y + z$ with $y \in Y$, $z \in Z$).
+  \end{enumerate}
+  Show that $X$ is isomorphic to $Y \oplus Z$.
+  In this situation, we say that $Y$ (and by symmetry also $Z$) is a \textbf{complemented} subspace of $X$.
+\end{ex}
+
+\begin{ex}
+  Let $X$ be a normed space.
+  In the language of the previous problem, show that any \textit{finite-dimensional} subspace $Y \subset X$ is complemented.
+\end{ex}
+
+\end{document}
