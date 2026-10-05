@@ -1,0 +1,255 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 4 Homework}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $L_1$ and $L_2$ be Lie algebras, and let $\varphi : L_1 \to L_2$ be a surjective Lie algebra homomorphism.
+	True or false:\begin{enumerate}[label=(\alph*)]
+		\item $\varphi(L_1') = L_2'$
+		\item $\varphi(Z(L_1)) = Z(L_2)$
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Yes.
+		      We have \begin{align*}
+			      \varphi\left(\sum a_i [x_i, y_i]\right) = \sum a_i \varphi([x_i, y_i]) = \sum a_i [\varphi(x_i), \varphi(y_i)] \in L_2',
+		      \end{align*}
+		      so $\varphi(L_1') \subseteq L_2'$.
+
+		      On the other hand, for any $x, y \in L_2$, we have $x', y' \in L_1$ such that $\varphi(x') = x$ and $\varphi(y') = y$, so \begin{align*}
+			      \sum a_i [x_i, y_i] & = \sum a_i [\varphi(x_i'), \varphi(y_i')]                        \\
+			                          & = \sum a_i \varphi([x_i', y_i'])                                 \\
+			                          & = \varphi\left( \sum a_i [x_i', y_i'] \right) \in \varphi(L_1'),
+		      \end{align*}
+		      so $L_2' \subseteq \varphi(L_1')$, so $\varphi(L_1') = L_2'$.
+		\item If $x \in Z(L_1)$, then given $y \in L_2$, we have $y = \varphi(y')$ for some $y' \in L_1$, so \begin{align*}
+			      [\varphi(x), y] & = [\varphi(x), \varphi(y')] \\
+			                      & = \varphi([x, y'])          \\
+			                      & = \varphi(0)                \\
+			                      & = 0,
+		      \end{align*}
+		      so we have $\varphi(x) \in Z(L_2)$, and thus $\varphi(Z(L_1)) \subseteq Z(L_2)$.
+
+		      The other direction does not hold, however.
+		      Consider the two-dimensional nonabelian Lie algebra $L_1 = \mathrm{span}\lbrace x, y \rbrace$ with $[x, y] = x$.
+		      Consider the quotient map $\varphi : L_1 \to L_1 / \mathrm{span}\lbrace x \rbrace$, so $L_2 = L_1 / \mathrm{span}\lbrace x\rbrace$.
+		      Then $Z(L_1) = 0$, so $\varphi(Z(L_1)) = 0$, but $L_2$ is abelian since it is one-dimensional, so $Z(L_2) = L_2$.
+		      Thus $Z(L_2) \not\subseteq \varphi(Z(L_1))$ in general.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Use Lemma 4.4 to show that if $L$ is a Lie algebra then $L$ is solvable if and only if $\ad L$ is a solvable subalgebra of $\gl(L)$.
+	Show that this result also holds if we replace ``solvable'' with ``nilpotent.''
+\end{ex}
+\begin{proof}
+	Note that since $\ad : L \to \gl(L)$ has kernel $Z(L)$, $\ad L \cong L / Z(L)$. Lemma 4.4(a) then tells us that as a homomorphic image of $L$, $\ad L$ is solvable if $L$ is solvable.
+	We then see that since $Z(L)$ is itself a solvable ideal since $Z(L)^2$, if $\ad L \cong L/Z(L)$ is solvable, Lemma 4.4(b) tells us that $L$ is solvable.
+
+	For the nilpotent versions, note that since $\ad : L \to \gl(L)$ is a homomorphism, we have $(\ad L)^n = \ad (L^n )$ for any $n$.
+	Thus if $L$ is nilpotent with $L^m = 0$, we have \begin{equation*}
+		(\ad L)^m = \ad(L^m) = \ad 0 = 0,
+	\end{equation*}
+	and if instead $\ad L$ is nilpotent with $(\ad L)^m = 0$, we have $\ad (L^m) = 0$, implying that $L^m \subseteq Z(L)$, so $L^{m+1} = 0$ and $L$ is nilpotent.
+\end{proof}
+
+\begin{ex}
+	Let $L = \mathbf{n}(n, F)$.
+	Show that $L^k$ has a basis consisting of all the matrix units $e_{ij}$ with $j - i > k$.
+	Hence show that $L$ is nilpotent.
+	What is the smallest $m$ such that $L^m = 0$?
+\end{ex}
+\begin{proof}
+	As we have seen, when we bracket two elements of $L$ together, the bottommost diagonal line of entries with nonzero elements becomes all-zero.
+	Thus $L^1$ consists of matrices which are strictly upper-triangular \textit{and} have zeroes in entries $i,j$ where $j - i > 1$.
+	Similarly, $L^k$ has zeroes everywhere except in entries $i,j$ where $j - i > k$.
+	Thus it has a basis of such entries.
+	If $\dim L = n$, then $L^n$ would need to have a basis of matrix elements $e_{ij}$ where $j-i > n$, but this is impossible, so $L^n = 0$ and $L$ is nilpotent.
+	The lowest such $m$ is in fact $m=n - 1$, since we need the top-right entry at $1, n$ to be zero.
+\end{proof}
+
+\begin{ex}
+	Let $L = \mathbf{b}(n, F)$ be the Lie algebra of upper triangular $n \times n$ matrices over a field $F$.
+	\begin{enumerate}[label=(\roman*)]
+		\item Show that $L' = \mathbf{n}(n, F)$.
+		\item More generally, show that $L^{(k)}$ has a basis consisting of all the matrix units $e_{ij}$ with $j - i \geq 2^{k-1}$.
+		      (The commutator formula for the $e_{ij}$ given in $\S 1.2$ will be helpful.)
+		\item Hence show that $L$ is solvable.
+		      What is the smallest $m$ such that $L^{(m)} = 0$?
+		\item Show that if $n \geq 2$ then $L$ is not nilpotent.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\roman*)]
+		\item When matrix-multiplying two upper triangular matrices, the diagonal elements multiply together (i.e. $(AB)_{k,k} = A_{k, k}B_{k,k}$).
+		      Thus when we take the bracket, we get \begin{align*}
+			      [A, B]_{k,k} & = (AB - BA)_{k,k}                 \\
+			                   & = (AB)_{k,k} - (BA)_{k,k}         \\
+			                   & = A_{k,k}B_{k,k} - B_{k,k}A_{k,k} \\
+			                   & = 0,
+		      \end{align*}
+		      so there are zeroes along the diagonal.
+		      We can still get nonzero entries above the diagonal though, so indeed $L' = \mathbf{n}(n, F)$.
+		\item The aforementioned commutator formula tells us that $[e_{ij}, e_{kl}] = \delta_{jk}e_{il} - \delta_{il}e_{kj}$.
+		      If $j = k$ and $i = l$ (so that the deltas are valued at 1) and $i = k$ and $l = j$ (so that $e_{il} = e_{kj}$), then $[e_{ij}, e_{kl}] = 0$, but in this case $i = j = k = l$, so we are just talking about the bracket of an element with itself.
+		      The other way $[e_{ij}, e_{kl}] = 0$ is if $j \neq k$ and $i \neq l$ so that both deltas are zero.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Show that a Lie algebra is semisimple if and only if it has no non-zero abelian ideals.
+\end{ex}
+\begin{proof}
+	Let $L$ be a Lie algebra.
+	First, since every abelian Lie algebra is solvable, every abelian ideal is solvable, so if there are nonzero abelian ideals of $L$, then $L$ is not semisimple.
+	Now if $L$ is not semisimple, then let $I$ be a nonzero solvable ideal of $L$ and let $m$ be the smallest integer such that $I^{(m)} = 0$.
+	Then $I^{(m-1)} \neq 0$ and $(I^{(m-1)})' = 0$, so $I^{(m-1)}$ is abelian, but it is also an ideal and nonzero.
+\end{proof}
+
+\setcounter{ex}{6}
+
+\begin{ex}
+	Let $L_1$ and $L_2$ be Lie algebras, and let $\varphi : L_1 \to L_2$ be a surjective Lie algebra homomorphism.
+	Show that if $h \in L_1$ and $\ad h$ is diagonalizable then $\ad \varphi(h)$ is diagonalizable.
+\end{ex}
+\begin{proof}
+	Let $x_1, \dots, x_n$ be a basis for $L_1$ consisting of eigenvectors of $\ad h$ and let $\lambda_1, \dots, \lambda_n$ be their corresponding eigenvalues, so that $[h, x_i] = \lambda x_i$ for each $i$.
+	Then for each $i$, \begin{align*}
+		[\varphi(h), \varphi(x_i)] & = \varphi([h, x_i])      \\
+		                           & = \varphi(\lambda_i x_i) \\
+		                           & = \lambda_i\varphi(x_i),
+	\end{align*}
+	so $\varphi(x_i) = 0$ or $\varphi(x_i)$ is an eigenvector of $\ad \varphi(h)$.
+	We know that $\left\lbrace\varphi(x_1), \dots, \varphi(x_n)\right\rbrace$ does span $L_2$ since $\left\lbrace x_1, \dots, x_n\right\rbrace$ spans $L_1$ and $\varphi$ is surjective, so it must contain a basis for $L_2$, in particular a basis of eigenvectors, and thus $\ad \varphi(h)$ is diagonalizable.
+\end{proof}
+
+\begin{ex}
+	Prove directly that $\sl(n, \mathbb{C})$ is a simple Lie algebra for $n \geq 2$.
+\end{ex}
+\begin{proof}
+	Let $I$ be a nonzero ideal of $\sl(n, \mathbb{C})$, and let $x \in I$ such that $x \neq 0$.
+	If $x$ is diagonal, then the trace is zero so not all of its diagonal entries can be equal, so let $i \neq j$ such that $x_{ii} \neq x_{jj}$ and both are nonzero.
+	Then \begin{align*}
+		[x, e_{ij}] & = xe_{ij} - e_{ij}x            \\
+		            & = x_{ii}e_{ij} - e_{ij}x_{jj}  \\
+		            & = (x_{ii}-x_{jj})e_{ij} \in I,
+	\end{align*}
+	so since a multiple of $e_{ij}$ is in $I$, $e_{ij}$ itself is in $I$.
+	If $x$ is not diagonal, then there exists a nonzero entry $x_{ji}$ where $j \neq i$, and we see that \begin{align*}
+		[[x, e_{ij}], e_{ij}] & = [x, e_{ij}]e_{ij} - e_{ij}[x, e_{ij}]                         \\
+		                      & = (xe_{ij} - e_{ij}x)e_{ij} - e_{ij}(xe_{ij} - e_{ij}x)         \\
+		                      & = xe_{ij}e_{ij} - e_{ij}xe_{ij} - e_{ij}xe_{ij} + e_{ij}e_{ij}x \\
+		                      & = -2e_{ij}xe_{ij} \hspace{1em} \text{(since $e_{ij}^2 = 0$)}    \\
+		                      & = -2x_{ji}e_{ij} \in I,
+	\end{align*}
+	so we again have $e_{ij} \in I$.
+	Either way, we have established $i \neq j$ such that $e_{ij} \in I$.
+
+	Now we see that $[e_{ij}, e_{kl}] \in I$ for any $k$ and $l$, so using the commutator formula \begin{equation*}
+		[e_{ij}, e_{kl}] = \delta_{jk}e_{il} - \delta_{li}e_{kj},
+	\end{equation*}
+	so $[e_{ij}, e_{jl}] = e_{il} \in I$ for any $l$ so long as $l \neq i$, and $[e_{ij}, e_{ki}] = -e_{kj} \in I \implies e_{kj} \in I$ for any $k$ where $k \neq j$.
+	From there, we use similar tricks to show that every off-diagonal matrix unit $e_{kl}$ is in $I$.
+	Finally, now that we see that $e_{m,m+1} \in I$ whenever $m < n$, we have $[e_{m, m+1}, e_{m+1, m}] = e_{m,m} - e_{m+1,m+1} \in I$.
+	We have now shown that every standard basis element of $\sl(n, \mathbb{C})$ is in $I$, so $I = \sl(n, \mathbb{C})$, proving that $\sl(n, \mathbb{C})$ is simple.
+\end{proof}
+
+\begin{ex}\
+	\begin{enumerate}[label=(\roman*)]
+		\item Show that $\det(I + \varepsilon X)$ is a polynomial in $\varepsilon$ of degree at most $n$ with the first two terms \begin{equation*}
+			      \det(I + \varepsilon X) = 1 + (\tr X)\varepsilon + \cdots.
+		      \end{equation*}
+		      If we neglect all powers of $\varepsilon$ except 1 and $\varepsilon$, then we obtain the statement \begin{equation*}
+			      I + \varepsilon X \in \mathrm{SL}(n, \mathbb{C}) \iff X \in \sl(n, \mathbb{C}).
+		      \end{equation*}
+		\item \begin{enumerate}[label=(\alph*)]
+			      \item Let $S$ be an $n \times n$ matrix.
+			            Let $(-,-)$ denote the complex bilinear form with matrix $S$.
+			            Show that if we let $G_S(n, \mathbb{C})$ be the set of invertible matrices $A$ such that $(Au, Av) = (u, v)$ for all $u, v \in \mathbb{C}^n$, then $G_S(n, \mathbb{C})$ is a group.
+			      \item Show that if we perform the construction in part (i) with $G_S(n, \mathbb{C})$ in place of $\mathrm{SL}(n, \mathbb{C})$, we obtain $\gl_S(n, \mathbb{C})$.
+		      \end{enumerate}
+		\item \begin{enumerate}[label=(\alph*)]
+			      \item An invertible matrix $A$ is customarily said to be \textit{orthogonal} if $A^tA = AA^t = I$; that is, if $A^{-1} = A^t$. Show that the set of $n\times n$ orthogonal matrices with coefficients in $\mathbb{C}$ is the group $G_I(n, \mathbb{C})$ and that the associated Lie algebra, $\gl_I(n, \mathbb{C})$, is the space of all anti-symmetric matrices.
+			      \item Prove that $\gl_I(n, \mathbb{C}) \cong \so(n, \mathbb{C})$.
+			            \textit{Hint}: Use Exercise 2.11.
+		      \end{enumerate}
+		\item A bilinear form on a vector space $V$ is said to be \textit{symplectic} if $(v, v) = 0$ for all $v \in V$.
+		      Show that \begin{equation*}
+			      S= \begin{pmatrix}0 & I_\ell \\ -I_\ell & 0\end{pmatrix}
+		      \end{equation*}
+		      is the matrix of a non-degenerate symplectic bilinear form on a $2\ell$-dimensional space.
+		      The associated Lie algebra is $\gl_S(2\ell, \mathbb{C}) = \mathfrak{sp}(2\ell, \mathbb{C})$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\roman*)]
+		\item If $\lambda$ is an eigenvalue of $X$ and $x$ is an eigenvector corresponding to $\lambda$, then \begin{equation*}
+			      (I+\varepsilon X)x = x + \varepsilon\lambda x = (1+\varepsilon\lambda)x,
+		      \end{equation*} so $1 + \varepsilon\lambda$ is an eigenvalue of $I + \varepsilon X$.
+		      Thus if $\lambda_1, \dots, \lambda_n$ are the eigenvalues of $X$ repeated according to multiplicity, then \begin{align*}
+			      \det(I + \varepsilon X) & = \prod_{1 \leq i \leq n} (1 + \varepsilon\lambda_i),
+		      \end{align*}
+		      which is indeed a polynomial of degree $n$ in $\varepsilon$ whose first term is $1$ and whose second term is \begin{equation*}
+			      \sum_{i}\varepsilon\lambda_i = (\tr X) \varepsilon.
+		      \end{equation*}
+		% \item \begin{enumerate}[label=(\alph*)]
+		% 	      \item .
+		% 	      \item .
+		%       \end{enumerate}
+		% \item \begin{enumerate}[label=(\alph*)]
+		% 	      \item .
+		% 	      \item .
+		%       \end{enumerate}
+		% \item .
+	\end{enumerate}
+\end{proof}
+
+\end{document}

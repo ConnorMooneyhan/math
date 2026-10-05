@@ -243,9 +243,15 @@
 	First, \begin{align*}
 		[(s, x), (s, x)] & = ([s, s], [x, x] + \theta(s)x - \theta(s)x) \\
 		                 & = ([s, s], [x, x])                           \\
-		                 & = (0, 0),
+		                 & = (0, 0).
 	\end{align*}
-	then \begin{align*}
+    % Now to check the Jacobi identity, which we write as $J((s_1, x_1), (s_2, x_2), (s_3, x_3)) = 0$ for simplicity, we note that because $J$ is linear in each component, so we can break this up into \begin{align*}
+    %     0 & = J((s_1, 0), (s_2, 0), (s_3, 0)) \\
+    %       & = J((s_1, 0), (s_2, 0), (0, x_3)) \\
+    %       & = J((0, x_1
+    % \end{align*}
+    % If we can prove that both terms are themselves zero, we are done.
+	Now to check the Jacobi identity, we have \begin{align*}
 		    & [(s_1, x_1), [(s_2, x_2), (s_3, x_3)]]                                     \\
 		    & + [(s_2, x_2), [(s_3, x_3), (s_1, x_1)]]                                   \\
 		    & + [(s_3, x_3), [(s_1, x_1), (s_2, x_2)]]                                   \\
@@ -258,6 +264,7 @@
 		=\  & \dots                                                                      \\
 		=\  & 0
 	\end{align*}
+  This was getting so tedious and time-consuming that I didn't have time to get back to it throughout the week.
 \end{proof}
 
 \end{document}

@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 5}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $V$ be a vector space, $F$ be a field, and $A$ be a subalgebra of $\gl(V)$.
+	Give an example of a function $f : A \to F$ whose eigenspace is zero.
+\end{ex}
+
+\begin{ex}
+	Let \begin{equation*}
+		A = \left\lbrace \begin{pmatrix} a & b \\ 0 & a + b \end{pmatrix} : a,b \in \mathbb{C} \right\rbrace.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that $A$ is an abelian subalgebra of $\gl(2,\mathbb{C})$.
+		\item Let $\lambda : A \to \mathbb{C}$ be defined by $\lambda \begin{pmatrix}a & b \\ 0 & a+b\end{pmatrix} = a + b.$
+		      Find the weight space $V_\lambda$ associated to $\lambda$.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $L$ be a Lie subalgebra of $\gl(V)$.
+		      Suppose that there is a basis of $V$ such that, with respect to this basis, every $x \in L$ is represented by a strictly upper triangular matrix.
+		      Show that $L$ is isomorphic to a Lie subalgebra of $n(n, F)$ and hence that $L$ is nilpotent.
+        \item Prove a result analagous to (i) in the case where there is a basis of $V$ such that with respect to this basis every $x \in L$ is represented by an upper triangular matrix.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+  Let $L$ be a Lie algebra and let $A$ be a subalgebra of $L$.
+  The \textit{normalizer} of $A$, denoted $N_L(A)$, is defined by \begin{equation*}
+    N_L(A) = \lbrace x \in L : [x,a] \in A \text{ for all } a \in A\rbrace.
+  \end{equation*}
+  Prove that $N_L(A)$ is a subalgebra of $L$ and that $N_L(A)$ contains $A$.
+  Show moreover that $N_L(A)$ is the largest subalgebra of $L$ in which $A$ is an ideal.
+\end{ex}
+
+\begin{ex}
+  Let $\lambda_1,\dots,\lambda_n$ be the eigenvalues of $[x,y]$.
+  Show that $\lambda_i$
+\end{ex}
+
+\end{document}

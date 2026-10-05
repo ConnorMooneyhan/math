@@ -1,3 +1,4 @@
+
 \documentclass[12pt]{article}
 \usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
 \usepackage{mathrsfs}
@@ -52,6 +53,32 @@
 	Show that $S_L$ is bounded and compute its operator norm.
 	Does the equation $S_L(x) = x$ have any solutions other than $x = 0$?
 \end{ex}
+\begin{proof}
+    Let $(x_n) \in \ell^p$ such that $||(x_n)||_p = 1$.
+    First assume $p < \infty$.
+    We have \begin{align*}
+        ||S_L((x_n))||_p^p & = \sum_{n=2}^\infty |x_n|^p \\
+                           & = \left(\sum_{n=1}^\infty |x_n|^p\right) - |x_1|^p \\
+                           & = ||(x_n)||_p^p - |x_1|^p \\
+                           & = 1 - |x_1|^p \\
+                           & \leq 1,
+    \end{align*} 
+    so $S_L$ is bounded.
+    In fact, this upper bound of 1 becomes equality whenever $x_1 = 0$, so $||S_L||_{op} = 1$.
+    We note that for $S_L(x) = x$ to be satisfied, we must have $x_i = x_{i + 1}$ for all $i \in \mathbb{Z}^+$, so in other words $x$ must be a constant sequence.
+    In this case (that is, still assuming $p < \infty$), all elements of $\ell^p$ must be sequences converging to 0, so since the only such constant sequence is the zero sequence, it is indeed the only solution to $S_L(x) = x$.
+
+    Now if $p = \infty$, then if $||(x_n)||_\infty = 1$, \begin{align*}
+        ||S_L((x_n))||_\infty & = \sup_{n \geq 2} |x_n| \\
+                              & \leq \sup_{n \geq 1} |x_n| \\
+                              & = ||(x_n)||_\infty \\
+                              & = 1,
+    \end{align*}
+    so $S_L$ is bounded.
+    Again, equality is achieved when $x_1 = 0$, so we have $||S_L||_{op} = 1$.
+    Any solution to $S_L(x) = x$ must still be a constant sequence by the same reasoning as above, but in this case not all elements of $\ell^\infty$ are sequences converging to 0; they just need to be termwise bounded from above.
+    This is satisfied by any constant sequence, so in fact there are infinitely many solutions to $S_L(x) = x$ in $\ell^\infty$, namely all constant sequences.
+\end{proof}
 
 \begin{ex}
 	Show that the closed unit ball of $c_0$, which is the set \begin{equation*}
@@ -59,6 +86,32 @@
 	\end{equation*}
 	is a closed convex set with no extreme points.
 \end{ex}
+\begin{proof}
+    Since norms are continuous, this is the preimage of the closed set $[0, 1]$ under the function $x \mapsto ||x||\infty$, so $B_1[0]$ is closed by continuity.
+    For convexity, let $x, y \in B_1[0]$.
+    We want to show that $tx + (1-t)y \in B_1[0]$ whenever $0 \leq t \leq 1$.
+    Indeed, \begin{align*}
+        ||tx + (1-t)y||_\infty & \leq |t| \cdot ||x||_\infty + |1-t| \cdot ||y||_\infty \\
+                               & = t \cdot ||x||_\infty + (1-t) \cdot ||y||_\infty \\
+                               & \leq t + (1-t) \\
+                               & = 1,
+    \end{align*}
+    where the third line follows from $||x||_\infty \leq 1$ and $||y||_\infty \leq 1$.
+    Thus $B_1[0]$ is convex.
+
+    Now let $z \in B_1[0]$.
+    We want to find $x \neq y \in B_1[0]$ and $t \in [0, 1]$ such that $tx + (1-t)y = z$.
+    Since $z$ converges to zero, we can choose $N \in \mathbb{Z}^+$ such that when $n \geq N$, $|z_n| \leq 1/2$.
+    This allows us to define $x$ to be equal to $z$ except that $x_N = 2z_N$ and $x_{N+1} = 0$, and we can also define $y$ to be equal to $z$ except that $y_N = 0$ and $y_{N+1} = 2z_{N+1}$.
+    Both $x$ and $y$ are in $B_1[0]$ since $|2z_N|, |2z_{N+1}|  \leq 1$ by construction, and we have \begin{equation*}
+        \frac{1}{2}x_i + \frac{1}{2}y_i = \begin{cases}
+            \frac{1}{2} 2z_i + \frac{1}{2} 0 = z_i & i = N \\
+            \frac{1}{2} 0 + \frac{1}{2} 2z_i = z_i & i = N + 1 \\
+            \frac{1}{2} z_i + \frac{1}{2} z_i = z_i & \text{otherwise},
+        \end{cases}
+    \end{equation*}
+    so $\frac{1}{2}x + \frac{1}{2}y = z$ and $x \neq y \in B_1[0]$ as desired.
+\end{proof}
 
 \begin{ex}
 	Recall that $C^0[0, 1]$ is the space of continuous functions $f : [0, 1] \to \mathbb{R}$ equipped with the sup norm \begin{equation*}
@@ -67,6 +120,18 @@
 	Find the extreme points of the closed unit ball $B_1[0]$ of this space.
 	Conclude that $B_1[0]$ is \textbf{not} the closure of the convex hull of its extreme points (it does not satisfy the conclusion of Krein-Milman's theorem).
 \end{ex}
+\begin{proof}
+    We want to find $f \in C^0[0,1]$ such that $f = tg + (1-t)h$ for some $g,h \in C^0[0,1]$ and $t \in [0, 1]$ implies that $g = h = f$.
+    We begin by applying the condition to a single point $x$ such that $f(x) = \sup|f| = ||f||_\infty$ (existence is guaranteed because $f$ is continuous and thus achieves a maximum on the compact set $[0, 1]$).
+    If $|f(x)| < 1$, then we can choose an $\varepsilon > 0$ such that $|f(x) + \varepsilon| < 1$ and $|f(x) - \varepsilon| < 1$.
+    We can then choose $g = f + \varepsilon$ and $h = f - \varepsilon$ (both in $B_1[0]$ by construction), so that $f = \frac{1}{2}g + \frac{1}{2}h$, and since $g \neq h$, this shows that $f$ is not an extreme point.
+    Thus for any $f$ which \textit{is} an extreme point, we must have $||f||_\infty = 1$.
+
+    I can't figure out how to write down the next part, but the previous argument holds when $f(x) < 1$ for any $x$, not just when $f(x) = ||f||_\infty$, if instead of doing a $\pm\varepsilon$ you do something like scaling it just a little bit so that the function still stays within $||f||_\infty \leq 1$ but is nudged up a bit whenever $f(x) \neq ||f||_\infty$ for $g$ and then $h$ is the ``nudged/scaled down'' version.
+
+    Thus we must have that $|f(x)| = 1$ for all $x$ if $f$ is an extreme point, so the extreme points are the constant functions at -1 and 1 (call them $g$ and $h$ respectively).
+    Only constant functions are represented in $[g, h]$, and taking a closure doesn't help us since a sequence of constant functions converges to another constant function if at all, so since there are certainly non-constant functions in $B_1[0]$, we conclude that it is not the closure of the convex hull of its extreme points.
+\end{proof}
 
 \begin{ex}
 	Let $X$ be a vector space equipped with two norms, call them $|| \cdot ||_1$ and $||\cdot||_2$, such that $X$ is Banach with respect to either of these two norms.
@@ -77,6 +142,11 @@
 		||x||_2 \leq C'||x||_1, \hspace{1em} \forall x \in X.
 	\end{equation*}
 \end{ex}
+\begin{proof}
+  Consider the inclusion map $i : X_1 \to X_2$, where $X_i$ is $X$ equipped with $||\cdot||_i$.
+  This is bounded by assumption that $||x||_1 \leq C||x||_2$ for some $C > 0$, and it is naturally bijective, so the open mapping theorem tells us that it has a continuous inverse (this is the fact that $i$ is an open map together with bijectivity, since the preimage of open sets over $i^{-1}$ is just the image of open sets under $i$).
+  Thus $i^{-1}$ is bounded and the desired constant $C' > 0$ exists.
+\end{proof}
 
 \begin{ex}
   Let $X$ be a Banach space and $Y, Z \subset X$ be closed subspaces such that \begin{enumerate}[label=(\arabic*)]
@@ -86,10 +156,40 @@
   Show that $X$ is isomorphic to $Y \oplus Z$.
   In this situation, we say that $Y$ (and by symmetry also $Z$) is a \textbf{complemented} subspace of $X$.
 \end{ex}
+\begin{proof}
+    First note that if $y_1 + z_1 = y_2 + z_2$, we have $y_1 - y_2 = z_2 - z_1$, where the left side lies in $Y$ and the right side lies in $Z$, so the two sides must be in $Y \cap Z = \lbrace 0 \rbrace$, implying $y_1 = y_2$ and $z_1 = z_2$.
+    We are then justified in defining $\varphi: Y + Z \to Y \oplus Z$ by $y + z \mapsto (y, z)$.
+    This is linear since \begin{align*}
+        \varphi(a(y_1 + z_1) + b(y_2 + z_2)) & = \varphi(ay_1 + by_2 + az_1 + bz_2) \\
+                                       & = (ay_1+ by_2, az_1 + bz_2) \\
+                                       & = (ay_1, az_1) + (by_2, bz_2) \\
+                                       & = a(y_1, z_1) + b(y_2, z_2) \\
+                                       & = a\varphi(y_1 + z_1) + b\varphi(y_2 + z_2).
+    \end{align*}
+    If $\varphi(y_1 + z_1) = \varphi(y_2 + z_2)$, then $(y_1, z_1) = (y_2, z_2)$, so $y_1 = y_2$ and $z_1 = z_2$, showing that $\varphi$ is injective.
+    Surjectivity comes easily as well; for any $(y, z) \in Y \oplus Z$, $\varphi(y + z)$.
+
+    For boundedness of the inverse, we get \begin{align*}
+        \frac{||\varphi^{-1}(y, z)||}{||(y,z)||} & = \frac{||y + z||}{||y|| + ||z||} \\
+                                                 & \leq \frac{||y|| + ||z||}{||y|| + ||z||} \\
+                                                 & = 1
+    \end{align*}
+    whenever $(y, z) \neq (0, 0)$.
+    Boundedness of $\varphi$ itself is the one part I haven't been able to figure out.
+\end{proof}
 
 \begin{ex}
   Let $X$ be a normed space.
   In the language of the previous problem, show that any \textit{finite-dimensional} subspace $Y \subset X$ is complemented.
 \end{ex}
+\begin{proof}
+    Let $B = \lbrace y_1, \dots, y_n \rbrace$ be a basis of $Y$, extend to a Hamel basis, and let $C = \lbrace z_i \rbrace_{i \in I}$ be the remainder of the extended basis.
+    Let $Z$ be the space spanned by $C$.
+    Clearly $Z \cap Y = \lbrace 0 \rbrace$, and every $x \in X$ can be written as a linear combination of elements from $B$ and $C$ by definition of a Hamel basis, so we just need to show that $Z$ is closed.
+
+    Let $x$ be a limit point of $Z$ and $(x_n)$ a sequence in $Z$ converging to $x$.
+    Then $x$ has a unique representation as $y + z$, where $y \in Y$ and $z \in Z$ (uniqueness is given by the first sentence of the proof of the Problem 5 since it makes no use of closure).
+    
+\end{proof}
 
 \end{document}

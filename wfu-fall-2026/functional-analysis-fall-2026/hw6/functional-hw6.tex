@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 6}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $f : \mathbb{C} \to \mathbb{C}$ be an analytic function, and let \begin{equation*}
+		f(x, y) = u(x,y) + iv(x,y)
+	\end{equation*}
+	be its decomposition into real and imaginary parts.
+	Consider the limit definition of the complex derivative at a point $z = x + iy$: \begin{equation*}
+		f'(z) = \lim_{w\to 0} \frac{f(z+w) - f(z)}{w}.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Evaluate this limit by letting $w \to 0$ strictly along the real axis.
+		      Express the result in terms of the partial derivatives of $u$ and $v$.
+		\item Now evaluate the same limit by letting $w \to 0$ strictly along the imaginary axis.
+	\end{enumerate}
+	Since $f$ is analytic, the limit must be independent of the path.
+	Equate your results from (a) and (b) to prove the Cauchy-Riemann equations: \begin{equation*}
+		u_x = v_y, \hspace{1em} u_y = -v_x.
+	\end{equation*}
+\end{ex}
+
+\begin{ex}
+  Use the limit definition to show that $f(z) = \overline{z}$ is not complex differentiable anywhere, and $g(z) = |z|^2$ is not complex differentiable at any $z \neq 0$, but is complex differentiable at $z = 0$.
+\end{ex}
+
+\begin{ex}
+  Fix a small, positive radius $r < 1$ and let $\gamma_1$ and $\gamma_2$ be the positively oriented circles of radius $r$ centered at $z = 1$ and $z = 2$, respectively: \begin{equation*}
+    \gamma_1 = 1 + re^{it}, \hspace{1.5em} \gamma_2(t) = 2+re^{it},\hspace{1.5em} t \in [0, 2\pi].
+  \end{equation*}
+  Compute the following line integrals for $j = 1,2$: \begin{equation*}
+    (a) \int_{\gamma_j} \frac{dz}{1-z} \hspace{1.5em} (b) = \int_{\gamma_j}\frac{dz}{2-z} \hspace{1.5em} \int_{\gamma_j} \frac{dz}{(1-z)^2} \hspace{1.5em} (d) \int_{\gamma_j} \frac{dz}{(2-z)(1-z)}.
+  \end{equation*}
+  Hint: for item (d), partial fractions can immediately reduce it to (a) and (b).
+\end{ex}
+
+\begin{ex}
+  Consider the linear operator $A : \mathbb{C}^3 \to \mathbb{C}^3$ represented in the standard basis by the matrix \begin{equation*}
+    A = \begin{pmatrix}2 & 1 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 1\end{pmatrix}.
+  \end{equation*}
+  Note that the spectrum of $A$ is $\sigma(A) = \lbrace 1, 2 \rbrace$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Find the kernel of $(A-1)^2$ and the kernel of $A-2$.
+      These are the generalized eigenspaces of $A$ for the eigenvalues 1 and 2.
+    \item Compute the resolvent matrix $R(z) = (A-z)^{-1}$ for $z \not\in \sigma(A)$.
+      Simplify the rational functions in each entry completely.
+    \item For each eigenvalue $\lambda_j = j, j = 1,2$ compute the operator-valued integral \begin{equation*}
+        P_j = -\frac{1}{2\pi i} \int_{\gamma_j} R(z) dz,
+    \end{equation*}
+    where $\gamma_j$ is a small positively oriented circle enclosing only $\lambda_j$.
+  \item Show that $P_1$ and $P_2$ are projections, that their images are the generalized eigenspaces of $A$, \begin{equation*}
+      \mathrm{Im}(P_1) = \ker(A-1)^2, \hspace{1.5em} \mathrm{Im}(P_2) = \ker(A-2),
+  \end{equation*}
+  and that they complement each other, meaning: \begin{equation*}
+    P_1 + P_2 = 1, \hspace{1.5em} P_1P_2 = 0.
+  \end{equation*}
+  $P_1$ and $P_2$ are called \textit{Riesz projections} associated with $A$.
+  \end{enumerate}
+\end{ex}
+
+\end{document}

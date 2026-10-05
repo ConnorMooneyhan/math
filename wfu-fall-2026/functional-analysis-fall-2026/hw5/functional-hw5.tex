@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 5}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	(Spectrum of a product).
+	Find an example of two linear operators $A, B : \mathbb{R}^2 \to \mathbb{R}^2$ such that $\sigma(A) = \sigma(B) = \lbrace 0 \rbrace$, but $\sigma(AB) \neq \lbrace 0 \rbrace$.
+	Thus, the spectrum of the product $AB$ can be strictly larger than the spectra of $A$ and $B$ together.
+\end{ex}
+\begin{proof}
+	Consider \begin{align*}
+		A  & = \begin{pmatrix}0 & -1 \\ 0 & 0\end{pmatrix}  \\
+		B  & = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}   \\
+		AB & = \begin{pmatrix}-1 & 0 \\ 0 & 0 \end{pmatrix}
+	\end{align*}
+	using the standard basis.
+	Then for $\lambda \in \mathbb{R}$, we find solutions for \begin{align*}
+		\det(A - \lambda)  & = \det\begin{pmatrix}-\lambda & -1 \\ 0 & -\lambda\end{pmatrix} = \lambda^2 = 0              \\
+		\det(B - \lambda)  & = \det\begin{pmatrix}-\lambda & 0 \\ 1 & -\lambda\end{pmatrix} = \lambda^2 = 0               \\
+		\det(AB - \lambda) & = \det\begin{pmatrix}-1-\lambda & 0 \\ 0 & -\lambda\end{pmatrix} = \lambda(1 + \lambda) = 0.
+	\end{align*}
+	The first two only have the solution $\lambda = 0$, whereas the third has solutions at $\lambda = 0$ and $\lambda = -1$.
+	Thus $\sigma(A) = \sigma(B) = \lbrace 0 \rbrace$ and $\sigma(AB) = \lbrace 0, -1 \rbrace$ as desired.
+\end{proof}
+
+\begin{ex}
+	Let $[a, b] \subseteq [0,1]$ with $a < b$.
+	Find a bounded linear operator $T : C^0[0, 1] \to C^0[0, 1]$ such that $\sigma(T) = [a, b]$.
+\end{ex}
+\begin{proof}
+	Define $T(f)(t) \coloneq (a+t(b-a))f(t)$.
+	This is linear since \begin{align*}
+		T(\alpha f + \beta g)(t) & = (a + t(b-a))(\alpha f + \beta g)(t)            \\
+		                         & = (a + t(b-a))(\alpha f(t) + \beta g(t))         \\
+		                         & = \alpha(a + t(b-a))f(t) + \beta(a + t(b-a))g(t) \\
+		                         & = \alpha T(f)(t) + \beta T(g)(t)                 \\
+		                         & = (\alpha T(f) + \beta T(g))(t)
+	\end{align*}
+	and bounded because \begin{align*}
+		||T(f)(t)|| & = ||(a + t(b-a))f(t)|| \\
+		            & = (a+ t(b-a))||f(t)||  \\
+		            & \leq b||f(t)||.
+	\end{align*}
+	for all $t \in [0, 1]$.
+	Now if $\lambda \notin [a, b]$, then $(T-\lambda)(f)(t) = g(t)$ can be expanded to \begin{equation*}
+		(a + t(b-a) - \lambda)f(t) = g(t).
+	\end{equation*}
+	Since $a + t(b-a) \in [a, b]$ for all $t \in [0, 1]$ and $\lambda \notin [a, b]$, we have $(a + t(b-a) - \lambda) \neq 0$ for all $t \in [0, 1]$.
+	Thus we can solve the equation with $f(t) = g(t)/(a + t(b-a) - \lambda)$, so $T$ is surjective and $\lambda \in \rho(T)$.
+
+	Now if $\lambda \in [a, b]$, then \begin{equation*}
+		\im(T - \lambda) \subseteq \left\lbrace f \in C^0[0, 1] : f\left( \frac{\lambda - a}{b - a} \right) = 0 \right\rbrace.
+	\end{equation*}
+	This cannot be dense in $C^0[0, 1]$, so $\lambda \in \sigma_r(T)$, and we have shown that $\sigma(T) = [a, b]$.
+\end{proof}
+
+\begin{ex}
+	For a bounded linear operator $T : X \to X$, show that \begin{equation*}
+		||(T-\lambda)^{-1}||_{op} \to 0 \text{ as } \lambda \to \infty.
+	\end{equation*}
+	Here, $\lambda \to \infty$ should be understood as ``for $|\lambda|$ sufficiently large'', $\lambda \in \mathbb{C}$.
+	We need only consider $\lambda$ outside the closed ball $B_{||T||_{op}}[0]$, where $(T - \lambda)$ is invertible.
+\end{ex}
+\begin{proof}
+	Note that since $(1-T)^{-1} = 1 + T + T^2 + \cdots$, if we choose $\lambda$ large enough that $|\lambda| \geq 2 ||T||_{op}$, so that $||T/\lambda||_{op} \leq 1/2$, we have \begin{align*}
+    \left|\left|(T - \lambda)^{-1}\right|\right|_{op} & = \left|\left|(T/\lambda - 1)^{-1}\right|\right|_{op}                                                              \\
+                                   & = \left|\left| -(1 - T/\lambda)^{-1}\right|\right|_{op}                                                             \\
+                                   & = \left|\left| (1 - T/\lambda)^{-1}\right|\right|_{op}                                                             \\
+                                   & = \left|\left| 1 + \frac{T}{\lambda} + \left(\frac{T}{\lambda}\right)^2 + \cdots \right|\right|_{op} \\
+                                   & \leq \left|\left| 1 \right|\right|_{op} + \left|\left|\frac{T}{\lambda}\right|\right|_{op} + \left|\left|\left(\frac{T}{\lambda}\right)^2\right|\right|_{op} + \cdots \\
+                                   & \leq 1 + \left|\left|\frac{T}{\lambda}\right|\right|_{op}  + \left|\left|\left(\frac{T}{\lambda}\right)^2\right|\right|_{op} + \cdots \\
+                                   & \leq 1 + \frac{1}{2} + \frac{1}{4} + \cdots \\
+                                   & = 2.
+	\end{align*}
+  Choosing any integer $n$ instead of 2 gives us a smaller upper bound, but with 1 as the lowest upper bound possible with this method, due to the fact that $||1||_{op} = 1$.
+  I'm not sure how to get around that yet.
+\end{proof}
+
+\begin{ex}
+	For a bounded linear operator $T: X \to X$ and $\lambda \in \rho(T)$ (resolvent set), write $R_\lambda = (T - \lambda)^{-1}$.
+	Prove the resolvent equation: \begin{equation*}
+		R_\lambda - R_\mu = (\lambda - \mu)R_\lambda R_\mu, \hspace{1em} \lambda, \mu \in \rho(T).
+	\end{equation*}
+\end{ex}
+\begin{proof}
+	Denoting the left-hand side of the resolvent equation as LHS and the right-hand side as RHS, we will prove that \begin{equation*}
+		(T-\mu)(T-\lambda)(LHS) = (T-\mu)(T-\lambda)(RHS).
+	\end{equation*}
+	Since $(T-\mu)(T-\lambda)$ itself has an inverse, this will show that $LHS = RHS$.
+
+	First, the RHS: \begin{align*}
+		(T-\mu)(T-\lambda)(RHS(x)) & = (T-\mu)(T-\lambda)(\lambda - \mu)(T-\lambda)^{-1}(T-\mu)^{-1}(x) \\
+		                           & = (\lambda - \mu)(T-\mu)(T-\lambda)(T-\lambda)^{-1}(T-\mu)^{-1}(x) \\
+		                           & = (\lambda-\mu)x                                                   \\
+		                           & = \lambda x - \mu x.
+	\end{align*}
+
+	For the LHS, we derive the following strange identity \begin{align*}
+		(T - \mu)(T - \mu)^{-1}(x) = x                          \\
+		\implies T(T - \mu)^{-1}(x) - \mu (T - \mu)^{-1}(x) = x \\
+		\implies T(T - \mu)^{-1}(x) = \mu (T - \mu)^{-1}(x) + x.
+	\end{align*}
+	Now we have \begin{align*}
+		(T-\mu)(T-\lambda)(LHS(x)) & = (T-\mu)(T-\lambda)((R_\lambda - R_\mu)(x))                                  \\
+		                           & = (T-\mu)(T-\lambda)((T-\lambda)^{-1} - (T - \mu)^{-1})(x)                    \\
+		                           & = (T-\mu)(T-\lambda)(T-\lambda)^{-1}(x) - (T-\mu)^{-1}(T-\lambda)(T - \mu)(x) \\
+		                           & = (T-\mu)(x) - (T-\mu)(T-\lambda)(T - \mu)^{-1}(x)                            \\
+		                           & = T(x) - \mu x - (T-\mu)(T(T - \mu)^{-1}(x) - \lambda(T-\mu)^{-1}(x))         \\
+		                           & = T(x) - \mu x - ((T-\mu)(T(T - \mu)^{-1}(x)) - \lambda x)                    \\
+		                           & = T(x) - \mu x - (T-\mu)(\mu(T-\mu)^{-1}(x) + x) + \lambda x                  \\
+		                           & = T(x) - \mu x - (\mu x + (T-\mu)(x)) + \lambda x                             \\
+		                           & = T(x) - \mu x - T(x) + \lambda x                                             \\
+		                           & = \lambda x - \mu x,
+	\end{align*}
+	so we are done.
+	(Interested to see if you have a more enlightening way of doing this.)
+\end{proof}
+
+\end{document}
