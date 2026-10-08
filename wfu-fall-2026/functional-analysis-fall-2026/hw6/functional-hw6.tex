@@ -63,43 +63,85 @@
 		u_x = v_y, \hspace{1em} u_y = -v_x.
 	\end{equation*}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $z = (x, y)$ and $w = (w_x, w_y)$, where in this case $w_y = 0$ because we are taking the limit along the real line.
+		      Then \begin{align*}
+			      f'(z) & = \lim_{w \to 0} \frac{f((x, y) + (w_x, w_y)) - f(x, y)}{w_x + iw_y}                                           \\
+			            & = \lim_{w_x \to 0} \frac{f(x + w_x, y) - f(x, y)}{w_x}                                                         \\
+			            & = \lim_{w_x \to 0} \frac{u(x + w_x, y) + iv(x + w_x, y)- u(x, y) - iv(x, y)}{w_x}                              \\
+			            & = \lim_{w_x \to 0} \frac{u(x + w_x, y) - u(x, y)}{w_x} + i\lim_{w_x \to 0} \frac{v(x + w_x, y) - v(x, y)}{w_x} \\
+			            & = u_x + iv_x.
+		      \end{align*}
+		\item Now if $w_x = 0 \neq w_y$, then \begin{align*}
+			      f'(z) & = \lim_{w \to 0} \frac{f((x, y) + (w_x, w_y)) - f(x, y)}{iw_y}                                                   \\
+			            & = \lim_{w_y \to 0} \frac{f(x, y + w_y) - f(x, y)}{iw_y}                                                          \\
+			            & = \lim_{w_y \to 0} \frac{u(x, y + w_y) + iv(x, y + w_y)- u(x, y) - iv(x, y)}{iw_y}                               \\
+			            & = \lim_{w_y \to 0} \frac{u(x, y + w_y) - u(x, y)}{iw_y} + i\lim_{w_y \to 0} \frac{v(x, y + w_y) - v(x, y)}{iw_y} \\
+			            & = -i\lim_{w_y \to 0} \frac{u(x, y + w_y) - u(x, y)}{w_y} + \lim_{w_y \to 0} \frac{v(x, y + w_y) - v(x, y)}{w_y}  \\
+			            & = -iu_y + v_y.
+		      \end{align*}
+	\end{enumerate}
+	Setting the two real and imaginary parts of the equations equal (respectively), we get $u_x = v_y$ and $v_x = -u_y$ as desired.
+\end{proof}
 
 \begin{ex}
-  Use the limit definition to show that $f(z) = \overline{z}$ is not complex differentiable anywhere, and $g(z) = |z|^2$ is not complex differentiable at any $z \neq 0$, but is complex differentiable at $z = 0$.
+	Use the limit definition to show that $f(z) = \overline{z}$ is not complex differentiable anywhere, and $g(z) = |z|^2$ is not complex differentiable at any $z \neq 0$, but is complex differentiable at $z = 0$.
+\end{ex}
+\begin{proof}
+  Taking the derivative along the real axis, we get
+	\begin{align*}
+		f'(z) & = \lim_{w_x \to 0} \frac{f(x+w_x, y) - f(x, y)}{w_x} \\
+		      & = \lim_{w_x \to 0} \frac{x + w_x - yi - (x - yi)}{w_x} \\
+		      & = \lim_{w_x \to 0} \frac{x + w_x - yi - x + yi}{w_x} \\
+		      & = \lim_{w_x \to 0} \frac{w_x}{w_x} \\
+		      & = \lim_{w_x \to 0} 1 \\
+          & = 1,
+	\end{align*}
+  and taking the derivative along the imaginary axis, we get
+	\begin{align*}
+		f'(z) & = \lim_{w_y \to 0} \frac{f(x, y + w_y) - f(x, y)}{w_y} \\
+          & = \lim_{w_y \to 0} \frac{x - i(y + w_y) - (x - iy)}{w_y} \\
+          & = \lim_{w_y \to 0} \frac{x - iy - iw_y - x + iy}{w_y} \\
+          & = \lim_{w_y \to 0} \frac{-iw_y}{w_y} \\
+          & = \lim_{w_y \to 0} -i \\
+          & = -i.
+	\end{align*}
+  Since $1 \neq -i$, $f$ is not differentiable.
+\end{proof}
+
+\begin{ex}
+	Fix a small, positive radius $r < 1$ and let $\gamma_1$ and $\gamma_2$ be the positively oriented circles of radius $r$ centered at $z = 1$ and $z = 2$, respectively: \begin{equation*}
+		\gamma_1 = 1 + re^{it}, \hspace{1.5em} \gamma_2(t) = 2+re^{it},\hspace{1.5em} t \in [0, 2\pi].
+	\end{equation*}
+	Compute the following line integrals for $j = 1,2$: \begin{equation*}
+		(a) \int_{\gamma_j} \frac{dz}{1-z} \hspace{1.5em} (b) = \int_{\gamma_j}\frac{dz}{2-z} \hspace{1.5em} \int_{\gamma_j} \frac{dz}{(1-z)^2} \hspace{1.5em} (d) \int_{\gamma_j} \frac{dz}{(2-z)(1-z)}.
+	\end{equation*}
+	Hint: for item (d), partial fractions can immediately reduce it to (a) and (b).
 \end{ex}
 
 \begin{ex}
-  Fix a small, positive radius $r < 1$ and let $\gamma_1$ and $\gamma_2$ be the positively oriented circles of radius $r$ centered at $z = 1$ and $z = 2$, respectively: \begin{equation*}
-    \gamma_1 = 1 + re^{it}, \hspace{1.5em} \gamma_2(t) = 2+re^{it},\hspace{1.5em} t \in [0, 2\pi].
-  \end{equation*}
-  Compute the following line integrals for $j = 1,2$: \begin{equation*}
-    (a) \int_{\gamma_j} \frac{dz}{1-z} \hspace{1.5em} (b) = \int_{\gamma_j}\frac{dz}{2-z} \hspace{1.5em} \int_{\gamma_j} \frac{dz}{(1-z)^2} \hspace{1.5em} (d) \int_{\gamma_j} \frac{dz}{(2-z)(1-z)}.
-  \end{equation*}
-  Hint: for item (d), partial fractions can immediately reduce it to (a) and (b).
-\end{ex}
-
-\begin{ex}
-  Consider the linear operator $A : \mathbb{C}^3 \to \mathbb{C}^3$ represented in the standard basis by the matrix \begin{equation*}
-    A = \begin{pmatrix}2 & 1 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 1\end{pmatrix}.
-  \end{equation*}
-  Note that the spectrum of $A$ is $\sigma(A) = \lbrace 1, 2 \rbrace$.
-  \begin{enumerate}[label=(\alph*)]
-    \item Find the kernel of $(A-1)^2$ and the kernel of $A-2$.
-      These are the generalized eigenspaces of $A$ for the eigenvalues 1 and 2.
-    \item Compute the resolvent matrix $R(z) = (A-z)^{-1}$ for $z \not\in \sigma(A)$.
-      Simplify the rational functions in each entry completely.
-    \item For each eigenvalue $\lambda_j = j, j = 1,2$ compute the operator-valued integral \begin{equation*}
-        P_j = -\frac{1}{2\pi i} \int_{\gamma_j} R(z) dz,
-    \end{equation*}
-    where $\gamma_j$ is a small positively oriented circle enclosing only $\lambda_j$.
-  \item Show that $P_1$ and $P_2$ are projections, that their images are the generalized eigenspaces of $A$, \begin{equation*}
-      \mathrm{Im}(P_1) = \ker(A-1)^2, \hspace{1.5em} \mathrm{Im}(P_2) = \ker(A-2),
-  \end{equation*}
-  and that they complement each other, meaning: \begin{equation*}
-    P_1 + P_2 = 1, \hspace{1.5em} P_1P_2 = 0.
-  \end{equation*}
-  $P_1$ and $P_2$ are called \textit{Riesz projections} associated with $A$.
-  \end{enumerate}
+	Consider the linear operator $A : \mathbb{C}^3 \to \mathbb{C}^3$ represented in the standard basis by the matrix \begin{equation*}
+		A = \begin{pmatrix}2 & 1 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 1\end{pmatrix}.
+	\end{equation*}
+	Note that the spectrum of $A$ is $\sigma(A) = \lbrace 1, 2 \rbrace$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Find the kernel of $(A-1)^2$ and the kernel of $A-2$.
+		      These are the generalized eigenspaces of $A$ for the eigenvalues 1 and 2.
+		\item Compute the resolvent matrix $R(z) = (A-z)^{-1}$ for $z \not\in \sigma(A)$.
+		      Simplify the rational functions in each entry completely.
+		\item For each eigenvalue $\lambda_j = j, j = 1,2$ compute the operator-valued integral \begin{equation*}
+			      P_j = -\frac{1}{2\pi i} \int_{\gamma_j} R(z) dz,
+		      \end{equation*}
+		      where $\gamma_j$ is a small positively oriented circle enclosing only $\lambda_j$.
+		\item Show that $P_1$ and $P_2$ are projections, that their images are the generalized eigenspaces of $A$, \begin{equation*}
+			      \mathrm{Im}(P_1) = \ker(A-1)^2, \hspace{1.5em} \mathrm{Im}(P_2) = \ker(A-2),
+		      \end{equation*}
+		      and that they complement each other, meaning: \begin{equation*}
+			      P_1 + P_2 = 1, \hspace{1.5em} P_1P_2 = 0.
+		      \end{equation*}
+		      $P_1$ and $P_2$ are called \textit{Riesz projections} associated with $A$.
+	\end{enumerate}
 \end{ex}
 
 \end{document}

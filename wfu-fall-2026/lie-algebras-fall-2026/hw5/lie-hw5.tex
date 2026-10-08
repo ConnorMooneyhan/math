@@ -53,6 +53,10 @@
 	Let $V$ be a vector space, $F$ be a field, and $A$ be a subalgebra of $\gl(V)$.
 	Give an example of a function $f : A \to F$ whose eigenspace is zero.
 \end{ex}
+\begin{proof}
+	Define $f$ to be the map sending every element to 1.
+	We know that the zero map $0 \in A$ since $A$ is a subalgebra, so this would mean that if $a(v) = f(a)v$ for all $a \in A$, in particular we have $0 = 0(v) = f(0)v = 1v = v$, so the weight space/eigenspace $V_f$ is zero.
+\end{proof}
 
 \begin{ex}
 	Let \begin{equation*}
@@ -64,28 +68,102 @@
 		      Find the weight space $V_\lambda$ associated to $\lambda$.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item \begin{align*}
+			          & \left[\begin{pmatrix}a & b \\ 0 & a+b\end{pmatrix}, \begin{pmatrix}c & d \\ 0 & c+d\end{pmatrix}\right]                                                                             \\
+			      =\  & \begin{pmatrix}a & b \\ 0 & a+b\end{pmatrix}\begin{pmatrix}c & d \\ 0 & c+d\end{pmatrix} - \begin{pmatrix}c & d \\ 0 & c+d\end{pmatrix}\begin{pmatrix}a & b \\ 0 & a+b\end{pmatrix} \\
+			      =\  & \begin{pmatrix}ac & ad + bc + bd \\ 0 & ac + ad + bc + bd\end{pmatrix} - \begin{pmatrix}ac & bc + ad + bd \\ 0 & ac + bc + ad + bd\end{pmatrix}                                     \\
+			      =\  & \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix}
+		      \end{align*}
+		\item Suppose that $v \in V$ and $av = \lambda(a)v$ for all $a \in A$.
+		      Then writing $a = \begin{pmatrix}a & b \\ 0 & a + b\end{pmatrix}$, \begin{align*}
+			      \begin{pmatrix}av_1 + bv_1 \\ av_2 + bv_2\end{pmatrix} & = (a + b)\begin{pmatrix}v_1\\v_2\end{pmatrix}                                        \\
+			                                                             & = (a + b)v                                                                           \\
+			                                                             & = \lambda(a)v                                                                        \\
+			                                                             & = av                                                                                 \\
+			                                                             & = \begin{pmatrix}a & b \\ 0 & a + b\end{pmatrix}\begin{pmatrix}v_1\\v_2\end{pmatrix} \\
+			                                                             & = \begin{pmatrix}av_1 + bv_2 \\ av_2 + bv_2\end{pmatrix}.
+		      \end{align*}
+		      This leaves us with two equations: $av_1 + bv_1 = av_1 + bv_2$ and $av_2 + bv_2 = av_2 + bv_2$.
+		      Flearly the second equation is trivial, but the first tells us that $bv_1 = bv_2$.
+		      This equality holds if $b = 0$, but we need the equation to hold for all possible values of $b$, so we are left with $v_1 = v_2$.
+		      Thus \begin{equation*}
+			      V_\lambda = \left\lbrace \begin{pmatrix}x\\x\end{pmatrix} : x \in \mathbb{C} \right\rbrace.
+		      \end{equation*}
+	\end{enumerate}
+\end{proof}
 
-\begin{ex}
+\begin{ex}\
 	\begin{enumerate}[label=(\alph*)]
 		\item Let $L$ be a Lie subalgebra of $\gl(V)$.
 		      Suppose that there is a basis of $V$ such that, with respect to this basis, every $x \in L$ is represented by a strictly upper triangular matrix.
 		      Show that $L$ is isomorphic to a Lie subalgebra of $n(n, F)$ and hence that $L$ is nilpotent.
-        \item Prove a result analagous to (i) in the case where there is a basis of $V$ such that with respect to this basis every $x \in L$ is represented by an upper triangular matrix.
+		\item Prove a result analagous to (i) in the case where there is a basis of $V$ such that with respect to this basis every $x \in L$ is represented by an upper triangular matrix.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $f : L \to n(n,F)$ be defined by taking each $x \in L$ to its strictly upper triangular matrix under the aforementioned basis.
+		      $\im f$ is closed under linear combinations since $ax + by \in L$ by virtue of $L$ being a Lie subalgebra, and thus $f(ax + by) = af(x) + bf(y) \in n(n,F) \in \im f$ (which also shows that $f$ is a linear map), and $\im f$ is closed under brackets by similar logic, and likewise with showing that $f$ carries brackets to brackets, showing it is a homomorphism.
+		      Of course, $f$ is automatically surjective onto its image, so the only thing left to show is that it is injective.
+		      Indeed, if $f(x) = f(y)$, then the matrices for $x$ and $y$ are the same \textit{over the same basis}, so $x = y$, and $f$ is an isomorphism onto $\im f$, which is a subalgebra of $\gl(V)$.
+		\item Nothing in the proof of (a) uses the fact that the matrices were \textit{strictly} upper triangular.
+		      The proof is thus identical, modulo the word ``strictly''.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
-  Let $L$ be a Lie algebra and let $A$ be a subalgebra of $L$.
-  The \textit{normalizer} of $A$, denoted $N_L(A)$, is defined by \begin{equation*}
-    N_L(A) = \lbrace x \in L : [x,a] \in A \text{ for all } a \in A\rbrace.
-  \end{equation*}
-  Prove that $N_L(A)$ is a subalgebra of $L$ and that $N_L(A)$ contains $A$.
-  Show moreover that $N_L(A)$ is the largest subalgebra of $L$ in which $A$ is an ideal.
+	Let $L$ be a Lie algebra and let $A$ be a subalgebra of $L$.
+	The \textit{normalizer} of $A$, denoted $N_L(A)$, is defined by \begin{equation*}
+		N_L(A) = \lbrace x \in L : [x,a] \in A \text{ for all } a \in A\rbrace.
+	\end{equation*}
+	Prove that $N_L(A)$ is a subalgebra of $L$ and that $N_L(A)$ contains $A$.
+	Show moreover that $N_L(A)$ is the largest subalgebra of $L$ in which $A$ is an ideal.
+\end{ex}
+\begin{proof}
+	Certainly $A \subseteq N_L(A)$ since $A$ is a subalgebra and thus $[a, b] \in A$ whenever $a, b \in A$.
+	If $x, y \in N_L(A)$ and $\alpha, \beta \in F$, then given $a \in A$, \begin{align*}
+		[\alpha x + \beta y, a] & = \alpha[x, a] + \beta[y, a] \in A
+	\end{align*}
+	since both $[x, a] \in A$ and $[y, a] \in A$ and $A$ is a subalgebra, so $N_L(A)$ is closed under linear combinations.
+	Furthermore, \begin{align*}
+    [[x, y], a] & = \underbrace{[\overbrace{[x, a]}^{\in A}, y]}_{\in A} + \underbrace{[\overbrace{[a, y]}^{\in A}, x]}_{\in A} \hspace{2em}\text{(by Jacobi)}
+	\end{align*}
+  where every instance of ``$\in A$'' comes from taking the bracket of an element in $N_L(A)$ with an element of $A$.
+  Thus $N_L(A)$ is a subalgebra of $L$.
+
+  Now suppose $B$ is a subalgebra of $L$ which contains $N_L(A)$ as a proper subset, and let $b \in B \setminus N_L(A)$.
+  Then there exists an $a \in A$ such that $[b, a] \notin A$ (since otherwise $b$ would be in $N_L(A)$), so $A$ is not an ideal of $B$.
+  Thus $N_L(A)$ is the largest subalgebra in which $A$ is an ideal.
+\end{proof}
+
+\begin{ex}
+  Let $L = \gl(n, \mathbb{C})$ and let $A$ be the subalgebra of $L$ consisting of all diagonal matrices.
+  Show that $N_L(A) = A$.
 \end{ex}
 
 \begin{ex}
-  Let $\lambda_1,\dots,\lambda_n$ be the eigenvalues of $[x,y]$.
-  Show that $\lambda_i$
+  Show that if $a, y \in \gl(V)$ are linear maps, then for any $m \geq 1$ \begin{equation*}
+    ay^m = y^m a + \sum_{k=1}^m \begin{pmatrix}m \\ k\end{pmatrix} y^{m-k}a_k
+  \end{equation*}
+  where $a_1 = [a,y]$, $a_2 = [a_1, y] = [[a,y],y]$, and generally $a_k = [a_{k-1},y]$.
+  Deduce that \begin{equation*}
+    \ad y^m = \sum_{k=1}^m (-1)^{k+1}\begin{pmatrix}m \\ k\end{pmatrix}y^{m-k}(\ad y)^k.
+  \end{equation*}
+  In this formula, the power $y^{m-k}$ acts on $\gl(V)$ as the linear map which sends $x \in \gl(V)$ to $y^{m-k}x$.
+\end{ex}
+
+\begin{ex}
+  This exercise gives an alternative approach to Proposition 5.7.
+  Recall that $V$ is a complex vector space and $x,y \in \gl(V)$ are linear maps such that $[x,y]$ commutes with both $x$ and $y$.
+  \begin{enumerate}[label=(\roman*)]
+    \item Let $z = [x,y]$.
+      Show that $\tr z^m = 0$ for all $m \geq 1$.
+    \item Let $\lambda_1, \dots, \lambda_n$ be the eigenvalues of $[x, y]$.
+      Show that $\lambda_i=0$ for all $i$, and deduce that $[x,y]$ is nilpotent.
+      \textit{Hint:} use the Vandermonde determinant.
+  \end{enumerate}
 \end{ex}
 
 \end{document}
