@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 6}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $L$ be a complex Lie algebra.
+	Show that $L$ is nilpotent if and only if every 2-dimensional subalgebra of $L$ is abelian.
+	(Use the second version of Engel's Theorem.)
+\end{ex}
+
+\begin{ex}\
+	\begin{enumerate}[label=(\roman*)]
+		\item Let $L$ be a solvable Lie subalgebra of $\gl(V)$, where $V$ is a complex vector space.
+		      Show that every element of $L'$ is a nilpotent endomorphism of $V$.
+		\item Let $L$ be a complex Lie algebra.
+		      Show that $L$ is solvable if and only if $L'$ is nilpotent.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Use Lie's Theorem to give another proof of Proposition 5.7.
+\end{ex}
+
+\begin{ex}
+	Prove that $\frac{d}{dt}\exp(tA) = A\exp(tA)$.
+\end{ex}
+
+\begin{ex}
+	Let $A$ be an arbitrary square matrix.
+	Prove that $\exp(A)$ is invertible and find its inverse.
+\end{ex}
+
+\begin{ex}
+	Let $A$ be an arbitrary element of $\sl(2, \mathbb{C})$.
+	What can you say about the determinant of $\exp(A)$?
+\end{ex}
+
+\begin{ex}
+	Consider the orthogonal Lie algebra $\so(3, \mathbb{C})$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Find a basis for $\so(3, \mathbb{C})$.
+		\item Compute $\exp(A)$ for each element $A$ of this basis.
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	Let $p$ be prime and let $F$ be a field of characteristic $p$.
+	Consider the following $p \times p$ matrices: \begin{equation*}
+		x = \begin{pmatrix}
+			0      & 1      & 0      & \dots  & 0      \\
+			0      & 0      & 1      & \dots  & 0      \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & 0      & \dots  & 1      \\
+			1      & 0      & 0      & \dots  & 0
+		\end{pmatrix}, \hspace{2em}
+		y = \begin{pmatrix}
+			0      & 0      & \dots  & 0      & 0      \\
+			0      & 1      & \dots  & 0      & 0      \\
+			\vdots & \vdots & \ddots & \vdots & \vdots \\
+			0      & 0      & \dots  & p-2    & 0      \\
+			0      & 0      & \dots  & 0      & p-1
+		\end{pmatrix}.
+	\end{equation*}
+	Check that $[x,y] = x$.
+	Deduce that $x$ and $y$ span a 2-dimensional solvable subalgebra $L$ of $\gl(p, F)$.
+	Show that $x$ and $y$ have no common eigenvector, and so the conclusions of Proposition 6.6 and Lie's Theorem fail.
+	Show that the conclusion of part (i) of Exercise 6.5 also fails.
+\end{ex}
+
+\end{document}
