@@ -245,26 +245,69 @@
 		                 & = ([s, s], [x, x])                           \\
 		                 & = (0, 0).
 	\end{align*}
-    % Now to check the Jacobi identity, which we write as $J((s_1, x_1), (s_2, x_2), (s_3, x_3)) = 0$ for simplicity, we note that because $J$ is linear in each component, so we can break this up into \begin{align*}
-    %     0 & = J((s_1, 0), (s_2, 0), (s_3, 0)) \\
-    %       & = J((s_1, 0), (s_2, 0), (0, x_3)) \\
-    %       & = J((0, x_1
-    % \end{align*}
-    % If we can prove that both terms are themselves zero, we are done.
-	Now to check the Jacobi identity, we have \begin{align*}
-		    & [(s_1, x_1), [(s_2, x_2), (s_3, x_3)]]                                     \\
-		    & + [(s_2, x_2), [(s_3, x_3), (s_1, x_1)]]                                   \\
-		    & + [(s_3, x_3), [(s_1, x_1), (s_2, x_2)]]                                   \\
-		=\  & [(s_1, x_1), ([s_2, s_3], [x_2, x_3] + \theta(s_2)x_3 - \theta(s_3)x_2)]   \\
-		    & + [(s_2, x_2), ([s_3, s_1], [x_3, x_1] + \theta(s_3)x_1 - \theta(s_1)x_3)] \\
-		    & + [(s_3, x_3), ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)] \\
-		=\  & ([s_1, [s_2, s_3]], [x_1, [x_2, x_3] + \theta(s_2)x_3 - \theta(s_3)x_2])   \\
-		    & + [(s_2, x_2), ([s_3, s_1], [x_3, x_1] + \theta(s_3)x_1 - \theta(s_1)x_3)] \\
-		    & + [(s_3, x_3), ([s_1, s_2], [x_1, x_2] + \theta(s_1)x_2 - \theta(s_2)x_1)] \\
-		=\  & \dots                                                                      \\
-		=\  & 0
+	Now to check the Jacobi identity, which we write as $J((s_1, x_1), (s_2, x_2), (s_3, x_3)) = 0$ for simplicity, we note that $J$ is linear in each component, so we can break this up into \begin{align*}
+		0 = & J((s_1, 0), (s_2, 0), (s_3, 0)) + J((0, x_1), (0, x_2), (0, x_3))  \\
+		+   & J((s_1, 0), (s_2, 0), (0, x_3)) + J((0, x_1), (0, x_2), (s_3, 0))  \\
+		+   & J((s_1, 0), (0, x_2), (0, x_3)) + J((0, x_1), (s_2, 0), (s_3, 0))  \\
+		+   & J((s_1, 0), (0, x_2), (s_3, 0)) + J((0, x_1), (s_2, 0), (0, x_3)).
 	\end{align*}
-  This was getting so tedious and time-consuming that I didn't have time to get back to it throughout the week.
+	We also note that the Jacobi identity is cyclically symmetric, i.e. \begin{equation*}
+		J(x, y, z) = J(z, x, y) = J(y, z, x),
+	\end{equation*}
+	so we need only check terms that are distinct with respect to cyclic permutation, namely\begin{align*}
+		 & J((s_1, 0), (s_2, 0), (s_3, 0)), \\
+		 & J((0, x_1), (0, x_2), (0, x_3)), \\
+		 & J((s_1, 0), (s_2, 0), (0, x_3)), \\
+		 & J((0, x_1), (0, x_2), (s_3, 0)).
+	\end{align*}
+	If each of these is zero individually, the eight-term decomposition of $J$ is zero.
+	The first two are immediate since $J((s_1, 0), (s_2, 0), (s_3, 0))$ reduces to the Jacobi identity in $S$, and likewise $J((0, x_1), (0, x_2), (0, x_3))$ reduces to the Jacobi identity in $I$.
+	For the last two, then, we will use the following general rules: \begin{align*}
+		[(s_1, 0), (s_2, 0)] & = ([s_1, s_2], [0, 0] + \theta(s_1)0 - \theta(s_2)0) \\
+		                     & = ([s_1, s_2], 0 + 0 - 0)                            \\
+		                     & = ([s_1, s_2], 0),                                   \\
+		[(0, x_1), (0, x_2)] & = ([0, 0], [x_1, x_2] + \theta(0)x_2 - \theta(0)x_1) \\
+		                     & = (0, [x_1, x_2] + 0 - 0)                            \\
+		                     & = (0, [x_1, x_2]),                                   \\
+		[(s, 0), (0, x)]     & = ([s, 0], [0, x] + \theta(s)x - \theta(0)0)         \\
+		                     & = (0, 0 + \theta(s)x - 0)                            \\
+		                     & = (0, \theta(s)x), \text{ and}                       \\
+		[(0, x), (s, 0)]     & = -[(s, 0), (0, x)]                                  \\
+		                     & = (0, -\theta(s)x).
+	\end{align*}
+	We have \begin{align*}
+		J((s_1, 0), (s_2, 0), (0, x_3)) = & \ [(s_1, 0), [(s_2, 0), (0, x_3)]]                                                                                   \\
+		                                  & + [(s_2, 0), [(0, x_3), (s_1, 0)]]                                                                                   \\
+		                                  & + [(0, x_3), [(s_1, 0), (s_2, 0)]]                                                                                   \\
+		=                                 & \ [(s_1, 0), (0, \theta(s_2)x_3)]                                                                                    \\
+		                                  & + [(s_2, 0), (0, -\theta(s_1)x_3)]                                                                                   \\
+		                                  & + [(0, x_3), ([s_1, s_2], 0)]                                                                                        \\
+		=                                 & \ (0, \theta(s_1)(\theta(s_2)x_3))                                                                                   \\
+		                                  & + (0, \theta(s_2)(-\theta(s_1)x_3))                                                                                  \\
+		                                  & + (0, -\theta([s_1, s_2])x_3)                                                                                        \\
+		=                                 & \ (0, \theta(s_1)\theta(s_2)x_3 - \theta(s_2)\theta(s_1)x_3 - [\theta(s_1), \theta(s_2)]x_3)                         \\
+		=                                 & \ (0, \theta(s_1)\theta(s_2)x_3 - \theta(s_2)\theta(s_1)x_3 - (\theta(s_1)\theta(s_2) - \theta(s_2)\theta(s_1))x_3)  \\
+		=                                 & \ (0, \theta(s_1)\theta(s_2)x_3 - \theta(s_2)\theta(s_1)x_3 - \theta(s_1)\theta(s_2)x_3 + \theta(s_2)\theta(s_1)x_3) \\
+		=                                 & \ (0, 0),
+	\end{align*}
+	and \begin{align*}
+		J((0, x_1), (0, x_2), (s_3, 0)) = & \ [(0, x_1), [(0, x_2), (s_3, 0)]]                                                                    \\
+		                                  & + [(0, x_2), [(s_3, 0), (0, x_1)]]                                                                    \\
+		                                  & + [(s_3, 0), [(0, x_1), (0, x_2)]]                                                                    \\
+		=                                 & \ [(0, x_1), (0, -\theta(s_3)x_2)]                                                                    \\
+		                                  & + [(0, x_2), (0, \theta(s_3)x_1)]                                                                     \\
+		                                  & + [(s_3, 0), (0, [x_1, x_2])]                                                                         \\
+		=                                 & \ (0, [x_1, -\theta(s_3)x_2])                                                                         \\
+		                                  & + (0, [x_2, \theta(s_3)x_1])                                                                          \\
+		                                  & + (0, \theta(s_3)[x_1,x_2])                                                                           \\
+		=                                 & \ (0, -[x_1, \theta(s_3)x_2])                                                                         \\
+		                                  & + (0, [x_2, \theta(s_3)x_1])                                                                          \\
+		                                  & + (0, [\theta(s_3)x_1, x_2] + [x_1, \theta(s_3)x_2])                                                  \\
+		=                                 & \ (0, -[x_1, \theta(s_3)x_2] + [x_2, \theta(s_3)x_1] + [\theta(s_3)x_1, x_2] + [x_1, \theta(s_3)x_2]) \\
+		=                                 & \ (0, -[x_1, \theta(s_3)x_2] + [x_2, \theta(s_3)x_1] - [x_2, \theta(s_3)x_1] + [x_1, \theta(s_3)x_2]) \\
+    =                                 & \ (0, 0).
+	\end{align*}
+  Thus all the terms in the expansion of $J((s_1, x_1), (s_2, x_2), (s_3, x_3))$ are zero, so the Jacobi identity holds.
 \end{proof}
 
 \end{document}

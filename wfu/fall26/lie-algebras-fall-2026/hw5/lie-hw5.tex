@@ -142,6 +142,10 @@
   Let $L = \gl(n, \mathbb{C})$ and let $A$ be the subalgebra of $L$ consisting of all diagonal matrices.
   Show that $N_L(A) = A$.
 \end{ex}
+\begin{proof}
+  As the hint says, we can use the invariance lemma here, concluding that since multiplying a diagonal matrix by another matrix has the effect of just multiplying each $n^{\text{th}}$ row of the second matrix by the $n,n$ entry in the diagonal matrix, for that resultant matrix to be diagonal, the one on the right must have been diagonal in the first place.
+  That gives us the inclusion $N_L(A) \subseteq A$, and $A \subseteq N_L(A)$ already by prior work, so we have $N_L(A) = A$.
+\end{proof}
 
 \begin{ex}
   Show that if $a, y \in \gl(V)$ are linear maps, then for any $m \geq 1$ \begin{equation*}
@@ -154,16 +158,16 @@
   In this formula, the power $y^{m-k}$ acts on $\gl(V)$ as the linear map which sends $x \in \gl(V)$ to $y^{m-k}x$.
 \end{ex}
 
-\begin{ex}
-  This exercise gives an alternative approach to Proposition 5.7.
-  Recall that $V$ is a complex vector space and $x,y \in \gl(V)$ are linear maps such that $[x,y]$ commutes with both $x$ and $y$.
-  \begin{enumerate}[label=(\roman*)]
-    \item Let $z = [x,y]$.
-      Show that $\tr z^m = 0$ for all $m \geq 1$.
-    \item Let $\lambda_1, \dots, \lambda_n$ be the eigenvalues of $[x, y]$.
-      Show that $\lambda_i=0$ for all $i$, and deduce that $[x,y]$ is nilpotent.
-      \textit{Hint:} use the Vandermonde determinant.
-  \end{enumerate}
-\end{ex}
+% \begin{ex}
+%   This exercise gives an alternative approach to Proposition 5.7.
+%   Recall that $V$ is a complex vector space and $x,y \in \gl(V)$ are linear maps such that $[x,y]$ commutes with both $x$ and $y$.
+%   \begin{enumerate}[label=(\roman*)]
+%     \item Let $z = [x,y]$.
+%       Show that $\tr z^m = 0$ for all $m \geq 1$.
+%     \item Let $\lambda_1, \dots, \lambda_n$ be the eigenvalues of $[x, y]$.
+%       Show that $\lambda_i=0$ for all $i$, and deduce that $[x,y]$ is nilpotent.
+%       \textit{Hint:} use the Vandermonde determinant.
+%   \end{enumerate}
+% \end{ex}
 
 \end{document}

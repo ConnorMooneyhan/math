@@ -89,25 +89,25 @@
 	Use the limit definition to show that $f(z) = \overline{z}$ is not complex differentiable anywhere, and $g(z) = |z|^2$ is not complex differentiable at any $z \neq 0$, but is complex differentiable at $z = 0$.
 \end{ex}
 \begin{proof}
-  Taking the derivative along the real axis, we get
+	Taking the derivative along the real axis, we get
 	\begin{align*}
-		f'(z) & = \lim_{w_x \to 0} \frac{f(x+w_x, y) - f(x, y)}{w_x} \\
+		f'(z) & = \lim_{w_x \to 0} \frac{f(x+w_x, y) - f(x, y)}{w_x}   \\
 		      & = \lim_{w_x \to 0} \frac{x + w_x - yi - (x - yi)}{w_x} \\
-		      & = \lim_{w_x \to 0} \frac{x + w_x - yi - x + yi}{w_x} \\
-		      & = \lim_{w_x \to 0} \frac{w_x}{w_x} \\
-		      & = \lim_{w_x \to 0} 1 \\
-          & = 1,
+		      & = \lim_{w_x \to 0} \frac{x + w_x - yi - x + yi}{w_x}   \\
+		      & = \lim_{w_x \to 0} \frac{w_x}{w_x}                     \\
+		      & = \lim_{w_x \to 0} 1                                   \\
+		      & = 1,
 	\end{align*}
-  and taking the derivative along the imaginary axis, we get
+	and taking the derivative along the imaginary axis, we get
 	\begin{align*}
-		f'(z) & = \lim_{w_y \to 0} \frac{f(x, y + w_y) - f(x, y)}{w_y} \\
-          & = \lim_{w_y \to 0} \frac{x - i(y + w_y) - (x - iy)}{w_y} \\
-          & = \lim_{w_y \to 0} \frac{x - iy - iw_y - x + iy}{w_y} \\
-          & = \lim_{w_y \to 0} \frac{-iw_y}{w_y} \\
-          & = \lim_{w_y \to 0} -i \\
-          & = -i.
+		f'(z) & = \lim_{w_y \to 0} \frac{f(x, y + w_y) - f(x, y)}{w_y}   \\
+		      & = \lim_{w_y \to 0} \frac{x - i(y + w_y) - (x - iy)}{w_y} \\
+		      & = \lim_{w_y \to 0} \frac{x - iy - iw_y - x + iy}{w_y}    \\
+		      & = \lim_{w_y \to 0} \frac{-iw_y}{w_y}                     \\
+		      & = \lim_{w_y \to 0} -i                                    \\
+		      & = -i.
 	\end{align*}
-  Since $1 \neq -i$, $f$ is not differentiable.
+	Since $1 \neq -i$, $f$ is not differentiable.
 \end{proof}
 
 \begin{ex}
@@ -115,10 +115,40 @@
 		\gamma_1 = 1 + re^{it}, \hspace{1.5em} \gamma_2(t) = 2+re^{it},\hspace{1.5em} t \in [0, 2\pi].
 	\end{equation*}
 	Compute the following line integrals for $j = 1,2$: \begin{equation*}
-		(a) \int_{\gamma_j} \frac{dz}{1-z} \hspace{1.5em} (b) = \int_{\gamma_j}\frac{dz}{2-z} \hspace{1.5em} \int_{\gamma_j} \frac{dz}{(1-z)^2} \hspace{1.5em} (d) \int_{\gamma_j} \frac{dz}{(2-z)(1-z)}.
+		(a) \int_{\gamma_j} \frac{dz}{1-z} \hspace{1.5em} (b) \int_{\gamma_j}\frac{dz}{2-z} \hspace{1.5em} (c) \int_{\gamma_j} \frac{dz}{(1-z)^2} \hspace{1.5em} (d) \int_{\gamma_j} \frac{dz}{(2-z)(1-z)}.
 	\end{equation*}
 	Hint: for item (d), partial fractions can immediately reduce it to (a) and (b).
 \end{ex}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item Note that $\int_{\gamma_j} \frac{dz}{1-z} = - \int_{\gamma_j} \frac{dz}{z-1}$.
+		      Since $1$ is in the disk enclosed by $\gamma_1$ but not $\gamma_2$, we have \begin{align*}
+			      \int_{\gamma_1} \frac{dz}{1-z} & = -2\pi i \\
+			      \int_{\gamma_2} \frac{dz}{1-z} & = 0
+		      \end{align*}
+		\item By similar logic, we get \begin{align*}
+			      \int_{\gamma_1} \frac{dz}{2-z} & = 0       \\
+			      \int_{\gamma_2} \frac{dz}{2-z} & = -2\pi i
+		      \end{align*}
+		\item  Hmm not sure about this one.
+		      I feel like it should be this, but really just by geometric vibes, comparing it to (a): \begin{align*}
+			      \int_{\gamma_1} \frac{dz}{(1-z)^2} & = -2\pi i \\
+			      \int_{\gamma_2} \frac{dz}{(1-z)^2} & = 0.
+		      \end{align*}
+		      The only other idea I have is that the first one should be positive because all the values are squared, but these are complex values we're talking about, so it could still be negative.
+		      NOTE: I now know that it should be zero for both $\gamma_1$ and $\gamma_2$, which I looked up so I could use it in the next problem.
+		\item  By partial fraction decomposition, we have \begin{equation*}
+			      \frac{-1}{2-z} + \frac{1}{1-z} = \frac{1}{(2-z)(1-z)},
+		      \end{equation*}
+		      so \begin{equation*}
+			      \int_{\gamma_j} \frac{dz}{(2-z)(1-z)} = \int_{\gamma_j}\frac{1}{1-z}-\int_{\gamma_j} \frac{1}{2-z}.
+		      \end{equation*}.
+		      Using (a) and (b) then, we get \begin{align*}
+			      \int_{\gamma_1} \frac{dz}{(2-z)(1-z)} & = -2\pi i \\
+			      \int_{\gamma_2} \frac{dz}{(2-z)(1-z)} & = 2\pi i.
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
 	Consider the linear operator $A : \mathbb{C}^3 \to \mathbb{C}^3$ represented in the standard basis by the matrix \begin{equation*}
@@ -143,5 +173,83 @@
 		      $P_1$ and $P_2$ are called \textit{Riesz projections} associated with $A$.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Note that $(A-1)^2 = \begin{pmatrix}1 & 1 & 0\\0 & 0 & 0\\0 & 0 & 0\end{pmatrix}$ and $A-2 = \begin{pmatrix}0 & 1 & -1 \\ 0 & -1 & 1 \\ 0 & 0 & -1\end{pmatrix}$.
+		      Multiplying by generic elements, we get \begin{align*}
+			      (A-1)^2\begin{pmatrix} a \\ b \\ c \end{pmatrix} & = \begin{pmatrix}1 & 1 & 0\\0 & 0 & 0\\0 & 0 & 0\end{pmatrix} \begin{pmatrix} a \\ b \\ c \end{pmatrix}        \\
+			                                                       & = \begin{pmatrix}a + b \\ 0 \\ 0\end{pmatrix}                                                                  \\
+			      (A-2)\begin{pmatrix} a \\ b \\ c \end{pmatrix}   & = \begin{pmatrix}0 & 1 & -1 \\ 0 & -1 & 1 \\ 0 & 0 & -1\end{pmatrix} \begin{pmatrix} a \\ b \\ c \end{pmatrix} \\
+			                                                       & = \begin{pmatrix}b - c \\ c - b \\ -c\end{pmatrix},
+		      \end{align*}
+		      so if we set each one equal to 0, we get in the first case $\lbrace (a, -a, c) \rbrace$, and in the second case $\lbrace (a, 0, 0) \rbrace$ for the kernels.
+		\item After lots of algebra, we get this: \begin{equation*}
+			      R(z) = \begin{pmatrix}
+				      \frac{1}{2-z} & -\frac{1}{(2-z)(1-z)} & \frac{1}{(1-z)^2}  \\
+				      0             & \frac{1}{1-z}         & -\frac{1}{(1-z)^2} \\
+				      0             & 0                     & \frac{1}{1-z}
+			      \end{pmatrix}
+		      \end{equation*}
+		\item Using Problem 3, we get \begin{align*}
+			      P_1 & = -\frac{1}{2\pi i}\int_{\gamma_1} R(z) dz                                                                                 \\
+			          & = -\frac{1}{2\pi i}\int_{\gamma_1}\begin{pmatrix}
+				                                              \frac{1}{2-z} & -\frac{1}{(2-z)(1-z)} & \frac{1}{(1-z)^2}  \\
+				                                              0             & \frac{1}{1-z}         & -\frac{1}{(1-z)^2} \\
+				                                              0             & 0                     & \frac{1}{1-z}
+			                                              \end{pmatrix}dz                               \\
+			          & = -\frac{1}{2\pi i}\begin{pmatrix}
+				                               \int_{\gamma_1}\frac{1}{2-z} & -\int_{\gamma_1}\frac{1}{(2-z)(1-z)} & \int_{\gamma_1}\frac{1}{(1-z)^2}  \\
+				                               0                            & \int_{\gamma_1}\frac{1}{1-z}         & -\int_{\gamma_1}\frac{1}{(1-z)^2} \\
+				                               0                            & 0                                    & \int_{\gamma_1}\frac{1}{1-z}      \\
+			                               \end{pmatrix} \\
+			          & = -\frac{1}{2\pi i}\begin{pmatrix}
+				                               0 & 2\pi i  & 0       \\
+				                               0 & -2\pi i & 0       \\
+				                               0 & 0       & -2\pi i
+			                               \end{pmatrix}                                                                                   \\
+			          & = \begin{pmatrix}
+				              0 & -1 & 0 \\
+				              0 & 1  & 0 \\
+				              0 & 0  & 1
+			              \end{pmatrix}                                                                                                           \\
+			      P_2 & = -\frac{1}{2\pi i}\int_{\gamma_2} R(z) dz                                                                                 \\
+			          & = -\frac{1}{2\pi i}\int_{\gamma_2}\begin{pmatrix}
+				                                              \frac{1}{2-z} & -\frac{1}{(2-z)(1-z)} & \frac{1}{(1-z)^2}  \\
+				                                              0             & \frac{1}{1-z}         & -\frac{1}{(1-z)^2} \\
+				                                              0             & 0                     & \frac{1}{1-z}
+			                                              \end{pmatrix}dz                               \\
+			          & = -\frac{1}{2\pi i}\begin{pmatrix}
+				                               \int_{\gamma_2}\frac{1}{2-z} & -\int_{\gamma_2}\frac{1}{(2-z)(1-z)} & \int_{\gamma_2}\frac{1}{(1-z)^2}  \\
+				                               0                            & \int_{\gamma_2}\frac{1}{1-z}         & -\int_{\gamma_2}\frac{1}{(1-z)^2} \\
+				                               0                            & 0                                    & \int_{\gamma_2}\frac{1}{1-z}      \\
+			                               \end{pmatrix} \\
+			          & = -\frac{1}{2\pi i}\begin{pmatrix}
+				                               -2\pi i & -2\pi i & 0 \\
+				                               0       & 0       & 0 \\
+				                               0       & 0       & 0 \\
+			                               \end{pmatrix}                                                                                   \\
+			          & = \begin{pmatrix}
+				              1 & 1 & 0 \\
+				              0 & 0 & 0 \\
+				              0 & 0 & 0 \\
+			              \end{pmatrix}                                                                                                           \\
+		      \end{align*}
+		\item
+		      We have \begin{align*}
+			       & P_1^2 = \begin{pmatrix}1 & -1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}^2 = \begin{pmatrix}1 & -1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} \\
+			       & P_2^2 = \begin{pmatrix}0 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}^2 = \begin{pmatrix}0 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}
+		      \end{align*}
+          and \begin{align*}
+            & P_1 \begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}1 & -1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}a - b \\ 0 \\ 0\end{pmatrix} \\
+			       & P_2 \begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}0 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix}\begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}b \\ b \\ c\end{pmatrix},
+		      \end{align*}
+          which when compared to the calculations from earlier doesn't seem to quite match up.
+		      That they complement each other is apparent from the matrix representations, and \begin{align*}
+			      P_1P_2 & = \begin{pmatrix}1 & -1 & 0\\0 & 0 & 0\\0 & 0 & 0\end{pmatrix}\begin{pmatrix}0 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{pmatrix} \\
+			             & = \begin{pmatrix}0 & 0 & 0\\0 & 0 & 0\\0 & 0 & 0\end{pmatrix}
+		      \end{align*}
+		      as desired.
+	\end{enumerate}
+\end{proof}
 
 \end{document}
