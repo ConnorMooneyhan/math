@@ -54,6 +54,15 @@
 	Show that $L$ is nilpotent if and only if every 2-dimensional subalgebra of $L$ is abelian.
 	(Use the second version of Engel's Theorem.)
 \end{ex}
+\begin{proof}
+	By Engel's Theorem, we can alternatively show that every 2-dimensional subalgebra is abelian if and only if for all $x \in L$, $\ad x$ is nilpotent.
+
+	If $\ad x$ is not nilpotent for some $x \in L$, then it has some nonzero eigenvalue $\lambda$.
+	Let $y$ be an eigenvector corresponding to $\lambda$.
+	Then $\mathrm{span}\lbrace x, y \rbrace$ is a subalgebra and $[x, y] \neq 0$ by construction, so this is a two-dimensional subalgebra which is not abelian.
+
+	On the other hand, if there is a nonabelian 2-dimensional subalgebra $A \subseteq L$, by the classification of nonabelian 2-dimensional Lie algebras, we have a basis $\lbrace x, y \rbrace$ such that $[x, y] = y$, so $\ad x$ has 1 as an eigenvalue, meaning it cannot be nilpotent.
+\end{proof}
 
 \begin{ex}\
 	\begin{enumerate}[label=(\roman*)]
@@ -63,6 +72,17 @@
 		      Show that $L$ is solvable if and only if $L'$ is nilpotent.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\roman*)]
+		\item By Lie's theorem, there is a basis $x_1, \dots, x_n$ where $n = \dim V$ under which every element of $L$ is represented by an upper triangular matrix.
+		      As we have seen, this means that an element of $L'$, being a linear combination of brackets of upper triangular matrices (and thus upper triangular itself since upper triangular matrices form a subspace) is strictly upper triangular, and thus nilpotent as a map, as desired.
+		\item If $L'$ is nilpotent, then it is also solvable, so since $L^{(k+1)} = (L')^{(k)}$ and there is some $j$ for which $(L')^{(j)} = 0$, we have $L^{(j + 1)} = 0$ so $L$ is solvable.
+
+		      Now if $L$ is solvable, then $\ad L$ is a solvable Lie subalgebra of $\gl(L)$ since $\ad$ is a Lie algebra homomorphism.
+		      Thus every element of $(\ad L)'$ is a nilpotent endomorphism of $L$ by (i).
+		      Now since $\ad L' = (\ad L)'$, by Engel's theorem we have $L'$ is nilpotent.
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
 	Use Lie's Theorem to give another proof of Proposition 5.7.
@@ -71,16 +91,83 @@
 \begin{ex}
 	Prove that $\frac{d}{dt}\exp(tA) = A\exp(tA)$.
 \end{ex}
+\begin{proof}
+	%\begin{align*}
+	%\frac{d}{dt}\mathrm{exp}(tA) & = \frac{d}{dt}\left( 1 + tA + \frac{t^2A^2}{2!} + \frac{t^3A^3}{3!} + \frac{t^4A^4}{4!} + \cdots \right) \\
+	%& = \frac{d}{dt} 1 + \frac{d}{dt} tA + \frac{d}{dt} \frac{t^2A^2}{2!} + \frac{d}{dt} \frac{t^3A^3}{3!} + \frac{d}{dt} \frac{t^4A^4}{4!} + \cdots \\
+	%& = 0 + t + \frac{2tA}{2!} + \frac{3t^3A^2}{3!} + \frac{4t^3A^3}{4!} \cdots \\
+	%& = t + tA + \frac{tA^2}{2!} + \frac{tA^2}{2!} \cdots \\
+	%\end{align*}
+	\begin{align*}
+		\frac{d}{dt}\mathrm{exp}(tA) & = \frac{d}{dt} \left(1 + \sum_{i=1}^\infty \frac{t^iA^i}{i!}\right) \\
+		                             & = \frac{d}{dt}1 + \sum_{i=1}^\infty \frac{d}{dt}\frac{t^iA^i}{i!}   \\
+		                             & = \sum_{i=1}^\infty \frac{it^{i-1}A^i}{i!}                          \\
+		                             & = \sum_{i=0}^\infty \frac{(i+1)t^iA^{i+1}}{(i+1)!}                  \\
+		                             & = \sum_{i=0}^\infty \frac{t^iA^{i+1}}{i!}                           \\
+		                             & = A\sum_{i=0}^\infty \frac{t^iA^{i}}{i!}                            \\
+		                             & = A\mathrm{exp}(tA)
+	\end{align*}
+\end{proof}
 
 \begin{ex}
 	Let $A$ be an arbitrary square matrix.
 	Prove that $\exp(A)$ is invertible and find its inverse.
 \end{ex}
+\begin{proof}
+	We will show that the inverse of $\exp(A)$ is $\exp(-A)$.
+	Define $f(t) = \exp(tA)\exp(-tA)$.
+	We will show that when $t = 1$, $f(t)$ is the identity map.
+	Then using the power rule together with problem 4, we have \begin{align*}
+		\frac{d}{dt} f(t) & = \frac{d}{dt} \exp(tA)\exp(-tA)                                                              \\
+		                  & = \left(\frac{d}{dt} \exp(tA)\right)\exp(-tA) + \left(\exp(tA)\frac{d}{dt} \exp(t(-A))\right) \\
+		                  & = A\exp(tA)\exp(-tA) + \exp(tA)(-A)\exp(-tA)                                                  \\
+		                  & = A\exp(tA)\exp(-tA) + (-A)\exp(tA)\exp(-tA)                                                  \\
+		                  & = A\exp(tA)\exp(-tA) - A\exp(tA)\exp(-tA)                                                     \\
+		                  & = 0.
+	\end{align*}
+	where the fourth equality comes from realizing that $-A$ commutes with $\exp(tA)$ because it commutes with each term in the series defining $\exp(tA)$.
+	Thus $f(t)$ is constant over $t$, so in particular its value at $t = 0$ is also its value at $t = 1$.
+	Of course, \begin{equation*}
+		f(0) = \exp(0A)\exp(-0A) = \exp(0)\exp(0) = 1 \cdot 1 = 1,
+	\end{equation*} so then we also have $f(1) = 1$ (the identity map), as desired.
+\end{proof}
 
 \begin{ex}
 	Let $A$ be an arbitrary element of $\sl(2, \mathbb{C})$.
 	What can you say about the determinant of $\exp(A)$?
 \end{ex}
+\begin{proof}
+	First we observe that for $A, P \in \sl(2, \mathbb{C})$, \begin{align*}
+		P\exp(A)P^{-1} & = P\left(\sum_{n=0}^\infty \frac{A^n}{n!}\right)P^{-1} \\
+		               & = \sum_{n=0}^\infty \frac{PA^nP^{-1}}{n!}              \\
+		               & = \sum_{n=0}^\infty \frac{(PAP^{-1})^n}{n!}            \\
+		               & = \exp(PAP^{-1}),
+	\end{align*}
+	so conjugating before taking $\exp$ gives the same result as conjugating afterwards.
+	Thus since \begin{align*}
+		\det(P\exp(A)P^{-1}) & = \det(P)\det(\exp(A))\det(P^{-1}) \\
+		                     & = \det(P)\det(P^{-1})\det(\exp(A)) \\
+		                     & = \det(PP^{-1})\det(\exp(A))       \\
+		                     & = \det(1)\det(\exp(A))             \\
+		                     & = 1\cdot\det(\exp(A))              \\
+		                     & = \det(\exp(A)),
+	\end{align*}
+	$\exp(A)$ has the same determinant as any matrix similar to it (in the sense of being related by conjugation).
+	Since every square matrix over $\mathbb{C}$ is similar to an upper triangular matrix, we henceforth treat $A$ as upper triangular.
+	Along its diagonal, we have the eigenvalues $\lambda_1$ and $\lambda_2$.
+	Along the diagonal of $A^n$, we have $\lambda_1^n$ and $\lambda_2^n$.
+	Thus along the diagonal of $\exp(A)$, we have \begin{equation*}
+		\sum_{n=0}^\infty \frac{\lambda_i^n}{n!} = e^{\lambda_i}
+	\end{equation*}
+	for $i=1,2$.
+	Thus \begin{align*}
+		\det(\exp(A)) & = e^{\lambda_1}e^{\lambda_2} \\
+		              & = e^{\lambda_1 + \lambda_2}  \\
+		              & = e^{\tr(A)}.
+	\end{align*}
+	Note that the above argument works for any square matrix; we have not used anything special about the dimension besides the number of eigenvalues, and we have not used anything special about the trace of $A$ being 0.
+	Now, however, we use $\tr(A) = 0$ to conclude that $\det(\exp(A)) = e^0 = 1$.
+\end{proof}
 
 \begin{ex}
 	Consider the orthogonal Lie algebra $\so(3, \mathbb{C})$.
@@ -89,6 +176,52 @@
 		\item Compute $\exp(A)$ for each element $A$ of this basis.
 	\end{enumerate}
 \end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item Recall that $\so(3, \mathbb{C}) = \lbrace x \in \gl(3, \mathbb{C}) : x^tS = -Sx \rbrace$ where \begin{equation*}
+			      S = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}.
+		      \end{equation*}
+		      If $x \in \gl(3, \mathbb{C})$, note that $S^2 = I_3$ and $S^t = S$, so \begin{align*}
+			      (Sx)^t = x^tS^t = x^tS,
+			      % (Sx)^2 & = -x^tSSx = -x^tx    \\
+			      % (Sx)^3 & = -x^txSx = x^txx^tS \\
+		      \end{align*}
+		      so $-Sx = (Sx)^t$, or in other words, $Sx$ is skew-symmetric.
+		      In fact, noting that $S(Sx) = x$, if you take any skew-symmetric matrix and multiply it on the left by $S$, it satisfies the property $x^tS = -Sx$, so $\so(3, \mathbb{C})$ \textbf{is} the set of $3 \times 3$ skew-symmetric matrices multiplied on the left by $S$.
+		      A basis for $3 \times 3$ skew-symmetric matrices is \begin{align*}
+			      \lbrace e_{12} - e_{21}, e_{13} - e_{31}, e_{23} - e_{32} \rbrace.
+		      \end{align*}
+		      Since $S$ just swaps the second and third rows, it is a bijection, and thus $y \mapsto Sy$ is a (linear) bijection, and we can map the above basis to a basis of $\so(3, \mathbb{C})$ by multiplying on the left by $S$ to get \begin{equation*}
+			      \lbrace e_{12} - e_{31}, e_{13} - e_{21}, e_{33} - e_{22} \rbrace.
+		      \end{equation*}
+
+		      % Notice that given a skew-symmetric matrix $y$, we have \begin{align*}
+		      % Sy & = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}\begin{pmatrix} x_1 & x_2 & x_3 \\ -x_2 & x_4 & x_5 \\ -x_3 & -x_5 & x_6\end{pmatrix} \\
+		      % & = \begin{pmatrix} x_1 & x_2 & x_3 \\ -x_3 & -x_5 & x_6 \\ -x_2 & x_4 & x_5 \end{pmatrix}
+		      % \end{align*}
+		\item We have \begin{align*}
+			      (e_{12}-e_{31})^2 & = -e_{32}                     \\
+			      (e_{12}-e_{31})^3 & = -e_{32}(e_{12}-e_{31}) = 0,
+		      \end{align*}
+		      so $\exp(e_{12}-e_{31}) = 1 + e_{12} - e_{31} - e_{32}/2$, \begin{align*}
+			      (e_{13} - e_{21})^2 & = -e_{23}                     \\
+			      (e_{13} - e_{21})^3 & = -e_{23}(e_{13}-e_{21}) = 0,
+		      \end{align*}
+		      so $\exp(e_{13} - e_{21}) = 1 + e_{13} - e_{21} - e_{23}/2$, and \begin{align*}
+			      (e_{33} - e_{22})^2 & = e_{33} + e_{22}                                       \\
+			      (e_{33} - e_{22})^3 & = (e_{33} + e_{22})(e_{33} - e_{22}) = e_{33} - e_{22},
+		      \end{align*}
+		      so \begin{align*}
+			      \exp(e_{33} - e_{22}) & = 1 + (e_{33} - e_{22}) + (e_{33} + e_{22})/2 + (e_{33} - e_{22})/6 + \cdots                                                                       \\
+			                            & = 1 - e_{33} - e_{22} + e_{33}\sum_{n=0}^\infty \frac{1}{n!} + e_{22}\sum_{m=0}^\infty \frac{(-1)^m}{m!}                                           \\
+			                            & = 1 - e_{33} - e_{22} + e_{33}\cdot e + e_{22} \cdot e^{-1}                                                                                        \\
+			                            & = 1 + e_{33}(e - 1) + e_{22}(e^{-1}-1)                                                                                                             \\
+			                            & = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} + \begin{pmatrix} 0 & 0 & 0 \\ 0 & e^{-1} - 1 & 0 \\ 0 & 0 & e-1 \end{pmatrix} \\
+			                            & = \begin{pmatrix} 1 & 0 & 0 \\ 0 & e^{-1} & 0 \\ 0 & 0 & e \end{pmatrix}                                                                           \\
+			                            & = e_{11} + e^{-1}\cdot e_{22} + e\cdot e_{33}.
+		      \end{align*}
+	\end{enumerate}
+\end{proof}
 
 \begin{ex}
 	Let $p$ be prime and let $F$ be a field of characteristic $p$.
@@ -111,7 +244,72 @@
 	Check that $[x,y] = x$.
 	Deduce that $x$ and $y$ span a 2-dimensional solvable subalgebra $L$ of $\gl(p, F)$.
 	Show that $x$ and $y$ have no common eigenvector, and so the conclusions of Proposition 6.6 and Lie's Theorem fail.
-	Show that the conclusion of part (i) of Exercise 6.5 also fails.
+	Show that the conclusion of part (i) of \#2 also fails.
 \end{ex}
+\begin{proof}
+	Indeed, \begin{align*}        & [x, y]                                                                                  \\
+                      & = \begin{pmatrix}
+		                          0      & 1      & 0      & \dots  & 0      \\
+		                          0      & 0      & 1      & \dots  & 0      \\
+		                          \vdots & \vdots & \vdots & \ddots & \vdots \\
+		                          0      & 0      & 0      & \dots  & 1      \\
+		                          1      & 0      & 0      & \dots  & 0
+	                          \end{pmatrix} \begin{pmatrix}
+		                                        0      & 0      & \dots  & 0      & 0      \\
+		                                        0      & 1      & \dots  & 0      & 0      \\
+		                                        \vdots & \vdots & \ddots & \vdots & \vdots \\
+		                                        0      & 0      & \dots  & p-2    & 0      \\
+		                                        0      & 0      & \dots  & 0      & p-1
+	                                        \end{pmatrix} - \begin{pmatrix}
+		                                                        0      & 0      & \dots  & 0      & 0      \\
+		                                                        0      & 1      & \dots  & 0      & 0      \\
+		                                                        \vdots & \vdots & \ddots & \vdots & \vdots \\
+		                                                        0      & 0      & \dots  & p-2    & 0      \\
+		                                                        0      & 0      & \dots  & 0      & p-1
+	                                                        \end{pmatrix}\begin{pmatrix}
+		                                                                     0      & 1      & 0      & \dots  & 0      \\
+		                                                                     0      & 0      & 1      & \dots  & 0      \\
+		                                                                     \vdots & \vdots & \vdots & \ddots & \vdots \\
+		                                                                     0      & 0      & 0      & \dots  & 1      \\
+		                                                                     1      & 0      & 0      & \dots  & 0
+	                                                                     \end{pmatrix} \\
+                      & = \begin{pmatrix}
+		                          0      & 1      & \dots  & 0      & 0      \\
+		                          \vdots & \vdots & \ddots & \vdots & \vdots \\
+		                          0      & 0      & \dots  & p-2    & 0      \\
+		                          0      & 0      & \dots  & 0      & p-1    \\
+		                          0      & 0      & \dots  & 0      & 0
+	                          \end{pmatrix} - \begin{pmatrix}
+		                                          0      & 0      & 0      & \dots  & 0      \\
+		                                          0      & 0      & 1      & \dots  & 0      \\
+		                                          \vdots & \vdots & \vdots & \ddots & \vdots \\
+		                                          0      & 0      & 0      & \dots  & p-2    \\
+		                                          p - 1  & 0      & 0      & \dots  & 0
+	                                          \end{pmatrix}                            \\
+                      & = \begin{pmatrix}
+		                          0      & 1      & 0      & \dots  & 0      \\
+		                          0      & 0      & 1      & \dots  & 0      \\
+		                          \vdots & \vdots & \vdots & \ddots & \vdots \\
+		                          0      & 0      & 0      & \dots  & 1      \\
+		                          1 - p  & 0      & 0      & \dots  & 0
+	                          \end{pmatrix}                                            \\
+                      & = \begin{pmatrix}
+		                          0      & 1      & 0      & \dots  & 0      \\
+		                          0      & 0      & 1      & \dots  & 0      \\
+		                          \vdots & \vdots & \vdots & \ddots & \vdots \\
+		                          0      & 0      & 0      & \dots  & 1      \\
+		                          1      & 0      & 0      & \dots  & 0
+                      \end{pmatrix} \text{ (since $F$ has characteristic $p$) }                                            \\
+                      & = x.
+	\end{align*}
+  Thus $x$ and $y$ span a 2-dimensional nonabelian solvable subalgebra $L$ of $\gl(p, F)$ by the classification of low-dimensional nonabelian Lie algebras.
+  
+  Now for eigenvectors, note that since $y$ is diagonal and each eigenvalue is distinct since $F$ has characteristic $p$, the eigenvectors are multiplies of the standard basis vectors $e_i$.
+  Thus choose one such $e_i$ corresponding to $\lambda_i$, and note that $ye_i = \lambda_i e_i$.
+  Then $x(\lambda_ie_i)$ returns the $i^{\text{th}}$ column of $x$ multiplied by $\lambda_i$.
+  This cannot be a multiple of $\lambda_ie_i$, however, since $x$ has the effect of moving the top row to the bottom, so $\lambda_ie_i$ is not an eigenvector of $x$, and thus $x$ and $y$ have no shared eigenvectors.
+
+  Finally, since $x = [x, y]$, $x \in L'$, but since it just shifts the top row to the bottom, it is not nilpotent, contradicting the conclusion of 2(i).
+\end{proof}
 
 \end{document}
