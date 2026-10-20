@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 7}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Show that $C^0[0, 1]$ in the supremum norm is not an inner product space (that is, the norm cannot come from an inner product).
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	In this problem we review the Gram--Schmidt process: Let $x_1, x_2, \dots$ be a sequence of linearly independent vectors in an inner product space.
+	Define vectors inductively by: \begin{align*}
+		 & e_1 = x_1 / \|x_1\|;                                                                                                \\
+		 & f_n = x_n - \sum_{j=1}^{n-1} \langle x_n, e_j \rangle e_j, \hspace{1.5em} \text{and} \hspace{1.5em} e_n = f_n / \|f_n\|, \hspace{1.5em} \text{for } n \geq 2.
+	\end{align*}
+	Show that $\lbrace e_n \rbrace$ is an orthonormal sequence with the property that the span of $\lbrace x_1, x_2, \dots, x_n \rbrace$ is the same as the span of $\lbrace e_1, e_2, \dots, e_n \rbrace$ for each $n$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Apply the Gram--Schmidt process (Problem 2) to the three vectors $\lbrace 1, x, x^2 \rbrace$ in the space $L^2[-1, 1]$.
+	Use your answer to find the distance from $x^3$ to the span of $\lbrace 1, x, x^2 \rbrace$, i.e., \begin{equation*}
+		\min_{a, b, c \in \mathbb{C}} \int_{-1}^1 \left| x^3 - a - bx - cx^2 \right|^2 dx.
+	\end{equation*}
+	Remark: when the Gram--Schmidt process is applied to the sequence $1, x, x^2, x^3, \dots$, the resulting vectors are called the \textit{Legendre polynomials}.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Complete the argument outlined below, originally due to Riesz, to give a proof of the completeness of $L^2[a, b]$.
+	Let $\lbrace f_n \rbrace$ be a Cauchy sequence in $L^2[a, b]$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $\lbrace \|f_n\| \rbrace$ is a Cauchy sequence of scalars, and hence a bounded sequence, say $\|f_n\| \leq M$.
+		\item Show that for fixed $g \in L^2[a, b]$, the sequence $\int_a^b f_ng \, dx$ is Cauchy and its limit, call it $\alpha_g$, satisfies the bound $|\alpha_g| \leq M\|g\|$.
+		\item Define $\Lambda : L^2[a, b] \to \mathbb{C}$ by $\Lambda(g) = \alpha_g$.
+		      Use the Riesz representation theorem to show that there exists $F \in L^2[a, b]$ with $\alpha_g = \int_a^b Fg \, dx$ for all $g \in L^2[a, b]$.
+		\item Show that $f_n$ converges to $F$ in $L^2[a, b]$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		\item
+		\item
+		\item
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	A sequence $\lbrace h_n \rbrace$ in a Hilbert space $\mathscr{H}$ is said to \textit{converge weakly} to $h \in \mathscr{H}$ if \begin{equation*}
+		\lim_{n \to \infty} \langle h_n, g \rangle = \langle h, g \rangle
+	\end{equation*}
+	for every $g \in \mathscr{H}$.
+	\begin{enumerate}[label=(\alph*)]
+		\item If $\lbrace e_n \rbrace$ is an orthonormal sequence in $\mathscr{H}$, show that $e_n \to 0$ weakly.
+		\item Show that if $h_n \to h$ in norm, then $h_n \to h$ weakly.
+		      Show that the converse is false, but that if $h_n \to h$ weakly and $\|h_n\| \to \|h\|$, then $h_n \to h$ in norm.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		\item
+	\end{enumerate}
+\end{proof}
+
+\end{document}
