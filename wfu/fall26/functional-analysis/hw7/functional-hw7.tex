@@ -49,19 +49,35 @@
 	Show that $C^0[0, 1]$ in the supremum norm is not an inner product space (that is, the norm cannot come from an inner product).
 \end{ex}
 \begin{proof}
-
+	Let $f(x) = x - 1$ and $g(x) = -x$.
+	Then $||f||_{op} = ||g||_{op} = 1$, and since $f + g \equiv -1$ and $(f-g)(x) = 2x-1$, $||f+g||_{op} = ||f - g||_{op} = 1$, so\begin{equation*}
+		||f+g||^2 + ||f-g||^2 = 2
+	\end{equation*} but \begin{equation*}
+		2(||f||^2 + ||g||^2) = 4,
+	\end{equation*}
+	so the parallelogram equality does not hold.
 \end{proof}
 
 \begin{ex}
 	In this problem we review the Gram--Schmidt process: Let $x_1, x_2, \dots$ be a sequence of linearly independent vectors in an inner product space.
 	Define vectors inductively by: \begin{align*}
-		 & e_1 = x_1 / \|x_1\|;                                                                                                \\
+		 & e_1 = x_1 / \|x_1\|;                                                                                                                                          \\
 		 & f_n = x_n - \sum_{j=1}^{n-1} \langle x_n, e_j \rangle e_j, \hspace{1.5em} \text{and} \hspace{1.5em} e_n = f_n / \|f_n\|, \hspace{1.5em} \text{for } n \geq 2.
 	\end{align*}
 	Show that $\lbrace e_n \rbrace$ is an orthonormal sequence with the property that the span of $\lbrace x_1, x_2, \dots, x_n \rbrace$ is the same as the span of $\lbrace e_1, e_2, \dots, e_n \rbrace$ for each $n$.
 \end{ex}
 \begin{proof}
-
+	We first note that each $e_n$ is normal by construction, so we prove orthogonality.
+	For any $n < m$, we have \begin{align*}
+		||f_n||\cdot||f_m||\langle e_n, e_m \rangle & = \left\langle f_n, f_m \right\rangle                                                                                                             \\
+		                                            & = \left\langle x_n - \sum_{i=1}^{n-1}\langle x_n, e_i\rangle e_i, x_m - \sum_{j=1}^{m-1}\langle x_m, e_j\rangle e_j \right\rangle                 \\
+		                                            & = \langle x_n, x_m \rangle + \sum_{i=1}^{n-1}\sum_{j=1}^{m-1} \left\langle\langle x_n, e_i \rangle e_i, \langle x_m, e_j \rangle e_j\right\rangle \\
+		                                            & = \langle x_n, x_m \rangle + \sum_{i=1}^{n-1}\sum_{j=1}^{m-1}\langle x_n, e_i \rangle \overline{\langle x_m, e_j \rangle} \langle e_i, e_j\rangle \\
+		                                            & = \sum_{i=1}^{n-1}\langle x_n, e_i \rangle \overline{\langle x_m, e_i \rangle} \langle e_i, e_i\rangle                                            \\
+		                                            & = \sum_{i=1}^{n-1}\langle x_n, e_i \rangle \overline{\langle x_m, e_i \rangle}                                                                    \\
+		                                            & = \dots0\text{? not sure how to get there},
+	\end{align*}
+	where the fifth equality comes from the fact that the $x_i$ are linearly independent and the $e_i$ are linearly independent.
 \end{proof}
 
 \begin{ex}
@@ -72,7 +88,36 @@
 	Remark: when the Gram--Schmidt process is applied to the sequence $1, x, x^2, x^3, \dots$, the resulting vectors are called the \textit{Legendre polynomials}.
 \end{ex}
 \begin{proof}
-
+	First, we have \begin{align*}
+		e_1 & = \frac{1}{||1||}                                  \\
+		    & = \frac{1}{\left( \int_{-1}^1 1dt \right)}         \\
+		    & = \frac{1}{\left( \int_{-1}^1 1^2dx \right)^{1/2}} \\
+		    & = \frac{1}{\sqrt{2}}.
+	\end{align*}
+	Now \begin{align*}
+		f_2 & = x - \langle x, 1/\sqrt{2}\rangle 1/\sqrt{2} \\
+		    & = x - 1/\sqrt{2} \int_{-1}^1 x/\sqrt{2} dx    \\
+		    & = x - 1/\sqrt{2} \cdot 0                      \\
+		    & = x,
+	\end{align*}
+	and $||f_2|| = \left(\int_{-1}^1 x^2\right)^{1/2} = (2/3)^{1/2}$, so $e_2 = \sqrt{3}\cdot x/\sqrt{2}$.
+	Finally, \begin{align*}
+		f_3 & = x^2 - \langle x^2, \sqrt3 \cdot x/\sqrt2 \rangle \sqrt3\cdot x/\sqrt2 - \langle x^2, 1/\sqrt2 \rangle /\sqrt2 \\
+		    & = x^2 - \sqrt3\cdot x/\sqrt2\int_{-1}^1 \sqrt3 \cdot x^3/\sqrt2 dx  -  1/\sqrt2 \int_{-1}^1 x^2/\sqrt2 dx       \\
+		    & = x^2 - 3 x/2\int_{-1}^1 x^3 dx  -  1/2 \int_{-1}^1 x^2 dx                                                      \\
+		    & = x^2 - 3 x/2 \cdot 0  -  1/3                                                                                   \\
+		    & = x^2 - 1/3,
+	\end{align*}
+	and \begin{align*}
+		||f_3|| & = \left(\int_{-1}^1 x^4 - 2x^2/3 + 1/9 dx\right)^{1/2} \\
+		        & = \left(2/5 - 4/9 + 2/9\right)^{1/2}                   \\
+		        & = \left(18/45 - 20/45 + 10/45\right)^{1/2}             \\
+		        & = \left(8/45\right)^{1/2}                              \\
+		        & = \frac{2\sqrt2}{3\sqrt5},
+	\end{align*}
+	so \begin{align*}
+		e_3 & = \frac{3\sqrt5 x^2 - \sqrt5}{2\sqrt2}.
+	\end{align*}
 \end{proof}
 
 \begin{ex}
@@ -88,10 +133,38 @@
 \end{ex}
 \begin{proof}\
 	\begin{enumerate}[label=(\alph*)]
-		\item
-		\item
-		\item
-		\item
+		\item Given $\varepsilon > 0$, we can find an $N$ such that $m, n \geq N \implies ||f_m - f_n|| < \varepsilon$.
+		      Since \begin{equation*}
+			      ||f_m|| - ||f_n|| \leq ||f_m - f_n|| < \varepsilon
+		      \end{equation*}
+		      and \begin{equation*}
+			      ||f_n|| - ||f_m|| \leq ||f_n - f_m|| = ||f_m - f_n|| < \varepsilon,
+		      \end{equation*}
+		      we have \begin{equation*}
+			      |||f_n|| - ||f_m||| < \varepsilon
+		      \end{equation*}
+		      and thus $\lbrace||f_n||\rbrace$ is a Cauchy sequence.
+		\item Given $\varepsilon > 0$, let $\delta = \frac{\varepsilon}{\int_a^b ||g|| dx}$ and let $N > 0$ such that $||f_m-f_n||<\varepsilon$ whenever $m, n \geq N$, and let $m, n \geq N$.
+		      Then \begin{align*}
+			      \left|\left| \int_a^b f_m g dx - \int_a^b f_n g dx \right|\right| & = \left|\left| \int_a^b (f_m-f_n) g dx \right|\right| \\
+                                                                              & \leq \int_a^b ||(f_m-f_n)g|| dx \\
+                                                                              & \leq \int_a^b ||f_m-f_n|| \cdot ||g|| dx \\
+                                                                              & < \delta \int_a^b ||g||dx \\
+                                                                              & = \varepsilon.
+		      \end{align*}
+          This is so close to the bound we're looking for, but I feel as though it went slightly awry somewhere. I want to say something like that the second-to-last line simplifies to $\delta (b-a)||g||dx$, or perhaps is less than or equal to that, but I'm not quite convinced.
+        \item Since by definition $\langle f, g \rangle = \int_a^b fg dx$ (there should be a conjugate of $G$ here if we're working over $\mathbb{C}$, which I'm not sure how to deal with, so I'll work over $\mathbb{R}$!), we just need to show that $\Lambda$ is a bounded linear functional.
+          Indeed, \begin{align*}
+            \Lambda (\alpha \varphi + \beta \psi) & = \lim_{n \to \infty} \int_a^b f_n (\alpha\varphi + \beta\psi) dx \\
+            & = \lim_{n \to \infty} \int_a^b \alpha f_n \varphi + \beta f_n \psi dx \\
+            & = \lim_{n \to \infty} \alpha \int_a^b f_n \varphi + \lim_{n \to \infty} \beta\int_{n \to \infty}  f_n \psi dx \\
+            & = \alpha\Lambda(\varphi) + \beta\Lambda(\psi),
+          \end{align*}
+          and whenever $g \not\equiv 0$, \begin{equation*}
+            \frac{||\Lambda g||}{||g||} \leq \frac{M||g||}{||g||} = M,
+          \end{equation*}
+          so $\Lambda$ is linear and bounded, and Riesz gives us the $F$ we want.
+		\item Since $\langle f_n, g \rangle \to \langle F, g \rangle$ for every $g$, we have $f_n \to F$ as desired.
 	\end{enumerate}
 \end{proof}
 
@@ -108,8 +181,22 @@
 \end{ex}
 \begin{proof}\
 	\begin{enumerate}[label=(\alph*)]
-		\item
-		\item
+		\item We want to show that given $g \in \mathscr{H}$, \begin{equation*}
+			      \lim_{n\to\infty} \langle e_n, g \rangle = \langle 0, g \rangle = 0.
+		      \end{equation*}
+		      The only thing I can think to use here is Bessel's inequality, but I'm not sure how I get to this expression from the sum in Bessel's inequality, and I'm not sure how that gets me all the way down to zero.
+        \item If $h_n \to h$ in the norm, then $\lim_{n \to\infty} ||h_n - h|| = 0$, so \begin{align*}
+            \left|\left(\lim_{n\to\infty} \langle h_n, g \rangle\right) - \langle h, g \rangle\right| & = \left|\lim_{n\to\infty} \left(\langle h_n, g \rangle - \langle h, g \rangle\right)\right| \\
+            & = \left|\lim_{n \to \infty} \langle h_n - h, g \rangle\right| \\
+            & = \lim_{n \to \infty} \left|\langle h_n - h, g \rangle\right| \\
+            & \leq \lim_{n \to \infty} ||h_n - h||\cdot||g|| \\
+            & = \lim_{n \to \infty} ||h_n - h||\cdot\lim_{n \to \infty}||g|| \\
+            & = 0.
+        \end{align*}
+        Now if $h_n \to h$ weakly and $||h_n|| \to ||h||$, then \begin{align*}
+          \lim_{n \to \infty}||h_n - h||\dots
+        \end{align*}
+        the only thing I can thing to use is a reverse triangle inequality, but that gives me a $\geq$ and I want a $\leq$.
 	\end{enumerate}
 \end{proof}
 
