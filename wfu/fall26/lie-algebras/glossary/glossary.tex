@@ -1,0 +1,281 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{mlmodern}
+\usepackage{changepage}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\newcommand{\gl}{\mathfrak{gl}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+% ENTRY SETUP START
+\ExplSyntaxOn
+
+\seq_new:N \g_entries_seq
+\seq_new:N \g_def_entries_seq
+\seq_new:N \g_thm_entries_seq
+
+\prop_new:N \g_entry_titles_prop
+
+\NewDocumentEnvironment{def-entry}{O{} m +b}
+{
+    \tl_if_blank:nF {#1}
+        {\prop_gput:Nnn \g_entry_titles_prop {#1} {#2}}
+    \seq_gput_right:Nn \g_entries_seq
+        {\entry_item:nnnn {def} {#1} {#2} {#3}}
+    \seq_gput_right:Nn \g_def_entries_seq
+        {\entry_item:nnnn {def} {#1} {#2} {#3}}
+}{}
+
+\NewDocumentEnvironment{thm-entry}{O{} m +b}
+{
+    \tl_if_blank:nF {#1}
+        {\prop_gput:Nnn \g_entry_titles_prop {#1} {#2}}
+    \seq_gput_right:Nn \g_entries_seq
+        {\entry_item:nnnn {thm} {#1} {#2} {#3}}
+    \seq_gput_right:Nn \g_thm_entries_seq
+        {\entry_item:nnnn {thm} {#1} {#2} {#3}}
+}{}
+
+\cs_new_protected:Npn \entry_item:nnnn #1#2#3#4
+{
+    \par\medskip
+    \noindent\begin{minipage}{\linewidth}
+        \phantomsection
+        \tl_if_blank:nF {#2}{\label{entry:#2}}
+
+        \str_case:nn {#1}
+        {
+            {def}{\noindent\textbf{#3:}\par}
+            {thm}{\noindent\textbf{#3:}\par}
+        }
+
+        \begin{adjustwidth}{2em}{0pt}
+            #4
+        \end{adjustwidth}
+    \end{minipage}
+    \medskip
+}
+
+\cs_new:Npn \entry_sort_key:w \entry_item:nnnn #1#2#3#4
+    {\str_casefold:n{#3}}
+    
+\cs_new_protected:Npn \print_entry_sequence:N #1
+{
+    \seq_sort:Nn #1
+    {
+        \str_compare:eNeTF
+            {\entry_sort_key:w ##1}
+            >
+            {\entry_sort_key:w ##2}
+            {\sort_return_swapped:}
+            {\sort_return_same:}
+    }
+    \seq_map_inline:Nn #1 {##1}
+}
+
+\NewDocumentCommand{\printentries}{}
+    {\print_entry_sequence:N \g_entries_seq}
+\NewDocumentCommand{\printdefentries}{}
+    {\print_entry_sequence:N \g_def_entries_seq}
+\NewDocumentCommand{\printthmentries}{}
+    {\print_entry_sequence:N \g_thm_entries_seq}
+\NewDocumentCommand{\entrylink}{m o}
+{
+    \prop_get:NnNTF \g_entry_titles_prop {#1} \l_tmpa_tl
+    {
+        \IfNoValueTF{#2}
+            {\hyperref[entry:#1]{\textbf{\l_tmpa_tl}}}
+            {\hyperref[entry:#1]{\textbf{#2}}}
+    }
+    {\textbf{??}}
+}
+\NewDocumentCommand{\seeentry}{m}
+    {See~\textbf{\entrylink{#1}}.}
+
+\ExplSyntaxOff
+% ENTRY SETUP END
+
+\title{LIE THEORY: DEFINITIONS AND THEOREMS}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{def-entry}{Lie algebra}
+    A \textit{Lie algebra} is a vector space $L$ equipped with an operation \begin{align*}
+        L \times L &\to L \\
+        (x, y) & \mapsto [x, y]
+    \end{align*}
+    satisfying \begin{enumerate}
+        \item $[x, x] = 0 \hspace{1em} \forall x \in L$
+        \item $[x, [y, z]] + [y, [z, x]] + [z, [x, y]] = 0 \hspace{1em} \forall x, y, z \in L$.
+    \end{enumerate}
+\end{def-entry}
+
+\begin{def-entry}[lie-subalgebra]{Lie subalgebra}
+    A linear subspace $K \subset L$ is a \textit{Lie subalgebra} of $L$ if $[x, y] \in K$ for all $x, y \in K$.
+\end{def-entry}
+
+\begin{def-entry}{Ideal (of a Lie algebra)}
+    A linear subspace $I \subset L$ is an \textit{ideal} of $L$ if $[x, y] \in I$ for all $x \in L$ and $y \in I$.
+\end{def-entry}
+
+\begin{def-entry}{$\mathbb{R}^3_\wedge$}
+    We define a Lie algebra structure on $\mathbb{R}^3$ by $$x \wedge y = (x_2y_3-x_3y_2, x_3y_1 - x_1y_3, x_1y_2 - x_2y_1)$$
+\end{def-entry}
+
+\begin{def-entry}{General linear algebra}
+    \seeentry{gl-v}
+\end{def-entry}
+
+\begin{def-entry}[gl-v]{$\gl(V)$}
+    The vector space of linear maps $V \to V$, which becomes an algebra when equipped with
+    $$[f, g] = f \wedge g = f \circ g - g \circ f.$$
+\end{def-entry}
+
+\begin{def-entry}[gl-nf]{$\gl(n, F)$}
+    The algebra of $n \times n$ matrices over $F$ under matrix addition and the following bracket:
+    $$[A, B] = AB - BA.$$
+\end{def-entry}
+
+\begin{def-entry}{$\sl(n, F)$}
+    Members of \entrylink{gl-nf} with trace 0.
+\end{def-entry}
+
+\begin{def-entry}{Subalgebra}
+    \seeentry{lie-subalgebra}
+\end{def-entry}
+
+\begin{def-entry}[b-nf]{$b(n, F)$}
+    Upper triangular members of \entrylink{gl-nf}.
+\end{def-entry}
+
+\begin{def-entry}[n-nf]{$n(n, F)$}
+    Strictly upper triangular members of \entrylink{gl-nf}, meaning upper triangular with zeroes along the diagonal.
+\end{def-entry}
+
+\begin{def-entry}[center]{Center (of a Lie algebra)}
+    The center $Z(L)$ of a Lie algebra $L$ is defined by
+    $$Z(L) \coloneq \lbrace x \in L : [x, y] = 0 \hspace{.5em} \forall y \in L \rbrace.$$
+\end{def-entry}
+
+\begin{def-entry}[center-notation]{Z(L)}
+    \seeentry{center}
+\end{def-entry}
+
+\begin{def-entry}[homomorphism]{Homomorphism (of Lie algebras)}
+    A linear map $\varphi : L_1 \to L_2$ where $\varphi([x, y]) = [\varphi(x), \varphi(y)]$ for all $x, y \in L_1$.
+\end{def-entry}
+
+\begin{def-entry}[isomorphism]{Isomorphism (of Lie algebras)}
+    A bijective \entrylink{homomorphism}[homomorphism].    
+\end{def-entry}
+
+\begin{def-entry}[adjoint-homomorphism]{Adjoint Homomorphism}
+    Define $\ad : L \to \gl(L)$ by $(\ad x)(y) \coloneq [x, y]$.
+\end{def-entry}
+
+\begin{def-entry}{$\ad$}
+    \seeentry{adjoint-homomorphism}
+\end{def-entry}
+
+\begin{def-entry}{Algebra}
+    A vector space equipped with a bilinear ``multiplication`` operation.
+\end{def-entry}
+
+\begin{def-entry}{Derivation}
+    Given $A$ an algebra over $F$, a derivation of $A$ is an $F$-linear map $D : A \to A$ such that
+    $$D(ab) = aD(b) + D(a)b \hspace{1em} \forall a, b \in A.$$
+\end{def-entry}
+
+\begin{def-entry}{$\mathrm{Der}(A)$}
+    The Lie algebra of derivations of an algebra $A$, with bracket $[D, E] = D\circ E - E \circ D$.
+\end{def-entry}
+
+\begin{def-entry}{Structure constants}
+    Given a Lie algebra $L$ over $F$ with basis $x_1, \dots, x_n$, we define $a_{ij}^k \in F$ such that
+    $$[x_i, x_j] = \sum_{k=1}^n a_{ij}^k x_k.$$
+    The $a_{ij}^k$ are the structure constants of $L$ with respect to this basis.
+\end{def-entry}
+
+\begin{def-entry}[derived-algebra]{Derived algebra}
+    $L' \coloneq [L, L]$
+\end{def-entry}
+
+\begin{def-entry}{Commutator algebra}
+    \seeentry{derived-algebra}
+\end{def-entry}
+
+\begin{def-entry}{$[I,J]$}
+    $[I,J]$ is the \textit{span} of the commutators of elements of $I$ and $J$.
+\end{def-entry}
+
+\begin{def-entry}{$L'$}
+    \seeentry{derived-algebra}
+\end{def-entry}
+
+\begin{def-entry}{$L/I$}
+    \seeentry{quotient-algebra}
+\end{def-entry}
+
+\begin{def-entry}[quotient-algebra]{Quotient algebra}
+    If $I$ is an ideal of $L$, then $L/I \coloneq \lbrace z + I : z \in L \rbrace$ is an algebra when equipped with the bracket $[w + I, z + I] \coloneq [w, z] + I$.
+\end{def-entry}
+
+\begin{def-entry}[solvable]{Solvable Lie Algebra}
+  $L$ is said to be \textit{solvable} if for some $m \geq 1$ we have $L^{(m)} = 0$.
+\end{def-entry}
+
+\begin{def-entry}[solvable]{Solvable Lie Algebra}
+  $L$ is said to be \textit{solvable} if for some $m \geq 1$ we have $L^{(m)}= 0$.
+\end{def-entry}
+
+
+\begin{thm-entry}{Correspondence between ideals}
+    There is a one-to-one correspondence between ideals of $L/I$ an ideals of $L$ containing $I$.
+    Namely, if $J$ is an ideal of $L$ containing $I$, then $J/I$ is an ideal of $L/I$.
+    Conversely, if $K$ is an ideal of $L/I$, set $J \coloneq\lbrace z \in L : z + I \in K \rbrace$.
+    Then $J$ is an ideal of $L$ containing $I$.
+\end{thm-entry}
+
+\begin{thm-entry}{Isomorphism Theorems}
+    \begin{enumerate}
+        \item For any homomorphism $\varphi : L_1 \to L_2$, $\ker\varphi$ is an ideal of $L_1$, $\im\varphi$ is a subalgebra of $L_2$, and $$L_1 / \ker\varphi \cong \im\varphi.$$
+        \item If $I$ and $J$ are ideals of a Lie algebra, then $(I + J) / J \cong I / (I \cap J)$.
+        \item Suppose that $I$ and $J$ are ideals of a Lie algebra $L$ such that $I \subset J$. Then $J/I$ is an ideal of $L/I$ and $(L/I)/(J/I) \cong L/J$.
+    \end{enumerate}
+\end{thm-entry}
+
+{\centering\section*{Definitions}}
+\printdefentries
+
+{\centering\section*{Theorems}}
+\printthmentries
+
+\end{document}

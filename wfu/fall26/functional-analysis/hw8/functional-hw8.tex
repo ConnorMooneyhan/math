@@ -1,0 +1,104 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Functional Analysis --- Homework 8}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+In the problems below, $X$ is a Banach space and $\mathscr{H}$ a Hilbert space.
+
+\begin{ex}
+	Show that finite rank operators $T : X \to X$ are a two-sided ideal of $\mathcal{B}(X)$.
+\end{ex}
+\begin{proof}
+	We want to show that given a finite-rank operator $T : X \to X$ and a general $f \in \mathcal{B}(X)$, both $Tf$ and $fT$ are finite-rank.
+	Certainly $Tf$ is finite-rank since $\im Tf \subseteq \im T$.
+	Furthermore, $\im fT = \im f|_{\im T}$, so since $\im T$ is finite-dimensional, its image under linear mapping is also finite-dimensional.
+	Thus we have $fT$ being finite-rank as well.
+\end{proof}
+
+\begin{ex}
+	Can a compact operator $T : X \to X$ be invertible?
+\end{ex}
+\begin{proof}
+	Yes.
+	Consider the identity on $\mathbb{R}$.
+	It is compact since any bounded sequence necessarily has a convergent subsequence by Bolzano-Weierstrass, and it is its own inverse, so it is invertible.
+\end{proof}
+
+\begin{ex}
+	If $\lbrace e_n \rbrace_{n \in \mathbb{N}}$ is an orthonormal sequence and $T \in K(\mathscr{H})$, show that $Te_n \to 0$.
+\end{ex}
+\begin{proof}
+	% We want to show that $||Te_n - 0|| = ||Te_n|| \to 0$.
+	Since $\lbrace e_n \rbrace$ is bounded, $\lbrace Te_n \rbrace$ has a convergent subsequence $\lbrace Te_m \rbrace \to y$.
+	Then $\langle Te_m, y \rangle \to ||y||^2$, and importantly, $\langle e_m, T^*y \rangle \to 0$ since $\langle e_m, T^*y \rangle$ can only be nonzero for finitely many $m$.
+	Thus since the two sequences are termwise equal, their limits are equal and we have $||y||^2 = 0 \implies y = 0$.
+\end{proof}
+
+\begin{ex}
+	For an operator $T \in \mathcal{B}(X)$, if $T^2$ is compact, must $T$ be compact?
+\end{ex}
+\begin{proof}
+  No.
+  Consider $T \in \mathcal{B}(\ell^2)$ defined by \begin{equation*}
+    (x_1, x_2, x_3, x_4, x_5 \dots) \mapsto (0, x_1, 0, x_3, 0, x_5, \dots).
+  \end{equation*}
+  It is bounded because for each $x \in \ell^2$, $Tx$ has no terms larger than those in $x$, so $||Tx|| \leq ||x||$. 
+  It is not compact because consider the bounded sequence $\lbrace e_1 + e_2, e_3 + e_4, e_5 + e_6, \dots \rbrace$.
+  After going through $T$, this becomes $\lbrace e_2, e_4, e_6, \dots \rbrace$, which does not have any convergent subsequence.
+  However, $T^2 \equiv 0$, which is compact.
+\end{proof}
+
+\begin{ex}
+	Show that a compact projection must have finite-dimensional image.
+\end{ex}
+\begin{proof}
+	(I came up with a proof over Hilbert spaces but not Banach spaces)
+	Note that if $T \in K(\mathscr{H})$ is a projection, then $\im T^2 = \im T$ and $T|_{\im T} = 1_{\im T}$ the identity on $\im T$.
+	If $\im T$ is not finite-dimensional, then there exists an orthonormal sequence $\lbrace e_n \rbrace_{n \in \mathbb{N}} \subseteq \im T$ by the Gram-Shmidt procedure, so $\lbrace T(e_n)\rbrace = \lbrace e_n\rbrace$, so by Problem 3, $Te_n \to 0$ and thus $e_n \to 0$.
+	This is impossible, however, since this would mean $||e_n|| \to 0$, when in fact $||e_i|| = 1$ for each $i$.
+	Thus $\im T$ is finite-dimensional.
+\end{proof}
+
+\end{document}

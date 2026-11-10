@@ -1,0 +1,203 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+\title{Lie Theory: Chapter 7}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}
+	Let $L$ be a finite-dimensional Lie algebra.
+	Let $V$ be $L$ with the $L$-module structure on $V$ given by the adjoint representation of $L$.
+	Show that the submodules of $V$ are precisely the ideals of $L$.
+\end{ex}
+\begin{proof}
+    Let $W$ be a submodule of $V$.
+    Then given $x \in L$ and $w, \in W$, we have \begin{equation*}
+        [x, w] = (\ad x)(w) = x \cdot w \in W
+    \end{equation*}
+    since $W$ is invariant under $L$-action, but this also shows that $W$ is an ideal of $L$.
+
+    Now let $I$ be an ideal of $L$.
+    Then \begin{equation*}
+        x \cdot i = (\ad x)(i) = [x, i] \in I,
+    \end{equation*}
+    by virtue of $I$ being an ideal, but this also shows that $I$ is invariant under $L$-action and is thus a submodule of $V$.
+\end{proof}
+
+\begin{ex}
+	Let $F$ be a field and let $L = \mathfrak{b}(n, F)$ and $V = F^n$.
+	\begin{enumerate}[label=(\roman*)]
+		\item Check that $V$ is an $L$-module, where the structure is given by the natural representation; that is, by applying matrices to column vectors.
+		\item Let $e_1, \dots, e_n$ be the standard basis of $F^n$.
+		      For $1 \leq r \leq n$, let $W_r = \mathrm{Span}\lbrace e_1, \dots, e_r \rbrace$.
+		      Prove that $W_r$ is a submodule of $V$.
+		\item Show that every non-zero submodule of $V$ is equal to one of the $W_r$.
+		      Deduce that each $W_r$ is indecomposable and that if $n \geq 2$ then $V$ is not completely reducible as an $L$-module.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\roman*)]
+		\item We have \begin{align*}
+		    (ax + by) \cdot v & = (ax + by)v \\
+                              & = axv + byv \\
+                              & = a(x \cdot v) + b(y \cdot v), \\
+            x \cdot (av + bw) & = x(av + bw) \\
+                              & = axv + bxw \\
+                              & = a(x \cdot v) + b(x \cdot w), \text{ and} \\
+               [x, y] \cdot v & = (xy - yx) \cdot v \\
+                              & = (xy - yx) v \\
+                              & = xyv - yxv \\
+                              & = x\cdot(y\cdot v) - y\cdot(x\cdot v).
+        \end{align*}
+		\item Let $x \in L$ and $w \in W_r$.
+        Then for each $e_i$, $xe_i$ is just the $i^{\text{th}}$ column of $x$ (which we call $x_{\_,i})$, which has as its only nonzero entries the entries $1$ through $i$.
+        Thus since
+        \begin{align*}
+            x \cdot w & = x w \\
+                      & = x \left(\sum_{i=1}^r a_ie_i\right) \\
+                      & = \sum_{i=1}^r a_ixe_i \\
+                      & = \sum_{i=1}^r a_ix_{\_,i},
+        \end{align*}
+        and each term in that final sum has nonzero entries only through the $i^\text{th}$ entry, there must be zeroes in all the entries $j$ such that $r < j \leq n$.
+        Thus $x \cdot w \in W_r$.
+		\item The key realization is that given a submodule $W \subseteq V$, if $e_r \in W$, then $e_j \in W$ for $1 \leq j \leq i$.
+        We can see this by simply choosing $x_j$ to be the matrix with $e_j$ in the $r_\text{th}$ column and zeroes everywhere else.
+        This $x_j$ is upper triangular since $1 \leq j \leq r$, so $x_j \in L$, and $x_j \cdot e_r = e_j \in W$.
+        Thus $\mathrm{Span}\lbrace e_1, \dots, e_r \rbrace \subseteq W$.
+        If we add any other $e_i$ to that span, we will get another $e_{k}$ in $W$, so $W$ is completely determined by which $e_k$ it has, and thus if $r$ is the greatest index such that $e_r \in W$, we have $W = W_r$.
+
+        Thus, indeed, given distinct $W_i$ and $W_j$, they both contain $e_1$, so they cannot both be used in a direct sum, so the results about indecomposability of each $W_r$ and complete reducibility of $V$ when $n \geq 2$ follow immediately.
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Let $L$ be the Heisenberg algebra with basis $f, g, z$ such that $[f, g] = z$ and $z$ is central.
+	Show that $L$ does not have a faithful finite-dimensional irreducible representation.
+\end{ex}
+\begin{proof}
+    Suppose that $\varphi : L \to \gl(V)$ is a finite-dimensional irreducible representation of $L$.
+    Then by Lemma 7.14, there is a $\lambda \in \mathbb{C}$ such that $z \cdot v = \lambda v$ for all $v \in V$.
+    On the other hand, define $\rho : V \to V$ by $\rho(v) = z \cdot v = \lambda v$.
+    We have \begin{equation*}
+        \rho(z) = \rho([f, g]) = [\rho(f), \rho(g)] = \rho(f)\rho(g) - \rho(g)\rho(f).
+    \end{equation*}
+    Since the trace the final item in the sequence is 0, we have \begin{equation*}
+        0 = \tr(\rho(z)) = \tr(\lambda I_V) = \lambda \dim V.
+    \end{equation*}
+    Thus $\lambda = 0$, so $\rho = \varphi(z)$ is the zero map, meaning $z \in \ker\varphi$, so $\varphi$ is not a faithful representation.
+\end{proof}
+
+\begin{ex}
+	Let $L$ be the 2-dimensional complex non-abelian Lie algebra found in \S3.1.
+	We showed that $L$ has a basis $x, y$ such that $[x, y] = x$.
+	Check that we may define a representation of $L$ on $\mathbb{C}^2$ by setting \begin{equation*}
+		\varphi(x) = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \hspace{2em} \varphi(y) = \begin{pmatrix} -1 & 1 \\ 0 & 0 \end{pmatrix}.
+	\end{equation*}
+	Show that this representation is isomorphic to the adjoint representation of $L$ on itself.
+\end{ex}
+\begin{proof}
+    For $v, w \in \mathbb{C}$, we have \begin{align*}
+        (\lambda(a_1x + b_1y) + \mu(a_2x + b_2y))\cdot v & =  \varphi(\lambda(a_1x + b_1y) + \mu(a_2x + b_2y))(v) \\
+        & =  \lambda a_1\varphi(x)(v) + \lambda b_1\varphi(y)(v) + \mu a_2\varphi(x)(v) + \mu b_2\varphi(y)(v)  \\
+        & =  \lambda a_1\varphi(x)(v) + \lambda b_1\varphi(y)(v) + \mu a_2\varphi(x)(v) + \mu b_2\varphi(y)(v)  \\
+        & = \lambda a_1(x \cdot v) + \lambda b_1(y\cdot v) + \mu a_2(x \cdot v) + \mu b_2(y \cdot v) \\
+        & = \lambda(a_1(x \cdot v) + b_1(y\cdot v)) + \mu((a_2(x \cdot v) + b_2(y \cdot v)) \\
+        & = \lambda((a_1x + b_1y)\cdot v) + \mu((a_2x + b_2y)\cdot v),
+    \end{align*}
+    for $z \in L$, \begin{align*}
+        z \cdot (av + bw) & = \varphi(z)(av + bw) \\
+        & = a\varphi(z)(v) + b\varphi(z)(w) \\
+        & = a(z \cdot v) + b(z \cdot w),
+    \end{align*}
+    and \begin{align*}
+        [z_1, z_2] \cdot v & = \varphi([z_1, z_2])(v) \\
+        & = [\varphi(z_1), \varphi(z_2)](v) \\
+        & = \varphi(z_1)(\varphi(z_2)(v)) - \varphi(z_2)(\varphi(z_1)(v)) \\
+        & = z_1 \cdot (z_2 \cdot v) - z_2 \cdot (z_1 \cdot v).
+    \end{align*}
+\end{proof}
+
+\begin{ex}
+	We now attempt to classify all 2-dimensional complex representations of the two-dimensional non-abelian Lie algebra $L$.
+	(The notation is as in the previous exercise.)
+	\begin{enumerate}[label=(\roman*)]
+		\item Suppose that $V$ is a 2-dimensional representation of $L$ which is not faithful.
+		      Show that then $x$ acts as zero on $V$ and that $V$ is completely described by the action of $y$.
+		      Deduce that there are as many such representations as there are similarity classes of $2 \times 2$ complex matrices.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+  Since the representation $\varphi: L \to \gl(V)$ is not faithful, $\dim\ker\varphi \geq 1$, so $\dim\im\varphi \leq 1$.
+  Thus we know the image must be abelian, so \begin{equation*}
+    \varphi(x) = \varphi([x, y]) = [\varphi(x), \varphi(y)] = 0,
+  \end{equation*}
+  so $\varphi(x)$ is the zero map, or in other words, $x$ acts as zero on $V$.
+  If $y$ goes to zero, then as the only other basis element of $L$, we know the whole representation must be the trivial one.
+  If not, then $\dim\im\varphi = 1$, and in particular $\im\varphi = \mathrm{span}\lbrace \varphi(y) \rbrace$, so indeed the representation is entirely described by what happens to $y$.
+  Thus any two representations of this type only differ up to a constant multiple, which can be represented by similarity classes of $2 \times 2$ complex matrices.
+\end{proof}
+
+\begin{ex}
+	Let $L$ be a Lie algebra over a field $F$.
+	Suppose that $\varphi : L \to \gl(1, F)$ is a 1-dimensional representation of $L$.
+	Show that $\varphi(L') = 0$.
+	Show that any representation of $L/L'$ can be viewed as a representation of $L$ on which $L'$ acts trivially.
+	When $F = \mathbb{C}$, show that if $L \neq L'$ then $L$ has infinitely many non-isomorphic 1-dimensional modules, but if $L = L'$ then the only 1-dimensional representation of $L$ is the trivial representation.
+\end{ex}
+\begin{proof}
+  Since $\dim\im\varphi \leq 1$, $\im\varphi$ is abelian, so for any bracket we indeed have \begin{equation*}
+    \varphi([x, y]) = [\varphi(x), \varphi(y)] = 0.
+  \end{equation*}
+  If $\psi : L/L' \to \gl(V)$ is a representation, then we can naturally identify $\psi(x + L')$ with a map $\psi' : L \to \gl(V)$ sending $\psi'(x) = \psi(x + L')$, effectively setting $\psi'(L') = 0$ as desired.
+
+  If $F = \mathbb{C}$ and $L \neq L'$, then $\dim L/L' \geq 1$, so we can choose an element $x \in L \setminus L'$ and send $x + L' \mapsto y$ for some choice of $y \in \mathbb{C}$.
+  if two such maps $\varphi$ and $\psi$ are isomorphic, then there is a $t$ such that $t\varphi t^{-1} = \psi$, so since we're dealing with the complex numbers, the $t$ commutes with $\varphi(z) $ for all $z$, and we are left with just $\varphi = \psi$.
+  Thus every choice of target for our chosen $x$ is a nonisomorphic representation, and there are infinitely many such choices.
+  If $L = L'$, however, we must have $L'$ act trivially as mentioned earlier, so all of $L$ acts trivially.
+\end{proof}
+
+\end{document}
