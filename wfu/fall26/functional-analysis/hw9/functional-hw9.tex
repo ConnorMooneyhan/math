@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\IfFileExists{mlmodern.sty}{
+    \usepackage{mlmodern}
+}{}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{Problem}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+
+\title{Functional Analysis --- Homework 9}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+In the problems below, $X$ is a Banach space and $\mathscr{H}$ a Hilbert space.
+
+\begin{ex}
+	Let $\lambda \neq 0$ and $T \in K(\mathscr{H})$.
+	Show that $(T - \lambda)$ is bounded below on $\ker(T - \lambda)^\perp$.
+\end{ex}
+\begin{proof}
+  By the Fredholm Alternative, either $\ker(T-\lambda) \neq \lbrace 0 \rbrace$ or $T-\lambda$ is invertible.
+  In the latter case, $(T-\lambda)^{-1}$ is bounded (above), so $T-\lambda$ is bounded below everywhere including $\ker(T-\lambda)^\perp$.
+  We know that $\ker(T-\lambda)$ is finite-dimensional\dots
+\end{proof}
+
+\begin{ex}
+	Find the adjoint $V^*$ of the Volterra operator $V : L^2[0, 1] \to L^2[0, 1]$, given by \begin{equation*}
+		(Vf)(x) = \int_0^x f(t) \, dt.
+	\end{equation*}
+\end{ex}
+\begin{proof}
+  
+\end{proof}
+
+\begin{ex}
+	Consider the operator $T : L^2[0, 1] \to L^2[0, 1]$ given by \begin{equation*}
+		(Tf)(x) = x\int_0^1 f(t) \, dt.
+	\end{equation*}
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $T$ is compact, and compute $T^*$.
+		\item Compute the spectra $\sigma(T)$ and $\sigma(T^*)$.
+		\item Show that $(T - 1/2)f = g$ is solvable if and only if $\int_0^1 g(t) \, dt = 0$, and find all solutions.
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\alph*)]
+		\item To compute $T^*$, we see that \begin{align*}
+        \langle Tf, g \rangle & = \int_0^1 \left(x\int_0^1 f(t) dt\right)\overline{g(x)}dx \\
+        & = \int_0^1\int_0^1xf(t)\overline{g(x)}dtdx \\
+        & = \int_0^1\int_0^1xf(t)\overline{g(x)}dxdt \\
+        & = \int_0^1f(t)\int_0^1x\overline{g(x)}dxdt \\
+        & = \int_0^1f(t)\left(\overline{\int_0^1\overline{x}g(x)dx}\right)dt,
+    \end{align*}
+      so $(T^*g)(x) = \int_0^1\overline{x}g(x)dx$.
+    \item Since $T$ is compact, $0 \in \sigma(T)$.
+      All that's left is the point spectrum (by Fredholm), so we solve $Tf = \lambda f$: \begin{equation*}
+        x\int_0^1f(t)dt = \lambda f(x).
+      \end{equation*}
+      With $f$ fixed, $\int_0^1 f(t)dt$ is a constant, and $f(x)$ is a function of $x$, so I \textit{suspect} this tells us that $\lambda$ is $\int_0^1 f(t)dt$, leaving us with $f(x) = x$.
+      Another thing that works is to take $f(x) = cx$, and then $\lambda = \frac{1}{c}\int_0^1 f(t)dt$.
+      I'm not quite convinced that I can guarantee these are all the solutions, but for now I'll say \begin{equation*}
+        \sigma(T) = \mathrm{span} \lbrace f(x) = x \rbrace,
+      \end{equation*}
+      where $\sigma_p(T) = \lbrace f(x) = cx \rbrace_{c \neq 0}$.
+      Thus since $T$ is bounded, \begin{equation*}
+        \sigma(T^*) = \mathrm{span} \lbrace f(x) = \overline{x} \rbrace.
+      \end{equation*}
+		\item
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	For a projection $P \in \mathcal{B}(\mathscr{H})$, show that the following are equivalent:
+	\begin{enumerate}[label=(\roman*)]
+		\item $P$ is an orthogonal projection, i.e., $\im P \perp \ker P$.
+		\item $P = P^*$.
+		\item $\|P\|_{op} = 1$.
+	\end{enumerate}
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Let $\lbrace e_n \rbrace_{n \in \mathbb{N}}$ be an orthonormal basis for $\mathscr{H}$ and $T \in \mathcal{B}(\mathscr{H})$.
+	If \begin{equation*}
+		\sum_{n=1}^\infty \|Te_n\|^2 < \infty,
+	\end{equation*}
+	show that $T$ is compact.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Prove that the Volterra operator $V$ from Problem 2 is compact.
+	Here is the program: for $N \geq 1$, split $[0, 1]$ into the intervals \begin{equation*}
+		I_k = [k/N, (k + 1)/N), \hspace{1.5em} \text{for } 0 \leq k \leq N - 2, \hspace{1.5em} \text{and} \hspace{1.5em} I_{N-1} = [(N - 1)/N, 1].
+	\end{equation*}
+	Now compare $V$ with the operator that samples $Vf$ at the left endpoints: \begin{equation*}
+		V_Nf = \sum_{k=0}^{N-1} (Vf)(k/N) \chi_{I_k},
+	\end{equation*}
+	where $\chi_{I_k}$ is the characteristic function of $I_k$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\end{document}
