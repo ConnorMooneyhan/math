@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=1in}
+
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\S\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\th}{^\mathrm{th}}
+
+\newtheorem{thm}{Theorem}
+\newenvironment{theorem}[1]{
+	\renewcommand{\thethm}{#1}
+	\begin{thm}
+		}{\end{thm}}
+
+\newtheorem{lma}{Lemma}
+\newenvironment{lemma}[1]{
+	\renewcommand{\thelma}{#1}
+	\begin{lma}
+		}{\end{lma}}
+
+\theoremstyle{definition}
+\newtheorem{ex}{}
+\newenvironment{exercise}[1]{
+	\renewcommand{\theex}{#1}
+	\begin{ex}
+		}{\end{ex}}
+
+
+\title{Lie Theory: Chapter 9}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{ex}\
+	\begin{enumerate}[label=(\roman*)]
+		\item Compute the Killing form of $\sl(2, \mathbb{C})$.
+		This is a symmetric bilinear form on a 3-dimensional vector space, so you should expect it to be described by a symmetric $3 \times 3$ matrix.
+		Check that the Killing form is non-degenerate.
+		\item Is the Killing form of $\gl(2, \mathbb{C})$ non-degenerate?
+	\end{enumerate}
+\end{ex}
+\begin{proof}\
+	\begin{enumerate}[label=(\roman*)]
+    \item Recall that $[e, h] = -2e$, $[f, h] = 2f$, and $[e, f] = h$.
+      We write the matrices for $\ad_e$, $\ad_f$, and $\ad_h$ as follows: \begin{align*}
+        \ad_e & = \begin{pmatrix}0 & 0 & -2 \\ 0 & 0 & 0 \\ 0 & 1 & 0\end{pmatrix} \\
+        \ad_f & = \begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 2 \\ -1 & 0 & 0\end{pmatrix} \\
+        \ad_h & = \begin{pmatrix}2 & 0 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & 0\end{pmatrix}.
+      \end{align*}
+      Then we get \begin{align*}
+        \kappa(e, f) & = \tr(\ad_e\circ\ad_f) = \tr\begin{pmatrix}2 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 2\end{pmatrix} = 4\\
+        \kappa(e, h) & = \tr(\ad_e\circ\ad_h) = \tr\begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & -2 & 0\end{pmatrix} = 0\\
+        \kappa(f, h) & = \tr(\ad_f\circ\ad_h) = \tr\begin{pmatrix}0 & 0 & 0 \\ 0 & 0 & 0 \\ -2 & 0 & 0\end{pmatrix} = 0\\
+        \kappa(e, e) & = \tr(\ad_e\circ\ad_e) = \tr\begin{pmatrix}0 & -2 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} = 0\\
+        \kappa(f, f) & = \tr(\ad_f\circ\ad_f) = \tr\begin{pmatrix}0 & 0 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0\end{pmatrix} = 0\\
+        \kappa(h, h) & = \tr(\ad_h\circ\ad_h) = \tr\begin{pmatrix}4 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 0\end{pmatrix} = 8
+      \end{align*}
+		\item
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}
+	Suppose that $L$ is a nilpotent Lie algebra over a field $F$.
+	Show by using the ideals $L^m$, or otherwise, that the Killing form of $L$ is identically zero.
+	Does the converse hold?
+\end{ex}
+\begin{proof}
+  Since $L$ is nilpotent, $L^k = 0$ for some $k$.
+  Note that given any $x, y \in L$,  $(\ad_x\circ\ad_y)(L) \subseteq L^{2}$, and likewise $(\ad_x\circ\ad_y)^n \subseteq L^{2n}$ for all $n$, so $(\ad_x\circ\ad_y)^\mathrm{ceil}(k/2) \subset L^k = 0$.
+  Thus $\ad_x\circ\ad_y$ is nilpotent, and nilpotent maps have trace zero, so \begin{equation*}
+    \kappa(x, y) = \tr(\ad_x\circ\ad_y) = 0
+  \end{equation*}
+  for all $x, y \in L$.
+
+  The converse is not true.
+\end{proof}
+
+\begin{ex}
+	Let $L = \gl(n, \mathbb{C})$.
+	The Killing form of $L$ is given by \begin{equation*}
+		\kappa(a, b) = 2n\tr(ab) - 2(\tr(a))(\tr(b)).
+	\end{equation*}
+	You don't need to prove this.
+	Instead, use this equation to prove that if $n \geq 2$, then $\sl(n, \mathbb{C})$ is semisimple.
+\end{ex}
+\begin{proof}
+  Given $a, b \in \sl(n, \mathbb{C})$, since $\sl(n, \mathbb{C})$ is an ideal of $\gl(n, \mathbb{C})$, we can use the formula above to get \begin{equation*}
+    \kappa(a, b) = 2n \tr(ab) - 2(\tr(a))(\tr(b)) = 2n\tr(ab)
+  \end{equation*}
+  since $\tr(a) = \tr(b) = 0$ in $\sl(2, \mathbb{C})$.
+\end{proof}
+
+\begin{ex}
+	Show that if $L$ is a semisimple Lie algebra then $L' = L$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Suppose that $L$ is a Lie algebra over $\mathbb{C}$ and that $\beta$ is a symmetric, associative bilinear form of $L$.
+	Show that $\beta$ induces a linear map \begin{equation*}
+		\theta : L \to L^*, \hspace{2em} \theta(x) = \beta(x, -),
+	\end{equation*}
+	where by $\beta(x, -)$ we mean the map $y \mapsto \beta(x, y)$.
+	Viewing both $L$ and $L^*$ as $L$-modules, show that $\theta$ is an $L$-module homomorphism.
+	(The $L$-module structure of $L^*$ is given by Exercise 7.12.)
+	Deduce that if $\beta$ is non-degenerate, then $L$ and $L^*$ are isomorphic as $L$-modules.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\begin{ex}
+	Give an example to show that the condition $[d, n] = 0$ in the Jordan decomposition is necessary.
+	That is, find a matrix $x$ which can be written as $x = d + n$ with $d$ diagonalizable and $n$ nilpotent but where this is not the Jordan decomposition of $x$.
+\end{ex}
+\begin{proof}
+
+\end{proof}
+
+\end{document}

@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{mlmodern}
+
+\geometry{letterpaper, portrait, margin=0.8in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\renewcommand{\sl}{\mathfrak{sl}}
+
+% \prob{number}{statement}{strategy}
+\newcommand{\prob}[3]{%
+	\par\medskip\noindent\textbf{#1.}\ #2\par
+	\noindent\hspace*{1.5em}\begin{minipage}[t]{\dimexpr\linewidth-1.5em}
+		\textit{Strategy:} #3
+	\end{minipage}\par}
+\newcommand{\note}[1]{\par\textbf{Watch out:} #1}
+
+\title{Lie Theory: Test Study Guide (Chapters 5--7)}
+\author{Connor Mooneyhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Key tools}
+\begin{itemize}[nosep]
+	\item \textbf{Engel:} $L$ nilpotent $\iff$ $\ad x$ is nilpotent for every $x \in L$.
+	      Matrix version: if every element of $L \le \gl(V)$ is nilpotent, then there is a basis making $L$ strictly upper triangular.
+	\item \textbf{Lie (over $\mathbb{C}$):} if $L \le \gl(V)$ is solvable, then there is a basis making $L$ upper triangular (equivalently, a common eigenvector).
+	\item Brackets of upper triangular matrices are strictly upper triangular; $\tr[A,B] = 0$.
+	\item \textbf{Schur (Lemma 7.14):} on an irreducible finite-dimensional complex module, a central element acts by a scalar.
+	\item Nonabelian 2-dimensional Lie algebra: basis $x,y$ with $[x,y] = x$.
+	\item $\exp(A) = \sum_{n \ge 0} A^n/n!$, and $P\exp(A)P^{-1} = \exp(PAP^{-1})$.
+\end{itemize}
+
+\section*{Chapter 5 (HW 5)}
+
+\prob{5.1}{Let $A \le \gl(V)$.
+	Give a function $f : A \to F$ whose weight space $V_f$ is zero.}
+{Take $f \equiv 1$ (deliberately \emph{not} linear).
+	The zero map $0_A$ lies in $A$, so any $v \in V_f$ satisfies $0_V = 0_A(v) = f(0_A)\,v = 1 \cdot v = v$.
+	(A linear $f$ would have $f(0_A) = 0$, and this would give no information.)}
+
+\prob{5.2}{Let $A = \left\{\begin{pmatrix} a & b \\ 0 & a+b \end{pmatrix}\right\} \subseteq \gl(2,\mathbb{C})$.
+	(a) Show that $A$ is an abelian subalgebra.
+	(b) For $\lambda(\cdot) = a+b$, find $V_\lambda$.}
+{(a) Multiply out both products; they are equal, so the bracket is $0$.
+	(b) Solve $Xv = (a+b)v$ for all $a,b$.
+	The top row gives $bv_2 = bv_1$ for every $b$, so $v_1 = v_2$ and $V_\lambda = \Span\{(1,1)^t\}$.}
+
+\prob{5.3}{(a) If some basis makes every $x \in L \le \gl(V)$ strictly upper triangular, show that $L$ is isomorphic to a subalgebra of $\mathfrak{n}(n,F)$ and hence nilpotent.
+	(b) State and prove the analogue for upper triangular matrices.}
+{The map $x \mapsto [x]_{\text{basis}}$ is linear, injective, and preserves brackets, so it embeds $L$ into $\mathfrak{n}(n,F)$.
+	Subalgebras of nilpotent algebras are nilpotent.
+	(b) The same argument embeds $L$ into $\mathfrak{b}(n,F)$, which is \emph{solvable}, so $L$ is \textbf{solvable} (not necessarily nilpotent).}
+
+\prob{5.4}{Let $N_L(A) = \{x : [x,a] \in A \ \forall a \in A\}$.
+	Show that $N_L(A)$ is a subalgebra containing $A$, and that it is the largest subalgebra in which $A$ is an ideal.}
+{$A \subseteq N_L(A)$ because $A$ is closed under brackets.
+	Linearity of the bracket gives closure under linear combinations.
+	For brackets, use Jacobi: $[[x,y],a] = [[x,a],y] + [x,[y,a]]$, and both terms lie in $A$.
+	$A$ is an ideal of $N_L(A)$ by definition.
+	Maximality: if $A$ is an ideal of a subalgebra $B$, then every $b \in B$ satisfies $[b,a] \in A$, so $B \subseteq N_L(A)$.}
+
+\prob{5.5}{$L = \gl(n,\mathbb{C})$ and $A$ the diagonal matrices.
+	Show that $N_L(A) = A$.}
+{For diagonal $h$, $[h, x] = \sum_{i,j} (h_i - h_j)x_{ij}e_{ij}$.
+	If $x \in N_L(A)$, pick $h$ with distinct diagonal entries.
+	Then $[h,x]$ diagonal forces $x_{ij} = 0$ for $i \neq j$.
+	(Alternatively, use the invariance lemma as in the hint.)}
+
+\prob{5.6}{For $a, y \in \gl(V)$ and $a_k = [a_{k-1}, y]$ (with $a_0 = a$), show that $ay^m = y^m a + \sum_{k=1}^m \binom{m}{k} y^{m-k} a_k$.
+	Deduce that $\ad(y^m) = \sum_{k=1}^m (-1)^{k+1}\binom{m}{k} y^{m-k}(\ad y)^k$.}
+{Induct on $m$.
+	Write $ay^{m+1} = (ay^m)y$ and push $y$ left using $a_k y = y a_k + a_{k+1}$.
+	Combine terms with Pascal's rule $\binom{m}{k} + \binom{m}{k-1} = \binom{m+1}{k}$.
+	For the corollary, set $a = x$.
+	Then $x_k = (-\ad y)^k(x) = (-1)^k(\ad y)^k x$, and $\ad(y^m)(x) = y^m x - xy^m = -\sum_k \binom{m}{k} y^{m-k}x_k$.}
+
+\section*{Chapter 6 (HW 6)}
+
+\prob{6.1}{Let $L$ be a complex Lie algebra.
+	Show that $L$ is nilpotent iff every 2-dimensional subalgebra is abelian.}
+{Use Engel to replace ``nilpotent'' with ``every $\ad x$ is nilpotent''.
+	($\Leftarrow$) If $\ad x$ is not nilpotent, it has an eigenvalue $\lambda \ne 0$ with eigenvector $y$, so $[x,y] = \lambda y$.
+	Then $\Span\{x,y\}$ is 2-dimensional and nonabelian ($y \notin \Span\{x\}$ because $[x,x] = 0$).
+	($\Rightarrow$) A nonabelian 2-dimensional subalgebra has $[x,y] = y$, so $\ad x$ has eigenvalue $1$ and is not nilpotent.}
+
+\prob{6.2}{(i) If $L \le \gl(V)$ is solvable ($V$ complex), show that every element of $L'$ is nilpotent.
+	(ii) Show that $L$ is solvable iff $L'$ is nilpotent.}
+{(i) Lie's theorem makes $L$ upper triangular, so brackets are strictly upper triangular and hence nilpotent.
+	(ii) ($\Leftarrow$) $L'$ nilpotent implies $L'$ solvable, and $L^{(k+1)} = (L')^{(k)}$.
+	($\Rightarrow$) $\ad L \le \gl(L)$ is solvable (it is a homomorphic image).
+	By (i), $(\ad L)' = \ad(L')$ consists of nilpotent maps, so each $\ad_L x$ ($x \in L'$) is nilpotent and hence so is its restriction $\ad_{L'} x$.
+	Engel then gives that $L'$ is nilpotent.}
+
+\prob{6.3}{Use Lie's Theorem to reprove Prop.~5.7: if $x,y \in \gl(V)$ ($V$ complex) both commute with $z = [x,y]$, then $z$ is nilpotent.}
+{$L = \Span\{x,y,z\}$ is a subalgebra with $L' \subseteq \Span\{z\}$ and $L'' = 0$, so $L$ is solvable.
+	Lie's theorem makes $x$ and $y$ simultaneously upper triangular.
+	Then $z = [x,y]$ is strictly upper triangular, hence nilpotent.
+	(This is exactly 6.2(i).)}
+
+\prob{6.4}{Prove that $\frac{d}{dt}\exp(tA) = A\exp(tA)$.}
+{Differentiate the power series term by term: $\sum_{i \ge 1} \frac{i t^{i-1}A^i}{i!}$.
+	Reindex, then factor out $A$.}
+
+\prob{6.5}{Show that $\exp(A)$ is invertible and find its inverse.}
+{The inverse is $\exp(-A)$.
+	Let $f(t) = \exp(tA)\exp(-tA)$.
+	The product rule and 6.4 give $f'(t) = A f(t) - A f(t) = 0$, using that $A$ commutes with $\exp(tA)$.
+	So $f$ is constant, and $f(1) = f(0) = I$.}
+
+\prob{6.6}{For $A \in \sl(2,\mathbb{C})$, what is $\det\exp(A)$?}
+{It is $1$.
+	Conjugation commutes with $\exp$ and preserves $\det$, so triangularize $A$.
+	The diagonal of $\exp(A)$ is $e^{\lambda_1}, e^{\lambda_2}$, so $\det\exp(A) = e^{\tr A} = e^0 = 1$.}
+
+\prob{6.7}{For $\so(3,\mathbb{C}) = \{x : x^tS = -Sx\}$ with $S = \begin{psmallmatrix}1&0&0\\0&0&1\\0&1&0\end{psmallmatrix}$: (a) find a basis; (b) compute $\exp$ of each basis element.}
+{(a) $S^2 = I$ and $S^t = S$, so $x \in \so(3)$ iff $Sx$ is skew-symmetric.
+	Multiply the skew basis $e_{12}-e_{21}, e_{13}-e_{31}, e_{23}-e_{32}$ by $S$ (which swaps rows 2 and 3).
+	This gives $e_{12}-e_{31}$, $e_{13}-e_{21}$, $e_{33}-e_{22}$.
+	(b) The first two are nilpotent ($X^2 = -e_{32}$ and $-e_{23}$ respectively, $X^3 = 0$), so the series is finite: $I + X + X^2/2$.
+	The third is diagonal, so $\exp = \operatorname{diag}(1, e^{-1}, e)$.}
+
+\prob{6.8}{In characteristic $p$, let $x$ be the cyclic shift ($p \times p$ permutation matrix) and $y = \operatorname{diag}(0,1,\dots,p-1)$.
+	Show that $[x,y] = x$, so $\Span\{x,y\}$ is solvable.
+	Show that $x$ and $y$ have no common eigenvector (so Lie's theorem fails), and that 6.2(i) fails.}
+{Compute directly: the corner entry becomes $1 - p = 1$ in characteristic $p$.
+	The eigenvalues of $y$ are distinct, so its eigenvectors are multiples of the $e_i$.
+	But $x$ sends $e_i$ to a different $e_j$, so no $e_i$ is an eigenvector of $x$.
+	Finally, $x = [x,y] \in L'$, but $x$ is not nilpotent because $x^p = I$.}
+
+\section*{Chapter 7 (HW 7)}
+
+\prob{7.1}{Show that the submodules of $L$ under the adjoint representation are exactly the ideals of $L$.}
+{$x \cdot w = [x,w]$, so ``$W$ is closed under the $L$-action'' says word for word ``$[L,W] \subseteq W$''.}
+
+\prob{7.2}{$L = \mathfrak{b}(n,F)$ acting on $V = F^n$.
+	(i) Show that $V$ is an $L$-module.
+	(ii) Show that $W_r = \Span\{e_1,\dots,e_r\}$ is a submodule.
+	(iii) Show that every nonzero submodule is some $W_r$, that each $W_r$ is indecomposable, and that $V$ is not completely reducible for $n \ge 2$.}
+{(i) Check linearity in both slots and $[x,y]\cdot v = x\cdot(y\cdot v) - y\cdot(x\cdot v)$; matrix multiplication does it.
+	(ii) Column $i$ of an upper triangular $x$ is zero below row $i$, so $xe_i \in W_i \subseteq W_r$.
+	(iii) Take $w \in W$ whose last nonzero coordinate $r$ is maximal.
+	Since $e_{jr} \in L$ for $j \le r$ and $e_{jr}w = w_r e_j$, we get $W_r \subseteq W$; maximality gives $W = W_r$.
+	The submodules form a chain, so any two nonzero ones both contain $e_1$ and cannot be a direct sum.
+	So each $W_r$ is indecomposable, and $W_1$ has no complement.}
+
+\prob{7.3}{Heisenberg algebra ($[f,g] = z$, $z$ central): show that it has no faithful finite-dimensional irreducible representation.}
+{By Schur (7.14), $z$ acts as a scalar $\lambda I$.
+	But $\varphi(z) = [\varphi(f),\varphi(g)]$ has trace $0$, so $\lambda \dim V = 0$.
+	Then $\lambda = 0$, so $z \in \ker\varphi$.}
+
+\prob{7.4}{For $L$ with $[x,y] = x$, set $\varphi(x) = \begin{psmallmatrix}0&1\\0&0\end{psmallmatrix}$ and $\varphi(y) = \begin{psmallmatrix}-1&1\\0&0\end{psmallmatrix}$.
+	Check that $\varphi$ is a representation, and show that it is isomorphic to the adjoint representation.}
+{It suffices to check one bracket: $[\varphi(x),\varphi(y)] = \varphi(x)$, by direct computation.
+	In the basis $(x,y)$, $\ad x = \begin{psmallmatrix}0&1\\0&0\end{psmallmatrix}$ and $\ad y = \begin{psmallmatrix}-1&0\\0&0\end{psmallmatrix}$.
+	To match them, take $v_2 \in \ker\varphi(y)$, i.e.\ $v_2 = (1,1)^t$, and $v_1 = \varphi(x)v_2 = (1,0)^t$.
+	Then $P = \begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$ intertwines $\varphi$ and $\ad$.}
+
+\prob{7.5}{(Same $L$.) If $V$ is a 2-dimensional representation that is not faithful, show that $x$ acts as $0$ and $V$ is determined by the action of $y$.
+	Deduce that these representations correspond to similarity classes of $2\times 2$ complex matrices.}
+{$\ker\varphi \ne 0$ gives $\dim\im\varphi \le 1$, so the image is abelian.
+	Then $\varphi(x) = \varphi([x,y]) = [\varphi(x),\varphi(y)] = 0$.
+	So $\varphi$ is determined by the arbitrary matrix $\varphi(y)$.
+	Two such representations are isomorphic iff $\varphi(y) = P\psi(y)P^{-1}$ for some invertible $P$, i.e.\ iff the matrices are \emph{similar} (not merely scalar multiples).}
+
+\prob{7.6}{Let $\varphi : L \to \gl(1,F)$.
+	Show that $\varphi(L') = 0$, and that representations of $L/L'$ are the representations of $L$ with $L'$ acting trivially.
+	Over $\mathbb{C}$: show that $L \ne L'$ gives infinitely many non-isomorphic 1-dimensional modules, while $L = L'$ gives only the trivial one.}
+{$\gl(1,F)$ is abelian, so $\varphi([x,y]) = [\varphi(x),\varphi(y)] = 0$.
+	Pull back along the quotient: $\psi \mapsto \psi \circ \pi$.
+	If $L \ne L'$, \emph{any} linear functional on the abelian algebra $L/L'$ is a representation, so pick $\theta \ne 0$ and use the family $c\,\theta$, $c \in \mathbb{C}$.
+	In $\gl(1)$, conjugation is trivial, so isomorphic 1-dimensional representations are equal; this family gives infinitely many.
+	If $L = L'$, then $\varphi(L) = \varphi(L') = 0$.}
+
+\end{document}

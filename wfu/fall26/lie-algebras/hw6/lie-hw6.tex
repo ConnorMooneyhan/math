@@ -55,13 +55,15 @@
 	(Use the second version of Engel's Theorem.)
 \end{ex}
 \begin{proof}
-	By Engel's Theorem, we can alternatively show that every 2-dimensional subalgebra is abelian if and only if for all $x \in L$, $\ad x$ is nilpotent.
+	By Engel's Theorem, we can alternatively show that $\ad x$ is nilpotent $\forall x \in L$ if and only if every 2-dimensional subalgebra is abelian.
 
-	If $\ad x$ is not nilpotent for some $x \in L$, then it has some nonzero eigenvalue $\lambda$.
-	Let $y$ be an eigenvector corresponding to $\lambda$.
-	Then $\mathrm{span}\lbrace x, y \rbrace$ is a subalgebra and $[x, y] \neq 0$ by construction, so this is a two-dimensional subalgebra which is not abelian.
+  ($\impliedby$) Take the contrapositive by assuming that $L$ is not nilpotent, so $\ad x$ is not nilpotent for some $x \in L$, so $\ad x$ has some nonzero eigenvalue $\lambda$ since we're working over the complex numbers, and if all the eigenvalues were 0, $\ad x$ would be nilpotent.
+	Let $y$ be a nonzero eigenvector corresponding to $\lambda$.
+  Then $\mathrm{span}\lbrace x, y \rbrace$ is a subalgebra and $[x, y] = \lambda y \neq 0$, and finally $x \notin \mathrm{span}\lbrace y \rbrace$ since if it were, we would have $[x, y] = [cy, y] = c[y, y] = 0$.
+  Thus $\mathrm{span}\lbrace x, y \rbrace$ is 2 dimensional and $[x, y] = \lambda y$, so this is the two-dimensional nonabelian Lie algebra (see this by dividing by $\lambda$ to get $[x/\lambda, y] = y$), and in particular, a 2-dimensional subalgebra of $L$ which is nonabelian.
 
-	On the other hand, if there is a nonabelian 2-dimensional subalgebra $A \subseteq L$, by the classification of nonabelian 2-dimensional Lie algebras, we have a basis $\lbrace x, y \rbrace$ such that $[x, y] = y$, so $\ad x$ has 1 as an eigenvalue, meaning it cannot be nilpotent.
+  ($\implies$) Assume that there is a nonabelian 2-dimensional subalgebra $A \subseteq L$. 
+  Thus we have a basis $\lbrace x, y \rbrace$ such that $[x, y] = y$, so $\ad x$ has 1 as an eigenvalue, meaning it cannot be nilpotent since $(\ad x)^n(y) = y \neq 0$ for all $n \in \mathbb{Z}^+$.
 \end{proof}
 
 \begin{ex}\

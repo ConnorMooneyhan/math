@@ -153,11 +153,21 @@
         & = a\varphi(z)(v) + b\varphi(z)(w) \\
         & = a(z \cdot v) + b(z \cdot w),
     \end{align*}
-    and \begin{align*}
-        [z_1, z_2] \cdot v & = \varphi([z_1, z_2])(v) \\
-        & = [\varphi(z_1), \varphi(z_2)](v) \\
-        & = \varphi(z_1)(\varphi(z_2)(v)) - \varphi(z_2)(\varphi(z_1)(v)) \\
-        & = z_1 \cdot (z_2 \cdot v) - z_2 \cdot (z_1 \cdot v).
+    and finally to check that brackets map to brackets, it suffices to prove $[\varphi(x), \varphi(y)] = \varphi([x, y]) = \varphi(x)$: \begin{align*}
+      [\varphi(x), \varphi(y)] & = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}\begin{pmatrix}-1 & 1 \\ 0 & 0\end{pmatrix} - \begin{pmatrix}-1 & 1 \\ 0 & 0\end{pmatrix}\begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} \\
+        & = \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix} - \begin{pmatrix}0 & -1 \\ 0 & 0\end{pmatrix} \\
+          & = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} \\
+            & = \varphi(x).
+    \end{align*}
+    This shows that we have in fact defined a representation of $L$ on $\mathbb{C}^2$.
+
+    Now we need to find $T : L \to \mathbb{C}^2$ such that $T(\ad_z(v)) = \varphi(z)(Tv)$.
+    Define $T$ by $T(x) = (1, 0)$, $T(y) = (1, 1)$.
+    Now we check the condition for basis elements: \begin{align*}
+      T(\ad_x(x)) & = T([x, x]) = T(0) = 0 = \varphi(x)(1, 0) = \varphi(x)(Tx) \\
+      T(\ad_y(y)) & = T([y, y]) = T(0) = 0 = \varphi(y)(1, 1) = \varphi(y)(Ty) \\
+      T(\ad_x(y)) & = T([x, y]) = T(x) = (1, 0) = \varphi(x)(1, 1) = \varphi(x)(Ty) \\
+      T(\ad_y(x)) & = T([y, x]) = T(-x) = (-1, 0) = \varphi(y)(1, 0) = \varphi(y)(Tx).
     \end{align*}
 \end{proof}
 
