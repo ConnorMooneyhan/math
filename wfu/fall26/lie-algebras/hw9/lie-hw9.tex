@@ -106,14 +106,24 @@
   Given $a, b \in \sl(n, \mathbb{C})$, since $\sl(n, \mathbb{C})$ is an ideal of $\gl(n, \mathbb{C})$, we can use the formula above to get \begin{equation*}
     \kappa(a, b) = 2n \tr(ab) - 2(\tr(a))(\tr(b)) = 2n\tr(ab)
   \end{equation*}
-  since $\tr(a) = \tr(b) = 0$ in $\sl(2, \mathbb{C})$.
+  since $\tr(a) = \tr(b) = 0$ in $\sl(n, \mathbb{C})$.
 \end{proof}
 
 \begin{ex}
 	Show that if $L$ is a semisimple Lie algebra then $L' = L$.
 \end{ex}
 \begin{proof}
-
+  If $L$ is semisimple, then $\kappa$ is non-degenerate by Cartan's criteria.
+  Thus if $(L')^\perp = \lbrace 0 \rbrace$, then $L' = L$.
+  Suppose $z \in (L')^\perp$.
+  Then \begin{align*}
+    \kappa(z, [x, y]) = 0 \forall x, y \in L & \iff \kappa([z, x], y) = 0 \forall x, y \in L \\
+                                       & \iff [z, x] \in L^\perp  \forall x \in L \\
+                                       & \iff [z, x] = 0 \forall x \in L \\
+                                       & \iff z \in Z(L).
+  \end{align*}
+  Since $Z(L)$ is solvable and $L$ is semisimple, $Z(L) = \lbrace 0 \rbrace$, so $z = 0$.
+  Thus $(L')^\perp = \lbrace 0 \rbrace$, so $L' = L$.
 \end{proof}
 
 \begin{ex}
@@ -127,7 +137,37 @@
 	Deduce that if $\beta$ is non-degenerate, then $L$ and $L^*$ are isomorphic as $L$-modules.
 \end{ex}
 \begin{proof}
+  We have linearity of $\theta(x)$ by \begin{align*}
+    \theta(x)(a y + b z) & = \beta(x, a y + b z)                  \\
+                                  & = a\beta(x, y) + b\beta(x, z) \\
+                                  & = a\theta(x)(y) + b\theta(x)(z)
+  \end{align*}
+  and linearity of $\theta$ by \begin{align*}
+    \theta(ax + by)(z) & = \beta(ax + by, z) \\
+                       & = a\beta(x, z) + b\beta(y, z) \\
+                       & = a\theta(x)(z) + b\theta(y)(z).
+  \end{align*}
+  Now define $\varphi : L \to \gl(L)$ by $\varphi = \ad$ and $\psi : L \to \gl(L^*)$ by $\psi(x)(f)(v) = -f([x, v])$.
+  We need to show that $\theta \circ \varphi(x) = \psi(x) \circ \theta$.
+  We have \begin{align*}
+    ((\theta \circ \varphi(x))(z))(v) & = \theta(\varphi(x)(z))(v) \\
+                                      & = \theta([x, z])(v) \\
+                                      & = \beta([x, z], v)
+  \end{align*}
+  and \begin{align*}
+    ((\psi(x) \circ \theta)(z))(v) & = \psi(x)(\theta(z))(v) \\
+                                   & = \psi(x)(\beta(z, -))(v) \\
+                                   & = -\beta(z, [x, v]) \\
+                                   & = -\beta([z, x], v) \\
+                                   & = \beta(-[z, x], v) \\
+                                   & = \beta([x, z], v)
+  \end{align*}
+  as desired.
 
+  Now we know that $\dim L^* = \dim L$, so if we can show injectivity of $\theta$ when $\beta$ is non-degenerate, we will have that $\theta$ is an $L$-module isomorphism.
+  If $\theta(x)$ is the zero map, then $\beta(x, y) = 0$ for all $y \in L$.
+  If $\beta$ is non-degenerate, then only $x = 0$ satisfies this property, so $\ker\theta = \lbrace 0 \rbrace$.
+  Thus $\theta$ is injective and an $L$-module isomorphism.
 \end{proof}
 
 \begin{ex}
@@ -135,7 +175,15 @@
 	That is, find a matrix $x$ which can be written as $x = d + n$ with $d$ diagonalizable and $n$ nilpotent but where this is not the Jordan decomposition of $x$.
 \end{ex}
 \begin{proof}
-
+  Take \begin{equation*}
+    x = \begin{pmatrix}1 & 1 \\ 0 & 2\end{pmatrix} = \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix} + \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} = d + n.
+  \end{equation*}
+  Note that \begin{align*}
+    [d, n] & = \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix} \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix} \\
+           & = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix} - \begin{pmatrix}0 & 2 \\ 0 & 0\end{pmatrix} \\
+             & = \begin{pmatrix}0 & -1 \\ 0 & 0\end{pmatrix} \neq \begin{pmatrix}0 & 0 \\ 0 & 0\end{pmatrix},
+  \end{align*}
+  so this is not the Jordan decomposition of $x$.
 \end{proof}
 
 \end{document}
